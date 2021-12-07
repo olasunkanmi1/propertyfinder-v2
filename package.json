@@ -1,5 +1,5 @@
 {
-  "name": "practice",
+  "name": "real-estate",
   "private": true,
   "scripts": {
     "dev": "next dev",
