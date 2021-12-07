@@ -23,7 +23,7 @@ export default function Property({
 }) {
   return (
     <Link href={`/property/${externalID}`} passHref>
-        <Flex flexWrap='wrap' w='420px' p='5' justifyContent='flex-start' cursor='pointer'>
+        <Flex flexWrap='wrap' w='420px' p='5' justifyContent='flex-start' cursor='pointer' m='0 auto'>
             <Box>
                 <Image src={coverPhoto ? coverPhoto.url : DefaultImage} alt="thumbnail" width={400} height={260} />
             </Box>
@@ -38,7 +38,7 @@ export default function Property({
                     </Box>
                 </Flex>
                 <Flex alignItems='center' p='1' justifyContent='space-between' w='250px' color='blue.400'>
-                    {rooms} <FaBed /> - {baths} <FaBath /> - {millify(area)} sqft <BsGridFill />
+                    {rooms}<FaBed />  |  {baths}<FaBath />  |  {millify(area)} sqft<BsGridFill />
                 </Flex>
                 
                 <Flex fontSize='lg'>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Flex, Box, Text, Button } from "@chakra-ui/react";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
-import Property from "../components/property";
+import Property from "../components/Property";
 
 const Banner = ({
   purpose,
@@ -55,8 +55,9 @@ export default function index({ propertiesForSale, propertiesForRent }) {
       <Flex flexWrap="wrap">
         { propertiesForRent.map((property) => <Property property={property} key={property.id} />) }
       </Flex>
+
       <Banner
-        purpose="Buy A HOME"
+        purpose="BUY A HOME"
         title1="Find, Buy & Own Your"
         title2="Dream Home"
         desc1="Explore Apartments, Villas, Homes"
