@@ -8,7 +8,7 @@ import Property from "../components/property";
 import noResult from "../public/noresult.jpg";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
 
-export default function search({ properties }) {
+export default function Search({ properties }) {
   const [searchFilters, setSearchFilters] = useState(false);
   const router = useRouter();
   return (
