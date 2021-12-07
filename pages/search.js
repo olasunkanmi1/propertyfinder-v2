@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Box, Flex, Text, Icon } from "@chakra-ui/react";
 import { BsFilter } from "react-icons/bs";
 import SearchFilters from "../components/SearchFilters";
-import Property from "../components/property";
+import Property from "../components/Property";
 import noResult from "../public/noresult.jpg";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
 
