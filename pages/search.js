@@ -44,7 +44,7 @@ export default function Search({ properties }) {
           alignItems="center"
           flexDirection="column"
           marginTop="5"
-          marginBott="5"
+          marginBottom="5"
         >
           <Image src={noResult} alt="no result" />
         </Flex>
