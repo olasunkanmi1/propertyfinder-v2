@@ -3,8 +3,8 @@ import Image from "next/image";
 import { Box, Icon, Flex } from "@chakra-ui/react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import {
-  FaArrowCircleLeft,
-  FaArrowCircleRight,
+  FaArrowAltCircleLeft,
+  FaArrowAltCircleRight,
 } from "react-icons/fa";
 
 const LeftArrow = () => {
@@ -13,7 +13,7 @@ const LeftArrow = () => {
   return (
     <Flex disabled={isFirstItemVisible} justifyContent="center" alignItems="center" marginRight="1">
       <Icon
-        as={FaArrowCircleLeft}
+        as={FaArrowAltCircleLeft}
         onClick={() => scrollPrev()}
         fontSize="2xl"
         cursor="pointer"
@@ -28,7 +28,7 @@ const RightArrow = () => {
   return (
     <Flex disabled={isLastItemVisible} justifyContent="center" alignItems="center" marginLeft="1">
       <Icon
-        as={FaArrowCircleRight}
+        as={FaArrowAltCircleRight}
         onClick={() => scrollNext()}
         fontSize="2xl"
         cursor="pointer"
@@ -45,15 +45,17 @@ export default function ImageScrollbar({ data }) {
       style={{ overflow: "hidden" }}
     >
       {data.map((image) => (
-        <Box width="910px" height='500px' key={image.id} itemId={image.id} overflow="hidden" p="1">
+        <Box width="910px" height='500px' key={image.id} itemID={image.id} overflow="hidden" p="1">
           <Image
             placeholder="blur"
             blurDataURL={image.url}
             src={image.url}
             alt='property'
-            layout='fill'
+            // layout='fill'
             height={500}
+            width={500}
             sizes='(max-width: 500px) 100px, (max-width: 1023) 400px, 1000px'
+            priority
           />
         </Box>
       ))}

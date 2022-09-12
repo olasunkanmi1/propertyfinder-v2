@@ -25,12 +25,12 @@ export default function SearchFilters() {
     const values = getFilterValues(filterValues);
 
     values.forEach((item) => {
-      if (item.value && filterValues?.[item.name]) {
+      if (item.value && filterValues?.[item.name]) { //allow url to only show selected query. not all.
         query[item.name] = item.value;
       }
     });
 
-    router.push({ pathname: path, query });
+    router.push({ pathname: path, query }); //pathname:path, query:query
   };
 
   return (
