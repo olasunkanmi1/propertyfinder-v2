@@ -7,44 +7,45 @@ import {
   FaArrowAltCircleRight,
 } from "react-icons/fa";
 
-const LeftArrow = () => {
-  const { isFirstItemVisible, scrollPrev } = useContext(VisibilityContext);
+// const LeftArrow = () => {
+//   const { isFirstItemVisible, scrollPrev } = useContext(VisibilityContext);
 
-  return (
-    <Flex disabled={isFirstItemVisible} justifyContent="center" alignItems="center" marginRight="1">
-      <Icon
-        as={FaArrowAltCircleLeft}
-        onClick={() => scrollPrev()}
-        fontSize="2xl"
-        cursor="pointer"
-      />
-    </Flex>
-  );
-};
+//   return (
+//     <Flex disabled={isFirstItemVisible} justifyContent="center" alignItems="center" marginRight="1">
+//       <Icon
+//         as={FaArrowAltCircleLeft}
+//         onClick={() => scrollPrev()}
+//         fontSize="2xl"
+//         cursor="pointer"
+//       />
+//     </Flex>
+//   );
+// };
 
-const RightArrow = () => {
-  const { isLastItemVisible, scrollNext } = useContext(VisibilityContext);
+// const RightArrow = () => {
+//   const { isLastItemVisible, scrollNext } = useContext(VisibilityContext);
 
-  return (
-    <Flex disabled={isLastItemVisible} justifyContent="center" alignItems="center" marginLeft="1">
-      <Icon
-        as={FaArrowAltCircleRight}
-        onClick={() => scrollNext()}
-        fontSize="2xl"
-        cursor="pointer"
-      />
-    </Flex>
-  );
-};
+//   return (
+//     <Flex disabled={isLastItemVisible} justifyContent="center" alignItems="center" marginLeft="1">
+//       <Icon
+//         as={FaArrowAltCircleRight}
+//         onClick={() => scrollNext()}
+//         fontSize="2xl"
+//         cursor="pointer"
+//       />
+//     </Flex>
+//   );
+// };
 
-export default function ImageScrollbar({ data }) {
+// export default function ImageScrollbar({ data }) {
+export default function ImageScrollbar({  }) {
   return (
     <ScrollMenu
-      LeftArrow={LeftArrow}
-      RightArrow={RightArrow}
-      style={{ overflow: "hidden" }}
+      // LeftArrow={LeftArrow}
+      // RightArrow={RightArrow}
+      // style={{ overflow: "hidden" }}
     >
-      {data.map((image) => (
+      {/* {data.map((image) => (
         <Box width="910px" height='500px' key={image.id} itemID={image.id} overflow="hidden" p="1">
           <Image
             placeholder="blur"
@@ -58,7 +59,7 @@ export default function ImageScrollbar({ data }) {
             priority
           />
         </Box>
-      ))}
+      ))} */}
     </ScrollMenu>
   );
 }

@@ -29,7 +29,7 @@ export default function PropertyDetails({
   return (
     <Layout title="Property details">
       <Box maxWidth="1000px" margin="auto" p="4">
-        {photos && <ImageScrollbar data={photos} />}
+        {/* {photos && <ImageScrollbar data={photos} />} */}
 
         <Box w="full" p="6">
           <Flex paddingTop="2" alignItems="center" justifyContent="space-between">
