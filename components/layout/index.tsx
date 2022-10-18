@@ -15,13 +15,13 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   }
 
   return (
-    <div onClick={closeDropDown} className="bg-[#fefefe]">
+    <div onClick={closeDropDown} className="bg-[#fefefe] w-full">
       <Head>
           <title> { title ? `${title} - PropertyFinder` : 'PropertyFinder' } </title>
           <meta name="desciption" content="Find your dream property" />
       </Head>
 
-      <div className="max-w-6xl m-auto overflow-hidden min-h-screen space-y-10 mt-[100px]">
+      <div className="w-full xl:max-w-6xl m-auto px-4 sm:px-8 overflow-hidden min-h-screen space-y-10 mt-[60px] space-y-">
           <Navbar />
           { children }
       </div>

@@ -6,13 +6,11 @@ import { HomepageProps } from '../types';
 const Home: React.FC<HomepageProps> = ({ featuredProperties, featuredAgencies }) => {
   return (
     <Layout title="Find your dream property">
-      <>
-        <FindHome />
-        <FeaturedProperties featuredProperties={featuredProperties} />
-        <ForRent />
-        <ForSale />
-        <FeaturedAgencies featuredAgencies={featuredAgencies} />
-      </>
+      <FindHome />
+      <FeaturedProperties featuredProperties={featuredProperties} />
+      <ForRent />
+      <ForSale />
+      <FeaturedAgencies featuredAgencies={featuredAgencies} />
     </Layout>
   )
 }

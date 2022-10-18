@@ -6,11 +6,11 @@ import { AiOutlineSearch } from 'react-icons/ai'
 
 const SectionLayout: React.FC<SectionLayoutProps> = ({ heading, paragraph, buttonText, route, image, reverse, noIcon }) => {
   return (
-    <div className="flex overflow-hidden justify-between">
-      <div className="flex flex-col justify-center space-y-5 w-1/2">
-        <h1 className="bg-secondary py-2 px-4 text-white font-medium text-lg rounded-xl w-max"> {heading} </h1>
-        <p className="text-primary font-medium text-4xl"> {paragraph} </p>
-        <p className="text-gray-500 font-medium text-md"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam atque voluptatibus tenetur reprehenderit itaque sint iste, dolorum tempore excepturi minus. </p>
+    <div className="md:flex overflow-hidden justify-between">
+      <div className="flex flex-col justify-center space-y-5 md:w-1/2">
+        <h1 className="bg-secondary py-2 px-4 text-white font-medium text-sm sm:text-lg rounded-xl w-max"> {heading} </h1>
+        <p className="text-primary font-medium text-2xl sm:text-4xl"> {paragraph} </p>
+        <p className="text-gray-500 font-medium sm:text-lg"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam atque voluptatibus tenetur reprehenderit itaque sint iste, dolorum tempore excepturi minus. </p>
         
         <Link href={route} passHref>
           <a className='flex items-center space-x-2 p-2 text-white font-sm rounded-lg w-max bg-primary hover:scale-105 transition duration-500 ease-in-out border-2 border-white drop-shadow-lg mx-auto'> 
@@ -20,7 +20,7 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({ heading, paragraph, butto
         </Link>
       </div>
       
-      <div className={`w-1/2 h-[400px] h-100 relative ${reverse ? 'order-first' : ''}`}>
+      <div className={`md:w-1/2 h-[400px] h-100 relative ${reverse ? 'order-first' : ''}`}>
         <Image src={image} alt="illustration" layout="fill"  />
       </div>
     </div>

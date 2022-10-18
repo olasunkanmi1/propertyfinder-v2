@@ -12,7 +12,7 @@ const Navbar = () => {
     const [dropdownOpen, setDropdownOpen] = useRecoilState(dropdownState)
 
   return (
-    <div className='flex justify-between items-center w-[1152px] border-b h-[75px] fixed top-0 bg-[#fefefe] z-10'>
+    <div className='flex justify-between items-center w-full xl:w-[1152px] border-b h-[75px] fixed top-0 bg-[#fefefe] z-10 mx-4 sm:mx-8 overflow-hidden'>
         <Link href="/" passHref>
             <a>
                 <Image src={Logo} alt="logo" width={180} height={50} />
