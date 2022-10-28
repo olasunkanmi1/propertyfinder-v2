@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export interface LayoutProps {
     title: string;
-    children: JSX.Element[];
+    children: JSX.Element[] | JSX.Element;
 }
 
 export interface ProfileProps {

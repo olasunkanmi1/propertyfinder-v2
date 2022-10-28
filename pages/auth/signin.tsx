@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { getProviders, signIn as SignIntoProvider } from 'next-auth/react';
 
-function signIn({ providers }) {
+function signIn({ providers }: any) {
   console.log(providers);
   return (
     <>
@@ -18,7 +18,7 @@ function signIn({ providers }) {
           This is not a real App, it is only for eductional purpose
         </p>
 
-        <div className="mt-40">
+        {/* <div className="mt-40">
           {providers && Object.values(providers).map((provider) => (
             <div key={provider.name}>
               <button
@@ -31,7 +31,7 @@ function signIn({ providers }) {
               </button>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </>
   );
@@ -39,7 +39,7 @@ function signIn({ providers }) {
 
 export default signIn;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
   const {req, res} = context;
   const providers = await getProviders();
 

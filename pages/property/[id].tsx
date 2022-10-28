@@ -25,10 +25,10 @@ export default function PropertyDetails({
     amenities,
     photos,
   },
-}) {
+}: any) {
   return (
     <Layout title="Property details">
-      <Box maxWidth="1000px" margin="auto" p="4">
+      {/* <Box maxWidth="1000px" margin="auto" p="4">
         {photos && <ImageScrollbar data={photos} />}
 
         <Box w="full" p="6">
@@ -133,12 +133,12 @@ export default function PropertyDetails({
             </Flex>
           </Box>
         </Box>
-      </Box>
+      </Box> */}
     </Layout>
   );
 }
 
-export async function getServerSideProps({ params: { id } }) {
+export async function getServerSideProps({ params: { id } }: any) {
   const data = await fetchApi(`${baseUrl}/properties/detail?externalID=${id}`);
 
   return {

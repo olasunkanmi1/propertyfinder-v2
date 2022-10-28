@@ -17,7 +17,6 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties }) => {
 
   return (
     <Layout title="Find Property">
-      <>
         <SearchFilters />
         <div className='flex flex-wrap gap-x-5 gap-y-10 w-full justify-center'>
           {/* <Flex
@@ -62,7 +61,6 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties }) => {
             </Flex>
           )}
         </div>
-      </>
   </Layout>
   )
 }

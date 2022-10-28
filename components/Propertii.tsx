@@ -20,7 +20,7 @@ export default function Property({
     isVerified,
     externalID,
   },
-}) {
+}: any) {
   return (
     <Link href={`/property/${externalID}`} passHref>
         <Flex flexWrap='wrap' w='420px' p='5' justifyContent='flex-start' cursor='pointer' m='0 auto'>
