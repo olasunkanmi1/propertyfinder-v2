@@ -5,6 +5,7 @@ import Profile from './profile'
 import { useRecoilState } from 'recoil'
 import { dropdownState } from '../../../states/dropdownAtom'
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { AiOutlineMenu } from 'react-icons/ai'
 
 const Navbar = () => {
     const { data: session, status } = useSession();
@@ -12,14 +13,14 @@ const Navbar = () => {
     const [dropdownOpen, setDropdownOpen] = useRecoilState(dropdownState)
 
   return (
-    <div className='flex justify-between items-center w-full xl:w-[1152px] border-b h-[75px] fixed top-0 bg-[#fefefe] z-10 mx-4 sm:mx-8 overflow-hidden'>
+    <div className='flex justify-between items-center  xl:w-[1152px] border-b h-[75px] sticky top-0 bg-[#fefefe] z-10  overflow-hidden'>
         <Link href="/" passHref>
             <a>
-                <Image src={Logo} alt="logo" width={180} height={50} />
+                <Image src={Logo} alt="logo" width={180} height={50} priority />
             </a>
         </Link>
 
-        <div className="flex items-center space-x-4">
+        <div className="hidden md:flex items-center space-x-4">
             <Link href="/find-property" passHref>
                 <a className="navLinks">Find Property</a>
             </Link>
@@ -39,6 +40,10 @@ const Navbar = () => {
             ) : (
                 <Profile imageUrl='' firstName='Salam' email='ad@kf.com' dropdownOpen={dropdownOpen} setDropdownOpen={setDropdownOpen} />
             ) }
+        </div>
+
+        <div className="md:hidden flex items-center">
+            <AiOutlineMenu size={40} className="text-primary" />
         </div>
     </div>
   )

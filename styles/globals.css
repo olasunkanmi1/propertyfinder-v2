@@ -24,6 +24,10 @@
   .footer_social_links {
     @apply flex items-center justify-center w-[40px] h-[40px] rounded-full bg-white text-primary hover:scale-110 transition duration-150 ease-in-out
   }
+
+  .swiper {
+    @apply px-[30px]
+  }
   
 }
 

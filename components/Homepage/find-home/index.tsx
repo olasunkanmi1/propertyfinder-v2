@@ -5,7 +5,7 @@ const FindHome = () => {
   return (
     <SectionLayout
         heading="FIND YOUR DREAM PROPERTY"
-        paragraph="Let's assist you in finding your preferred property anywhere in the UAE."
+        paragraph="Let's help you find your preferred property anywhere in the UAE."
         buttonText="Start finding"
         route="/find-property"
         image={image}

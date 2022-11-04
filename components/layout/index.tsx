@@ -21,7 +21,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
           <meta name="desciption" content="Find your dream property" />
       </Head>
 
-      <div className="w-full xl:max-w-6xl m-auto px-4 sm:px-8 overflow-hidden min-h-screen space-y-10 mt-[60px] space-y-">
+      <div className="w-full xl:max-w-6xl m-auto px-4 sm:px-8 xl:px-0 min-h-screen space-y-10">
           <Navbar />
           { children }
       </div>

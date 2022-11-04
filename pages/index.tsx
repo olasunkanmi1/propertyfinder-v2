@@ -61,14 +61,14 @@ export async function getStaticProps() {
   // const propertyForSale = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`)
   // const propertyForRent = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`)
   const featuredProperties = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&hitsPerPage=6`)
-  const agencies = await fetchApi(`${baseUrl}/agencies/list?query=.&hitsPerPage=25`)
+  const featuredAgencies = await fetchApi(`${baseUrl}/agencies/list?query=.`, FeaturedAgencies)
 
   return {
     props: {
       // propertiesForSale: propertyForSale?.hits,
       // propertiesForRent: propertyForRent?.hits,
       featuredProperties: featuredProperties?.hits,
-      featuredAgencies: agencies?.hits,
+      featuredAgencies: featuredAgencies,
     }
   }
 }

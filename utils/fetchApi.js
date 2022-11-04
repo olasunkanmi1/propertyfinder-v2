@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const baseUrl = 'https://bayut.p.rapidapi.com'
 
-export const fetchApi = async (url) => {
+export const fetchApi = async (url, featuredAgencies) => {
     const { data } = await axios.get((url), {
         headers: {
             'x-rapidapi-host': 'bayut.p.rapidapi.com',
@@ -10,5 +10,9 @@ export const fetchApi = async (url) => {
         }
     })
 
-    return data;
+    if(featuredAgencies) {
+        return data.hits.filter((agency) => agency.product === 'featured');
+    } else {
+        return data;
+    }
 }

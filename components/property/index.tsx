@@ -13,7 +13,7 @@ const Property: React.FC<any> = ({ property }) => {
 
     return (
     <Link href={`/property/${externalID}`} passHref>
-        <a className="w-[280px] z-0">
+        <a className="w-full ls:w-[300px] z-0">
             <div className="relative rounded-xl w-full h-[160px] overflow-hidden">
                 <Image src={coverPhoto ? coverPhoto.url : DefaultImage} alt="cover-photo" layout="fill" priority />
 
@@ -30,7 +30,7 @@ const Property: React.FC<any> = ({ property }) => {
                     </div>
                     
                     <div className="flex space-x-2 items-center w-[25px] h-[25px] relative rounded-full overflow-hidden border">
-                        <Image src={agency.logo.url} alt="Agency Logo" layout="fill" />
+                        <Image src={agency.logo.url} alt="Agency Logo" layout="fill" priority />
                     </div>
                 </div>
 

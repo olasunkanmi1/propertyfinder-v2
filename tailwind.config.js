@@ -16,6 +16,8 @@ module.exports = {
       screens: {
         'xs': '280px',
         'ms': '320px',
+        'ls': '400px',
+        'xls': '500px',
       }
     },
   },

@@ -37,6 +37,7 @@ export interface Property {
     agency: string;
     isVerified: string;
     externalID: string;
+    product: string;
 }
 
 export interface Agency {
@@ -45,6 +46,7 @@ export interface Agency {
         url: string
     };
     name: string;
+    product: string;
 }
 
 export interface PropertyProps {
