@@ -10,8 +10,7 @@ export interface ProfileProps {
     imageUrl: string;
     firstName: string;
     email: string;
-    dropdownOpen: boolean;
-    setDropdownOpen: Dispatch<SetStateAction<boolean>>
+    big?: boolean;
 }
 
 export interface SectionLayoutProps {
