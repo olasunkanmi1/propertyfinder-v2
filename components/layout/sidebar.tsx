@@ -29,10 +29,10 @@ const Sidebar = () => {
 
 
   return (
-    <div className={`fixed top-[75px] z-10 w-full ms:w-[300px] h-[calc(100vh-75px)] overflow-auto duration-500 ease-in-out bg-[#fefefe] p-3 pb-10  space-y-5 ${isSidebarOpen ? 'right-0' : '-right-[100%] ms:-right-[300px]'}`}>
+    <div className={`fixed top-[75px] z-10 w-full ms:w-[300px] h-[calc(100vh-75px)] overflow-auto duration-500 ease-in-out bg-[#fefefe] p-3 pb-[60px]  space-y-5 ${isSidebarOpen ? 'right-0' : '-right-[100%] ms:-right-[300px]'}`}>
         <Profile imageUrl='' firstName='Salam' email='ad@kf.com' big />
 
-        <div className='flex flex-col justify-between h-[calc(100%-70px)] min-h-[243px]'>
+        <div className='flex flex-col justify-between h-[calc(100%-70px)] min-h-[250px]'>
             <div>
                 { navLinks.map(({ route, title, active }) => {
                     return (
