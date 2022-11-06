@@ -15,7 +15,7 @@ const SearchFilters = () => {
 //   }
 
   return (
-    <div className="flex flex-col justify-between items-center bg-dubai bg-contain w-full space-y-8 rounded-3xl text-white p-4">
+    <div className="flex flex-col justify-between items-center bg-dubai bg-contain w-full space-y-8 rounded-3xl text-white p-4 overflow-auto">
         <h1 className="text-3xl font-bold w-fit"> Search Properties for sale and to rent in the UAE </h1>
 
         <div className="grid grid-cols-4 gap-4 p-4 w-[900px] rounded-xl bg-[#000] bg-opacity-60 mx-auto">

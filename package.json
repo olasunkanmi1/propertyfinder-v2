@@ -22,7 +22,7 @@
     "react-dom": "18.2.0",
     "react-horizontal-scrolling-menu": "^3.2.0",
     "react-icons": "^4.4.0",
-    "recoil": "^0.7.5",
+    "recoil": "^0.7.6",
     "recoil-persist": "^4.2.0",
     "swiper": "^8.3.2"
   },

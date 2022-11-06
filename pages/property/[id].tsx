@@ -154,10 +154,13 @@
 // }
 
 import React from 'react'
+import { Layout } from '../../components'
 
 const Id = () => {
   return (
-    <div>Id</div>
+    <Layout title='View property details'>
+      <h1>Property details</h1>
+    </Layout>
   )
 }
 

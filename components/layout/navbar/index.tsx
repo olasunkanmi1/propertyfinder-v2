@@ -11,11 +11,11 @@ const Navbar = () => {
         { route: '/find-property', title: 'Find Property' },
         { route: '/find-property?purpose=for-sale', title: 'For Sale' },
         { route: '/find-property?purpose=for-rent', title: 'For Rent' },
-        { route: '/auth', title: 'Sign In', session: session },
+        { route: '/authentication', title: 'Sign In', session: session },
     ]
 
   return (
-    <div className='flex justify-between items-center  xl:w-[1152px] border-b h-[75px] sticky top-0 bg-[#fefefe] z-10  overflow-hidden'>
+    <div className='flex justify-between items-center  xl:w-[1152px] border-b h-[75px] sticky top-0 bg-[#fefefe] z-20 overflow-hidden'>
         <Link href="/" passHref>
             <a> <Image src={Logo} alt="logo" width={180} height={50} priority /> </a>
         </Link>

@@ -11,7 +11,7 @@ import { FindPropertyPageProps } from '../types';
 import { GetServerSideProps } from 'next';
 
 const FindProperty: React.FC<FindPropertyPageProps> = ({ properties }) => {
-  console.log(properties)
+  // console.log(properties)
   const [searchFilters, setSearchFilters] = useState(false);
   const router = useRouter();
 
