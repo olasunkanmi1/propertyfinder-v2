@@ -25,7 +25,7 @@ const Pagination = () => {
             nextLabel={<MdArrowForward />}
             breakLabel={'···'}
             pageCount={200}
-            marginPagesDisplayed={screenSize && screenSize < 600 ? 3 : screenSize && screenSize < 400 ? 2 : 5}
+            marginPagesDisplayed={screenSize && screenSize < 350 ? 1 : screenSize && screenSize < 450 ? 2 : screenSize && screenSize < 600 ? 3 : 5}
             pageRangeDisplayed={0}
             onPageChange={handlePageClick}
             containerClassName={`flex justify-center space-x-2 border p-3 select-none`}

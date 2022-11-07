@@ -9,7 +9,7 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties }) => {
     <Layout title="Find Property">
         <SearchFilters />
         <Properties properties={properties} />
-        <Pagination properties={properties} />
+        <Pagination />
     </Layout>
   )
 }
