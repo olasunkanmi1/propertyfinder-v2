@@ -1,67 +1,16 @@
 import React from 'react'
-import { useState } from "react";
-import { useRouter } from "next/router";
-import Image from "next/image";
-import { Box, Flex, Text, Icon } from "@chakra-ui/react";
-import { BsFilter } from "react-icons/bs";
-import { Layout, SearchFilters, Property } from "../components";
-import noResult from "../public/noresult.jpg";
+import { Layout, SearchFilters, Properties, Pagination } from "../components";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
 import { FindPropertyPageProps } from '../types';
 import { GetServerSideProps } from 'next';
 
 const FindProperty: React.FC<FindPropertyPageProps> = ({ properties }) => {
-  // console.log(properties)
-  const [searchFilters, setSearchFilters] = useState(false);
-  const router = useRouter();
-
   return (
     <Layout title="Find Property">
         <SearchFilters />
-        <div className='flex flex-wrap gap-x-5 gap-y-10 w-full justify-center'>
-          {/* <Flex
-            cursor="pointer"
-            bg="gray.100"
-            border="1px"
-            borderColor="gray.200"
-            p="2"
-            fontWeight="black"
-            fontSize="lg"
-            justifyContent="center"
-            alignItems="center"
-            onClick={() => setSearchFilters(!searchFilters)}
-          >
-            <Text>Search Property By Filters</Text>
-            <Icon paddingLeft="2" w="7" as={BsFilter} />
-          </Flex>
-
-          {searchFilters && <SearchFilters />}
-
-          <Text fontSize="2xl" p="4" fontWeight="bold">
-            Properties {router.query.purpose}
-          </Text> */}
-          
-          {/* <Flex flexWrap="wrap"> */}
-            {properties.map((property) => {
-              return (
-                <Property key={property.externalID} property={property} />
-              )
-            })}
-          {/* </Flex> */}
-
-          {properties.length === 0 && (
-            <Flex
-              justifyContent="center"
-              alignItems="center"
-              flexDirection="column"
-              marginTop="5"
-              marginBottom="5"
-            >
-              <Image src={noResult} alt="no result" />
-            </Flex>
-          )}
-        </div>
-  </Layout>
+        <Properties properties={properties} />
+        <Pagination properties={properties} />
+    </Layout>
   )
 }
 
@@ -82,9 +31,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const furnishingStatus = query.furnishingStatus || "furnished";
   const categoryExternalID = query.categoryExternalIDs || "1"; //0 for residential
   const locationExternalIDs = query.locationExternalIDs || "5001"; //5001 all UAE
+  const page = query.page || "0"; 
 
   const data = await fetchApi(
-    `${baseUrl}/properties/list?locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`
+    `${baseUrl}/properties/list?hitsPerPage=10&page=${page}&locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`
   );
 
   return {

@@ -5,10 +5,10 @@ import { PropertyProps } from '../../types'
 import DefaultImage from '../../public/house.jpg';
 import { GoVerified } from "react-icons/go";
 import millify from "millify";
-import { FaBath, FaBed, FaRegHeart } from 'react-icons/fa';
+import { FaBath, FaBed, FaHouseUser, FaRegHeart } from 'react-icons/fa';
 import { MdWindow } from 'react-icons/md';
 
-const Property: React.FC<any> = ({ property }) => {
+const Property: React.FC<PropertyProps> = ({ property }) => {
     const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID } = property
 
     return (
@@ -25,12 +25,16 @@ const Property: React.FC<any> = ({ property }) => {
             <div className="flex flex-col p-2 gap-[5px]">
                 <div className="flex justify-between items-center">
                     <div className="flex space-x-2 items-center">
-                        <div className='text-green-500 '> {isVerified && <GoVerified size={20} />} </div>
+                        { isVerified && <div className='text-green-500 '> <GoVerified size={20} /> </div> }
                         <p className="font-bold font-lg leading-tight"> AED {millify(price)} {rentFrequency && `/ ${rentFrequency}`} </p>
                     </div>
                     
-                    <div className="flex space-x-2 items-center w-[25px] h-[25px] relative rounded-full overflow-hidden border">
-                        <Image src={agency.logo.url} alt="Agency Logo" layout="fill" priority />
+                    <div className="flex space-x-2 justify-center items-center w-[25px] h-[25px] relative rounded-full overflow-hidden border bg-secondary text-white">
+                        { agency ? (
+                             <Image src={agency.logo.url} alt="Agency Logo" layout="fill" priority />
+                        ) : (
+                            <FaHouseUser size={15} />
+                        ) }
                     </div>
                 </div>
 
@@ -41,7 +45,7 @@ const Property: React.FC<any> = ({ property }) => {
                 </div>
 
                 <p className='truncate font-medium'> {title} </p>
-                <p className='truncate font-normal text-sm text-gray-500'> {agency.name} </p>
+                { agency && <p className='truncate font-normal text-sm text-gray-500'> {agency.name} </p>}
             </div>
         </a>
     </Link>

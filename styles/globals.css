@@ -33,6 +33,10 @@
     @apply absolute h-[4px] text-primary rounded duration-500 bg-primary
   }
   
+  .pagination {
+    @apply flex items-center border py-1 px-2 cursor-pointer text-sm hover:bg-gray-400 hover:text-white
+  }
+  
 }
 
 html,

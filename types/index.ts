@@ -27,14 +27,19 @@ export interface Property {
     coverPhoto: {
         url: string
     };
-    price: string;
+    price: number;
     rentFrequency: string;
     rooms: string;
     title: string;
     baths: string;
-    area: string;
-    agency: string;
-    isVerified: string;
+    area: number;
+    agency: {
+        logo: {
+            url: string
+        },
+        name: string
+    };
+    isVerified: boolean;
     externalID: string;
     product: string;
 }
