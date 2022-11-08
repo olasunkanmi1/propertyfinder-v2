@@ -1,5 +1,5 @@
 import React from 'react'
-import { navbarState } from '../../../states/navbarAtom'
+import { navbarState } from '../../../states'
 import { useRecoilState } from 'recoil'
 
 const Hamburger = () => {

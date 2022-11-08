@@ -45,7 +45,7 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                 </div>
 
                 <p className='truncate font-medium'> {title} </p>
-                { agency && <p className='truncate font-normal text-sm text-gray-500'> {agency.name} </p>}
+                { agency && <p className='truncate font-normal text-sm text-secondary'> {agency.name} </p>}
             </div>
         </a>
     </Link>

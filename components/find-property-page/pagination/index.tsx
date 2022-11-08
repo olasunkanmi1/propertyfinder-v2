@@ -37,7 +37,7 @@ const Pagination: React.FC<PaginationProps> = ({pageCount}) => {
             marginPagesDisplayed={screenSize < 450 ? 1 : screenSize < 550 ? 2 : screenSize < 768 ? 3 : 5}
             pageRangeDisplayed={1}
             onPageChange={handlePageClick}
-            containerClassName={`flex justify-center space-x-2 border p-3 select-none`}
+            containerClassName={`flex justify-center space-x-2 w-full border p-3 select-none overflow-auto`}
             pageClassName={'pagination'}
             previousClassName={'pagination'}
             nextClassName={'pagination'}

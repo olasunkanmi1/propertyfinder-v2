@@ -1,5 +1,6 @@
 import React from 'react'
 import EmiratesAndFilterIcon from './emirates-and-filterIcon'
+import FurnishingStatusAndSort from './furnishingStatus-and-sort'
 import Searchbox from './searchbox'
 
 const MobileFilters = () => {
@@ -7,6 +8,7 @@ const MobileFilters = () => {
     <div className='flex flex-col md:hidden space-y-4'>
         <Searchbox />
         <EmiratesAndFilterIcon />
+        <FurnishingStatusAndSort />
     </div>
   )
 }

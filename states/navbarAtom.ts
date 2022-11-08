@@ -4,6 +4,7 @@ export const navbarState = atom({
     key: 'dropdownState',
     default: {
         profileDropdown: false,
-        isSidebarOpen: false
+        isSidebarOpen: false,
+        isFilterbarOpen: false
     },
 });

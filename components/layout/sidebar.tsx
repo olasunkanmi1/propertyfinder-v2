@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSession } from 'next-auth/react';
 import { useRecoilState } from 'recoil'
-import { navbarState } from '../../states/navbarAtom';
+import { navbarState } from '../../states';
 import Link from 'next/link';
 import Profile from './navbar/profile';
 import { BsBoxArrowRight } from 'react-icons/bs';

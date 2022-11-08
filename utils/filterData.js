@@ -12,10 +12,10 @@ export const filterData = [
   // Rent Frequency
   {
     items: [
-      { name: 'Daily', value: 'daily' },
-      { name: 'Weekly', value: 'weekly' },
-      { name: 'Monthly', value: 'monthly' },
       { name: 'Yearly', value: 'yearly' },
+      { name: 'Monthly', value: 'monthly' },
+      { name: 'Weekly', value: 'weekly' },
+      { name: 'Daily', value: 'daily' },
     ],
     placeholder: 'Rent Frequency',
     queryName: 'rentFrequency',
@@ -280,34 +280,47 @@ export const filterData = [
   },
   // Property Type
   {
-    items: [
-      { name: 'Apartment', value: '4' },
-      { name: 'Townhouses', value: '16' },
-      { name: 'Villas', value: '3' },
-      { name: 'Penthouses', value: '18' },
-      { name: 'Hotel Apartments', value: '21' },
-      { name: 'Villa Compound', value: '19' },
-      { name: 'Residential Plot', value: '14' },
-      { name: 'Residential Floor', value: '12' },
-      { name: 'Residential Building', value: '17' },
-      { name: 'Office', value: '5' },
-      { name: 'Shop', value: '6' },
-      { name: 'Warehouse', value: '7' },
-      { name: 'Labour camp', value: '9' },
-      { name: 'Commercial Villa', value: '25' },
-      { name: 'Bulk Units', value: '20' },
-      { name: 'Commercial Plot', value: '15' },
-      { name: 'Commercial Floor', value: '13' },
-      { name: 'Commercial Building', value: '10' },
-      { name: 'Factory', value: '8' },
-      { name: 'Industrial Land', value: '22' },
-      { name: 'Mixed Use Land', value: '23' },
-      { name: 'Showroom', value: '24' },
-      { name: 'Other Commercial', value: '11' },
+    categories: [
+      // Residential
+      {
+        items: [
+          { name: 'Apartment', value: '4', icon: 'MdApartment' },
+          { name: 'Townhouse', value: '16', icon: 'MdHolidayVillage' },
+          { name: 'Villa', value: '3', icon: 'MdVilla' },
+          { name: 'Penthouse', value: '18', icon: 'TbBuilding' },
+          { name: 'Hotel Apartment', value: '21', icon: 'FaHotel' },
+          { name: 'Villa Compound', value: '19', icon: 'MdHomeWork' },
+          { name: 'Residential Plot', value: '14', icon: 'MdApartment' },
+          { name: 'Residential Floor', value: '12', icon: 'MdApartment' },
+          { name: 'Residential Building', value: '17', icon: 'MdOtherHouses' },
+        ],
+        placeholder: 'Residential',
+        queryName: 'categoryExternalID',
+      },
+      // Commercial
+      {
+        items: [
+          { name: 'Office', value: '5', icon: 'ImOffice' },
+          { name: 'Shop', value: '6', icon: 'IoStorefront' },
+          { name: 'Warehouse', value: '7', icon: 'FaWarehouse' },
+          { name: 'Labour camp', value: '9', icon: 'ImHome2' },
+          { name: 'Commercial Villa', value: '25', icon: 'TbBuildingBank' },
+          { name: 'Bulk Units', value: '20', icon: 'MdOutlineHome' },
+          { name: 'Commercial Plot', value: '15', icon: 'MdApartment' },
+          { name: 'Commercial Floor', value: '13', icon: 'MdApartment' },
+          { name: 'Commercial Building', value: '10', icon: 'TbBuildingSkyscraper' },
+          { name: 'Factory', value: '8', icon: 'GiFactory' },
+          { name: 'Industrial Land', value: '22', icon: 'TbBuildingFactory' },
+          { name: 'Mixed Use Land', value: '23', icon: 'MdLandscape' },
+          { name: 'Showroom', value: '24', icon: 'SiHomeassistantcommunitystore' },
+          { name: 'Other Commercial', value: '11', icon: 'MdOtherHouses' },
+        ],
+        placeholder: 'Commercial',
+        queryName: 'categoryExternalID',
+      }
     ],
     placeholder: 'Property Type',
-    queryName: 'categoryExternalID',
-    dropdown: 'propertyDropdown',
+    dropdown: 'propertyTypeDropdown',
   },
   // Emirates
   {

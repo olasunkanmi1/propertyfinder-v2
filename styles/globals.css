@@ -37,6 +37,22 @@
     @apply flex items-center border px-1 py-1 ms:px-2 cursor-pointer text-sm ls:text-lg hover:bg-gray-400 hover:text-white
   }
   
+  .furnishingStatusSort {
+    @apply flex items-center p-2  xls:px-4 w-max cursor-pointer duration-300 select-none ease-in-out hover:bg-secondary hover:text-white
+  }
+  
+  .tabSort {
+    @apply w-1/2 p-2 rounded flex justify-center text-gray-500 font-bold
+  }
+  
+  .tabSortActive {
+    @apply bg-primary bg-opacity-20 border border-primary text-primary
+  }
+
+  .frequencySort {
+    @apply px-3 py-1 border rounded-full flex justify-center text-gray-500
+  }
+  
 }
 
 html,
