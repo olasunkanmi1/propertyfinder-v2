@@ -64,4 +64,5 @@ export interface HomepageProps {
 
 export interface FindPropertyPageProps {
     properties: Property[];
+    nbHits?: number;
 }

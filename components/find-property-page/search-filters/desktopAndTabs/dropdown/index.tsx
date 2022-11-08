@@ -1,5 +1,5 @@
 import React from 'react'
-import { IsearchFiltersState } from '../../../../states/searchFiltersAtom'
+import { IsearchFiltersState } from '../../../../../states/searchFiltersAtom'
 import Options from './options'
 import Tabs from './tabs'
 

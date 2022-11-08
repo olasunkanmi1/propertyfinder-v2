@@ -4,12 +4,12 @@ import { baseUrl, fetchApi } from "../utils/fetchApi";
 import { FindPropertyPageProps } from '../types';
 import { GetServerSideProps } from 'next';
 
-const FindProperty: React.FC<FindPropertyPageProps> = ({ properties }) => {
+const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) => {
   return (
     <Layout title="Find Property">
         <SearchFilters />
         <Properties properties={properties} />
-        <Pagination />
+        <Pagination pageCount={nbHits} />
     </Layout>
   )
 }
@@ -31,15 +31,15 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const furnishingStatus = query.furnishingStatus || "furnished";
   const categoryExternalID = query.categoryExternalIDs || "1"; //0 for residential
   const locationExternalIDs = query.locationExternalIDs || "5001"; //5001 all UAE
-  const page = query.page || "0"; 
 
   const data = await fetchApi(
-    `${baseUrl}/properties/list?hitsPerPage=10&page=${page}&locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`
+    `${baseUrl}/properties/list?hitsPerPage=12&locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`
   );
 
   return {
     props: {
       properties: data?.hits,
+      nbHits: data?.nbHits
     },
   };
 }

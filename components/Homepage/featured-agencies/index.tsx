@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Navigation, Pagination, A11y, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { HomepageProps } from '../../../types'
+import Heading from '../../heading';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -17,7 +18,7 @@ const FeaturedAgencies: React.FC<HomepageProps> = ({featuredAgencies}) => {
 
   return (
     <div className='space-y-4 relative mx-auto'>
-      <h1 className="mx-auto text-2xl ms:text-4xl text-primary font-semibold items-center w-max"> Featured Agencies </h1>
+      <Heading heading='Featured Agencies' />
 
       <Swiper
         modules={[Navigation, Pagination, A11y, Autoplay]}
