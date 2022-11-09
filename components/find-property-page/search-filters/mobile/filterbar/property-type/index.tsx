@@ -16,7 +16,7 @@ export interface IPropertyType {
 };
 
 const PropertyType = () => {
-  const [toggle, setToggle] = useState('commercial');
+  const [toggle, setToggle] = useState('residential');
   const propertyType = filterData.filter((filter) => filter.placeholder === 'Property Type')
   const residentialList = propertyType[0].categories?.filter((filter) => filter.placeholder === 'Residential')
   const commercialList = propertyType[0].categories?.filter((filter) => filter.placeholder === 'Commercial')

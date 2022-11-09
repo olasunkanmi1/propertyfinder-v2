@@ -66,3 +66,26 @@ export interface FindPropertyPageProps {
     properties: Property[];
     nbHits?: number;
 }
+
+export interface ICategoryType {
+    items: {
+        name: string;
+        value: string;
+    }[];
+    placeholder: string;
+    queryName: string,
+}
+  
+//  export interface IBedsAndBathsProps {
+//     list: {
+//       categories?: ICategoryType[];
+//       placeholder: string;
+//       dropdown: string,
+//     }[];
+// };
+
+export interface ISelectLayoutProps {
+    heading: string;
+    min?: ICategoryType[];
+    max?: ICategoryType[];
+}

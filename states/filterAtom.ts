@@ -1,7 +1,7 @@
 import { atom } from 'recoil'
 import { recoilPersist } from 'recoil-persist'
 
-export interface FilterState {
+export interface IFilterState {
     purpose?: string;
     frequency?: string;
     minPrice?: string;
@@ -22,7 +22,7 @@ const { persistAtom } = recoilPersist({
     key: 'filter-persist',
 })
 
-export const filterState = atom<FilterState>({
+export const filterAtom = atom<IFilterState>({
     key: 'filterState',
     default: {
         purpose: 'for-rent',

@@ -38,7 +38,7 @@
   }
   
   .furnishingStatusSort {
-    @apply flex items-center p-2  xls:px-4 w-max cursor-pointer duration-300 select-none ease-in-out hover:bg-secondary hover:text-white
+    @apply flex items-center justify-center p-2  xls:px-4 w-full ls:w-max cursor-pointer duration-300 select-none ease-in-out text-sm ls:text-base hover:bg-secondary hover:text-white
   }
   
   .tabSort {
@@ -51,6 +51,14 @@
 
   .frequencySort {
     @apply px-3 py-1 border rounded-full flex justify-center text-gray-500
+  }
+  
+  .minMaxSort {
+    @apply flex flex-col text-gray-500 w-1/2 space-y-1
+  }
+  
+  .minMaxSort_select {
+    @apply p-2 border rounded min-w-full outline-none appearance-none bg-transparent
   }
   
 }
