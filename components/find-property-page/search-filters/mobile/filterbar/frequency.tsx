@@ -1,9 +1,20 @@
 import React from 'react'
-import { FilterState } from '../../../../../states'
+import { filterAtom } from '../../../../../states'
 import { filterData } from '../../../../../utils/filterData';
+import { useRecoilState } from 'recoil'
 
-const Frequency: React.FC<FilterState> = ({frequency: active}) => {
+const Frequency  = () => {
+  const [filterState, setFilterState] = useRecoilState(filterAtom);
+  const { frequency: active } = filterState;
+
   const frequencies = filterData.filter((filter) => filter.placeholder === 'Rent Frequency');
+
+  const changeTab = (value: string) => {
+    setFilterState(filterState => ({
+        ...filterState,
+        frequency: value,
+      }))
+  }
 
   return (
     <div className='space-y-2'>
@@ -20,7 +31,7 @@ const Frequency: React.FC<FilterState> = ({frequency: active}) => {
             return (
               <div key={placeholder} className='flex gap-2'>
                   { items?.map((item) => (
-                      <div key={item.name} className={`frequencySort ${active === item.value && 'bg-primary bg-opacity-20 border border-primary text-primary'}`}>
+                      <div onClick={() => changeTab(item.value)} key={item.name} className={`frequencySort ${active === item.value && 'bg-primary bg-opacity-20 border border-primary text-primary'}`}>
                           { item.name }
                       </div>
                   )) }

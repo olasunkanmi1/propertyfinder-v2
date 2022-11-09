@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { filterAtom } from '../../../../../states';
 import { filterData } from '../../../../../utils/filterData';
 import { useRecoilState } from 'recoil'
