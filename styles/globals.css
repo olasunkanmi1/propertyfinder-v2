@@ -61,6 +61,10 @@
     @apply p-2 border rounded min-w-full outline-none appearance-none bg-transparent
   }
   
+  .propertyTypeIcon {
+    @apply w-5 h-5
+  }
+  
 }
 
 html,
