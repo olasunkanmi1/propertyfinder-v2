@@ -1,7 +1,18 @@
 import React from 'react'
 import { ISelectLayoutProps } from '../../../../../types';
+import { useRecoilState } from 'recoil'
+import { filterAtom } from '../../../../../states';
 
 const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
+  const [filterState, setFilterState] = useRecoilState(filterAtom);
+
+  const handleChange = (queryName: string, value: string) => {
+    setFilterState(filterState => ({
+      ...filterState,
+      [queryName]: value,
+    }))
+  }
+
     return (
       <div className='space-y-2'>
         <h5 className='text-lg'> {heading} </h5>
@@ -12,11 +23,12 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
 
             <div>
               { min?.map((type) => {
-                const { items, placeholder } = type;
+                const { items, placeholder, queryName } = type;
+                // const itemsFilter = items.filter((filter) => filter.value <  )
 
                 return (
                   <select key={placeholder} className='minMaxSort_select'
-                    onChange={(e) => {}}
+                    onChange={(e) => {handleChange(queryName, e.target.value )}}
                     > 
                     { items?.map((item) => (
                         <option key={item.name} value={item.value}> {item.name} </option>
@@ -32,11 +44,11 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
 
             <div>
               { max?.map((sort) => {
-                const { items, placeholder } = sort;
+                const { items, placeholder, queryName } = sort;
 
                 return (
                   <select key={placeholder} className='minMaxSort_select'
-                  onChange={(e) => {}}
+                    onChange={(e) => {handleChange(queryName, e.target.value )}}
                   > 
                     { items?.map((item) => (
                         <option key={item.name} value={item.value}> {item.name} </option>
