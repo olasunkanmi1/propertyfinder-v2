@@ -24,7 +24,7 @@ const Purpose = () => {
             return (
                 <div key={placeholder} className='flex w-full'>
                     { items?.map((item) => (
-                        <div onClick={() => changeTab(item.value)} key={item.name} className={`tabSort ${active === item.value && 'tabSortActive'}`}>
+                        <div onClick={() => changeTab(item.value)} key={item.name} className={`tabSort ${active === item.value ? 'tabSortActive' : ''}`}>
                             { item.name }
                         </div>
                     )) }

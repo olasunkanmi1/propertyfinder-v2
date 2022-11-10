@@ -16,7 +16,6 @@ const Sort = () => {
             <select className="flex outline-none text-sm appearance-none bg-transparent" key={placeholder}
             onChange={(e) => {}}
             > 
-                <option value='popular'> Popular </option>
             { items?.map((item) => (
                 <option key={item.name} value={item.value}> {item.name} </option>
             )) }

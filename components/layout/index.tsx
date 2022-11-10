@@ -29,7 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
           <meta name="desciption" content="Find your dream property" />
       </Head>
 
-      <div onClick={toggleSidebarAndDropdown} className={`w-full xl:max-w-6xl m-auto px-4 sm:px-8 xl:px-0 min-h-screen space-y-10 ${isSidebarOpen || isFilterbarOpen && 'touch-none'}`}>
+      <div onClick={toggleSidebarAndDropdown} className={`w-full xl:max-w-6xl m-auto px-4 sm:px-8 xl:px-0 min-h-screen space-y-10 ${isSidebarOpen || isFilterbarOpen ? 'touch-none' : ''}`}>
           <Navbar />
           { children }
       </div>

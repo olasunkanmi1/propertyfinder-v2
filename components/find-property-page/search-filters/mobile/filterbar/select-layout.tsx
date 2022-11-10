@@ -15,14 +15,13 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
                 const { items, placeholder } = type;
 
                 return (
-                    <select key={placeholder} className='minMaxSort_select'
-                      onChange={(e) => {}}
-                      > 
-                      <option value='popular'> 0 </option>
-                      { items?.map((item) => (
-                          <option key={item.name} value={item.value}> {item.name} </option>
-                      )) }
-                    </select>
+                  <select key={placeholder} className='minMaxSort_select'
+                    onChange={(e) => {}}
+                    > 
+                    { items?.map((item) => (
+                        <option key={item.name} value={item.value}> {item.name} </option>
+                    )) }
+                  </select>
                 )
               }) }
             </div>
@@ -39,10 +38,9 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
                   <select key={placeholder} className='minMaxSort_select'
                   onChange={(e) => {}}
                   > 
-                      <option value='popular'> Any </option>
-                  { items?.map((item) => (
-                      <option key={item.name} value={item.value}> {item.name} </option>
-                  )) }
+                    { items?.map((item) => (
+                        <option key={item.name} value={item.value}> {item.name} </option>
+                    )) }
                   </select>
                 )
               }) }

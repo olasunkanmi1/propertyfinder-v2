@@ -11,15 +11,11 @@ const FurnishingStatus = () => {
 
             return (
                 <div className="grid grid-cols-[25%,35%,40%] ls:flex w-full" key={placeholder}> 
-                    <div className='furnishingStatusSort'>
-                        All
-                    </div>
-
-                { items?.map((item) => (
+                  { items?.map((item) => (
                     <div key={item.name} className='furnishingStatusSort border-l'>
                     { item.name }
                     </div>
-                )) }
+                    )) }
                 </div>
             )
         }) }

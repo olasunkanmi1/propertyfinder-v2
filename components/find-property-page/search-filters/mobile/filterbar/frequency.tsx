@@ -21,17 +21,13 @@ const Frequency  = () => {
       <h5 className='text-lg'> Rental Frequency </h5>
 
       <div className='flex overflow-auto w-full gap-2 pb-4'>
-        <div className={`frequencySort ${active === 'any' && 'bg-primary bg-opacity-20 border border-primary text-primary'}`}>
-            Any
-        </div>
-
         { frequencies.map((frequency) => {
             const { items, placeholder } = frequency;
 
             return (
               <div key={placeholder} className='flex gap-2'>
                   { items?.map((item) => (
-                      <div onClick={() => changeTab(item.value)} key={item.name} className={`frequencySort ${active === item.value && 'bg-primary bg-opacity-20 border border-primary text-primary'}`}>
+                      <div onClick={() => changeTab(item.value)} key={item.name} className={`frequencySort ${active === item.value ? 'bg-primary bg-opacity-20 border border-primary text-primary' : ''}`}>
                           { item.name }
                       </div>
                   )) }

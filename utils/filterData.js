@@ -12,6 +12,7 @@ export const filterData = [
   // Rent Frequency
   {
     items: [
+      { name: 'Any', value: 'any' },
       { name: 'Yearly', value: 'yearly' },
       { name: 'Monthly', value: 'monthly' },
       { name: 'Weekly', value: 'weekly' },
@@ -26,7 +27,8 @@ export const filterData = [
     categories: [
       // Min Price(AED)
       {
-        items: [
+        items: [ 
+          { name: '0', value: 'any' },
           { name: '10,000', value: '10000' },
           { name: '20,000', value: '20000' },
           { name: '30,000', value: '30000' },
@@ -61,6 +63,7 @@ export const filterData = [
       // Max Price(AED)
       {
         items: [
+          { name: 'Any', value: 'any' },
           { name: '50,000', value: '50000' },
           { name: '60,000', value: '60000' },
           { name: '85,000', value: '85000' },
@@ -96,6 +99,7 @@ export const filterData = [
   // Sort
   {
     items: [
+      { name: 'Popular', value: 'any' },
       { name: 'Newest', value: 'date-desc' },
       { name: 'Lowest Price', value: 'price-asc' },
       { name: 'Highest Price', value: 'price-des' },
@@ -111,6 +115,7 @@ export const filterData = [
       // Min Area(sqft)
       {
         items: [
+          { name: '0', value: 'any' },
           { name: '800', value: '800' },
           { name: '1,000', value: '1000' },
           { name: '1,500', value: '1500' },
@@ -147,6 +152,7 @@ export const filterData = [
       // Max Area(sqft)
       {
         items: [
+          { name: 'Any', value: 'any' },
           { name: '800', value: '800' },
           { name: '1,000', value: '1000' },
           { name: '1,500', value: '1500' },
@@ -190,6 +196,7 @@ export const filterData = [
       // Rooms Min
       {
         items: [
+          { name: '0', value: 'any' },
           { name: '1', value: '1' },
           { name: '2', value: '2' },
           { name: '3', value: '3' },
@@ -207,6 +214,7 @@ export const filterData = [
       // Rooms Max
       {
         items: [
+          { name: 'Any', value: 'any' },
           { name: '1', value: '1' },
           { name: '2', value: '2' },
           { name: '3', value: '3' },
@@ -231,6 +239,7 @@ export const filterData = [
       // Baths Min
       {
         items: [
+          { name: '0', value: 'any' },
           { name: '1', value: '1' },
           { name: '2', value: '2' },
           { name: '3', value: '3' },
@@ -248,6 +257,7 @@ export const filterData = [
       // Baths Max
       {
         items: [
+          { name: 'Any', value: 'any' },
           { name: '1', value: '1' },
           { name: '2', value: '2' },
           { name: '3', value: '3' },
@@ -269,6 +279,7 @@ export const filterData = [
   // Furnish Type
   {
     items: [
+      { name: 'Any', value: 'any' },
       { name: 'Furnished', value: 'furnished' },
       { name: 'Unfurnished', value: 'unfurnished' },
     ],
@@ -335,7 +346,7 @@ export const filterData = [
     queryName: 'locationExternalIDs',
     dropdown: 'emiratesDropdown',
   },
-];
+]; 
   
 export const getFilterValues = (filterValues) => {
   const {

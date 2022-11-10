@@ -34,7 +34,7 @@
   }
   
   .pagination {
-    @apply flex items-center border px-1 py-1 ms:px-2 cursor-pointer text-sm ls:text-lg hover:bg-gray-400 hover:text-white
+    @apply flex items-center border px-1 py-1 ms:px-2 cursor-pointer text-sm ls:text-lg hover:bg-primary hover:text-white
   }
   
   .furnishingStatusSort {
