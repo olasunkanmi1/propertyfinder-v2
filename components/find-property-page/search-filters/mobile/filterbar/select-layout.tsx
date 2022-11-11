@@ -1,7 +1,7 @@
 import React from 'react'
 import { ISelectLayoutProps } from '../../../../../types';
 import { useRecoilState } from 'recoil'
-import { filterAtom } from '../../../../../states';
+import { filterAtom, IFilterState } from '../../../../../states';
 
 const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
   const [filterState, setFilterState] = useRecoilState(filterAtom);
@@ -22,17 +22,26 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
             <p className="text-sm"> Minimum </p>
 
             <div>
-              { min?.map((type) => {
-                const { items, placeholder, queryName } = type;
-                // const itemsFilter = items.filter((filter) => filter.value <  )
+              { min?.list?.map((type) => {
+                const { items, placeholder, queryName,  } = type;
+                const oppositeQueryName = filterState[min.oppositeQueryName as keyof IFilterState]!;
+
+                const itemsFilter = items.filter((item) => parseInt(item.value ) <= parseInt(oppositeQueryName) )
 
                 return (
                   <select key={placeholder} className='minMaxSort_select'
                     onChange={(e) => {handleChange(queryName, e.target.value )}}
-                    > 
-                    { items?.map((item) => (
-                        <option key={item.name} value={item.value}> {item.name} </option>
-                    )) }
+                  > 
+                    { parseInt(oppositeQueryName) <= parseInt(items[items.length - 1].value) ? 
+                        itemsFilter.map((item) => (
+                          <option key={item.name} value={item.value}> {item.name} </option>
+                        ))
+                       : 
+                        items.map((item) => (
+                          <option key={item.name} value={item.value}> {item.name} </option>
+                        ))
+                      
+                    }
                   </select>
                 )
               }) }
@@ -43,16 +52,26 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
             <p className="text-sm"> Maximum </p>
 
             <div>
-              { max?.map((sort) => {
+              { max?.list?.map((sort) => {
                 const { items, placeholder, queryName } = sort;
+                const oppositeQueryName = filterState[min.oppositeQueryName as keyof IFilterState]!;
+
+                const itemsFilter = items.filter((item) => parseInt(item.value ) >= parseInt(oppositeQueryName) )
 
                 return (
                   <select key={placeholder} className='minMaxSort_select'
                     onChange={(e) => {handleChange(queryName, e.target.value )}}
                   > 
-                    { items?.map((item) => (
-                        <option key={item.name} value={item.value}> {item.name} </option>
-                    )) }
+                    { parseInt(oppositeQueryName) > 0 ? (
+                        itemsFilter.map((item) => (
+                          <option key={item.name} value={item.value}> {item.name} </option>
+                        ))
+                      ) : (
+                        items.map((item) => (
+                          <option key={item.name} value={item.value}> {item.name} </option>
+                        ))
+                      )
+                    }
                   </select>
                 )
               }) }

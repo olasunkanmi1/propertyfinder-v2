@@ -30,11 +30,11 @@ const PropertyType = () => {
       <h5 className='text-lg'> Property Type </h5>
 
       <div className="flex border p-1 rounded">
-        <div onClick={() => changeTab('residential')} className={`tabSort ${toggle === 'residential' && 'tabSortActive'}`}>
+        <div onClick={() => changeTab('residential')} className={`tabSort ${toggle === 'residential' ? 'tabSortActive' : ''}`}>
             Residential
         </div>
         
-        <div onClick={() => changeTab('commercial')} className={`tabSort ${toggle === 'commercial' && 'tabSortActive'}`}>
+        <div onClick={() => changeTab('commercial')} className={`tabSort ${toggle === 'commercial' ? 'tabSortActive' : ''}`}>
             Commercial
         </div>
       </div>

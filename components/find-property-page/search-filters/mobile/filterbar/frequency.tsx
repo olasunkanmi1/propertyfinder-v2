@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { filterAtom } from '../../../../../states'
 import { filterData } from '../../../../../utils/filterData';
 import { useRecoilState } from 'recoil'
 
 const Frequency  = () => {
+  const [active, setActive] = useState<string | undefined>('');
   const [filterState, setFilterState] = useRecoilState(filterAtom);
-  const { frequency: active } = filterState;
+  const { frequency } = filterState;
 
   const frequencies = filterData.filter((filter) => filter.placeholder === 'Rent Frequency');
 
@@ -15,6 +16,10 @@ const Frequency  = () => {
         frequency: value,
       }))
   }
+
+  useEffect(() => {
+    setActive(frequency)
+  }, [frequency])
 
   return (
     <div className='space-y-2'>

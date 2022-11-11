@@ -28,7 +28,7 @@ export const filterData = [
       // Min Price(AED)
       {
         items: [ 
-          { name: '0', value: 'any' },
+          { name: '0', value: '0' },
           { name: '10,000', value: '10000' },
           { name: '20,000', value: '20000' },
           { name: '30,000', value: '30000' },
@@ -115,7 +115,7 @@ export const filterData = [
       // Min Area(sqft)
       {
         items: [
-          { name: '0', value: 'any' },
+          { name: '0', value: '0' },
           { name: '800', value: '800' },
           { name: '1,000', value: '1000' },
           { name: '1,500', value: '1500' },
@@ -196,7 +196,7 @@ export const filterData = [
       // Rooms Min
       {
         items: [
-          { name: '0', value: 'any' },
+          { name: '0', value: '0' },
           { name: '1', value: '1' },
           { name: '2', value: '2' },
           { name: '3', value: '3' },
@@ -239,7 +239,7 @@ export const filterData = [
       // Baths Min
       {
         items: [
-          { name: '0', value: 'any' },
+          { name: '0', value: '0' },
           { name: '1', value: '1' },
           { name: '2', value: '2' },
           { name: '3', value: '3' },

@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { filterAtom } from '../../../../../states';
 import { filterData } from '../../../../../utils/filterData';
 import { useRecoilState } from 'recoil'
 
 const Purpose = () => {
+  const [active, setActive] = useState<string | undefined>('');
   const [filterState, setFilterState] = useRecoilState(filterAtom);
-  const { purpose: active } = filterState;
+  const { purpose } = filterState;
 
   const purposes = filterData.filter((filter) => filter.placeholder === 'Purpose');
 
@@ -15,6 +16,10 @@ const Purpose = () => {
         purpose: value,
       }))
   }
+
+  useEffect(() => {
+    setActive(purpose)
+  }, [purpose])
 
   return (
     <div className="flex border p-1 rounded">

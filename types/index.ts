@@ -73,7 +73,7 @@ export interface ICategoryType {
         value: string;
     }[];
     placeholder: string;
-    queryName: string,
+    queryName: string;
 }
   
 //  export interface IBedsAndBathsProps {
@@ -86,6 +86,13 @@ export interface ICategoryType {
 
 export interface ISelectLayoutProps {
     heading: string;
-    min?: ICategoryType[];
-    max?: ICategoryType[];
+    min: {
+        list?: ICategoryType[];
+        oppositeQueryName: string;
+    }
+    
+    max: {
+        list?: ICategoryType[];
+        oppositeQueryName: string;
+    }
 }
