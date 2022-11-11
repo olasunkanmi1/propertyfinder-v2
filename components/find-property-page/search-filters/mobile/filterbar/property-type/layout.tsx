@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import * as Md from 'react-icons/md';
 import * as Fa from 'react-icons/fa';
 import * as Im from 'react-icons/im';
@@ -13,8 +13,9 @@ import { useRecoilState } from 'recoil'
 import { filterAtom } from '../../../../../../states';
 
 const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
+  const [active, setActive] = useState<string | undefined>('');
   const [filterState, setFilterState] = useRecoilState(filterAtom);
-  const { categoryExternalID: active } = filterState;
+  const { categoryExternalID } = filterState;
 
   const changeTab = (value: string) => {
     setFilterState(filterState => ({
@@ -22,6 +23,11 @@ const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
         categoryExternalID: value,
       }))
   }
+
+  useEffect(() => {
+    setActive(categoryExternalID)
+  }, [categoryExternalID])
+
   return (
     <div className='overflow-auto'>
         { list?.map((type) => {

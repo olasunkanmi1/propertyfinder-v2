@@ -1,9 +1,26 @@
-import React from 'react'
-import { ISelectLayoutProps } from '../../../../../types';
+import React, { useState, useEffect } from 'react'
+import { ICategoryType, ISelectLayoutProps } from '../../../../../types';
 import { useRecoilState } from 'recoil'
 import { filterAtom, IFilterState } from '../../../../../states';
 
+interface IValueProps {
+  minimum: {
+    list?: ICategoryType[];
+    oppositeQueryName: string;
+  }
+
+maximum: {
+    list?: ICategoryType[];
+    oppositeQueryName: string;
+  }
+}
+
 const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
+  const [value, setValue] = useState<IValueProps>({
+    minimum: min,
+    maximum: max
+  });
+
   const [filterState, setFilterState] = useRecoilState(filterAtom);
 
   const handleChange = (queryName: string, value: string) => {
@@ -12,6 +29,13 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
       [queryName]: value,
     }))
   }
+
+  useEffect(() => {
+    setValue({
+      minimum: min,
+      maximum: max
+    })
+  }, [min, max])
 
     return (
       <div className='space-y-2'>
@@ -22,17 +46,17 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
             <p className="text-sm"> Minimum </p>
 
             <div>
-              { min?.list?.map((type) => {
+              { value.minimum.list?.map((type) => {
                 const { items, placeholder, queryName,  } = type;
-                const oppositeQueryName = filterState[min.oppositeQueryName as keyof IFilterState]!;
+                const oppositeQueryName = filterState[value.minimum.oppositeQueryName as keyof IFilterState]!;
 
-                const itemsFilter = items.filter((item) => parseInt(item.value ) <= parseInt(oppositeQueryName) )
+                const itemsFilter = items.filter((item) => parseInt(item.value ) < parseInt(oppositeQueryName) )
 
                 return (
                   <select key={placeholder} className='minMaxSort_select'
                     onChange={(e) => {handleChange(queryName, e.target.value )}}
                   > 
-                    { parseInt(oppositeQueryName) <= parseInt(items[items.length - 1].value) ? 
+                    { oppositeQueryName !== 'any' ? 
                         itemsFilter.map((item) => (
                           <option key={item.name} value={item.value}> {item.name} </option>
                         ))
@@ -40,7 +64,6 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
                         items.map((item) => (
                           <option key={item.name} value={item.value}> {item.name} </option>
                         ))
-                      
                     }
                   </select>
                 )
@@ -52,17 +75,17 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
             <p className="text-sm"> Maximum </p>
 
             <div>
-              { max?.list?.map((sort) => {
+              { value.maximum.list?.map((sort) => {
                 const { items, placeholder, queryName } = sort;
-                const oppositeQueryName = filterState[min.oppositeQueryName as keyof IFilterState]!;
+                const oppositeQueryName = filterState[value.maximum.oppositeQueryName as keyof IFilterState]!;
 
-                const itemsFilter = items.filter((item) => parseInt(item.value ) >= parseInt(oppositeQueryName) )
+                const itemsFilter = items.filter((item) => parseInt(item.value) > parseInt(oppositeQueryName) )
 
                 return (
                   <select key={placeholder} className='minMaxSort_select'
                     onChange={(e) => {handleChange(queryName, e.target.value )}}
                   > 
-                    { parseInt(oppositeQueryName) > 0 ? (
+                    { oppositeQueryName !== '0' ? (
                         itemsFilter.map((item) => (
                           <option key={item.name} value={item.value}> {item.name} </option>
                         ))
