@@ -29,7 +29,7 @@ export const filterAtom = atom<IFilterState>({
         frequency: 'yearly',
         minPrice: '0',
         maxPrice: 'any',
-        sort: 'price-desc',
+        sort: 'popular',
         areaMin: '0',
         areaMax: 'any',
         roomsMin: '0',

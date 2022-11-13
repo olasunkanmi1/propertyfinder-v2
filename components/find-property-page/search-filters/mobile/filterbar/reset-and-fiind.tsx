@@ -24,7 +24,7 @@ const ResetAndFind = () => {
         page: '1',
         purpose,
         rentFrequency: frequency,
-        categoryExternalID: categoryExternalID ? categoryExternalID : '',
+        categoryExternaLID: categoryExternalID ? categoryExternalID : '',
         roomsMin: roomsMin,
         roomsMax: roomsMax === 'any' ? '' : roomsMax,
         bathsMin: bathsMin,
