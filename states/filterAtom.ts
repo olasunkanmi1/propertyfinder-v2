@@ -36,7 +36,7 @@ export const filterAtom = atom<IFilterState>({
         roomsMax: 'any',
         bathsMin: '0',
         bathsMax: 'any',
-        furnishingStatus: 'furnished',
+        furnishingStatus: 'any',
         categoryExternalID: '0',
         locationExternalIDs: '5001',
     },

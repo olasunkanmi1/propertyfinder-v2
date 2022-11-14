@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { useRecoilState } from 'recoil'
+import React from 'react'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import { MdOutlineTune } from 'react-icons/md'
 import { filterData } from '../../../../utils/filterData'
 import { filterAtom, navbarState } from '../../../../states'
 import { findProperties } from '.'
+import { useRouter } from 'next/router'
 
 const EmiratesAndFilterIcon = () => {
-  const [active, setActive] = useState<string | undefined>('');
-  const [filterState, setFilterState] = useRecoilState(filterAtom);
+  const router = useRouter();
+  const setFilterState = useSetRecoilState(filterAtom);
   const [filterbarOpen, setFilterbarOpen] = useRecoilState(navbarState);
 
   const { isFilterbarOpen } = filterbarOpen;
-  const { locationExternalIDs } = filterState;
 
   const emirates = filterData.filter((filter) => filter.placeholder === 'Emirates')
 
@@ -31,10 +31,6 @@ const EmiratesAndFilterIcon = () => {
         findProperties({ [queryName]: value })
     }
 
-    useEffect(() => {
-      setActive(locationExternalIDs)
-    }, [locationExternalIDs])
-
   return (
     <div className='flex justify-between '>
         <div className="flex justify-between rounded overflow-auto w-[calc(100%-43px)] ms:w-[calc(100%-105px)] pb-3 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100">
@@ -44,7 +40,7 @@ const EmiratesAndFilterIcon = () => {
             return (
               <div className="flex gap-1" key={placeholder}> 
                 { items?.map((item) => (
-                  <div onClick={() => setEmirate(item.value, queryName)} key={item.name} className={`flex p-2 border rounded w-max cursor-pointer duration-300 ease-in-out select-none hover:bg-secondary hover:text-white ${ active ===item.value ? 'bg-secondary text-white' : '' }`}>
+                  <div onClick={() => setEmirate(item.value, queryName)} key={item.name} className={`flex p-2 border rounded w-max cursor-pointer duration-300 ease-in-out select-none hover:bg-secondary hover:text-white ${ router.query.locationExternalIDs === item.value ? 'bg-secondary text-white' : '' }`}>
                     { item.name }
                   </div>
                 )) }

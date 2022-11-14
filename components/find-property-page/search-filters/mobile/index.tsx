@@ -14,7 +14,12 @@ export const findProperties = (filterValues: any) => {
 
   values.forEach((item) => {
     if (item.value && filterValues?.[item.name]) { //allow url to only show selected query. not all.
-      query[item.name] = item.value;
+      if(item.value !== 'any') {
+        query[item.name] = item.value;
+        query['page'] = '1'
+      } else {
+        query[item.name] = undefined;
+      }
     }
   });
 

@@ -352,13 +352,17 @@ export const getFilterValues = (filterValues) => {
   const {
     purpose,
     rentFrequency,
-    categoryExternalID,
-    minPrice,
-    maxPrice,
+    priceMin,
+    priceMax,
+    sort,
+    areaMin,
     areaMax,
     roomsMin,
+    roomsMax,
     bathsMin,
-    sort,
+    bathsMax,
+    furnishingStatus,
+    categoryExternalID,
     locationExternalIDs,
   } = filterValues;
   
@@ -372,12 +376,20 @@ export const getFilterValues = (filterValues) => {
       value: rentFrequency,
     },
     {
-      name: 'minPrice',
-      value: minPrice,
+      name: 'priceMin',
+      value: priceMin,
     },
     {
-      name: 'maxPrice',
-      value: maxPrice,
+      name: 'priceMax',
+      value: priceMax,
+    },
+    {
+      name: 'sort',
+      value: sort,
+    },
+    {
+      name: 'areaMin',
+      value: areaMin,
     },
     {
       name: 'areaMax',
@@ -388,20 +400,28 @@ export const getFilterValues = (filterValues) => {
       value: roomsMin,
     },
     {
+      name: 'roomsMax',
+      value: roomsMax,
+    },
+    {
       name: 'bathsMin',
       value: bathsMin,
     },
     {
-      name: 'sort',
-      value: sort,
+      name: 'bathsMax',
+      value: bathsMax,
     },
     {
-      name: 'locationExternalIDs',
-      value: locationExternalIDs,
+      name: 'furnishingStatus',
+      value: furnishingStatus,
     },
     {
       name: 'categoryExternalID',
       value: categoryExternalID,
+    },
+    {
+      name: 'locationExternalIDs',
+      value: locationExternalIDs,
     },
   ];
 

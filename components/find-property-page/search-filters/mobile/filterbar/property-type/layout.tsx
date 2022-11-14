@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 import * as Md from 'react-icons/md';
 import * as Fa from 'react-icons/fa';
 import * as Im from 'react-icons/im';
@@ -9,29 +9,27 @@ import * as Gi from 'react-icons/gi';
 import * as Si from 'react-icons/si';
 import { IconType } from 'react-icons/lib';
 import { IPropertyType } from '.';
-import { useRecoilState } from 'recoil'
-import { filterAtom } from '../../../../../../states';
+import { findProperties } from '../..';
+import { useRouter } from 'next/router';
 
 const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
-  const [active, setActive] = useState<string | undefined>('');
-  const [filterState, setFilterState] = useRecoilState(filterAtom);
-  const { categoryExternalID } = filterState;
+  const router = useRouter();
+  const [active, setActive] = useState(router.query.categoryExternalID);
 
-  const changeTab = (value: string) => {
-    setFilterState(filterState => ({
-        ...filterState,
-        categoryExternalID: value,
-      }))
+  const setPropertyType = (value: string, queryName: string) => {
+    setActive(value);
+
+     findProperties({ [queryName]: value })
   }
 
   useEffect(() => {
-    setActive(categoryExternalID)
-  }, [categoryExternalID])
+    setActive(router.query.categoryExternalID)
+  }, [router.query.categoryExternalID])
 
   return (
     <div className='overflow-auto'>
         { list?.map((type) => {
-            const { items, placeholder } = type;
+            const { items, placeholder, queryName } = type;
 
             return (
                 <div key={placeholder} className='flex items-center gap-4 pb-3'>
@@ -39,7 +37,7 @@ const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
                     const { name, value, icon } = item;
 
                     return (
-                      <div onClick={() => changeTab(value)} key={name} className={`flex flex-col items-center w-fit p-2 ${active === value ? 'text-primary font-bold' : ''}`}>
+                      <div onClick={() => setPropertyType(value, queryName)} key={name} className={`flex flex-col items-center w-fit p-2 ${active === value ? 'text-primary font-bold' : ''}`}>
                         <div className={`flex items-center justify-center rounded-full w-10 h-10 border text-gray-500 ${active === value ? 'bg-primary bg-opacity-20 border border-primary text-primary' : ''}`}>
                             {
                                 icon?.slice(0, 2) === "Fa" ? React.createElement(Fa[icon as keyof IconType], {className: `propertyTypeIcon ${active === value ? 'text-primary' : ''}`}) : 

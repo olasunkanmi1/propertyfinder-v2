@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { useRecoilState } from 'recoil'
+import React from 'react'
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil'
 import { findProperties } from '..';
 import { filterAtom } from '../../../../../states';
 import { filterData } from '../../../../../utils/filterData';
 
 const FurnishingStatus = () => {
-  const [active, setActive] = useState<string | undefined>('');
-  const [filterState, setFilterState] = useRecoilState(filterAtom);
-
-  const { furnishingStatus } = filterState;
+  const router = useRouter();
+  const setFilterState = useSetRecoilState(filterAtom);
 
   const furnishedStatus = filterData.filter((filter) => filter.placeholder === 'Furnish Type')
 
@@ -21,10 +20,6 @@ const FurnishingStatus = () => {
      findProperties({ [queryName]: value })
   }
 
-  useEffect(() => {
-    setActive(furnishingStatus)
-  }, [furnishingStatus])
-
   return (
     <div className="flex items-center border rounded">
         { furnishedStatus.map((status) => {
@@ -33,7 +28,7 @@ const FurnishingStatus = () => {
             return (
                 <div className="grid grid-cols-[25%,35%,40%] ls:flex w-full" key={placeholder}> 
                   { items?.map((item) => (
-                    <div onClick={() => setFurnishingStatus(item.value, queryName)} key={item.name} className={`furnishingStatusSort border-l ${ active === item.value ? 'bg-secondary text-white' : '' }`}>
+                    <div onClick={() => setFurnishingStatus(item.value, queryName)} key={item.name} className={`furnishingStatusSort border-l ${ router.query.furnishingStatus === item.value ? 'bg-secondary text-white' : '' }`}>
                     { item.name }
                     </div>
                     )) }

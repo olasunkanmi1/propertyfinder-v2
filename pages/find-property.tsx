@@ -19,8 +19,8 @@ export default FindProperty
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const purpose = query.purpose || "for-rent";
   const rentFrequency = query.rentFrequency || "yearly";
-  const minPrice = query.minPrice || "0";
-  const maxPrice = query.maxPrice || "1000000";
+  const priceMin = query.priceMin || "0";
+  const priceMax = query.priceMax || "1000000";
   const sort = query.sort || "";
   const areaMin = query.areaMin || "0";
   const areaMax = query.areaMax || "35000";
@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const page = query.page || "";
 
   const data = await fetchApi(
-    `${baseUrl}/properties/list?hitsPerPage=12&locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&bathsMax=${bathsMax}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&roomsMax=${roomsMax}&sort=${sort}&areaMin=${areaMin}&areaMax=${areaMax}&furnishingStatus=${furnishingStatus}&page=${page}`
+    `${baseUrl}/properties/list?hitsPerPage=12&locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&bathsMax=${bathsMax}&rentFrequency=${rentFrequency}&priceMin=${priceMin}&priceMax=${priceMax}&roomsMin=${roomsMin}&roomsMax=${roomsMax}&sort=${sort}&areaMin=${areaMin}&areaMax=${areaMax}&furnishingStatus=${furnishingStatus}&page=${page}`
   );
 
   return {

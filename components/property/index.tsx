@@ -5,7 +5,7 @@ import { PropertyProps } from '../../types'
 import DefaultImage from '../../public/house.jpg';
 import { GoVerified } from "react-icons/go";
 import millify from "millify";
-import { FaBath, FaBed, FaHouseUser, FaRegHeart } from 'react-icons/fa';
+import { FaBath, FaBed, FaRegHeart } from 'react-icons/fa';
 import { MdWindow } from 'react-icons/md';
 
 const Property: React.FC<PropertyProps> = ({ property }) => {
@@ -15,7 +15,10 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
     <Link href={`/property/${externalID}`} passHref>
         <a className="w-full ls:w-[300px] z-0">
             <div className="relative rounded-xl w-full h-[160px] overflow-hidden">
-                <Image src={coverPhoto ? coverPhoto.url : DefaultImage} alt="cover-photo" layout="fill" priority />
+                <Image 
+                    src={coverPhoto ? coverPhoto.url : DefaultImage} alt="cover-photo" layout="fill" priority
+                    blurDataURL={coverPhoto && coverPhoto.url} 
+                />
 
                 <div className="flex justify-center items-center absolute top-2 right-2 text-white z-20 hover:bg-gray-400 transition ease-in-out w-[30px] h-[30px] rounded-md">
                     <FaRegHeart size={20} onClick={() =>  alert('done')} />
@@ -30,11 +33,10 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                     </div>
                     
                     <div className="flex space-x-2 justify-center items-center w-[25px] h-[25px] relative rounded-full overflow-hidden border bg-secondary text-white">
-                        { agency ? (
-                             <Image src={agency.logo.url} alt="Agency Logo" layout="fill" priority />
-                        ) : (
-                            <FaHouseUser size={15} />
-                        ) }
+                        <Image 
+                            src={agency.logo ? agency.logo.url : 'https://i.ibb.co/6vv08Pk/homr-removebg-preview.png'} alt="Agency Logo" layout="fill" priority 
+                            blurDataURL={agency.logo ? agency.logo.url : 'https://i.ibb.co/6vv08Pk/homr-removebg-preview.png'}
+                        />
                     </div>
                 </div>
 
