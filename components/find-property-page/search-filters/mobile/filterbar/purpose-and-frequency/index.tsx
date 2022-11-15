@@ -17,7 +17,7 @@ const PurposeAndFrequency = () => {
   }
 
   useEffect(() => {
-    setToggle(router.query.purpose)
+    setToggle(router.query.purpose ? router.query.purpose : 'for-rent')
   }, [router.query.purpose])
   
 

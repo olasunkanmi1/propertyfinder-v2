@@ -16,7 +16,7 @@ const Frequency  = () => {
   }
 
   useEffect(() => {
-    setActive(router.query.rentFrequency)
+    setActive(router.query.rentFrequency  ? router.query.rentFrequency : 'yearly')
   }, [router.query.rentFrequency])
 
   return (
