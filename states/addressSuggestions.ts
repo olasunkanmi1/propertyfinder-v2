@@ -6,7 +6,7 @@ export interface addressSuggestionsAtomState {
     predictions: {
         externalID: string;
         name: string;
-    }[];
+    }[] | null;
 }
 
 const { persistAtom } = recoilPersist({
@@ -17,7 +17,7 @@ export const addressSuggestionsAtom = atom<addressSuggestionsAtomState>({
     key: 'addressSuggestions', 
     default: {
         address: "",
-        predictions: []
+        predictions: null
     },
-    effects_UNSTABLE: [persistAtom],
+    // effects_UNSTABLE: [persistAtom],
 });

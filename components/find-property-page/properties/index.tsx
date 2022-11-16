@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Property from '../../property'
-import noResult from "../../../public/noresult.jpg";
+import homeNotFound from "../../../public/assets/homeNotFound.webp";
 import { FindPropertyPageProps } from '../../../types';
 import { useRouter } from 'next/router';
 import Heading from '../../heading';
@@ -22,9 +22,13 @@ const Properties: React.FC<FindPropertyPageProps> = ({ properties }) => {
           })}
 
           {properties.length === 0 && (
-          <div>
-              <Image src={noResult} alt="no result" priority />
-          </div>
+            <div className='pb-4'>
+              <div className="relative w-full h-[300px] md:w-[400px] md:h-[400px]">
+                <Image src={homeNotFound} alt="no result" priority layout='fill' />
+              </div>
+
+              <h1 className='font-bold text-2xl text-center'> No property found. Try other options </h1>
+            </div>
           )}
 
 
