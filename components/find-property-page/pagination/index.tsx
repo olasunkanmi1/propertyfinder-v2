@@ -28,7 +28,7 @@ const Pagination: React.FC<PaginationProps> = ({pageCount}) => {
     }, []);
 
   return (
-    <div className={`pb-10 ${pageCount === 0 && 'hidden'}`}>
+    <div className='pb-10'>
         <ReactPaginate 
             previousLabel={<MdArrowBack />}
             nextLabel={<MdArrowForward />}

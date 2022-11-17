@@ -5,7 +5,6 @@ import FurnishingStatusAndSort from './furnishingStatus-and-sort'
 import Searchbox from './searchbox'
 import { getFilterValues } from '../../../../utils/filterData';
 
-
 export const findProperties = (filterValues: any) => {
   const path = router.pathname;
   const { query } = router;

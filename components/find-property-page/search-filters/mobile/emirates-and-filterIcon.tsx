@@ -15,7 +15,7 @@ const EmiratesAndFilterIcon = () => {
 
   const emirates = filterData.filter((filter) => filter.placeholder === 'Emirates')
 
-    const toggleSidebar = () => {
+    const toggleFilterbar = () => {
       setFilterbarOpen(filterbarOpen => ({
             ...filterbarOpen,
             isFilterbarOpen: !isFilterbarOpen
@@ -23,12 +23,12 @@ const EmiratesAndFilterIcon = () => {
     }
     
     const setEmirate = (value: string, queryName: string) => {
-       setFilterState(filterState => ({
-            ...filterState,
-            locationExternalIDs: value
-        }))
+      setFilterState(filterState => ({
+          ...filterState,
+          locationExternalIDs: value
+      }))
 
-        findProperties({ [queryName]: value })
+      findProperties({ [queryName]: value });
     }
 
   return (
@@ -49,7 +49,7 @@ const EmiratesAndFilterIcon = () => {
           }) }
         </div>
 
-        <div className="flex items-center gap-2 bg-primary text-white text-sm p-2 rounded ms:w-[98px] mb-3" onClick={toggleSidebar}>
+        <div className="flex items-center gap-2 bg-primary text-white text-sm p-2 rounded ms:w-[98px] mb-3" onClick={toggleFilterbar}>
             <MdOutlineTune size={20} />
             <span className='hidden ms:flex'> FILTERS </span>
         </div>

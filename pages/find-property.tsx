@@ -3,13 +3,20 @@ import { Layout, SearchFilters, Properties, Pagination } from "../components";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
 import { FindPropertyPageProps } from '../types';
 import { GetServerSideProps } from 'next';
+import { useSetRecoilState } from 'recoil';
+import { propertiesLoadingState } from '../states';
+import { Router } from 'next/router';
 
 const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) => {
+  const setLoading = useSetRecoilState(propertiesLoadingState);
+  Router.events.on("routeChangeStart", () => setLoading(true));
+  Router.events.on("routeChangeComplete", () => setLoading(false));
+
   return (
     <Layout title="Find Property">
         <SearchFilters />
         <Properties properties={properties} />
-        <Pagination pageCount={nbHits} />
+        <> { properties.length >= 1 && <Pagination pageCount={nbHits} /> } </>
     </Layout>
   )
 }
@@ -29,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const bathsMin = query.bathsMin || "0";
   const bathsMax = query.bathsMax || "10";
   const furnishingStatus = query.furnishingStatus || "";
-  const categoryExternalID = query.categoryExternalIDs || ""; 
+  const categoryExternalID = query.categoryExternalID || ""; 
   const locationExternalIDs = query.locationExternalIDs || "5001"; //5001 all UAE
   const page = query.page || "";
 

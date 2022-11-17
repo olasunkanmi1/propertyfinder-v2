@@ -12,8 +12,13 @@ const Searchbox = () => {
   const [suggestions, setSuggestions] = useRecoilState(addressSuggestionsAtom);
 
   const handleChange = async (e:React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true);
+    setSuggestions(suggestions => ({
+      ...suggestions,
+      predictions: []
+    })) 
+
     if(e.target.value.length >= 3) {
-      setLoading(true);
 
       const featuredAgencies = false
       const autoComplete = true
@@ -51,7 +56,7 @@ const Searchbox = () => {
           </button>
       </div>
 
-      { suggestions?.predictions !== null && inputRef.current?.value.length! >= 3  && <Dropdown loading={loading} suggestions={suggestions} setSuggestions={setSuggestions} inputRef={inputRef} /> }
+      { suggestions?.predictions !== null  && <Dropdown loading={loading} suggestions={suggestions} setSuggestions={setSuggestions} inputRef={inputRef} /> }
     </div>
   )
 }
