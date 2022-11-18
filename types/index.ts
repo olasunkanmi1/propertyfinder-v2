@@ -42,6 +42,31 @@ export interface Property {
     isVerified: boolean;
     externalID: string;
     product: string;
+    
+    amenities: {
+        amenities: {
+            text: string;
+        };
+    }[];
+    completionStatus: string;
+    coverVideo: {
+        url: string
+    };
+    createdAt: number;
+    reactivatedAt: number;
+    description: string;
+    furnishingStatus: string;
+    geography: {
+        lat: number;
+        lalngt: number;
+    };
+    phoneNumber: {
+        mobile: number;
+        whatsapp: number;
+    };
+    photos: {
+      url: string;  
+    }[];
 }
 
 export interface Agency {
@@ -67,6 +92,10 @@ export interface FindPropertyPageProps {
     nbHits?: number;
 }
 
+export interface UniquePropetyPageProps {
+    propertyDetails: Property;
+}
+
 export interface ICategoryType {
     items: {
         name: string;
@@ -75,14 +104,6 @@ export interface ICategoryType {
     placeholder: string;
     queryName: string;
 }
-  
-//  export interface IBedsAndBathsProps {
-//     list: {
-//       categories?: ICategoryType[];
-//       placeholder: string;
-//       dropdown: string,
-//     }[];
-// };
 
 export interface ISelectLayoutProps {
     heading: string;

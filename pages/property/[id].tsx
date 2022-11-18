@@ -143,20 +143,17 @@
 //   );
 // }
 
-// export async function getServerSideProps({ params: { id } }: any) {
-//   const data = await fetchApi(`${baseUrl}/properties/detail?externalID=${id}`);
 
-//   return {
-//     props: {
-//       propertyDetails: data,
-//     },
-//   };
-// }
 
 import React from 'react'
 import { Layout } from '../../components'
+import { UniquePropetyPageProps } from '../../types';
+import { baseUrl, fetchApi } from '../../utils/fetchApi';
 
-const Id = () => {
+const Id: React.FC<UniquePropetyPageProps> = ({propertyDetails}) => {
+  const {  } = propertyDetails;
+  
+  console.log(propertyDetails)
   return (
     <Layout title='View property details'>
       <h1>Property details</h1>
@@ -164,4 +161,14 @@ const Id = () => {
   )
 }
 
-export default Id
+export default Id;
+
+export async function getServerSideProps({ params: { id } }: any) {
+  const data = await fetchApi(`${baseUrl}/properties/detail?externalID=${id}`);
+
+  return {
+    props: {
+      propertyDetails: data,
+    },
+  };
+}

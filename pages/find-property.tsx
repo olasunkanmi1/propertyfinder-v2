@@ -3,12 +3,12 @@ import { Layout, SearchFilters, Properties, Pagination } from "../components";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
 import { FindPropertyPageProps } from '../types';
 import { GetServerSideProps } from 'next';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { propertiesLoadingState } from '../states';
 import { Router } from 'next/router';
 
 const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) => {
-  const setLoading = useSetRecoilState(propertiesLoadingState);
+  const [loading, setLoading] = useRecoilState(propertiesLoadingState);
   Router.events.on("routeChangeStart", () => setLoading(true));
   Router.events.on("routeChangeComplete", () => setLoading(false));
 
@@ -16,7 +16,7 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) =
     <Layout title="Find Property">
         <SearchFilters />
         <Properties properties={properties} />
-        <> { properties.length >= 1 && <Pagination pageCount={nbHits} /> } </>
+        <> { properties.length >= 1 && !loading && <Pagination pageCount={nbHits} /> } </>
     </Layout>
   )
 }
