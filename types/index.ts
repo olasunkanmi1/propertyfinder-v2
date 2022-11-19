@@ -46,14 +46,12 @@ export interface Property {
     amenities: {
         amenities: {
             text: string;
-        };
+        }[];
     }[];
     completionStatus: string;
     coverVideo: {
         url: string
     };
-    createdAt: number;
-    reactivatedAt: number;
     description: string;
     furnishingStatus: string;
     geography: {
@@ -66,6 +64,13 @@ export interface Property {
     };
     photos: {
       url: string;  
+    }[];
+    permitNumber: string;
+    referenceNumber: string;
+    purpose: string;
+    active: boolean;
+    category: {
+        nameSingular: string;
     }[];
 }
 
@@ -92,7 +97,7 @@ export interface FindPropertyPageProps {
     nbHits?: number;
 }
 
-export interface UniquePropetyPageProps {
+export interface UniquePropertyPageProps {
     propertyDetails: Property;
 }
 

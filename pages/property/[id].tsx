@@ -146,17 +146,19 @@
 
 
 import React from 'react'
-import { Layout } from '../../components'
-import { UniquePropetyPageProps } from '../../types';
+import { Layout, Details, Contact } from '../../components'
+import { UniquePropertyPageProps } from '../../types';
 import { baseUrl, fetchApi } from '../../utils/fetchApi';
 
-const Id: React.FC<UniquePropetyPageProps> = ({propertyDetails}) => {
-  const {  } = propertyDetails;
-  
+const Id: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
+  const {title} = propertyDetails;
   console.log(propertyDetails)
   return (
-    <Layout title='View property details'>
-      <h1>Property details</h1>
+    <Layout title={title}>
+      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-5 h-[calc(100vh-115px)] min-h-[400px]'>
+        <Details propertyDetails={propertyDetails} />
+        <Contact />
+      </div>
     </Layout>
   )
 }

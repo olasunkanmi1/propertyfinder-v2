@@ -24,6 +24,7 @@
     "react-icons": "^4.4.0",
     "react-loading-skeleton": "^3.1.0",
     "react-paginate": "^8.1.4",
+    "react-player": "^2.11.0",
     "recoil": "^0.7.6",
     "recoil-persist": "^4.2.0",
     "swiper": "^8.3.2"

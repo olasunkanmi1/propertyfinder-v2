@@ -15,7 +15,7 @@ const Navbar = () => {
     ]
 
   return (
-    <div className='flex justify-between items-center  xl:w-[1152px] border-b h-[75px] sticky top-0 bg-[#fefefe] z-20 overflow-hidden'>
+    <div className='flex justify-between items-center  xl:w-[1152px] border-b h-[75px] sticky top-0 bg-[#fefefe] z-[22] overflow-hidden'>
         <Link href="/" passHref>
             <a> <Image src={Logo} alt="logo" width={180} height={50} priority /> </a>
         </Link>
