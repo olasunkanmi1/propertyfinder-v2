@@ -1,7 +1,8 @@
 import React from 'react'
 import { HiOutlineLocationMarker } from 'react-icons/hi';
-import { SetterOrUpdater } from 'recoil';
+import { SetterOrUpdater, useSetRecoilState } from 'recoil';
 import { findProperties } from '..';
+import { loadingState } from '../../../../../states';
 import { addressSuggestionsAtomState } from '../../../../../states/addressSuggestions';
 import { Loader } from '../../../../loader';
 
@@ -13,11 +14,18 @@ interface IDropdownProps {
 }
 
 const Dropdown = ({loading, suggestions, setSuggestions, inputRef}: IDropdownProps) => {
+  const setLoading = useSetRecoilState(loadingState);
+
     const handleSelect = async (externalID: string, name: string) => {
         setSuggestions({
             address: name,
             predictions: null
         })
+
+        setLoading(loading => ({
+            ...loading,
+            propertiesLoading: true
+        }))
         
         inputRef.current ? inputRef.current.value = name : null
         

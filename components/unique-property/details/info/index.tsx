@@ -13,6 +13,7 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
     const descriptionRef = useRef<HTMLParagraphElement>(null)
     const [descriptionHeight, setDescriptionHeight] = useState<number | undefined>(descriptionRef.current?.offsetHeight);
     const [descriptionVisibility, setDescriptionVisibility] = useState<boolean>(false);
+    const [screenWidth, setscreenWidth] = useState<number | undefined>(undefined);
 
     const { isVerified, price, rentFrequency, rooms, baths, area, title, description, coverVideo, amenities } = propertyDetails;
 
@@ -22,6 +23,9 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
 
     useEffect(() => {
       setDescriptionHeight(descriptionRef.current?.offsetHeight);
+      window.addEventListener('resize', () => setscreenWidth(window.innerWidth));
+
+      
     }, [descriptionRef.current?.offsetHeight, ])
     
   return (
@@ -65,7 +69,7 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
         </div>
 
         {coverVideo && (
-            <ReactPlayer url={coverVideo.url} width='380px' height='250px' controls /> 
+            <ReactPlayer url={coverVideo.url} width={screenWidth && screenWidth < 500 ? '100%' : '380px'} height={'250px'} controls /> 
         )}
 
         <PropertyInfos propertyDetails={propertyDetails} />

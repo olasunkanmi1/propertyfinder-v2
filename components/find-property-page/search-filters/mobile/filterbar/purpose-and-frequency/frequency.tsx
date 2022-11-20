@@ -2,15 +2,22 @@ import React, {useState, useEffect} from 'react'
 import { filterData } from '../../../../../../utils/filterData';
 import { findProperties } from '../..';
 import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
+import { loadingState } from '../../../../../../states';
 
 const Frequency  = () => {
   const router = useRouter();
   const [active, setActive] = useState(router.query.rentFrequency);
+  const setLoading = useSetRecoilState(loadingState);
 
   const frequencies = filterData.filter((filter) => filter.placeholder === 'Rent Frequency');
 
   const changeTab = (value: string, queryName: string) => {
     setActive(value);
+    setLoading(loading => ({
+         ...loading,
+         propertiesLoading: true
+     }))
 
     findProperties({ [queryName]: value })
   }

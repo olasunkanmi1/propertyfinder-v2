@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ICategoryType, ISelectLayoutProps } from '../../../../../types';
-import { useRecoilState } from 'recoil'
-import { filterAtom, IFilterState } from '../../../../../states';
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { filterAtom, IFilterState, loadingState } from '../../../../../states';
 import { findProperties } from '..';
 import { useRouter } from 'next/router';
 
@@ -35,11 +35,17 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
   });
   
   const [filterState, setFilterState] = useRecoilState(filterAtom);
+  const setLoading = useSetRecoilState(loadingState);
 
   const handleChange = (queryName: string, value: string) => {
     setFilterState(filterState => ({
       ...filterState,
       [queryName]: value,
+    }))
+
+    setLoading(loading => ({
+      ...loading,
+      propertiesLoading: true
     }))
 
      findProperties({ [queryName]: value })

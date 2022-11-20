@@ -2,13 +2,14 @@ import React from 'react'
 import { useSetRecoilState } from 'recoil'
 import { BsSortDown } from 'react-icons/bs';
 import { filterData } from '../../../../../utils/filterData';
-import { filterAtom } from '../../../../../states';
+import { filterAtom, loadingState } from '../../../../../states';
 import { findProperties } from '..';
 import { useRouter } from 'next/router';
 
 const Sort = () => {
   const router = useRouter();
   const setFilterState = useSetRecoilState(filterAtom);
+  const setLoading = useSetRecoilState(loadingState);
 
   const sortBy = filterData.filter((filter) => filter.placeholder === 'Sort');
 
@@ -16,6 +17,11 @@ const Sort = () => {
     setFilterState(filterState => ({
          ...filterState,
          sort: value
+     }))
+    
+     setLoading(loading => ({
+         ...loading,
+         propertiesLoading: true
      }))
 
      findProperties({ [queryName]: value })

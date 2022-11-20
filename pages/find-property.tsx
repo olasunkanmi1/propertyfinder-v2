@@ -4,19 +4,19 @@ import { baseUrl, fetchApi } from "../utils/fetchApi";
 import { FindPropertyPageProps } from '../types';
 import { GetServerSideProps } from 'next';
 import { useRecoilState } from 'recoil';
-import { propertiesLoadingState } from '../states';
-import { Router } from 'next/router';
+import { loadingState } from '../states';
+import Router from "next/router";
 
 const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) => {
-  const [loading, setLoading] = useRecoilState(propertiesLoadingState);
-  Router.events.on("routeChangeStart", () => setLoading(true));
-  Router.events.on("routeChangeComplete", () => setLoading(false));
+  const [loading, setLoading] = useRecoilState(loadingState);
+  Router.events.on("routeChangeStart", () => setLoading(loading => ({...loading, routeChangeLoading: true})) );
+  Router.events.on("routeChangeComplete", () => setLoading(loading => ({...loading, routeChangeLoading: false})) );
 
   return (
     <Layout title="Find Property">
         <SearchFilters />
         <Properties properties={properties} />
-        <> { properties.length >= 1 && !loading && <Pagination pageCount={nbHits} /> } </>
+        <> { properties.length >= 1 && !loading.propertiesLoading && <Pagination pageCount={nbHits} /> } </>
     </Layout>
   )
 }

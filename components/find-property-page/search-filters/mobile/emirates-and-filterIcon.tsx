@@ -2,13 +2,15 @@ import React from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { MdOutlineTune } from 'react-icons/md'
 import { filterData } from '../../../../utils/filterData'
-import { filterAtom, navbarState } from '../../../../states'
+import { filterAtom, loadingState, navbarState } from '../../../../states'
 import { findProperties } from '.'
 import { useRouter } from 'next/router'
 
 const EmiratesAndFilterIcon = () => {
   const router = useRouter();
   const setFilterState = useSetRecoilState(filterAtom);
+  const setLoading = useSetRecoilState(loadingState);
+
   const [filterbarOpen, setFilterbarOpen] = useRecoilState(navbarState);
 
   const { isFilterbarOpen } = filterbarOpen;
@@ -20,6 +22,11 @@ const EmiratesAndFilterIcon = () => {
             ...filterbarOpen,
             isFilterbarOpen: !isFilterbarOpen
         }))
+
+        setLoading(loading => ({
+          ...loading,
+          propertiesLoading: true
+      }))
     }
     
     const setEmirate = (value: string, queryName: string) => {

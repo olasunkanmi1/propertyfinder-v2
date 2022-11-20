@@ -2,12 +2,13 @@ import React from 'react'
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil'
 import { findProperties } from '..';
-import { filterAtom } from '../../../../../states';
+import { filterAtom, loadingState } from '../../../../../states';
 import { filterData } from '../../../../../utils/filterData';
 
 const FurnishingStatus = () => {
   const router = useRouter();
   const setFilterState = useSetRecoilState(filterAtom);
+  const setLoading = useSetRecoilState(loadingState);
 
   const furnishedStatus = filterData.filter((filter) => filter.placeholder === 'Furnish Type')
 
@@ -15,6 +16,11 @@ const FurnishingStatus = () => {
     setFilterState(filterState => ({
          ...filterState,
          furnishingStatus: value
+     }))
+    
+     setLoading(loading => ({
+         ...loading,
+         propertiesLoading: true
      }))
 
      findProperties({ [queryName]: value })

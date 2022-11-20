@@ -11,13 +11,21 @@ import { IconType } from 'react-icons/lib';
 import { IPropertyType } from '.';
 import { findProperties } from '../..';
 import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
+import { loadingState } from '../../../../../../states';
 
 const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
   const router = useRouter();
   const [active, setActive] = useState(router.query.categoryExternalID);
+  const setLoading = useSetRecoilState(loadingState);
 
   const setPropertyType = (value: string, queryName: string) => {
     setActive(value);
+    
+    setLoading(loading => ({
+      ...loading,
+      propertiesLoading: true
+    }))
 
      findProperties({ [queryName]: value })
   }

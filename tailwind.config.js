@@ -22,6 +22,9 @@ module.exports = {
         'ls': '400px',
         'xls': '500px',
         'xll': '900px',
+      },
+      animation: {
+        'ping-slow': 'ping 2s linear infinite',
       }
     },
   },

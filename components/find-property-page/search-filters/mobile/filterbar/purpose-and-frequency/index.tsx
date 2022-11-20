@@ -3,15 +3,23 @@ import { filterData } from '../../../../../../utils/filterData';
 import { findProperties } from '../..';
 import { useRouter } from 'next/router';
 import Frequency from './frequency';
+import { useSetRecoilState } from 'recoil';
+import { loadingState } from '../../../../../../states';
 
 const PurposeAndFrequency = () => {
   const router = useRouter();
   const [toggle, setToggle] = useState(router.query.purpose);
+  const setLoading = useSetRecoilState(loadingState);
+
 
   const purposes = filterData.filter((filter) => filter.placeholder === 'Purpose');
 
   const changeTab = (value: string, queryName: string) => {
     setToggle(value);
+    setLoading(loading => ({
+      ...loading,
+      propertiesLoading: true
+    }))
 
     findProperties({ [queryName]: value })
   }

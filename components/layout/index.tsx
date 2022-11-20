@@ -3,14 +3,16 @@ import Head from 'next/head'
 import Navbar from './navbar'
 import Footer from './footer'
 import { LayoutProps } from '../../types'
-import { useRecoilState } from 'recoil'
-import { navbarState } from '../../states'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { loadingState, navbarState } from '../../states'
 import Sidebar from './sidebar'
 import Filterbar from '../find-property-page/search-filters/mobile/filterbar'
+import RouteChangeLoader from './route-change-loader'
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const [open, setOpen] = useRecoilState(navbarState);
   const {isSidebarOpen, profileDropdown, isFilterbarOpen} = open;
+  const loading = useRecoilValue(loadingState);
 
   const toggleSidebarAndDropdown = () => {
     if(isSidebarOpen || profileDropdown || isFilterbarOpen) {
@@ -37,6 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
 
       <Sidebar />
       <Filterbar />
+      {loading.routeChangeLoading && <RouteChangeLoader /> }
     </div>
   )
 }

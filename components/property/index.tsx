@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PropertyProps } from '../../types'
-import DefaultImage from '../../public/house.jpg';
+import DefaultImage from '../../public/assets/house.webp';
 import { GoVerified } from "react-icons/go";
 import millify from "millify";
 import { FaBath, FaBed, FaRegHeart } from 'react-icons/fa';

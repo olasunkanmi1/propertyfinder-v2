@@ -6,11 +6,11 @@ import { FindPropertyPageProps } from '../../../types';
 import { useRouter } from 'next/router';
 import Heading from '../../heading';
 import { useRecoilValue } from 'recoil';
-import { propertiesLoadingState } from '../../../states';
+import { loadingState } from '../../../states';
 import CardSkeleton from '../../property/skeleton';
 
 const Properties: React.FC<FindPropertyPageProps> = ({ properties }) => {
-  const loading = useRecoilValue(propertiesLoadingState);
+  const loading = useRecoilValue(loadingState);
   const router = useRouter();
   const purpose = !router.query.purpose || router.query.purpose === 'for-rent' ? 'for rent' : router.query.purpose === 'for-sale' ? 'for sale' : ''
 
@@ -19,7 +19,7 @@ const Properties: React.FC<FindPropertyPageProps> = ({ properties }) => {
       <Heading heading={`${loading ? 'Loading properties' : `Properties available ${purpose}`}`} /> 
 
       <div className='flex flex-wrap gap-x-5 gap-y-10 w-full justify-center'>
-        { loading ? (
+        { loading.propertiesLoading ? (
           [...Array(6)].map(index => <CardSkeleton key={index} />)
         ) : (
           <>
