@@ -8,10 +8,10 @@ const DesktopAndTabs = () => {
   const [dropdown, setDropdown] = useRecoilState(searchFiltersState);
 
   const showOptions = (option: any) => {
-    setDropdown({
-        [!option]: false,
-        [option]: !dropdown[option]
-    });
+    // setDropdown({
+    //     [!option]: false,
+    //     [option]: !dropdown[option]
+    // });
   }
 
   return (
@@ -29,7 +29,7 @@ const DesktopAndTabs = () => {
                         onClick={() => showOptions(filter.dropdown)}
                     >
                       <p className='select-none'> { filter.placeholder } </p>
-                      <AiOutlineDown className={`transition duration-200 ${dropdown[option] ? 'rotate-180' : ''} `} />
+                      {/* <AiOutlineDown className={`transition duration-200 ${dropdown[option] ? 'rotate-180' : ''} `} /> */}
 
                       <Dropdown dropdown={dropdown} option={option} filter={filter} />
                     </div>

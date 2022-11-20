@@ -34,7 +34,7 @@ interface DropdownProps {
 const Dropdown: React.FC<DropdownProps> = ({ dropdown, option, filter }) => {
   return (
     <div 
-        className={`${dropdown[option] ? '' : 'hidden'} absolute -bottom-[150px] left-0 h-max max-h-[150px] overflow-y-auto bg-white w-full z-20 border p-2 rounded-md`}
+        // className={`${dropdown[option] ? '' : 'hidden'} absolute -bottom-[150px] left-0 h-max max-h-[150px] overflow-y-auto bg-white w-full z-20 border p-2 rounded-md`}
     >
         <div className="relative">
             { filter.items && <Options items={filter.items} /> }

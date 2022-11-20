@@ -101,6 +101,10 @@ export interface UniquePropertyPageProps {
     propertyDetails: Property;
 }
 
+export interface SimilarPropertiesProps {
+    similarProperties: Property[];
+}
+
 export interface ICategoryType {
     items: {
         name: string;

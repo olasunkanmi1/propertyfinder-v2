@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { GoVerified } from 'react-icons/go';
 import { MdWindow } from 'react-icons/md';
 import { FaBath, FaBed, FaRegHeart } from 'react-icons/fa'
@@ -7,20 +7,33 @@ import { UniquePropertyPageProps } from '../../../../types';
 import PropertyInfos from './property-info';
 import Amenities from './amenities';
 import ReactPlayer from 'react-player'
+import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 
 const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
-    const { isVerified, price, rentFrequency, rooms, baths, area, title, description, coverVideo } = propertyDetails;
+    const descriptionRef = useRef<HTMLParagraphElement>(null)
+    const [descriptionHeight, setDescriptionHeight] = useState<number | undefined>(descriptionRef.current?.offsetHeight);
+    const [descriptionVisibility, setDescriptionVisibility] = useState<boolean>(false);
 
+    const { isVerified, price, rentFrequency, rooms, baths, area, title, description, coverVideo, amenities } = propertyDetails;
+
+    const handleDescription = () => {
+        setDescriptionVisibility(!descriptionVisibility);
+    }
+
+    useEffect(() => {
+      setDescriptionHeight(descriptionRef.current?.offsetHeight);
+    }, [descriptionRef.current?.offsetHeight, ])
+    
   return (
     <div className='space-y-5'>
         <div className="flex flex-col pt-3 gap-[5px] space-y-3">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-wrap justify-between items-center gap-3">
                 <div className="flex space-x-2 items-center">
                     { isVerified && <div className='text-green-500 '> <GoVerified size={30} /> </div> }
-                    <p className="font-bold font-lg leading-tight text-lg capitalize"> AED <span className='text-3xl'>{price.toLocaleString()}</span> {rentFrequency && `${rentFrequency}`} </p>
+                    <p className="font-bold font-lg leading-tight text-lg capitalize"> AED <span className='text-xl ls:text-2xl xls:text-3xl'>{price.toLocaleString()}</span> {rentFrequency && `${rentFrequency}`} </p>
                 </div>
                 
-                <div className="flex space-x-2 justify-center items-center py-2 px-4 cursor-pointer rounded-md bg-primary bg-opacity-20 border border-primary text-primary font-medium">
+                <div className="flex space-x-2 justify-center items-center p-2 xls:px-4 cursor-pointer rounded-md bg-primary bg-opacity-20 border border-primary text-primary font-medium">
                     <FaRegHeart size={20} /> <span> Save </span>
                 </div>
             </div>
@@ -35,16 +48,28 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
 
             <div>
                 <h1 className='font-bold text-xl mb-2 text-primary'> Property Description </h1>
-                <p dangerouslySetInnerHTML={{__html: description}} className='font-medium' />
+                <p ref={descriptionRef} dangerouslySetInnerHTML={{__html: description}} 
+                    className={`font-medium overflow-hidden ${descriptionHeight === undefined || descriptionHeight > 119 && !descriptionVisibility ? 'propertyDetails_description' : 'h-auto'}`} 
+                />
+
+                {/* { descriptionHeight && descriptionHeight > 120 && ( */}
+                    <button className='flex font-medium mt-2 text-primary gap-1' onClick={handleDescription}> 
+                        Read { descriptionVisibility ? 
+                            ( <span className='flex items-center gap-2'> Less <AiOutlineUp size={15} /> </span> 
+                            ) : ( 
+                            <span className='flex items-center gap-2'> More <AiOutlineDown size={15} /> </span> 
+                            ) }
+                    </button> 
+                {/* // )} */}
             </div>
         </div>
 
         {coverVideo && (
-            <ReactPlayer url={coverVideo.url} width='320px' height='320' controls /> 
+            <ReactPlayer url={coverVideo.url} width='380px' height='250px' controls /> 
         )}
 
         <PropertyInfos propertyDetails={propertyDetails} />
-        <Amenities propertyDetails={propertyDetails} />
+        {amenities.length !== 0 && <Amenities propertyDetails={propertyDetails} /> }
     </div>
   )
 }

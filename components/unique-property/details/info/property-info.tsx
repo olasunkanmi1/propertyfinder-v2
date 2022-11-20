@@ -21,7 +21,7 @@ const PropertyInfo: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
             const {title, value} = info;
 
             return (
-              <div key={title} className='flex justify-between w-[47%] border-b pb-2'>
+              <div key={title} className='flex justify-between w-full sm:w-[47%] border-b pb-2'>
                 <p className='font-medium'> {title} </p>
                 <p className='font-semibold'> {`${value}`} </p>
               </div>

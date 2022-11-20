@@ -11,7 +11,7 @@ const Amenities: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
         <div className="flex flex-wrap gap-2">
             { amenities.map((amenity) => amenity.amenities.map((amenity) => {
                 return (
-                    <p key={amenity.text} className='p-2 bg-secondary text-white rounded-md'> {amenity.text} </p>
+                    <p key={amenity.text} className='p-2 bg-secondary text-white rounded-md text-xs xls:text-sm'> {amenity.text} </p>
                 )
             })) }
         </div>

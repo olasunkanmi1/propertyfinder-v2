@@ -21,6 +21,7 @@ module.exports = {
         'ms': '320px',
         'ls': '400px',
         'xls': '500px',
+        'xll': '900px',
       }
     },
   },
