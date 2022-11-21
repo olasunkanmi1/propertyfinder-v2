@@ -16,7 +16,7 @@ const Properties: React.FC<FindPropertyPageProps> = ({ properties }) => {
 
   return (
     <div className='space-y-4'>
-      <Heading heading={`${loading ? 'Loading properties' : `Properties available ${purpose}`}`} /> 
+      <Heading heading={`${loading.propertiesLoading ? 'Loading properties' : `Properties available ${purpose}`}`} /> 
 
       <div className='flex flex-wrap gap-x-5 gap-y-10 w-full justify-center'>
         { loading.propertiesLoading ? (

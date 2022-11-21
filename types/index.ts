@@ -126,3 +126,12 @@ export interface ISelectLayoutProps {
         oppositeQueryName: string;
     }
 }
+
+export interface IDropdownWithToggleProps {
+    title: string;
+    tabs?: {
+        name: string;
+        value: string;
+    }[];
+    queryName?: string;
+}

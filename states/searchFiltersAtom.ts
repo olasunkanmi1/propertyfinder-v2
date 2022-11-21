@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 
 export interface IsearchFiltersState {
   purposeDropdown?: boolean;
@@ -12,6 +13,10 @@ export interface IsearchFiltersState {
   propertyDropdown?: boolean;
   emiratesDropdown?: boolean;
 }
+
+const { persistAtom } = recoilPersist({
+  key: 'search-filter-persist',
+})
 
 export const searchFiltersState = atom<IsearchFiltersState>({
   key: 'searchFiltersState', 
@@ -27,4 +32,5 @@ export const searchFiltersState = atom<IsearchFiltersState>({
     propertyDropdown: false,
     emiratesDropdown: false,
   },
+  effects_UNSTABLE: [persistAtom],
 });

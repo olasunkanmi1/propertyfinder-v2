@@ -9,7 +9,7 @@ const GetInTouch: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
 
   return (
     <div className='py-3 border-b space-y-2'>
-      <h1 className='text-center font-medium text-primary'> Get in touch with Agent for more information. </h1>
+      <h1 className='text-center font-medium text-primary'> Get in touch with us for more information. </h1>
 
       <div className='flex justify-between'>
         <Link href={`tel:${phoneNumber.mobile}`} passHref>

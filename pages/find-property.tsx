@@ -10,7 +10,7 @@ import Router from "next/router";
 const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) => {
   const [loading, setLoading] = useRecoilState(loadingState);
   Router.events.on("routeChangeStart", () => setLoading(loading => ({...loading, routeChangeLoading: true})) );
-  Router.events.on("routeChangeComplete", () => setLoading(loading => ({...loading, routeChangeLoading: false})) );
+  Router.events.on("routeChangeComplete", () => setLoading({propertiesLoading: false, routeChangeLoading: false}) );
 
   return (
     <Layout title="Find Property">

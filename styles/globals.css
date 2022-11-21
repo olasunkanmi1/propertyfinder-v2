@@ -68,6 +68,14 @@
   .contact_links {
     @apply flex items-center p-2 ms:px-4 gap-2 border rounded text-white text-sm ms:text-base font-medium bg-secondary
   }
+
+  .filterTab {
+    @apply w-1/2 p-1 rounded flex justify-center text-gray-500 font-semibold
+  }
+  
+  .filterTabActive {
+    @apply bg-primary bg-opacity-20 border border-primary text-primary
+  }
   
 }
 
