@@ -13,7 +13,7 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ title, tabs, q
     setLoading(loading => ({
       ...loading,
       propertiesLoading: true
-    }))
+    }))clam
 
     if(queryName) findProperties({ [queryName]: value }) 
   }
