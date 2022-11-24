@@ -18,19 +18,8 @@ const { persistAtom } = recoilPersist({
   key: 'search-filter-persist',
 })
 
-export const searchFiltersState = atom<IsearchFiltersState>({
+export const searchFiltersState = atom<string | null>({
   key: 'searchFiltersState', 
-  default: {
-    purposeDropdown: false,
-    frequencyDropdown: false,
-    priceDropdown: false,
-    sortDropdown: false,
-    areaDropdown: false,
-    roomsDropdown: false,
-    bathsDropdown: false,
-    furnishDropdown: false,
-    propertyDropdown: false,
-    emiratesDropdown: false,
-  },
-  effects_UNSTABLE: [persistAtom],
+  default: null
+  // effects_UNSTABLE: [persistAtom],
 });

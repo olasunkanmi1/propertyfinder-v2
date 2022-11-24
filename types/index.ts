@@ -128,6 +128,7 @@ export interface ISelectLayoutProps {
 }
 
 export interface IDropdownWithToggleProps {
+    state: string;
     title: string;
     tabs?: {
         name: string;

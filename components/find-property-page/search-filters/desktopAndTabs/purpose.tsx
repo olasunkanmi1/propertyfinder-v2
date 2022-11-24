@@ -1,32 +1,35 @@
 import React from 'react'
-import { useRecoilState } from 'recoil';
-import { IsearchFiltersState, searchFiltersState } from '../../../../states';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { filterAtom, searchFiltersState } from '../../../../states';
 import { filterData } from '../../../../utils/filterData';
 import DropdownWithToggle from './dropdown/with-toggle';
+import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 
-const Purpose = () => {
-  const [dropdown, setDropdown] = useRecoilState(searchFiltersState);
+interface IpurposeProps {
+  handleDropdown: (dropdownValue: string) => void
+}
+
+const Purpose: React.FC<IpurposeProps> = ({handleDropdown}) => {
+  const dropdown = useRecoilValue(searchFiltersState);
+  const filterState = useRecoilValue(filterAtom);
   const purposes = filterData.filter((filter) => filter.placeholder === 'Purpose');
-  const handleDropdown = (option: string) => {
-    setDropdown({
-        // [!option]: false,
-        [option]: !dropdown[option as keyof IsearchFiltersState]
-    });
-  }
 
   return (
     <>
         { purposes.map((purpose) => {
-            const { items, placeholder, queryName, dropdown: dd } = purpose;
+            const { items, placeholder, queryName } = purpose;
 
             return (
-                <div key={placeholder} className='flex items-center justify-between bg-white rounded-md text-gray-600 py-2 px-4 text-md font-semibold cursor-pointer relative'
-                    onClick={() => handleDropdown(dd)}
+              <div key={placeholder} className='relative'>
+                <div className='flex items-center justify-between bg-white rounded-md text-gray-600 py-2 px-4 text-md font-semibold cursor-pointer'
+                    onClick={() => handleDropdown('purpose')}
                 >
-                    <p className='select-none'> {placeholder} </p>
+                    <p className='select-none'> {filterState.purpose === 'for-rent' ? 'RENT' : 'BUY'} </p>
+                    { dropdown ===  'purpose' ? <AiOutlineUp /> : <AiOutlineDown /> }
 
-                    {dropdown[dd as keyof IsearchFiltersState] && <DropdownWithToggle title={placeholder} tabs={items} queryName={queryName} /> } 
                 </div>
+                {dropdown === 'purpose' && <DropdownWithToggle state='purpose' title={placeholder} tabs={items} queryName={queryName} /> } 
+              </div>
             )
 
         }) }
