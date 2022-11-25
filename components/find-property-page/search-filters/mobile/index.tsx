@@ -2,7 +2,7 @@ import React from 'react'
 import router from "next/router";
 import EmiratesAndFilterIcon from './emirates-and-filterIcon'
 import FurnishingStatusAndSort from './furnishingStatus-and-sort'
-import Searchbox from './searchbox'
+import Searchbox from '../searchbox'
 import { getFilterValues } from '../../../../utils/filterData';
 
 export const findProperties = (filterValues: any) => {

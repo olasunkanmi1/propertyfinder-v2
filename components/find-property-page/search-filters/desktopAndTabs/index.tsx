@@ -4,6 +4,12 @@ import { useRecoilState } from 'recoil';
 import { searchFiltersState } from '../../../../states/searchFiltersAtom';
 import Dropdown from './dropdown';
 import Purpose from './purpose';
+import Searchbox from '../searchbox';
+import PropertyType from './property-type';
+
+export interface IChildProps {
+  handleDropdown: (dropdownValue: string) => void
+}
 
 const DesktopAndTabs = () => {
   const [dropdown, setDropdown] = useRecoilState(searchFiltersState);
@@ -47,6 +53,8 @@ const DesktopAndTabs = () => {
 
         <div className="grid grid-cols-4 gap-5 justify-center p-4 w-full lg:w-[900px] rounded-xl bg-[#000] bg-opacity-60 mx-auto">
             <Purpose handleDropdown={handleDropdown} />
+            <Searchbox desktop />
+            <PropertyType handleDropdown={handleDropdown} />
         </div>
     </div>
   )

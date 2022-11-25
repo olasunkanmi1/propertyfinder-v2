@@ -25,7 +25,7 @@ const { persistAtom } = recoilPersist({
 export const filterAtom = atom<IFilterState>({
     key: 'filterState',
     default: {
-        purpose: 'for-rent',
+        purpose: '',
         frequency: 'yearly',
         minPrice: '0',
         maxPrice: 'any',

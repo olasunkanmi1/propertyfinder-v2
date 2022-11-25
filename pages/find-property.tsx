@@ -4,20 +4,26 @@ import { baseUrl, fetchApi } from "../utils/fetchApi";
 import { FindPropertyPageProps } from '../types';
 import { GetServerSideProps } from 'next';
 import { useRecoilState } from 'recoil';
-import { loadingState } from '../states';
-import Router from "next/router";
+import { filterAtom, loadingState } from '../states';
+import Router, { useRouter } from "next/router";
 
 const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) => {
+  const router = useRouter();
   const [loading, setLoading] = useRecoilState(loadingState);
-  Router.events.on("routeChangeStart", () => setLoading(loading => ({...loading, routeChangeLoading: true})) );
-  Router.events.on("routeChangeComplete", () => setLoading({propertiesLoading: false, routeChangeLoading: false}) );
+  const [filter, setFilter] = useRecoilState(filterAtom);
+  setFilter(filter => ({ 
+    ...filter, 
+    purpose: router.query.purpose ? router.query.purpose[0] : 'for-rent'
+  }))
+  // Router.events.on("routeChangeStart", () => setLoading(loading => ({...loading, routeChangeLoading: true})) );
+  // Router.events.on("routeChangeComplete", () => setLoading({propertiesLoading: false, routeChangeLoading: false}) );
 
   return (
     <Layout title="Find Property">
-        <SearchFilters />
+        <SearchFilters /> 
         <Properties properties={properties} />
         <> { properties.length >= 1 && !loading.propertiesLoading && <Pagination pageCount={nbHits} /> } </>
-    </Layout>
+    </Layout> 
   )
 }
 
@@ -40,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const locationExternalIDs = query.locationExternalIDs || "5001"; //5001 all UAE
   const page = query.page || "";
 
-  const data = await fetchApi(
+  const data = await fetchApi( 
     `${baseUrl}/properties/list?hitsPerPage=12&locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&bathsMax=${bathsMax}&rentFrequency=${rentFrequency}&priceMin=${priceMin}&priceMax=${priceMax}&roomsMin=${roomsMin}&roomsMax=${roomsMax}&sort=${sort}&areaMin=${areaMin}&areaMax=${areaMax}&furnishingStatus=${furnishingStatus}&page=${page}`
   );
 

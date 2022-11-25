@@ -70,7 +70,7 @@
   }
 
   .filterTab {
-    @apply w-1/2 p-1 rounded flex justify-center text-gray-500 font-semibold
+    @apply w-1/2 p-1 rounded flex justify-center text-gray-500 font-semibold cursor-pointer
   }
   
   .filterTabActive {

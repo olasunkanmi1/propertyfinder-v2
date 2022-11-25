@@ -2,11 +2,15 @@ import React, { useState, useRef } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { MdLocationOn, MdOutlineTune } from 'react-icons/md'
 import { useRecoilState } from 'recoil';
-import { addressSuggestionsAtom } from '../../../../../states/addressSuggestions';
+import { addressSuggestionsAtom } from '../../../../states/addressSuggestions';
 import Dropdown from './dropdown';
-import { fetchApi } from '../../../../../utils/fetchApi';
+import { fetchApi } from '../../../../utils/fetchApi';
 
-const Searchbox = () => {
+export interface ISearchboxProps {
+  desktop: boolean;
+}
+
+const Searchbox: React.FC<ISearchboxProps> = ({desktop}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useRecoilState(addressSuggestionsAtom);
@@ -43,20 +47,20 @@ const Searchbox = () => {
   }
 
   return (
-    <div className='space-y-2'>
+    <div className={`space-y-2 ${desktop ? 'relative col-span-2' : ''}`}>
       <div className='flex justify-between'>
-          <div className="flex items-center justify-between border rounded p-2 gap-2 w-[calc(100%-43px)] ms:w-[calc(100%-105px)]">
+          <div className={`flex items-center justify-between w-full border rounded p-2 gap-2 ${desktop ? 'bg-white text-black' : ''}`}>
             <MdLocationOn size={20} />
-            <input type='text' placeholder='Location' ref={inputRef} onChange={(e) => handleChange(e)} className='outline-none w-[calc(100%-30px)]' />
+            <input type='text' placeholder='Location' ref={inputRef} onChange={(e) => handleChange(e)} className={`outline-none w-[calc(100%-30px)] ${desktop ? 'font-semibold' : ''}`} />
           </div>
 
-          <button className='flex items-center justify-center p-2 bg-primary ms:w-[98px] text-white text-sm rounded'> 
+          {/* <button className='flex items-center justify-center p-2 bg-primary ms:w-[98px] text-white text-sm rounded'> 
             <span className='hidden ms:flex'>SEARCH</span>
             <span className='flex ms:hidden'><AiOutlineSearch size={20} /></span>
-          </button>
+          </button> */}
       </div>
 
-      { suggestions?.predictions !== null  && <Dropdown loading={loading} suggestions={suggestions} setSuggestions={setSuggestions} inputRef={inputRef} /> }
+      { suggestions?.predictions !== null  && <Dropdown loading={loading} suggestions={suggestions} setSuggestions={setSuggestions} inputRef={inputRef} desktop={desktop} /> }
     </div>
   )
 }

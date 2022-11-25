@@ -135,4 +135,5 @@ export interface IDropdownWithToggleProps {
         value: string;
     }[];
     queryName?: string;
+    categories?: ICategoryType[];
 }
