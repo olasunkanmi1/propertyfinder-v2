@@ -112,6 +112,7 @@ export interface ICategoryType {
     }[];
     placeholder: string;
     queryName: string;
+    value?: string;
 }
 
 export interface ISelectLayoutProps {
@@ -128,7 +129,7 @@ export interface ISelectLayoutProps {
 }
 
 export interface IDropdownWithToggleProps {
-    state: string;
+    select: string;
     title: string;
     tabs?: {
         name: string;

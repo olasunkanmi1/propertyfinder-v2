@@ -2,7 +2,7 @@ import { atom } from 'recoil'
 import { recoilPersist } from 'recoil-persist'
 
 export interface IFilterState {
-    purpose?: string;
+    purpose?: string | string[];
     frequency?: string;
     minPrice?: string;
     maxPrice?: string;
@@ -16,6 +16,7 @@ export interface IFilterState {
     furnishingStatus?: string;
     categoryExternalID?: string;
     locationExternalIDs?: string;
+    propertyType?: string;
 }
 
 const { persistAtom } = recoilPersist({
@@ -37,8 +38,11 @@ export const filterAtom = atom<IFilterState>({
         bathsMin: '0',
         bathsMax: 'any',
         furnishingStatus: 'any',
-        categoryExternalID: '0',
+        categoryExternalID: '1',
         locationExternalIDs: '5001',
+        
+        propertyType: 'Property Type',
+        // propertyType: 'Property Type',
     },
     effects_UNSTABLE: [persistAtom],
 });

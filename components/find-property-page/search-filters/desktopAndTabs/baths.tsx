@@ -6,26 +6,26 @@ import DropdownWithToggle from './dropdown/with-toggle';
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import { IChildProps } from '.';
 
-const PropertyType: React.FC<IChildProps> = ({handleDropdown, }) => {
+const Baths: React.FC<IChildProps> = ({handleDropdown}) => {
   const dropdown = useRecoilValue(searchFiltersState);
   const filterState = useRecoilValue(filterAtom);
-  const propertyTypes = filterData.filter((filter) => filter.placeholder === 'Property Type');
+  const purposes = filterData.filter((filter) => filter.placeholder === 'Purpose');
 
   return (
     <>
-        { propertyTypes.map((type) => {
-            const { categories, placeholder, queryName } = type;
+        { purposes.map((purpose) => {
+            const { items, placeholder, queryName } = purpose;
 
             return (
               <div key={placeholder} className='relative'>
                 <div className='flex items-center justify-between bg-white rounded-md text-gray-600 py-2 px-4 text-md font-semibold cursor-pointer'
-                    onClick={() => handleDropdown('property-type')}
+                    onClick={() => handleDropdown('baths')}
                 >
-                    <p className='select-none'> {filterState.propertyType} </p>
-                    { dropdown ===  'property-type' ? <AiOutlineUp /> : <AiOutlineDown /> }
+                    <p className='select-none'> Baths </p>
+                    { dropdown ===  'baths' ? <AiOutlineUp /> : <AiOutlineDown /> }
 
                 </div>
-                {dropdown === 'property-type' && <DropdownWithToggle select='propertyType' title={placeholder} categories={categories} /> } 
+                {dropdown === 'baths' && <DropdownWithToggle state='purpose' title={placeholder} tabs={items} queryName={queryName} /> } 
               </div>
             )
 
@@ -34,4 +34,4 @@ const PropertyType: React.FC<IChildProps> = ({handleDropdown, }) => {
   )
 }
 
-export default PropertyType
+export default Baths

@@ -1,6 +1,9 @@
 import React from 'react'
 
-const Options = ({options}) => {
+interface IOptionsProps {
+  options: any;
+}
+const Options: React.FC<IOptionsProps> = ({options}) => {
   return (
     <div>
       { options.map((option) => {
@@ -12,7 +15,7 @@ const Options = ({options}) => {
               const {name, value} = item
 
               return (
-                <div key={name} className='py-2 px-4 rounded-full border text-black'>
+                <div key={name} className='flex items-center justify-center py-1 px-2 w-[45%] rounded-full border text-sm text-black cursor-pointer'>
                     {name}
                 </div>
               )

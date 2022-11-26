@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Layout, SearchFilters, Properties, Pagination } from "../components";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
 import { FindPropertyPageProps } from '../types';
@@ -11,12 +11,17 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) =
   const router = useRouter();
   const [loading, setLoading] = useRecoilState(loadingState);
   const [filter, setFilter] = useRecoilState(filterAtom);
-  setFilter(filter => ({ 
-    ...filter, 
-    purpose: router.query.purpose ? router.query.purpose[0] : 'for-rent'
-  }))
   // Router.events.on("routeChangeStart", () => setLoading(loading => ({...loading, routeChangeLoading: true})) );
   // Router.events.on("routeChangeComplete", () => setLoading({propertiesLoading: false, routeChangeLoading: false}) );
+
+  useEffect(() => {
+    setFilter(filter => ({ 
+      ...filter, 
+      purpose: router.query.purpose ? router.query.purpose : 'for-rent'
+    }))
+  }, [ router.query.purpose, setFilter])
+  
+ 
 
   return (
     <Layout title="Find Property">

@@ -21,11 +21,11 @@ const Purpose: React.FC<IChildProps> = ({handleDropdown}) => {
                 <div className='flex items-center justify-between bg-white rounded-md text-gray-600 py-2 px-4 text-md font-semibold cursor-pointer'
                     onClick={() => handleDropdown('purpose')}
                 >
-                    <p className='select-none'> {filterState.purpose === 'for-rent' ? 'RENT' : 'BUY'} </p>
-                    { dropdown ===  'purpose' ? <AiOutlineUp /> : <AiOutlineDown /> }
+                    <p className='select-none'> {filterState.purpose === 'for-rent' ? 'Rent' : 'Buy'} </p>
+                    <AiOutlineUp className={`transition-all duration-300 ${dropdown === 'purpose' ? '' : '-rotate-180'}`} />
 
                 </div>
-                {dropdown === 'purpose' && <DropdownWithToggle state='purpose' title={placeholder} tabs={items} queryName={queryName} /> } 
+                {dropdown === 'purpose' && <DropdownWithToggle select='purpose' title={placeholder} tabs={items} queryName={queryName} /> } 
               </div>
             )
 

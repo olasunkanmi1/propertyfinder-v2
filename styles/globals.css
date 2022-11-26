@@ -70,11 +70,11 @@
   }
 
   .filterTab {
-    @apply w-1/2 p-1 rounded flex justify-center text-gray-500 font-semibold cursor-pointer
+    @apply w-1/2 p-1 rounded flex justify-center text-gray-500 font-semibold cursor-pointer text-sm
   }
   
   .filterTabActive {
-    @apply bg-primary bg-opacity-20 border border-primary text-primary
+    @apply bg-primary bg-opacity-20 border border-primary text-primary text-sm
   }
   
 }
