@@ -1,17 +1,47 @@
 import React from 'react'
+import { ICategoryType } from '../../../../../../types'
 
 interface IOptionsProps {
-  options: any;
+  options?: ICategoryType[] | ({
+    items: {
+        name: string;
+        value: string;
+    }[];
+    placeholder: string;
+    queryName: string;
+    dropdown: string;
+    categories?: undefined;
+} | {
+    categories: {
+        items: {
+            name: string;
+            value: string;
+        }[];
+        placeholder: string;
+        queryName: string;
+    }[];
+    placeholder: string;
+    dropdown: string;
+    items?: undefined;
+    queryName?: undefined;
+} | {
+  items?: {
+    name: string;
+    value: string;
+}[];
+queryName?: string;
+})[]
 }
+
 const Options: React.FC<IOptionsProps> = ({options}) => {
   return (
     <div>
-      { options.map((option) => {
+      { options?.map((option) => {
         const {items, queryName} = option
 
         return (
           <div className="flex flex-wrap gap-2" key={queryName}>
-            { items.map((item) => {
+            { items?.map((item) => {
               const {name, value} = item
 
               return (

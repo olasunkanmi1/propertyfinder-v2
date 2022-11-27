@@ -1,15 +1,11 @@
 import { filterData } from '../../../../utils/filterData';
-import { AiOutlineDown } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
 import { searchFiltersState } from '../../../../states/searchFiltersAtom';
-import Dropdown from './dropdown';
 import Purpose from './purpose';
 import Searchbox from '../searchbox';
 import PropertyType from './property-type';
-import Emirates from './emirates';
-import FurnishingStatus from './furnishing-status';
-import CompletionStatus from './completionStatus';
 import MinMaxLayout from './min-max-layout';
+import DirectDropdownLayout from './direct-dropdown-layout';
 
 export interface IChildProps {
   handleDropdown: (dropdownValue: string) => void;
@@ -35,6 +31,9 @@ const DesktopAndTabs = () => {
   const baths = filterData.filter((filter) => filter.placeholder === 'Baths');
   const area = filterData.filter((filter) => filter.placeholder === 'Area (sqft)');
   const price = filterData.filter((filter) => filter.placeholder === 'Price(AED)');
+  const emirates = filterData.filter((filter) => filter.placeholder === 'Emirates');
+  const furnishingStatus = filterData.filter((filter) => filter.placeholder === 'Furnishing Status');
+  const sort = filterData.filter((filter) => filter.placeholder === 'Sort');
 
   const roomsMin = {
     list: rooms[0].categories?.filter((filter) => filter.placeholder === 'Rooms Min'),
@@ -88,9 +87,9 @@ const DesktopAndTabs = () => {
           <MinMaxLayout handleDropdown={handleDropdown} selected='baths' array={baths} min={bathsMin} max={bathsMax} />
           <MinMaxLayout handleDropdown={handleDropdown} selected='area' array={area} min={areaMin} max={areaMax} />
           <MinMaxLayout handleDropdown={handleDropdown} selected='price' array={price} min={priceMin} max={priceMax} />
-          {/* <Emirates handleDropdown={handleDropdown} />
-          <FurnishingStatus handleDropdown={handleDropdown} />
-          <CompletionStatus handleDropdown={handleDropdown} />  */}
+          <DirectDropdownLayout handleDropdown={handleDropdown} selected='emirates' array={emirates} />
+          <DirectDropdownLayout handleDropdown={handleDropdown} selected='furnishingStatus' array={furnishingStatus} />
+          <DirectDropdownLayout handleDropdown={handleDropdown} selected='sort' array={sort} />
         </div>
     </div>
   )

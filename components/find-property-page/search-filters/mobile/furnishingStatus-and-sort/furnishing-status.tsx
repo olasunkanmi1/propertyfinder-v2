@@ -10,7 +10,7 @@ const FurnishingStatus = () => {
   const setFilterState = useSetRecoilState(filterAtom);
   const setLoading = useSetRecoilState(loadingState);
 
-  const furnishedStatus = filterData.filter((filter) => filter.placeholder === 'Furnish Type')
+  const furnishedStatus = filterData.filter((filter) => filter.placeholder === 'Furnishing Status')
 
   const setFurnishingStatus = (value: string, queryName: string) => {
     setFilterState(filterState => ({

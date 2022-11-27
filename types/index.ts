@@ -189,3 +189,38 @@ export interface IMinMaxLayoutProps {
         oppositeQueryName: string;
     };
 }
+
+export interface IDirectDropdownLayoutProps {
+    handleDropdown: (dropdownValue: string) => void;
+    selected: string;
+    array: ({
+        items: {
+            name: string;
+            value: string;
+        }[];
+        placeholder: string;
+        queryName: string;
+        dropdown: string;
+        categories?: undefined;
+    } | {
+        categories: {
+            items: {
+                name: string;
+                value: string;
+            }[];
+            placeholder: string;
+            queryName: string;
+        }[];
+        placeholder: string;
+        dropdown: string;
+        items?: undefined;
+        queryName?: undefined;
+    } | {
+        items?: {
+            name: string;
+            value: string;
+        }[];
+        placeholder: string;
+        queryName?: string;
+    })[];
+}

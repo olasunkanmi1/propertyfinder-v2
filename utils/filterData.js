@@ -276,15 +276,26 @@ export const filterData = [
     placeholder: 'Baths',
     dropdown: 'bathsDropdown',
   },
-  // Furnish Type
+  // Furnishing Status
   {
     items: [
       { name: 'Any', value: 'any' },
       { name: 'Furnished', value: 'furnished' },
       { name: 'Unfurnished', value: 'unfurnished' },
     ],
-    placeholder: 'Furnish Type',
+    placeholder: 'Furnishing Status',
     queryName: 'furnishingStatus',
+    dropdown: 'furnishDropdown',
+  },
+  // Completion Status
+  {
+    items: [
+      { name: 'Any', value: 'any' },
+      { name: 'Furnished', value: 'furnished' },
+      { name: 'Unfurnished', value: 'unfurnished' },
+    ],
+    placeholder: 'Completion Status',
+    queryName: 'compeletionStatus',
     dropdown: 'furnishDropdown',
   },
   // Property Type
