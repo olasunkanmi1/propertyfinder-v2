@@ -4,8 +4,8 @@ import { recoilPersist } from 'recoil-persist'
 export interface IFilterState {
     purpose?: string | string[];
     frequency?: string;
-    minPrice?: string;
-    maxPrice?: string;
+    priceMin?: string;
+    priceMax?: string;
     sort?: string;
     areaMin?: string;
     areaMax?: string;
@@ -28,8 +28,8 @@ export const filterAtom = atom<IFilterState>({
     default: {
         purpose: '',
         frequency: 'yearly',
-        minPrice: '0',
-        maxPrice: 'any',
+        priceMin: '0',
+        priceMax: 'any',
         sort: 'popular',
         areaMin: '0',
         areaMax: 'any',

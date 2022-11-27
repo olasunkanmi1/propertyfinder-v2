@@ -1,12 +1,12 @@
 import React from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { filterAtom, searchFiltersState } from '../../../../states';
 import { filterData } from '../../../../utils/filterData';
 import DropdownWithToggle from './dropdown/with-toggle';
-import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
+import { AiOutlineUp } from 'react-icons/ai';
 import { IChildProps } from '.';
 
-const PropertyType: React.FC<IChildProps> = ({handleDropdown, }) => {
+const PropertyType: React.FC<IChildProps> = ({handleDropdown }) => {
   const dropdown = useRecoilValue(searchFiltersState);
   const filterState = useRecoilValue(filterAtom);
   const propertyTypes = filterData.filter((filter) => filter.placeholder === 'Property Type');
@@ -14,7 +14,7 @@ const PropertyType: React.FC<IChildProps> = ({handleDropdown, }) => {
   return (
     <>
         { propertyTypes.map((type) => {
-            const { categories, placeholder, queryName } = type;
+            const { categories, placeholder } = type;
 
             return (
               <div key={placeholder} className='relative'>
@@ -22,10 +22,10 @@ const PropertyType: React.FC<IChildProps> = ({handleDropdown, }) => {
                     onClick={() => handleDropdown('property-type')}
                 >
                     <p className='select-none'> {filterState.propertyType} </p>
-                    { dropdown ===  'property-type' ? <AiOutlineUp /> : <AiOutlineDown /> }
+                    <AiOutlineUp className={`transition-all duration-300 ${dropdown.main === 'property-type' ? '' : '-rotate-180'}`} />
 
                 </div>
-                {dropdown === 'property-type' && <DropdownWithToggle select='propertyType' title={placeholder} categories={categories} /> } 
+                {dropdown.main === 'property-type' && <DropdownWithToggle select='propertyType' title={placeholder} categories={categories} /> } 
               </div>
             )
 

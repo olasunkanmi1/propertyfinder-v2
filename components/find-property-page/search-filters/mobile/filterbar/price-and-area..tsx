@@ -8,12 +8,12 @@ const PriceAndArea = () => {
   
   const priceMin = {
     list: price[0].categories?.filter((filter) => filter.placeholder === 'Min Price(AED)'),
-    oppositeQueryName: 'maxPrice'
+    oppositeQueryName: 'priceMax'
   };
   
   const priceMax = {
     list: price[0].categories?.filter((filter) => filter.placeholder === 'Max Price(AED)'),
-    oppositeQueryName: 'minPrice'
+    oppositeQueryName: 'priceMin'
   };
   
   const areaMin = {

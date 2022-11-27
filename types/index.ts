@@ -138,3 +138,54 @@ export interface IDropdownWithToggleProps {
     queryName?: string;
     categories?: ICategoryType[];
 }
+
+export interface IDropdownWithMinMaxProps {
+    select: string;
+    title: string;
+    min: {
+        list?: ICategoryType[];
+        oppositeQueryName: string;
+    };
+    max: {
+        list?: ICategoryType[];
+        oppositeQueryName: string;
+    };
+}
+
+export interface IMinMaxLayoutProps {
+    handleDropdown: (dropdownValue: string) => void;
+    selected: string;
+    array: ({
+        items: {
+            name: string;
+            value: string;
+        }[];
+        placeholder: string;
+        queryName: string;
+        dropdown: string;
+        categories?: undefined;
+    } | {
+        categories: {
+            items: {
+                name: string;
+                value: string;
+            }[];
+            placeholder: string;
+            queryName: string;
+        }[];
+        placeholder: string;
+        dropdown: string;
+        items?: undefined;
+        queryName?: undefined;
+    } | {
+        placeholder: string;
+    })[];
+    min: {
+        list?: ICategoryType[];
+        oppositeQueryName: string;
+    };
+    max: {
+        list?: ICategoryType[];
+        oppositeQueryName: string;
+    };
+}

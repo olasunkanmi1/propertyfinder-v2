@@ -87,7 +87,7 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
                 const { items, placeholder, queryName  } = type;
                 const oppositeQueryName = filterState[value.minimum.oppositeQueryName as keyof IFilterState]!;
 
-                const itemsFilter = items.filter((item) => parseInt(item.value ) < parseInt(oppositeQueryName) );
+                const itemsFilter = items.filter((item) => parseInt(item.value ) < parseInt(oppositeQueryName.toString()) );
                 
                 return (
                   <select key={placeholder} className='minMaxSort_select'
@@ -112,7 +112,7 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
                 const { items, placeholder, queryName } = sort;
                 const oppositeQueryName = filterState[value.maximum.oppositeQueryName as keyof IFilterState]!;
 
-                const itemsFilter = items.filter((item) => item.value === 'any' || parseInt(item.value) > parseInt(oppositeQueryName))
+                const itemsFilter = items.filter((item) => item.value === 'any' || parseInt(item.value) > parseInt(oppositeQueryName.toString()))
 
                 return (
                   <select key={placeholder} className='minMaxSort_select'

@@ -33,6 +33,11 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
         ...filterState,
         purpose: value
       }))
+
+      setLoading(loading => ({
+        ...loading,
+        propertiesLoading: true
+      }))
     } else {
       setToggle( toggle => ({
         ...toggle,
@@ -44,10 +49,7 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
         categoryExternalID: value
       }))
     }
-    // setLoading(loading => ({
-    //   ...loading,
-    //   propertiesLoading: true
-    // }))
+    
     
 
     if(queryName) findProperties({ [queryName]: value }) 

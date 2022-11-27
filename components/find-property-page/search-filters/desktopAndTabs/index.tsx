@@ -6,64 +6,91 @@ import Dropdown from './dropdown';
 import Purpose from './purpose';
 import Searchbox from '../searchbox';
 import PropertyType from './property-type';
-import Rooms from './rooms';
-import Baths from './baths';
-import Area from './area';
-import Price from './price';
 import Emirates from './emirates';
 import FurnishingStatus from './furnishing-status';
 import CompletionStatus from './completionStatus';
+import MinMaxLayout from './min-max-layout';
 
 export interface IChildProps {
   handleDropdown: (dropdownValue: string) => void;
-  purpose?: boolean;
-  propertyType?: boolean;
-  // propertyType?: boolean;
-  // propertyType?: boolean;
-  // propertyType?: boolean;
-  // propertyType?: boolean;
 }
 
 const DesktopAndTabs = () => {
   const [dropdown, setDropdown] = useRecoilState(searchFiltersState);
-  const showOptions = (option: any) => {
-    // setDropdown({
-    //     [!option]: false,
-    //     [option]: !dropdown[option]
-    // });
-  }
-  
-  // const showDropdown = (option: any) => {
-  //   setDropdown({
-  //       [!option]: false,
-  //       [option]: !dropdown[option]
-  //   });
-  // }
-
   const handleDropdown = (dropdownValue: string) => {
-    if(dropdown === dropdownValue) {
-      setDropdown(null)
+    if(dropdown.main === dropdownValue) {
+      setDropdown({
+        main: null,
+        minMax: null,
+      })
     } else {
-      setDropdown(dropdownValue)
+      setDropdown({
+        main: dropdownValue,
+        minMax: null,
+      })
     }
   }
+
+  const rooms = filterData.filter((filter) => filter.placeholder === 'Rooms');
+  const baths = filterData.filter((filter) => filter.placeholder === 'Baths');
+  const area = filterData.filter((filter) => filter.placeholder === 'Area (sqft)');
+  const price = filterData.filter((filter) => filter.placeholder === 'Price(AED)');
+
+  const roomsMin = {
+    list: rooms[0].categories?.filter((filter) => filter.placeholder === 'Rooms Min'),
+    oppositeQueryName: 'roomsMax',
+  };
+  
+  const roomsMax = {
+    list: rooms[0].categories?.filter((filter) => filter.placeholder === 'Rooms Max'),
+    oppositeQueryName: 'roomsMin',
+  };
+
+  const bathsMin = {
+    list: baths[0].categories?.filter((filter) => filter.placeholder === 'Baths Min'),
+    oppositeQueryName: 'bathsMax',
+  };
+  
+  const bathsMax = {
+    list: baths[0].categories?.filter((filter) => filter.placeholder === 'Baths Max'),
+    oppositeQueryName: 'bathsMin',
+  };
+
+  const areaMin = {
+    list: area[0].categories?.filter((filter) => filter.placeholder === 'Min Area (sqft)'),
+    oppositeQueryName: 'areaMax',
+  };
+  
+  const areaMax = {
+    list: area[0].categories?.filter((filter) => filter.placeholder === 'Max Area (sqft)'),
+    oppositeQueryName: 'areaMin',
+  };
+
+  const priceMin = {
+    list: price[0].categories?.filter((filter) => filter.placeholder === 'Min Price(AED)'),
+    oppositeQueryName: 'priceMax',
+  };
+  
+  const priceMax = {
+    list: price[0].categories?.filter((filter) => filter.placeholder === 'Max Price(AED)'),
+    oppositeQueryName: 'priceMin',
+  };
 
   return (
     <div className="hidden md:flex flex-col justify-between items-center bg-dubai bg-contain w-full space-y-8 rounded-3xl text-white p-4">
         <h1 className="text-3xl font-bold w-fit text-center"> Search Properties for sale and to rent in the UAE </h1>
 
-        <div className="grid grid-cols-4 gap-5 justify-center p-4 w-full lg:w-[900px] rounded-xl bg-[#000] bg-opacity-60 mx-auto">
-            <Purpose handleDropdown={handleDropdown} purpose />
-            <Searchbox desktop />
-            <PropertyType handleDropdown={handleDropdown} propertyType />
-            {/* <Rooms handleDropdown={handleDropdown} />
-            <Baths handleDropdown={handleDropdown} />
-            <Area handleDropdown={handleDropdown} />
-            <Price handleDropdown={handleDropdown} />
-            <Emirates handleDropdown={handleDropdown} />
-            <FurnishingStatus handleDropdown={handleDropdown} />
-            <CompletionStatus handleDropdown={handleDropdown} /> */}
-            {/* <Price handleDropdown={handleDropdown} /> */}
+        <div className="grid grid-cols-4 gap-5 justify-center p-4 w-full lg:w-[900px] rounded-xl bg-[#000] bg-opacity-60 mx-auto z-[50]">
+          <Purpose handleDropdown={handleDropdown} />
+          <Searchbox desktop />
+          <PropertyType handleDropdown={handleDropdown} />
+          <MinMaxLayout handleDropdown={handleDropdown} selected='rooms' array={rooms} min={roomsMin} max={roomsMax} />
+          <MinMaxLayout handleDropdown={handleDropdown} selected='baths' array={baths} min={bathsMin} max={bathsMax} />
+          <MinMaxLayout handleDropdown={handleDropdown} selected='area' array={area} min={areaMin} max={areaMax} />
+          <MinMaxLayout handleDropdown={handleDropdown} selected='price' array={price} min={priceMin} max={priceMax} />
+          {/* <Emirates handleDropdown={handleDropdown} />
+          <FurnishingStatus handleDropdown={handleDropdown} />
+          <CompletionStatus handleDropdown={handleDropdown} />  */}
         </div>
     </div>
   )

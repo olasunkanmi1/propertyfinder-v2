@@ -22,10 +22,10 @@ const Purpose: React.FC<IChildProps> = ({handleDropdown}) => {
                     onClick={() => handleDropdown('purpose')}
                 >
                     <p className='select-none'> {filterState.purpose === 'for-rent' ? 'Rent' : 'Buy'} </p>
-                    <AiOutlineUp className={`transition-all duration-300 ${dropdown === 'purpose' ? '' : '-rotate-180'}`} />
+                    <AiOutlineUp className={`transition-all duration-300 ${dropdown.main === 'purpose' ? '' : '-rotate-180'}`} />
 
                 </div>
-                {dropdown === 'purpose' && <DropdownWithToggle select='purpose' title={placeholder} tabs={items} queryName={queryName} /> } 
+                {dropdown.main === 'purpose' && <DropdownWithToggle select='purpose' title={placeholder} tabs={items} queryName={queryName} /> } 
               </div>
             )
 

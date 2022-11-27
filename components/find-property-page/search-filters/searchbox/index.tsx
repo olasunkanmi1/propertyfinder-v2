@@ -7,7 +7,7 @@ import Dropdown from './dropdown';
 import { fetchApi } from '../../../../utils/fetchApi';
 
 export interface ISearchboxProps {
-  desktop: boolean;
+  desktop?: boolean;
 }
 
 const Searchbox: React.FC<ISearchboxProps> = ({desktop}) => {
