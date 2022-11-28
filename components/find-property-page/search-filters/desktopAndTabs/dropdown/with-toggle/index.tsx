@@ -34,10 +34,10 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
         purpose: value
       }))
 
-      setLoading(loading => ({
-        ...loading,
-        propertiesLoading: true
-      }))
+      // setLoading(loading => ({
+      //   ...loading,
+      //   propertiesLoading: true
+      // }))
     } else {
       setToggle( toggle => ({
         ...toggle,
