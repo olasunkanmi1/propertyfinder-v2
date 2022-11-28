@@ -152,6 +152,50 @@ export interface IDropdownWithMinMaxProps {
     };
 }
 
+export interface IToggleLayoutProps {
+    handleDropdown: (dropdownValue: string) => void;
+    selected: string;
+    array: ({
+        items: {
+            name: string;
+            value: string;
+        }[];
+        placeholder: string;
+        queryName: string;
+        dropdown: string;
+        categories?: undefined;
+    } | {
+        categories: {
+            items: {
+                name: string;
+                value: string;
+            }[];
+            placeholder: string;
+            queryName: string;
+        }[];
+        placeholder: string;
+        dropdown: string;
+        items?: undefined;
+        queryName?: undefined;
+    } | {
+        items?: {
+            name: string;
+            value: string;
+        }[];
+        categories?: {
+            items: {
+                name: string;
+                value: string;
+            }[];
+            placeholder: string;
+            queryName: string;
+        }[];
+        placeholder: string;
+        queryName: string;
+    })[];
+
+}
+
 export interface IMinMaxLayoutProps {
     handleDropdown: (dropdownValue: string) => void;
     selected: string;
@@ -182,10 +226,12 @@ export interface IMinMaxLayoutProps {
     })[];
     min: {
         list?: ICategoryType[];
+        queryName: string;
         oppositeQueryName: string;
     };
     max: {
         list?: ICategoryType[];
+        queryName: string;
         oppositeQueryName: string;
     };
 }

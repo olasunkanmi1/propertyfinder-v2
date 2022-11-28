@@ -41,8 +41,7 @@ export const filterAtom = atom<IFilterState>({
         categoryExternalID: '1',
         locationExternalIDs: '5001',
         
-        propertyType: 'Property Type',
-        // propertyType: 'Property Type',
+        propertyType: 'Residential',
     },
     effects_UNSTABLE: [persistAtom],
 });

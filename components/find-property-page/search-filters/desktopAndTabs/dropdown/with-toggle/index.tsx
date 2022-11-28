@@ -63,7 +63,7 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
   }, [ router.query.purpose ])
 
   return (
-    <div className={`space-y-2 absolute top-[50px]  rounded border p-2 bg-white overflow-auto z-20 ${select === 'propertyType' ? 'right-0 w-[370px]' : 'left-0 w-full'}`}>
+    <div className={`space-y-2 absolute top-[50px]  rounded border p-2 bg-white overflow-auto z-20 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] ${select === 'property-type' ? 'right-0 w-[370px]' : 'left-0 w-full'}`}>
       <h5 className='text-black text-sm font-semibold'> {title} </h5>
 
       <div className="flex border p-1 rounded">
@@ -74,20 +74,14 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
               </div>
           ))
         ) : (
-          // categories?.map((category) => {
-            // const {placeholder, value, items} = category
-          
-            // return (
-              <>
-                <div onClick={() => changeTab(categories![0].value!)} className={`filterTab ${residentialPropertyList.includes(toggle.propertyType) ? 'filterTabActive' : ''}`}>
-                    { categories![0].placeholder }
-                </div>
-                <div onClick={() => changeTab(categories![1].value!)} className={`filterTab ${commercialPropertyList.includes(toggle.propertyType) ? 'filterTabActive' : ''}`}>
-                    { categories![1].placeholder }
-                </div>
-                </>
-        
-            // )})
+          <>
+            <div onClick={() => changeTab(categories![0].value!)} className={`filterTab ${residentialPropertyList.includes(toggle.propertyType) ? 'filterTabActive' : ''}`}>
+               { categories![0].placeholder }
+            </div>
+            <div onClick={() => changeTab(categories![1].value!)} className={`filterTab ${commercialPropertyList.includes(toggle.propertyType) ? 'filterTabActive' : ''}`}>
+               { categories![1].placeholder }
+            </div>
+           </>
         )}
       </div>
 
@@ -95,8 +89,8 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
         options={ 
           select === 'purpose' && toggle.purpose === 'for-sale' ? [] : 
           select === 'purpose' && toggle.purpose === 'for-rent' ? rentFrequency : 
-          select === 'propertyType' && toggle.propertyType === '1' ? residentialProperty : 
-          select === 'propertyType' && toggle.propertyType === '2' ? commercialProperty : 
+          select === 'property-type' && toggle.propertyType === '1' ? residentialProperty : 
+          select === 'property-type' && toggle.propertyType === '2' ? commercialProperty : 
           []
         } 
       /> 
