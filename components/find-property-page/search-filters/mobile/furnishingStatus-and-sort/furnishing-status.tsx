@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil'
-import { findProperties } from '..';
+import { findProperties } from '../..';
 import { filterAtom, loadingState } from '../../../../../states';
 import { filterData } from '../../../../../utils/filterData';
 

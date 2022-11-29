@@ -17,9 +17,10 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) =
   useEffect(() => {
     setFilter(filter => ({ 
       ...filter, 
-      purpose: router.query.purpose ? router.query.purpose : 'for-rent'
+      purpose: router.query.purpose ? router.query.purpose : 'for-rent',
+      furnishingStatus: router.query.furnishingStatus ? router.query.furnishingStatus : 'any',
     }))
-  }, [ router.query.purpose, setFilter])
+  }, [ router.query.purpose, router.query.furnishingStatus, setFilter])
   
  
 
@@ -49,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const furnishingStatus = query.furnishingStatus || "";
   const categoryExternalID = query.categoryExternalID || ""; 
   const locationExternalIDs = query.locationExternalIDs || "5001"; //5001 all UAE
-  const page = query.page || "";
+  const page = query.page || "1";
 
   const data = await fetchApi( 
     `${baseUrl}/properties/list?hitsPerPage=12&locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&bathsMax=${bathsMax}&rentFrequency=${rentFrequency}&priceMin=${priceMin}&priceMax=${priceMax}&roomsMin=${roomsMin}&roomsMax=${roomsMax}&sort=${sort}&areaMin=${areaMin}&areaMax=${areaMax}&furnishingStatus=${furnishingStatus}&page=${page}`

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { filterData } from '../../../../../../utils/filterData';
-import { findProperties } from '../..';
+import { findProperties } from '../../..';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import { loadingState } from '../../../../../../states';
@@ -23,7 +23,7 @@ const Frequency  = () => {
   }
 
   useEffect(() => {
-    setActive(router.query.rentFrequency  ? router.query.rentFrequency : 'yearly')
+    setActive(router.query.rentFrequency  ? router.query.rentFrequency : 'any')
   }, [router.query.rentFrequency])
 
   return (

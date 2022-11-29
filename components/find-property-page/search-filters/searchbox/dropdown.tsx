@@ -1,7 +1,7 @@
 import React from 'react'
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { SetterOrUpdater, useSetRecoilState } from 'recoil';
-import { findProperties } from '../mobile';
+import { findProperties } from '..';
 import { loadingState } from '../../../../states';
 import { addressSuggestionsAtomState } from '../../../../states/addressSuggestions';
 import { Loader } from '../../../loader';

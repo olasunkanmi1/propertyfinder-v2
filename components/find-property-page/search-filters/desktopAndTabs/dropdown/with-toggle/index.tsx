@@ -3,7 +3,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, IFilterState, loadingState } from '../../../../../../states';
 import { IDropdownWithToggleProps } from '../../../../../../types';
 import { filterData } from '../../../../../../utils/filterData';
-import { findProperties } from '../../../mobile';
+import { findProperties } from '../../..';
 import Options from './options';
 import { useRouter } from 'next/router';
 import { filter } from '@chakra-ui/react';
@@ -12,7 +12,7 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
   const router = useRouter();
   const setLoading = useSetRecoilState(loadingState);
   const [filterState, setFilterState] = useRecoilState(filterAtom);
-  const [toggle, setToggle] = useState<{purpose: string | string[]; propertyType: string}>({
+  const [toggle, setToggle] = useState<{purpose: string | string[]; propertyType: string | string[]}>({
     purpose: '',
     propertyType: ''
   });
@@ -43,11 +43,6 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
         ...toggle,
         propertyType: value,
       }));
-
-      setFilterState(filterState => ({
-        ...filterState,
-        categoryExternalID: value
-      }))
     }
     
     
@@ -58,9 +53,9 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
   useEffect(() => {
     setToggle({
       purpose: router.query.purpose ? router.query.purpose : 'for-rent',
-      propertyType: '1'
+      propertyType: router.query.categoryExternalID  ? router.query.categoryExternalID : '1'
     });
-  }, [ router.query.purpose ])
+  }, [ router.query.purpose, router.query.categoryExternalID ])
 
   return (
     <div className={`space-y-2 absolute top-[50px]  rounded border p-2 bg-white overflow-auto z-20 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] ${select === 'property-type' ? 'right-0 w-[370px]' : 'left-0 w-full'}`}>
@@ -75,10 +70,10 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
           ))
         ) : (
           <>
-            <div onClick={() => changeTab(categories![0].value!)} className={`filterTab ${residentialPropertyList.includes(toggle.propertyType) ? 'filterTabActive' : ''}`}>
+            <div onClick={() => changeTab(categories![0].value!)} className={`filterTab ${residentialPropertyList.includes(toggle.propertyType.toString()) ? 'filterTabActive' : ''}`}>
                { categories![0].placeholder }
             </div>
-            <div onClick={() => changeTab(categories![1].value!)} className={`filterTab ${commercialPropertyList.includes(toggle.propertyType) ? 'filterTabActive' : ''}`}>
+            <div onClick={() => changeTab(categories![1].value!)} className={`filterTab ${commercialPropertyList.includes(toggle.propertyType.toString()) ? 'filterTabActive' : ''}`}>
                { categories![1].placeholder }
             </div>
            </>
@@ -89,10 +84,11 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
         options={ 
           select === 'purpose' && toggle.purpose === 'for-sale' ? [] : 
           select === 'purpose' && toggle.purpose === 'for-rent' ? rentFrequency : 
-          select === 'property-type' && toggle.propertyType === '1' ? residentialProperty : 
-          select === 'property-type' && toggle.propertyType === '2' ? commercialProperty : 
+          select === 'property-type' && residentialPropertyList.includes(toggle.propertyType.toString()) ? residentialProperty : 
+          select === 'property-type' && commercialPropertyList.includes(toggle.propertyType.toString()) ? commercialProperty : 
           []
         } 
+        select={select}
       /> 
     </div>
   )

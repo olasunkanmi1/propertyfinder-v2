@@ -99,10 +99,10 @@ export const filterData = [
   // Sort
   {
     items: [
-      { name: 'Popular', value: 'any' },
+      { name: 'Popular', value: 'popular' },
       { name: 'Newest', value: 'date-desc' },
       { name: 'Lowest Price', value: 'price-asc' },
-      { name: 'Highest Price', value: 'price-des' },
+      { name: 'Highest Price', value: 'price-desc' },
       { name: 'Verified', value: 'verified-score' },
     ],
     placeholder: 'Sort',

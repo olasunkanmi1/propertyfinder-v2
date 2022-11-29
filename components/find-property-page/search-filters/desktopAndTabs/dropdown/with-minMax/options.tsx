@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router';
-import { findProperties } from '../../../mobile';
+import { findProperties } from '../../..';
 import { filterAtom, IFilterState, searchFiltersState } from '../../../../../../states';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 

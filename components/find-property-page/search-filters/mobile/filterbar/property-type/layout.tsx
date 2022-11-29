@@ -9,7 +9,7 @@ import * as Gi from 'react-icons/gi';
 import * as Si from 'react-icons/si';
 import { IconType } from 'react-icons/lib';
 import { IPropertyType } from '.';
-import { findProperties } from '../..';
+import { findProperties } from '../../..';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 import { loadingState } from '../../../../../../states';

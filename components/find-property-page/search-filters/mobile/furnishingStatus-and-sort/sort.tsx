@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil'
 import { BsSortDown } from 'react-icons/bs';
 import { filterData } from '../../../../../utils/filterData';
 import { filterAtom, loadingState } from '../../../../../states';
-import { findProperties } from '..';
+import { findProperties } from '../..';
 import { useRouter } from 'next/router';
 
 const Sort = () => {

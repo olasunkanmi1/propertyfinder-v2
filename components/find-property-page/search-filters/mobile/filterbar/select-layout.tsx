@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ICategoryType, ISelectLayoutProps } from '../../../../../types';
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { filterAtom, IFilterState, loadingState } from '../../../../../states';
-import { findProperties } from '..';
+import { findProperties } from '../..';
 import { useRouter } from 'next/router';
 
 interface IValueProps {

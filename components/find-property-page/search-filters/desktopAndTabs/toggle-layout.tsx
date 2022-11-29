@@ -5,8 +5,10 @@ import { filterData } from '../../../../utils/filterData';
 import DropdownWithToggle from './dropdown/with-toggle';
 import { AiOutlineUp } from 'react-icons/ai';
 import { IToggleLayoutProps } from '../../../../types';
+import { useRouter } from 'next/router';
 
 const ToggleLayout: React.FC<IToggleLayoutProps> = ({handleDropdown, selected, array}) => {
+  const router = useRouter();
   const dropdown = useRecoilValue(searchFiltersState);
   const filterState = useRecoilValue(filterAtom);
 
@@ -23,7 +25,7 @@ const ToggleLayout: React.FC<IToggleLayoutProps> = ({handleDropdown, selected, a
                     { selected === 'purpose' ? (
                         <p className='select-none'> {filterState.purpose === 'for-rent' ? 'Rent' : 'Buy'} </p> 
                     ) : (
-                        <p className='select-none'> {filterState.propertyType} </p>
+                        <p className='select-none'> {router.query.categoryExternalID ? filterState.propertyType : placeholder} </p>
                     ) }
                     <AiOutlineUp className={`transition-all duration-300 ${dropdown.main === selected ? '' : '-rotate-180'}`} />
 

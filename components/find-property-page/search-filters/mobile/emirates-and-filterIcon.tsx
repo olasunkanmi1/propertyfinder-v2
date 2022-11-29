@@ -3,7 +3,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import { MdOutlineTune } from 'react-icons/md'
 import { filterData } from '../../../../utils/filterData'
 import { filterAtom, loadingState, navbarState } from '../../../../states'
-import { findProperties } from '.'
+import { findProperties } from '..'
 import { useRouter } from 'next/router'
 
 const EmiratesAndFilterIcon = () => {

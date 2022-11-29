@@ -13,10 +13,13 @@ export interface IFilterState {
     roomsMax?: string;
     bathsMin?: string;
     bathsMax?: string;
-    furnishingStatus?: string;
+    furnishingStatus?: string | string[];
     categoryExternalID?: string;
     locationExternalIDs?: string;
+
     propertyType?: string;
+    emirates?: string;
+    sortBy?: string;
 }
 
 const { persistAtom } = recoilPersist({
@@ -42,6 +45,8 @@ export const filterAtom = atom<IFilterState>({
         locationExternalIDs: '5001',
         
         propertyType: 'Residential',
+        emirates: 'Emirates',
+        sortBy: 'Popular',
     },
     effects_UNSTABLE: [persistAtom],
 });

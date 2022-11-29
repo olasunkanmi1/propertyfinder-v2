@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { filterData } from '../../../../../../utils/filterData';
-import { findProperties } from '../..';
+import { findProperties } from '../../..';
 import { useRouter } from 'next/router';
 import Frequency from './frequency';
 import { useSetRecoilState } from 'recoil';
