@@ -1,7 +1,7 @@
 import { atom } from 'recoil'
 
 export const loadingState = atom({
-    key: 'dropdownState',
+    key: 'loadingState',
     default: {
         routeChangeLoading: false,
         propertiesLoading: false

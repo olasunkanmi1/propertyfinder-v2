@@ -11,8 +11,8 @@ export const fetchApi = async (url, featuredAgencies, autoComplete, e) => {
             // 'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_THREE
             // 'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_FOUR
             // 'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_FIVE
-            'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_SIX
-            // 'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_SEVEN
+            // 'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_SIX
+            'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_SEVEN
         },
         params: {
             query: autoComplete && e.target.value, hitsPerPage: autoComplete && '5'

@@ -29,7 +29,7 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                     <div className="flex justify-between items-center">
                         <div className="flex space-x-2 items-center">
                             { isVerified && <div className='text-green-500 '> <GoVerified size={20} /> </div> }
-                            <p className="font-bold font-lg leading-tight"> AED {millify(price)} {rentFrequency && `/ ${rentFrequency}`} </p>
+                            <p className="font-bold font-lg leading-tight"> AED {millify(price)} {rentFrequency && ` ${rentFrequency}`} </p>
                         </div>
                         
                         <div className="flex space-x-2 justify-center items-center w-[25px] h-[25px] relative rounded-full overflow-hidden border bg-secondary text-white">

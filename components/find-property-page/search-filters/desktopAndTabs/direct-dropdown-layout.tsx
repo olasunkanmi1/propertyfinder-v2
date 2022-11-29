@@ -1,5 +1,4 @@
 import React from 'react'
-import { useRouter } from 'next/router';
 import { AiOutlineUp } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
 import { filterAtom, searchFiltersState } from '../../../../states';
@@ -7,7 +6,6 @@ import { IDirectDropdownLayoutProps } from '../../../../types'
 import DirectDropdown from './dropdown/direct';
 
 const DirectDropdownLayout: React.FC<IDirectDropdownLayoutProps> = ({handleDropdown, selected, array}) => {
-  const router = useRouter();
   const dropdown = useRecoilValue(searchFiltersState);
   const filterState = useRecoilValue(filterAtom);
 
@@ -22,11 +20,11 @@ const DirectDropdownLayout: React.FC<IDirectDropdownLayoutProps> = ({handleDropd
                     onClick={() => handleDropdown(selected)}
                 >
                   { selected === 'emirates' ? (
-                    <p className='select-none'> { router.query.locationExternalIDs ? filterState.emirates : placeholder } </p>
+                    <p className='select-none'> { filterState.emirates } </p>
                     ) : selected === 'furnishingStatus' ? (
                       <p className='select-none'> { filterState.furnishingStatus === 'any' ? 'Furnishing Status' : filterState.furnishingStatus === 'furnished' ? 'Furnished' : 'Unfurnished'} </p>
                   ) : (
-                      <p className='select-none'> { router.query.sort ? filterState.sortBy : placeholder } </p>
+                      <p className='select-none'> { filterState.sortBy } </p>
                   ) }
                   <AiOutlineUp className={`transition-all duration-300 ${dropdown.main === selected ? '' : '-rotate-180'}`} />
 

@@ -16,7 +16,7 @@ const Properties: React.FC<FindPropertyPageProps> = ({ properties }) => {
 
   return (
     <div className='space-y-4'>
-      <Heading heading={`${loading.propertiesLoading ? 'Loading properties' : `Properties available ${purpose}`}`} /> 
+      <Heading heading={`${loading.propertiesLoading ? 'Loading properties' : properties.length === 0 ? 'No property found. Try other options' : `Properties available ${purpose}`}`} /> 
 
       <div className='flex flex-wrap gap-x-5 gap-y-10 w-full justify-center'>
         { loading.propertiesLoading ? (
@@ -30,12 +30,8 @@ const Properties: React.FC<FindPropertyPageProps> = ({ properties }) => {
             })}
 
             {properties.length === 0 && (
-              <div className='pb-4'>
-                <div className="relative w-full h-[300px] md:w-[400px] md:h-[400px]">
-                  <Image src={homeNotFound} alt="no result" priority layout='fill' />
-                </div>
-
-                <h1 className='font-bold text-2xl text-center'> No property found. Try other options </h1>
+              <div className='mb-4 relative w-full h-[300px] md:w-[400px] md:h-[400px]'>
+                <Image src={homeNotFound} alt="no result" priority layout='fill' />
               </div>
             )} 
           </>

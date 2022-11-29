@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { MdOutlineTune } from 'react-icons/md'
 import { filterData } from '../../../../utils/filterData'
@@ -10,6 +10,7 @@ const EmiratesAndFilterIcon = () => {
   const router = useRouter();
   const setFilterState = useSetRecoilState(filterAtom);
   const setLoading = useSetRecoilState(loadingState);
+  const [active, setActive] = useState(router.query.locationExternalIDs);
 
   const [filterbarOpen, setFilterbarOpen] = useRecoilState(navbarState);
 
@@ -22,14 +23,10 @@ const EmiratesAndFilterIcon = () => {
             ...filterbarOpen,
             isFilterbarOpen: !isFilterbarOpen
         }))
-
-        setLoading(loading => ({
-          ...loading,
-          propertiesLoading: true
-      }))
     }
     
     const setEmirate = (value: string, queryName: string) => {
+      setActive(value)
       setFilterState(filterState => ({
           ...filterState,
           locationExternalIDs: value
@@ -37,6 +34,10 @@ const EmiratesAndFilterIcon = () => {
 
       findProperties({ [queryName]: value });
     }
+
+    useEffect(() => {
+      setActive(router.query.locationExternalIDs  ? router.query.locationExternalIDs : 'any')
+    }, [router.query.locationExternalIDs]);
 
   return (
     <div className='flex justify-between '>
@@ -47,7 +48,7 @@ const EmiratesAndFilterIcon = () => {
             return (
               <div className="flex gap-1" key={placeholder}> 
                 { items?.map((item) => (
-                  <div onClick={() => setEmirate(item.value, queryName)} key={item.name} className={`flex p-2 border rounded w-max cursor-pointer duration-300 ease-in-out select-none hover:bg-secondary hover:text-white ${ router.query.locationExternalIDs === item.value ? 'bg-secondary text-white' : '' }`}>
+                  <div onClick={() => setEmirate(item.value, queryName)} key={item.name} className={`flex p-2 border rounded w-max cursor-pointer duration-300 ease-in-out select-none hover:bg-secondary hover:text-white ${ active === item.value ? 'bg-secondary text-white' : '' }`}>
                     { item.name }
                   </div>
                 )) }

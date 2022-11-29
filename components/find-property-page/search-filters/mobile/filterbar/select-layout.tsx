@@ -67,7 +67,7 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
             const selected = router.query[queryName] ? router.query[queryName] === item.value : filterState[queryName as keyof IFilterState] === item.value
 
             return (
-              <option selected={selected} key={name} value={value}> {name} </option>
+              <option key={name} value={value}> {name} </option>
             )
           }) }
         </>

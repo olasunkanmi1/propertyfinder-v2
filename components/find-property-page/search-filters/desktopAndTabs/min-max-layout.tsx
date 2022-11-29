@@ -12,17 +12,19 @@ const MinMaxLayout: React.FC<IMinMaxLayoutProps> = ({handleDropdown, min, max, a
   return (
     <>
         { array.map((select) => {
-            const { placeholder } = select;
+            const { placeholder } = select; 
 
             return (
-              <div key={placeholder} className='relative'>
+              <div key={placeholder} className='relative'> 
                 <div className='flex items-center justify-between bg-white rounded-md text-gray-600 py-1 px-2 text-md font-semibold cursor-pointer'
                     onClick={() => handleDropdown(selected)}
                 >
                   <div>
                     <p className='select-none text-sm'> {placeholder} </p>
                     <p className='select-none'> 
-                      {` ${filterState[min.queryName as keyof IFilterState]} - ${filterState[max.queryName as keyof IFilterState]} `}
+                      { filterState[min.queryName as keyof IFilterState] }
+                       {' - '} 
+                      { filterState[max.queryName as keyof IFilterState] === 'any' ? 'Any' : filterState[max.queryName as keyof IFilterState] }
                     </p>
                   </div>
                   <AiOutlineUp className={`transition-all duration-300 ${dropdown.main === selected ? '' : '-rotate-180'}`} />

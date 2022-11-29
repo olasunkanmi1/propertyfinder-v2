@@ -1,32 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import React from 'react'
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, IFilterState, loadingState, searchFiltersState } from '../../../../../../states';
 import { ICategoryType, IDropdownWithMinMaxProps } from '../../../../../../types';
 import Options from './options';
-import { useRouter } from 'next/router';
-
-interface IValueProps {
-    minimum: {
-      list?: ICategoryType[];
-      oppositeQueryName: string;
-    }
-  
-  maximum: {
-      list?: ICategoryType[];
-      oppositeQueryName: string;
-    }
-}
 
 const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ select, title, min, max }) => {
-  const router = useRouter();
   const setLoading = useSetRecoilState(loadingState);
   const [dropdown, setDropdown] = useRecoilState(searchFiltersState);
-  const filterState = useRecoilValue(filterAtom);
-
-  const [value, setValue] = useState<IValueProps>({
-    minimum: min,
-    maximum: max
-  });
+  const [filterState, setFilterState] = useRecoilState(filterAtom);
 
   const handleDropdown = (dropdownValue: string) => {
     if(dropdown.minMax === dropdownValue) {
@@ -41,13 +22,21 @@ const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ select, title,
        }))
     }
   }
+    
+  const reset = () => {
+      setFilterState(filterState => ({
+     ...filterState,
+     [min.queryName]: '0',
+     [max.queryName]: 'any',
+    }))
+  }
 
-  useEffect(() => {
-    setValue({
-      minimum: min,
-      maximum: max
-    })
-  }, [min, max])
+  const closeDropdown = () => {
+      setDropdown({
+        main: null,
+        minMax: null,
+      })
+  }
 
   return (
     <div className='space-y-2 absolute top-[62px]  rounded border p-2 bg-white z-20 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] left-0 w-full'>
@@ -55,9 +44,9 @@ const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ select, title,
 
       <div className="flex justify-between w-full">
         <div className="flex flex-col w-[45%] text-black space-y-1">
-            { value.minimum.list?.map((type) => {
+            { min.list?.map((type) => {
                 const { items, placeholder, queryName  } = type;
-                const oppositeQueryName = filterState[value.minimum.oppositeQueryName as keyof IFilterState]!;
+                const oppositeQueryName = filterState[min.oppositeQueryName as keyof IFilterState]!;
 
                 const itemsFilter = items.filter((item) => parseInt(item.value ) < parseInt(oppositeQueryName.toString()) );
                 
@@ -80,9 +69,9 @@ const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ select, title,
         </div>
 
         <div className="flex flex-col w-[45%] text-black space-y-1">
-            { value.maximum.list?.map((sort) => {
+            { max.list?.map((sort) => {
                 const { items, placeholder, queryName } = sort;
-                const oppositeQueryName = filterState[value.maximum.oppositeQueryName as keyof IFilterState]!;
+                const oppositeQueryName = filterState[max.oppositeQueryName as keyof IFilterState]!;
 
                 const itemsFilter = items.filter((item) => item.value === 'any' || parseInt(item.value) > parseInt(oppositeQueryName.toString()))
 
@@ -101,6 +90,11 @@ const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ select, title,
                 )
               }) }
         </div>
+      </div>
+
+      <div className="flex justify-between w-full">
+        <button className="minMaxFIlter border border-primary text-primart" onClick={reset}> Reset </button>
+        <button className="minMaxFIlter bg-primary text-white" onClick={closeDropdown}> Done </button>
       </div>
     </div>
   )

@@ -316,7 +316,6 @@ export const filterData = [
         ],
         placeholder: 'Residential',
         queryName: 'categoryExternalID',
-        value: '1',
       },
       // Commercial
       {
@@ -338,7 +337,6 @@ export const filterData = [
         ],
         placeholder: 'Commercial',
         queryName: 'categoryExternalID',
-        value: '2',
       }
     ],
     placeholder: 'Property Type',

@@ -3,19 +3,19 @@ import { recoilPersist } from 'recoil-persist'
 
 export interface IFilterState {
     purpose?: string | string[];
-    frequency?: string;
-    priceMin?: string;
-    priceMax?: string;
-    sort?: string;
-    areaMin?: string;
-    areaMax?: string;
-    roomsMin?: string;
-    roomsMax?: string;
-    bathsMin?: string;
-    bathsMax?: string;
+    rentFrequency?: string | string[];
+    priceMin?: string | string[];
+    priceMax?: string | string[];
+    sort?: string | string[];
+    areaMin?: string | string[];
+    areaMax?: string | string[];
+    roomsMin?: string | string[];
+    roomsMax?: string | string[];
+    bathsMin?: string | string[];
+    bathsMax?: string | string[];
     furnishingStatus?: string | string[];
-    categoryExternalID?: string;
-    locationExternalIDs?: string;
+    categoryExternalID?: string | string[];
+    locationExternalIDs?: string | string[];
 
     propertyType?: string;
     emirates?: string;
@@ -29,8 +29,8 @@ const { persistAtom } = recoilPersist({
 export const filterAtom = atom<IFilterState>({
     key: 'filterState',
     default: {
-        purpose: '',
-        frequency: 'yearly',
+        purpose: 'for-rent',
+        rentFrequency: 'any',
         priceMin: '0',
         priceMax: 'any',
         sort: 'popular',
@@ -44,9 +44,9 @@ export const filterAtom = atom<IFilterState>({
         categoryExternalID: '1',
         locationExternalIDs: '5001',
         
-        propertyType: 'Residential',
+        propertyType: 'Property Type',
         emirates: 'Emirates',
-        sortBy: 'Popular',
+        sortBy: 'Sort',
     },
     effects_UNSTABLE: [persistAtom],
 });

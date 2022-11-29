@@ -144,10 +144,12 @@ export interface IDropdownWithMinMaxProps {
     title: string;
     min: {
         list?: ICategoryType[];
+        queryName: string;
         oppositeQueryName: string;
     };
     max: {
         list?: ICategoryType[];
+        queryName: string;
         oppositeQueryName: string;
     };
 }

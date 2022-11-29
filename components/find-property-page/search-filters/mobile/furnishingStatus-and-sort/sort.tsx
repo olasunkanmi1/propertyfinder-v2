@@ -39,7 +39,7 @@ const Sort = () => {
             onChange={(e) => setSortBy(e.target.value, queryName!)}
             > 
             { items?.map((item) => (
-                <option selected={router.query.sort === item.value} key={item.name} value={item.value}> {item.name} </option>
+                <option key={item.name} value={item.value}> {item.name} </option>
             )) }
             </select>
         )
