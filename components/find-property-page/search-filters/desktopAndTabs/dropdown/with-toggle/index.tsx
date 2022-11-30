@@ -39,7 +39,7 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
   }
 
   return (
-    <div className={`space-y-2 absolute top-[50px]  rounded border p-2 bg-white overflow-auto z-20 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] ${select === 'property-type' ? 'right-0 w-[370px]' : 'left-0 w-full'}`}>
+    <div className={`space-y-2 absolute top-[50px]  rounded p-2 bg-white overflow-auto z-20 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] ${select === 'property-type' ? 'right-0 w-[370px]' : 'left-0 w-full'}`}>
       <h5 className='text-black text-sm font-semibold'> {title} </h5>
 
       <div className="flex border p-1 rounded">

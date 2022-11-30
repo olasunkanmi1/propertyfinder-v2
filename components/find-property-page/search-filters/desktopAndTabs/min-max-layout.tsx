@@ -5,7 +5,7 @@ import { AiOutlineUp } from 'react-icons/ai';
 import DropdownWithMinMax from './dropdown/with-minMax';
 import { IMinMaxLayoutProps } from '../../../../types';
 
-const MinMaxLayout: React.FC<IMinMaxLayoutProps> = ({selected, handleDropdown, min, max, array, selected}) => {
+const MinMaxLayout: React.FC<IMinMaxLayoutProps> = ({handleDropdown, min, max, array, selected}) => {
   const dropdown = useRecoilValue(searchFiltersState);
   const filterState = useRecoilValue(filterAtom);
 
@@ -28,8 +28,9 @@ const MinMaxLayout: React.FC<IMinMaxLayoutProps> = ({selected, handleDropdown, m
                     </p>
                   </div>
                   <AiOutlineUp className={`transition-all duration-300 ${dropdown.main === selected ? '' : '-rotate-180'}`} />
-
                 </div>
+                { dropdown.main === selected && <div className='tooltip' /> }
+
                 {dropdown.main === selected && <DropdownWithMinMax title={placeholder} select={selected} min={min} max={max} /> } 
               </div>
             )

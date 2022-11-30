@@ -140,6 +140,7 @@ export interface IDropdownWithToggleProps {
 }
 
 export interface IDropdownWithMinMaxProps {
+    select?: string;
     title: string;
     min: {
         list?: ICategoryType[];

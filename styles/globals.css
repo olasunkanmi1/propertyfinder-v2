@@ -85,6 +85,10 @@
     @apply select-none text-ellipsis truncate
   }
   
+  .tooltip {
+    @apply absolute right-4 -bottom-[9px] w-0 h-0 border-x-[8px] border-x-transparent border-b-[8px] border-b-white
+  }
+  
 }
 
 html,

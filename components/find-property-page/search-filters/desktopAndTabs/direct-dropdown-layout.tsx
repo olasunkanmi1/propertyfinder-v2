@@ -27,8 +27,9 @@ const DirectDropdownLayout: React.FC<IDirectDropdownLayoutProps> = ({handleDropd
                       <p className='filterSelect max-w-[calc(100%-20px)]'> { filterState.sortBy } </p>
                   ) }
                   <AiOutlineUp className={`transition-all duration-300 ${dropdown.main === selected ? '' : '-rotate-180'}`} />
-
                 </div>
+                { dropdown.main === selected && <div className='tooltip' /> }
+
                 {dropdown.main === selected && <DirectDropdown select={selected} title={placeholder} options={items} queryName={queryName} /> } 
               </div>
             )

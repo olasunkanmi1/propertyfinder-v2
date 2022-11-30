@@ -26,8 +26,8 @@ const ToggleLayout: React.FC<IToggleLayoutProps> = ({handleDropdown, selected, a
                         <p className='filterSelect max-w-[calc(100%-20px)]'> {filterState.propertyType} </p>
                     ) }
                     <AiOutlineUp className={`transition-all duration-300 ${dropdown.main === selected ? '' : '-rotate-180'}`} />
-
                 </div>
+                { dropdown.main === selected && <div className='tooltip' /> }
 
                 { selected === 'purpose' && dropdown.main === selected ? (
                     <DropdownWithToggle select={selected} title={placeholder} tabs={items} queryName={queryName} />

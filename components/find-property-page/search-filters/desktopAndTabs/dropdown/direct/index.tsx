@@ -53,7 +53,7 @@ const DirectDropdown: React.FC<IDirectDropdownProps> = ({ title, options, queryN
   }
 
   return (
-    <div className='space-y-2 absolute top-[50px] left-0 w-full rounded border p-2 bg-white z-20 shadow-[rgba(0,0,0,0.24)_0px_3px_8px]'>
+    <div className='space-y-2 absolute top-[47px] left-0 w-full rounded p-2 bg-white z-20 shadow-[rgba(0,0,0,0.24)_0px_3px_8px]'>
       <h5 className='text-black text-sm font-semibold'> {title} </h5>
 
       <div className="flex flex-col space-y-2 w-full ">
