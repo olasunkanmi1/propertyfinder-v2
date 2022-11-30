@@ -140,7 +140,6 @@ export interface IDropdownWithToggleProps {
 }
 
 export interface IDropdownWithMinMaxProps {
-    select: string;
     title: string;
     min: {
         list?: ICategoryType[];
@@ -201,7 +200,7 @@ export interface IMinMaxLayoutProps {
     handleDropdown: (dropdownValue: string) => void;
     selected: string;
     array: ({
-        items: {outsi
+        items: {
             name: string;
             value: string;
         }[];

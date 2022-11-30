@@ -5,7 +5,7 @@ import { filterAtom, IFilterState, loadingState, searchFiltersState } from '../.
 import { ICategoryType, IDropdownWithMinMaxProps } from '../../../../../../types';
 import Options from './options';
 
-const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ select, title, min, max }) => {
+const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ title, min, max }) => {
   const setLoading = useSetRecoilState(loadingState);
   const [dropdown, setDropdown] = useRecoilState(searchFiltersState);
   const [filterState, setFilterState] = useRecoilState(filterAtom);
@@ -41,8 +41,8 @@ const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ select, title,
   }
 
   return (
-    <div className='space-y-2 absolute top-[62px]  rounded border p-2 bg-white z-20 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] left-0 w-full'>
-      <h5 className='text-black text-sm font-semibold'> {title} okay </h5>
+    <div className='space-y-2 absolute top-[62px] rounded border p-2 bg-white z-20 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] left-0 w-[200px] min-[986px]:w-full '>
+      <h5 className='text-black text-sm font-semibold'> {title} </h5>
 
       <div className="flex justify-between w-full">
         <div className="flex flex-col w-[45%] text-black space-y-1">

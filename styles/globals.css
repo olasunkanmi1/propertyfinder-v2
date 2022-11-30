@@ -81,6 +81,10 @@
     @apply flex items-center justify-center font-semibold py-1 px-2 text-black space-y-1 cursor-pointer rounded-lg
   }
   
+  .filterSelect {
+    @apply select-none text-ellipsis truncate
+  }
+  
 }
 
 html,

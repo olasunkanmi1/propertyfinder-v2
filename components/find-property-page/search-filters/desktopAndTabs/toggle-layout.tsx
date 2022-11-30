@@ -21,9 +21,9 @@ const ToggleLayout: React.FC<IToggleLayoutProps> = ({handleDropdown, selected, a
                     onClick={() => handleDropdown(selected)}
                 >
                     { selected === 'purpose' ? (
-                        <p className='select-none'> {filterState.purpose === 'for-rent' ? `Rent ${filterState.rentFrequency !== 'any' ? `(${filterState.rentFrequency})` : ''}` : 'Buy'} </p> 
+                        <p className='filterSelect max-w-[calc(100%-20px)]'> {filterState.purpose === 'for-rent' ? `Rent ${filterState.rentFrequency !== 'any' ? `(${filterState.rentFrequency})` : ''}` : 'Buy'} </p> 
                     ) : (
-                        <p className='select-none'> {filterState.propertyType} </p>
+                        <p className='filterSelect max-w-[calc(100%-20px)]'> {filterState.propertyType} </p>
                     ) }
                     <AiOutlineUp className={`transition-all duration-300 ${dropdown.main === selected ? '' : '-rotate-180'}`} />
 

@@ -5,7 +5,7 @@ import { AiOutlineUp } from 'react-icons/ai';
 import DropdownWithMinMax from './dropdown/with-minMax';
 import { IMinMaxLayoutProps } from '../../../../types';
 
-const MinMaxLayout: React.FC<IMinMaxLayoutProps> = ({handleDropdown, min, max, array, selected}) => {
+const MinMaxLayout: React.FC<IMinMaxLayoutProps> = ({selected, handleDropdown, min, max, array, selected}) => {
   const dropdown = useRecoilValue(searchFiltersState);
   const filterState = useRecoilValue(filterAtom);
 
@@ -19,9 +19,9 @@ const MinMaxLayout: React.FC<IMinMaxLayoutProps> = ({handleDropdown, min, max, a
                 <div className='flex items-center justify-between bg-white rounded-md text-gray-600 py-1 px-2 text-md font-semibold cursor-pointer'
                     onClick={() => handleDropdown(selected)}
                 >
-                  <div>
+                  <div className='max-w-[calc(100%-20px)]'>
                     <p className='select-none text-sm'> {placeholder} </p>
-                    <p className='select-none'> 
+                    <p className='filterSelect'> 
                       { filterState[min.queryName as keyof IFilterState] }
                        {' - '} 
                       { filterState[max.queryName as keyof IFilterState] === 'any' ? 'Any' : filterState[max.queryName as keyof IFilterState] }
@@ -30,7 +30,7 @@ const MinMaxLayout: React.FC<IMinMaxLayoutProps> = ({handleDropdown, min, max, a
                   <AiOutlineUp className={`transition-all duration-300 ${dropdown.main === selected ? '' : '-rotate-180'}`} />
 
                 </div>
-                {dropdown.main === selected && <DropdownWithMinMax title={placeholder} select='rooms' min={min} max={max} /> } 
+                {dropdown.main === selected && <DropdownWithMinMax title={placeholder} select={selected} min={min} max={max} /> } 
               </div>
             )
 

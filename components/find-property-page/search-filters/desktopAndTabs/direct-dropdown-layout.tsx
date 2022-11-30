@@ -20,11 +20,11 @@ const DirectDropdownLayout: React.FC<IDirectDropdownLayoutProps> = ({handleDropd
                     onClick={() => handleDropdown(selected)}
                 >
                   { selected === 'emirates' ? (
-                    <p className='select-none'> { filterState.emirates } </p>
+                    <p className='filterSelect max-w-[calc(100%-20px)]'> { filterState.emirates } </p>
                     ) : selected === 'furnishingStatus' ? (
-                      <p className='select-none'> { filterState.furnishingStatus === 'any' ? 'Furnishing Status' : filterState.furnishingStatus === 'furnished' ? 'Furnished' : 'Unfurnished'} </p>
+                      <p className='filterSelect max-w-[calc(100%-20px)]'> { filterState.furnishingStatus === 'any' ? 'Furnishing Status' : filterState.furnishingStatus === 'furnished' ? 'Furnished' : 'Unfurnished'} </p>
                   ) : (
-                      <p className='select-none'> { filterState.sortBy } </p>
+                      <p className='filterSelect max-w-[calc(100%-20px)]'> { filterState.sortBy } </p>
                   ) }
                   <AiOutlineUp className={`transition-all duration-300 ${dropdown.main === selected ? '' : '-rotate-180'}`} />
 
