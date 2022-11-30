@@ -78,7 +78,7 @@
   }
   
   .minMaxFIlter {
-    @apply flex items-center justify-center font-semibold py-1 px-2 w-[45%] text-black space-y-1 cursor-pointer rounded-lg
+    @apply flex items-center justify-center font-semibold py-1 px-2 text-black space-y-1 cursor-pointer rounded-lg
   }
   
 }

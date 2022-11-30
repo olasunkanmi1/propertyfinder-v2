@@ -1,21 +1,31 @@
 import React, { useState, useRef } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { MdLocationOn, MdOutlineTune } from 'react-icons/md'
-import { useRecoilState } from 'recoil';
-import { addressSuggestionsAtom } from '../../../../states/addressSuggestions';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { addressSuggestionsAtom, searchFiltersState } from '../../../../states';
 import Dropdown from './dropdown';
 import { fetchApi } from '../../../../utils/fetchApi';
+import { filterAtom } from '../../../../states';
 
 export interface ISearchboxProps {
   desktop?: boolean;
+  suggestionsRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-const Searchbox: React.FC<ISearchboxProps> = ({desktop}) => {
+const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useRecoilState(addressSuggestionsAtom);
+  const [filterState, setFilterState] = useRecoilState(filterAtom);
+  const resetDropdown = useResetRecoilState(searchFiltersState);
 
   const handleChange = async (e:React.ChangeEvent<HTMLInputElement>) => {
+    resetDropdown(); 
+    setFilterState(filterState => ({
+      ...filterState,
+      emirates: 'Emirates'
+    })) 
+
     setLoading(true);
     setSuggestions(suggestions => ({
       ...suggestions,
@@ -46,6 +56,10 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop}) => {
     }
   }
 
+  if(desktop && filterState.emirates !== 'Emirates' && inputRef.current) {
+     inputRef.current.value = '' 
+  } 
+
   return (
     <div className={`space-y-2 ${desktop ? 'relative col-span-2' : ''}`}>
       <div className='flex justify-between'>
@@ -60,7 +74,7 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop}) => {
           </button> */}
       </div>
 
-      { suggestions?.predictions !== null  && <Dropdown loading={loading} suggestions={suggestions} setSuggestions={setSuggestions} inputRef={inputRef} desktop={desktop} /> }
+      { suggestions?.predictions !== null  && <Dropdown loading={loading} suggestions={suggestions} setSuggestions={setSuggestions} inputRef={inputRef} desktop={desktop} suggestionsRef={suggestionsRef} /> }
     </div>
   )
 }

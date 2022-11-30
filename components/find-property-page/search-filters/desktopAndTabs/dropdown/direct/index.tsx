@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { filterAtom, IFilterState, loadingState, searchFiltersState } from '../../../../../../states';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { filterAtom, addressSuggestionsAtom, IFilterState, loadingState, searchFiltersState } from '../../../../../../states';
 import { findProperties } from '../../..';
 
 interface IDirectDropdownProps {
@@ -17,6 +17,7 @@ const DirectDropdown: React.FC<IDirectDropdownProps> = ({ title, options, queryN
   const [filterState, setFilterState] = useRecoilState(filterAtom);
   const setLoading = useSetRecoilState(loadingState);
   const setDropdown = useSetRecoilState(searchFiltersState);
+  const resetSuggestions = useResetRecoilState(addressSuggestionsAtom);
   
   const [active, setActive] = useState(select === 'emirates' ? filterState.locationExternalIDs : select === 'furnishingStatus' ? filterState.furnishingStatus : filterState.sort);
   
@@ -28,6 +29,8 @@ const DirectDropdown: React.FC<IDirectDropdownProps> = ({ title, options, queryN
         ...filterState,
         emirates: name
       }))
+      
+      resetSuggestions();
     } else if (select === 'sort') {
       setFilterState(filterState => ({
         ...filterState,

@@ -29,13 +29,11 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
       //   propertiesLoading: true
       // }))
     } else {
-      setFilterState(filterState => ({
-        ...filterState,
-        categoryExternalID: value
-      }))
+      // setFilterState(filterState => ({
+      //   ...filterState,
+      //   categoryExternalID: value
+      // }))
     }
-    
-    
 
     if(queryName) findProperties({ [queryName]: value }) 
   }
@@ -53,10 +51,10 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
           ))
         ) : (
           <>
-            <div onClick={() => changeTab('1')} className={`filterTab ${residentialPropertyList.includes(filterState.purpose ? filterState.purpose.toString(): '') ? 'filterTabActive' : ''}`}>
+            <div onClick={() => changeTab('1')} className={`filterTab ${residentialPropertyList.includes(filterState.categoryExternalID ? filterState.categoryExternalID.toString(): '') ? 'filterTabActive' : ''}`}>
                { categories![0].placeholder }
             </div>
-            <div onClick={() => changeTab('2')} className={`filterTab ${commercialPropertyList.includes(filterState.purpose ? filterState.purpose.toString(): '') ? 'filterTabActive' : ''}`}>
+            <div onClick={() => changeTab('2')} className={`filterTab ${commercialPropertyList.includes(filterState.categoryExternalID ? filterState.categoryExternalID.toString(): '') ? 'filterTabActive' : ''}`}>
                { categories![1].placeholder }
             </div>
            </>
@@ -67,8 +65,8 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
         options={ 
           select === 'purpose' && filterState.purpose === 'for-sale' ? [] : 
           select === 'purpose' && filterState.purpose === 'for-rent' ? rentFrequency : 
-          select === 'property-type' && residentialPropertyList.includes(filterState.purpose ? filterState.purpose.toString(): '') ? residentialProperty : 
-          select === 'property-type' && commercialPropertyList.includes(filterState.purpose ? filterState.purpose.toString(): '') ? commercialProperty : 
+          select === 'property-type' && residentialPropertyList.includes(filterState.categoryExternalID ? filterState.categoryExternalID.toString(): '') ? residentialProperty : 
+          select === 'property-type' && commercialPropertyList.includes(filterState.categoryExternalID ? filterState.categoryExternalID.toString(): '') ? commercialProperty : 
           []
         } 
         select={select}

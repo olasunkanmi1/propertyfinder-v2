@@ -7,8 +7,9 @@ import DirectDropdownLayout from './direct-dropdown-layout';
 import ToggleLayout from './toggle-layout';
 import { filterAtom } from '../../../../states';
 import { useRouter } from 'next/router';
+import { ISearchFiltersProps } from '..';
 
-const DesktopAndTabs = () => {
+const DesktopAndTabs: React.FC<ISearchFiltersProps> = ({filterRef, suggestionsRef}) => {
   const router = useRouter();
   const [dropdown, setDropdown] = useRecoilState(searchFiltersState);
   const reset = useResetRecoilState(filterAtom);
@@ -28,6 +29,10 @@ const DesktopAndTabs = () => {
   }
   const resetFilters = () => {
     reset();
+    setDropdown({
+      main: null,
+      minMax: null,
+    })
     router.push('/find-property')
   }
 
@@ -93,9 +98,9 @@ const DesktopAndTabs = () => {
     <div className="hidden md:flex flex-col justify-between items-center bg-dubai bg-contain w-full space-y-8 rounded-3xl text-white p-4">
         <h1 className="text-3xl font-bold w-fit text-center"> Search Properties for sale and to rent in the UAE </h1>
 
-        <div className="grid grid-cols-4 gap-5 justify-center p-4 w-full lg:w-[900px] rounded-xl bg-[#000] bg-opacity-60 mx-auto">
+        <div className="grid grid-cols-4 gap-5 justify-center p-4 w-full lg:w-[900px] rounded-xl bg-[#000] bg-opacity-60 mx-auto" ref={filterRef}>
           <ToggleLayout handleDropdown={handleDropdown} selected='purpose' array={purposes} />
-          <Searchbox desktop />
+          <Searchbox desktop suggestionsRef={suggestionsRef} />
           <ToggleLayout handleDropdown={handleDropdown} selected='property-type' array={propertyTypes} />
           <MinMaxLayout handleDropdown={handleDropdown} selected='rooms' array={rooms} min={roomsMin} max={roomsMax} />
           <MinMaxLayout handleDropdown={handleDropdown} selected='baths' array={baths} min={bathsMin} max={bathsMax} />

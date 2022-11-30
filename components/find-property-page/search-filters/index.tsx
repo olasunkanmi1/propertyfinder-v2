@@ -23,10 +23,15 @@ export const findProperties = (filterValues: any) => {
   router.push({ pathname: path, query }); //pathname:path, query:query
 };
 
-const SearchFilters = () => {
+export interface ISearchFiltersProps {
+  filterRef: React.MutableRefObject<HTMLDivElement | null>;
+  suggestionsRef: React.MutableRefObject<HTMLDivElement | null>;
+}
+
+const SearchFilters: React.FC<ISearchFiltersProps> = ({filterRef, suggestionsRef}) => {
   return (
     <div>
-        <DesktopAndTabs />
+        <DesktopAndTabs filterRef={filterRef} suggestionsRef={suggestionsRef} />
         <MobileFilters />
     </div>
   )

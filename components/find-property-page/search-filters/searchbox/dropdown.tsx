@@ -2,7 +2,7 @@ import React from 'react'
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { SetterOrUpdater, useSetRecoilState } from 'recoil';
 import { findProperties } from '..';
-import { loadingState } from '../../../../states';
+import { filterAtom, loadingState } from '../../../../states';
 import { addressSuggestionsAtomState } from '../../../../states/addressSuggestions';
 import { Loader } from '../../../loader';
 
@@ -12,10 +12,12 @@ interface IDropdownProps {
     setSuggestions: SetterOrUpdater<addressSuggestionsAtomState>;
     inputRef: React.RefObject<HTMLInputElement>;
     desktop?: boolean;
+    suggestionsRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-const Dropdown = ({loading, suggestions, setSuggestions, inputRef, desktop}: IDropdownProps) => {
+const Dropdown = ({loading, suggestions, setSuggestions, inputRef, desktop, suggestionsRef}: IDropdownProps) => {
   const setLoading = useSetRecoilState(loadingState);
+  const setFilter = useSetRecoilState(filterAtom);
 
     const handleSelect = async (externalID: string, name: string) => {
         setSuggestions({
@@ -28,13 +30,19 @@ const Dropdown = ({loading, suggestions, setSuggestions, inputRef, desktop}: IDr
             propertiesLoading: true
         }))
         
+        setFilter(filter => ({
+            ...filter,
+            locationExternalIDs: externalID,
+            emirates: 'Emirates'
+        }))
+        
         inputRef.current ? inputRef.current.value = name : null
         
         findProperties({ locationExternalIDs: externalID })
     }
 
   return (
-    <div className={`w-full border shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-lg bg-white text-black ${desktop ? 'absolute top-[50px] z-10' : ''}`}>
+    <div className={`w-full border shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-lg bg-white text-black ${desktop ? 'absolute top-[50px] z-10' : ''}`} ref={suggestionsRef}>
         { 
             loading ? ( 
                 <div className='p-5 text-center'>

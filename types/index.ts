@@ -195,14 +195,13 @@ export interface IToggleLayoutProps {
         placeholder: string;
         queryName: string;
     })[];
-
 }
 
 export interface IMinMaxLayoutProps {
     handleDropdown: (dropdownValue: string) => void;
     selected: string;
     array: ({
-        items: {
+        items: {outsi
             name: string;
             value: string;
         }[];

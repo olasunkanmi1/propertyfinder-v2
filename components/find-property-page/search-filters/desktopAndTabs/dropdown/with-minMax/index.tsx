@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import { findProperties } from '../../..';
 import { filterAtom, IFilterState, loadingState, searchFiltersState } from '../../../../../../states';
 import { ICategoryType, IDropdownWithMinMaxProps } from '../../../../../../types';
 import Options from './options';
@@ -22,20 +23,21 @@ const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ select, title,
        }))
     }
   }
-    
-  const reset = () => {
-      setFilterState(filterState => ({
-     ...filterState,
-     [min.queryName]: '0',
-     [max.queryName]: 'any',
-    }))
-  }
 
-  const closeDropdown = () => {
-      setDropdown({
-        main: null,
-        minMax: null,
-      })
+  const handleButton = (reset: boolean) => {
+    if(reset) {
+      setFilterState(filterState => ({
+      ...filterState,
+        [min.queryName]: '0',
+        [max.queryName]: 'any',
+      }))
+      findProperties({ [min.queryName]: [],  [max.queryName]: [] })
+    }
+
+    setDropdown({
+      main: null,
+      minMax: null,
+    })
   }
 
   return (
@@ -93,8 +95,8 @@ const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ select, title,
       </div>
 
       <div className="flex justify-between w-full">
-        <button className="minMaxFIlter border border-primary text-primart" onClick={reset}> Reset </button>
-        <button className="minMaxFIlter bg-primary text-white" onClick={closeDropdown}> Done </button>
+        { filterState[min.queryName as keyof IFilterState] !== '0' || filterState[max.queryName as keyof IFilterState] !== 'any' ? <button className="minMaxFIlter border border-primary text-primary w-[45%]" onClick={() => handleButton(true)}> Reset </button> :  null }
+        <button className={`minMaxFIlter bg-primary text-white ${filterState[min.queryName as keyof IFilterState] === '0' && filterState[max.queryName as keyof IFilterState] === 'any' ? 'w-full' : 'w-[45%]'}`} onClick={() => handleButton(false)}> Done </button>
       </div>
     </div>
   )
