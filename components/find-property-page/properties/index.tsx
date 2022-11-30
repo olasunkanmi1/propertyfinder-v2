@@ -20,7 +20,7 @@ const Properties: React.FC<FindPropertyPageProps> = ({ properties }) => {
 
       <div className='flex flex-wrap gap-x-5 gap-y-10 w-full justify-center'>
         { loading.propertiesLoading ? (
-          [...Array(6)].map(index => <CardSkeleton key={index} />)
+          [...Array(6)].map((arr, index) => <CardSkeleton key={index} />)
         ) : (
           <>
             {properties.map((property) => {

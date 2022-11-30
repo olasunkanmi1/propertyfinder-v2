@@ -1,30 +1,27 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { filterData } from '../../../../../../utils/filterData';
 import { findProperties } from '../../..';
-import { useRouter } from 'next/router';
-import { useSetRecoilState } from 'recoil';
-import { loadingState } from '../../../../../../states';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { filterAtom, loadingState } from '../../../../../../states';
 
 const Frequency  = () => {
-  const router = useRouter();
-  const [active, setActive] = useState(router.query.rentFrequency);
   const setLoading = useSetRecoilState(loadingState);
+  const [filterState, setFilterState] = useRecoilState(filterAtom);
 
   const frequencies = filterData.filter((filter) => filter.placeholder === 'Rent Frequency');
 
   const changeTab = (value: string, queryName: string) => {
-    setActive(value);
-    setLoading(loading => ({
-         ...loading,
-         propertiesLoading: true
-     }))
+    setFilterState(filterState => ({
+      ...filterState,
+      rentFrequency: value
+    }))
+    // setLoading(loading => ({
+    //      ...loading,
+    //      propertiesLoading: true
+    //  }))
 
     findProperties({ [queryName]: value })
   }
-
-  useEffect(() => {
-    setActive(router.query.rentFrequency  ? router.query.rentFrequency : 'any')
-  }, [router.query.rentFrequency])
 
   return (
     <div className='space-y-2'>
@@ -37,7 +34,7 @@ const Frequency  = () => {
             return (
               <div key={placeholder} className='flex gap-2'>
                   { items?.map((item) => (
-                      <div onClick={() => changeTab(item.value, queryName)} key={item.name} className={`frequencySort ${active === item.value ? 'bg-primary bg-opacity-20 border border-primary text-primary' : ''}`}>
+                      <div onClick={() => changeTab(item.value, queryName)} key={item.name} className={`frequencySort ${filterState.rentFrequency === item.value ? 'bg-primary bg-opacity-20 border border-primary text-primary' : ''}`}>
                           { item.name }
                       </div>
                   )) }

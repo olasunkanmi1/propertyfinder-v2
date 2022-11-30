@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import * as Md from 'react-icons/md';
 import * as Fa from 'react-icons/fa';
 import * as Im from 'react-icons/im';
@@ -11,28 +11,27 @@ import { IconType } from 'react-icons/lib';
 import { IPropertyType } from '.';
 import { findProperties } from '../../..';
 import { useRouter } from 'next/router';
-import { useSetRecoilState } from 'recoil';
-import { loadingState } from '../../../../../../states';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { filterAtom, loadingState } from '../../../../../../states';
 
 const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
   const router = useRouter();
-  const [active, setActive] = useState(router.query.categoryExternalID);
   const setLoading = useSetRecoilState(loadingState);
+  const [filterState, setFilterState] = useRecoilState(filterAtom);
 
   const setPropertyType = (value: string, queryName: string) => {
-    setActive(value);
-    
-    setLoading(loading => ({
-      ...loading,
-      propertiesLoading: true
+    setFilterState(filterState => ({
+      ...filterState,
+      categoryExternalID: value
     }))
+    
+    // setLoading(loading => ({
+    //   ...loading,
+    //   propertiesLoading: true
+    // }))
 
      findProperties({ [queryName]: value })
   }
-
-  useEffect(() => {
-    setActive(router.query.categoryExternalID)
-  }, [router.query.categoryExternalID])
 
   return (
     <div className='overflow-auto'>
@@ -45,17 +44,17 @@ const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
                     const { name, value, icon } = item;
 
                     return (
-                      <div onClick={() => setPropertyType(value, queryName)} key={name} className={`flex flex-col items-center w-fit p-2 ${active === value ? 'text-primary font-bold' : ''}`}>
-                        <div className={`flex items-center justify-center rounded-full w-10 h-10 border text-gray-500 ${active === value ? 'bg-primary bg-opacity-20 border border-primary text-primary' : ''}`}>
+                      <div onClick={() => setPropertyType(value, queryName)} key={name} className={`flex flex-col items-center w-fit p-2 ${filterState.categoryExternalID === value ? 'text-primary font-bold' : ''}`}>
+                        <div className={`flex items-center justify-center rounded-full w-10 h-10 border text-gray-500 ${filterState.categoryExternalID === value ? 'bg-primary bg-opacity-20 border border-primary text-primary' : ''}`}>
                             {
-                                icon?.slice(0, 2) === "Fa" ? React.createElement(Fa[icon as keyof IconType], {className: `propertyTypeIcon ${active === value ? 'text-primary' : ''}`}) : 
-                                icon?.slice(0, 2) === "Md" ? React.createElement(Md[icon as keyof IconType], {className: `propertyTypeIcon ${active === value ? 'text-primary' : ''}`}) :         
-                                icon?.slice(0, 2) === "Im" ? React.createElement(Im[icon as keyof IconType], {className: `propertyTypeIcon ${active === value ? 'text-primary' : ''}`}) : 
-                                icon?.slice(0, 2) === "Io" ? React.createElement(Io[icon as keyof IconType], {className: `propertyTypeIcon ${active === value ? 'text-primary' : ''}`}) : 
-                                icon?.slice(0, 2) === "Tb" ? React.createElement(Tb[icon as keyof IconType], {className: `propertyTypeIcon ${active === value ? 'text-primary' : ''}`}) : 
-                                icon?.slice(0, 2) === "Hi" ? React.createElement(Hi[icon as keyof IconType], {className: `propertyTypeIcon ${active === value ? 'text-primary' : ''}`}) :
-                                icon?.slice(0, 2) === "Gi" ? React.createElement(Gi[icon as keyof IconType], {className: `propertyTypeIcon ${active === value ? 'text-primary' : ''}`}) :
-                                icon?.slice(0, 2) === "Si" ? React.createElement(Si[icon as keyof IconType], {className: `propertyTypeIcon ${active === value ? 'text-primary' : ''}`}) : null
+                                icon?.slice(0, 2) === "Fa" ? React.createElement(Fa[icon as keyof IconType], {className: `propertyTypeIcon ${filterState.categoryExternalID === value ? 'text-primary' : ''}`}) : 
+                                icon?.slice(0, 2) === "Md" ? React.createElement(Md[icon as keyof IconType], {className: `propertyTypeIcon ${filterState.categoryExternalID === value ? 'text-primary' : ''}`}) :         
+                                icon?.slice(0, 2) === "Im" ? React.createElement(Im[icon as keyof IconType], {className: `propertyTypeIcon ${filterState.categoryExternalID === value ? 'text-primary' : ''}`}) : 
+                                icon?.slice(0, 2) === "Io" ? React.createElement(Io[icon as keyof IconType], {className: `propertyTypeIcon ${filterState.categoryExternalID === value ? 'text-primary' : ''}`}) : 
+                                icon?.slice(0, 2) === "Tb" ? React.createElement(Tb[icon as keyof IconType], {className: `propertyTypeIcon ${filterState.categoryExternalID === value ? 'text-primary' : ''}`}) : 
+                                icon?.slice(0, 2) === "Hi" ? React.createElement(Hi[icon as keyof IconType], {className: `propertyTypeIcon ${filterState.categoryExternalID === value ? 'text-primary' : ''}`}) :
+                                icon?.slice(0, 2) === "Gi" ? React.createElement(Gi[icon as keyof IconType], {className: `propertyTypeIcon ${filterState.categoryExternalID === value ? 'text-primary' : ''}`}) :
+                                icon?.slice(0, 2) === "Si" ? React.createElement(Si[icon as keyof IconType], {className: `propertyTypeIcon ${filterState.categoryExternalID === value ? 'text-primary' : ''}`}) : null
                             }
                         </div>
                         <span className='text-center text-sm w-max'> {name} </span>

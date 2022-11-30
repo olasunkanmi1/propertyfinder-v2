@@ -1,14 +1,12 @@
 import React from 'react'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import { BsSortDown } from 'react-icons/bs';
 import { filterData } from '../../../../../utils/filterData';
 import { filterAtom, loadingState } from '../../../../../states';
 import { findProperties } from '../..';
-import { useRouter } from 'next/router';
 
 const Sort = () => {
-  const router = useRouter();
-  const setFilterState = useSetRecoilState(filterAtom);
+  const [filterState, setFilterState] = useRecoilState(filterAtom);
   const setLoading = useSetRecoilState(loadingState);
 
   const sortBy = filterData.filter((filter) => filter.placeholder === 'Sort');
@@ -19,10 +17,10 @@ const Sort = () => {
          sort: value
      }))
     
-     setLoading(loading => ({
-         ...loading,
-         propertiesLoading: true
-     }))
+    //  setLoading(loading => ({
+    //      ...loading,
+    //      propertiesLoading: true
+    //  }))
 
      findProperties({ [queryName]: value })
   }
@@ -39,7 +37,7 @@ const Sort = () => {
             onChange={(e) => setSortBy(e.target.value, queryName!)}
             > 
             { items?.map((item) => (
-                <option key={item.name} value={item.value}> {item.name} </option>
+                <option selected={filterState.sort === item.value} key={item.name} value={item.value}> {item.name} </option>
             )) }
             </select>
         )

@@ -29,10 +29,10 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
       //   propertiesLoading: true
       // }))
     } else {
-      // setFilterState(filterState => ({
-      //   ...filterState,
-      //   categoryExternalID: value
-      // }))
+      setFilterState(filterState => ({
+        ...filterState,
+        categoryExternalID: value
+      }))
     }
 
     if(queryName) findProperties({ [queryName]: value }) 
