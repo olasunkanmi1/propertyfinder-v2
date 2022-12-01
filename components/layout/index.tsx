@@ -8,18 +8,20 @@ import { loadingState, navbarState } from '../../states'
 import Sidebar from './sidebar'
 import Filterbar from '../find-property-page/search-filters/mobile/filterbar'
 import RouteChangeLoader from './route-change-loader'
+import SignUpModal from './sign-up-modal'
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const [open, setOpen] = useRecoilState(navbarState);
-  const {isSidebarOpen, profileDropdown, isFilterbarOpen} = open;
+  const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal} = open;
   const loading = useRecoilValue(loadingState);
 
   const toggleSidebarAndDropdown = () => {
-    if(isSidebarOpen || profileDropdown || isFilterbarOpen) {
+    if(isSidebarOpen || profileDropdown || isFilterbarOpen || signInModal) {
       setOpen({
         isSidebarOpen: false,
         profileDropdown: false,
-        isFilterbarOpen: false
+        isFilterbarOpen: false,
+        signInModal: false,
       })
     }
   }
@@ -39,6 +41,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
 
       <Sidebar />
       <Filterbar />
+      <SignUpModal />
       {loading.routeChangeLoading && <RouteChangeLoader /> }
     </div>
   )

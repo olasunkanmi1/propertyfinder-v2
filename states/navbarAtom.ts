@@ -5,6 +5,7 @@ export const navbarState = atom({
     default: {
         profileDropdown: false,
         isSidebarOpen: false,
-        isFilterbarOpen: false
+        isFilterbarOpen: false,
+        signInModal: false,
     },
 });
