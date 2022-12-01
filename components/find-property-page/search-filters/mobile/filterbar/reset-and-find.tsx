@@ -1,16 +1,18 @@
 import React from 'react'
 import { useRouter } from 'next/router';
 import {  useSetRecoilState, useResetRecoilState } from 'recoil'
-import { filterAtom, navbarState } from '../../../../../states'
+import { addressSuggestionsAtom, filterAtom, navbarState } from '../../../../../states'
 
 const ResetAndFind = () => {
   const router = useRouter();
 
   const resetFilter = useResetRecoilState(filterAtom);
+  const resetSuggestions = useResetRecoilState(addressSuggestionsAtom);
   const closeFilter = useSetRecoilState(navbarState);
 
   const handleReset = () => {
     resetFilter();
+    resetSuggestions();
 
     router.push({pathname: router.pathname, query: null})
   }

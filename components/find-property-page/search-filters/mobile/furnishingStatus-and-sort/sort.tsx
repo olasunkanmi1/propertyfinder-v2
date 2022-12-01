@@ -11,10 +11,11 @@ const Sort = () => {
 
   const sortBy = filterData.filter((filter) => filter.placeholder === 'Sort');
 
-  const setSortBy = (value: string, queryName: string) => {
+  const setSortBy = (value: string, queryName: string, name: string) => {
     setFilterState(filterState => ({
          ...filterState,
-         sort: value
+         sort: value,
+         sortBy: name
      }))
     
     //  setLoading(loading => ({
@@ -34,7 +35,7 @@ const Sort = () => {
 
         return (
             <select className="flex outline-none text-sm appearance-none bg-transparent" key={placeholder}
-            onChange={(e) => setSortBy(e.target.value, queryName!)}
+            onChange={(e) => setSortBy(e.target.value, queryName!, e.target.options[e.target.selectedIndex].innerText)}
             > 
             { items?.map((item) => (
                 <option selected={filterState.sort === item.value} key={item.name} value={item.value}> {item.name} </option>

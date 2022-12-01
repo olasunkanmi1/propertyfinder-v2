@@ -48,7 +48,7 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) =
         resetDropdown();
       }
       
-      if(suggestionsRef.current && !suggestionsRef.current.contains(e.target)) {
+      if(suggestionsRef.current && !suggestionsRef.current.contains(e.target) && window.innerWidth >= 768) {
         setSuggestions(suggestions => ({
           ...suggestions,
           predictions: null

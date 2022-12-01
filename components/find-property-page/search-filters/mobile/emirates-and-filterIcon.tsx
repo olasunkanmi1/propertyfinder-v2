@@ -1,8 +1,8 @@
 import React from 'react'
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil'
 import { MdOutlineTune } from 'react-icons/md'
 import { filterData } from '../../../../utils/filterData'
-import { filterAtom, loadingState, navbarState } from '../../../../states'
+import { addressSuggestionsAtom, filterAtom, loadingState, navbarState } from '../../../../states'
 import { findProperties } from '..'
 import { useRouter } from 'next/router'
 
@@ -11,6 +11,7 @@ const EmiratesAndFilterIcon = () => {
   const setLoading = useSetRecoilState(loadingState);
   const [filterState, setFilterState] = useRecoilState(filterAtom);
   const [filterbarOpen, setFilterbarOpen] = useRecoilState(navbarState);
+  const resetSuggestions = useResetRecoilState(addressSuggestionsAtom);
 
   const { isFilterbarOpen } = filterbarOpen;
 
@@ -23,10 +24,12 @@ const EmiratesAndFilterIcon = () => {
         }))
     }
     
-    const setEmirate = (value: string, queryName: string) => {
+    const setEmirate = (value: string, queryName: string, name: string) => {
+      resetSuggestions();
       setFilterState(filterState => ({
           ...filterState,
-          locationExternalIDs: value
+          locationExternalIDs: value,
+          emirates: name
       }))
 
       findProperties({ [queryName]: value });
@@ -41,7 +44,7 @@ const EmiratesAndFilterIcon = () => {
             return (
               <div className="flex gap-1" key={placeholder}> 
                 { items?.map((item) => (
-                  <div onClick={() => setEmirate(item.value, queryName)} key={item.name} className={`flex p-2 border rounded w-max cursor-pointer duration-300 ease-in-out select-none hover:bg-secondary hover:text-white ${ filterState.locationExternalIDs === item.value ? 'bg-secondary text-white' : '' }`}>
+                  <div onClick={() => setEmirate(item.value, queryName, item.name)} key={item.name} className={`flex p-2 border rounded w-max cursor-pointer duration-300 ease-in-out select-none hover:bg-secondary hover:text-white ${ filterState.locationExternalIDs === item.value ? 'bg-secondary text-white' : '' }`}>
                     { item.name }
                   </div>
                 )) }

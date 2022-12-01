@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { MdLocationOn, MdOutlineTune } from 'react-icons/md'
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
@@ -56,9 +56,16 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
     }
   }
 
-  if(desktop && filterState.emirates !== 'Emirates' && inputRef.current) {
+  if(filterState.emirates !== 'Emirates' && inputRef.current) {
      inputRef.current.value = '' 
   } 
+
+  useEffect(() => {
+    if(inputRef.current) {
+      inputRef.current.value = suggestions.address
+   } 
+  }, [suggestions.address])
+  
 
   return (
     <div className={`space-y-2 ${desktop ? 'relative col-span-2' : ''}`}>

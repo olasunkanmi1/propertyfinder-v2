@@ -19,10 +19,11 @@ const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
   const setLoading = useSetRecoilState(loadingState);
   const [filterState, setFilterState] = useRecoilState(filterAtom);
 
-  const setPropertyType = (value: string, queryName: string) => {
+  const setPropertyType = (value: string, queryName: string, name: string) => {
     setFilterState(filterState => ({
       ...filterState,
-      categoryExternalID: value
+      categoryExternalID: value,
+      propertyType: name
     }))
     
     // setLoading(loading => ({
@@ -44,7 +45,7 @@ const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
                     const { name, value, icon } = item;
 
                     return (
-                      <div onClick={() => setPropertyType(value, queryName)} key={name} className={`flex flex-col items-center w-fit p-2 ${filterState.categoryExternalID === value ? 'text-primary font-bold' : ''}`}>
+                      <div onClick={() => setPropertyType(value, queryName, name)} key={name} className={`flex flex-col items-center w-fit p-2 ${filterState.categoryExternalID === value ? 'text-primary font-bold' : ''}`}>
                         <div className={`flex items-center justify-center rounded-full w-10 h-10 border text-gray-500 ${filterState.categoryExternalID === value ? 'bg-primary bg-opacity-20 border border-primary text-primary' : ''}`}>
                             {
                                 icon?.slice(0, 2) === "Fa" ? React.createElement(Fa[icon as keyof IconType], {className: `propertyTypeIcon ${filterState.categoryExternalID === value ? 'text-primary' : ''}`}) : 

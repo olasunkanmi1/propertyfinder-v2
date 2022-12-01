@@ -5,14 +5,15 @@ import Searchbox from '../searchbox';
 import MinMaxLayout from './min-max-layout';
 import DirectDropdownLayout from './direct-dropdown-layout';
 import ToggleLayout from './toggle-layout';
-import { filterAtom } from '../../../../states';
+import { addressSuggestionsAtom, filterAtom } from '../../../../states';
 import { useRouter } from 'next/router';
 import { ISearchFiltersProps } from '..';
 
 const DesktopAndTabs: React.FC<ISearchFiltersProps> = ({filterRef, suggestionsRef}) => {
   const router = useRouter();
   const [dropdown, setDropdown] = useRecoilState(searchFiltersState);
-  const reset = useResetRecoilState(filterAtom);
+  const resetFilterState = useResetRecoilState(filterAtom);
+  const resetSuggestions = useResetRecoilState(addressSuggestionsAtom);
 
   const handleDropdown = (dropdownValue: string) => {
     if(dropdown.main === dropdownValue) {
@@ -28,7 +29,8 @@ const DesktopAndTabs: React.FC<ISearchFiltersProps> = ({filterRef, suggestionsRe
     }
   }
   const resetFilters = () => {
-    reset();
+    resetFilterState();
+    resetSuggestions();
     setDropdown({
       main: null,
       minMax: null,
