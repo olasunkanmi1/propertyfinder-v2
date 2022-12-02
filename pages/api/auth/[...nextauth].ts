@@ -6,20 +6,16 @@ export default NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID ? process.env.GOOGLE_ID : '',
-      clientSecret: process.env.GOOGLE_SECRET ? process.env.GOOGLE_SECRET : '',    
-    //   state: false,
+      clientSecret: process.env.GOOGLE_SECRET ? process.env.GOOGLE_SECRET : '',
     }),
     // ...add more providers here
   ],
-  // secret: process.env.SECRET,
-  pages: {
-      signIn: "/auth/signin",
-  },
+  secret: process.env.SECRET,
   callbacks: {
     // reconfigure response
     async session({ session, token, user }) {
-      // session.user!.username = session?.user?.name?.split(' ').join('').toLocaleLowerCase();
-      // session.user!.uid = token.sub;
+      session.user!.firstname! = session?.user?.name?.split(' ')[0]
+      session.user!.id = token.sub;
 
       return session;
     }

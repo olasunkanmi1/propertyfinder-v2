@@ -15,7 +15,7 @@ const Contact: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
             <h1 className='font-semibold mb-2 text-primary'>AGENCY:</h1>
 
             <div className='space-y-1'>
-                <div className='flex flex-wrap gap-3 justify-between items-center'>
+                <div className='flex flex-wrap md:flex-nowrap o wrgap-3 justify-between items-center'>
                     <p className='font-semibold leading-[18px]'> {agency.name} </p>
                 
                     <div className="flex justify-center items-center w-[100px] text-white">

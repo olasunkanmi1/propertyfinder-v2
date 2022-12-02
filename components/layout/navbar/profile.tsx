@@ -1,38 +1,44 @@
 import React from 'react'
 import Image from 'next/image'
 import { ProfileProps } from '../../../types'
-import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai'
+import { AiOutlineUp } from 'react-icons/ai'
 import Link from 'next/link'
+import { useRecoilState } from 'recoil'
+import { navbarState } from '../../../states'
+import { signOut } from 'next-auth/react';
 
 const Profile: React.FC<ProfileProps> = ({imageUrl, firstName, email, big}) => {
+    const [dropdown, setDropdown] = useRecoilState(navbarState);
+    const handleDropdown = () => {
+        setDropdown(dropdown => ({
+            ...dropdown,
+            profileDropdown: !dropdown.profileDropdown, 
+        }))
+    }
+
   return (
-    <div className='flex space-x-2 items-center cursor-pointer text-gray-500'>
-        <div className={`flex items-center justify-center bg-secondary text-white rounded-full relative ${big ? 'w-[50px] h-[50px]' : 'w-[20px] h-[20px]'}`}>
-            { imageUrl ? (
-                <Image src={imageUrl} alt='dp' layout='fill' priority className='rounded-full border' />
-            ) : (
-                <p className='text-white text-2xl font-bold '> {firstName.charAt(0)} </p>
-            ) }
+    <div className='flex space-x-2 items-center cursor-pointer text-gray-500' onClick={handleDropdown}>
+        <div className={`flex items-center justify-center bg-secondary text-white rounded-full relative ${big ? 'w-[50px] h-[50px]' : 'w-[40px] h-[40px]'}`}>
+            { imageUrl && <Image src={imageUrl} alt='dp' layout='fill' priority className='rounded-full border' /> }
         </div>
+        <AiOutlineUp className={`transition-all duration-300 ${dropdown.profileDropdown ? '' : '-rotate-180'}`} />
 
-        <div className="flex flex-col">
-            <h6> {firstName} </h6>
-            <p className='font-sm'> {email} </p>
-        </div>
+        { dropdown.profileDropdown && (
+            <div className="flex flex-col items-start absolute right-0 top-[74px] shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-md py-2 z-20 bg-white space-y-2 max-w-[250px]">
+                <div className='px-2 overflow-hidden w-full'>
+                    <h6 className='font-semibold select-none text-ellipsis truncate'> {firstName} </h6>
+                    <p className='text-sm break-words'> {email} </p>
+                </div>
 
-        {/* { dropdownOpen ? <AiOutlineUp /> : <AiOutlineDown /> } */}
-
-        {/* { dropdownOpen && ( */}
-            {/* <div className="flex flex-col absolute right-0 top-[75px] border rounded-md p-2 z-20 bg-white">
                 <Link href="/saved-properties" passHref>
-                    <a className='hover:text-primary'>
+                    <a className='text-center p-2 hover:text-white hover:bg-primary w-full'>
                         View saved properties 
                     </a>
                 </Link>
 
-                <button type='button' className='hover:text-primary'> Sign out </button>
-            </div> */}
-        {/* // ) } */}
+                <button onClick={() => signOut()} className='bg-primary bg-opacity-20 border border-primary text-primary py-1 px-4 hover:scale-105 transition-all duration-500 rounded-md font-medium mx-auto'> Sign out </button>
+            </div>
+        ) }
     </div>
   )
 }

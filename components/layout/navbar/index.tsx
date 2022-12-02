@@ -2,40 +2,50 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../../../public/assets/logo.png'
 import Profile from './profile'
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Hamburger from './hamburger'
+import { useSetRecoilState } from 'recoil';
+import { navbarState } from '../../../states';
 
 const Navbar = () => {
+  const setModal = useSetRecoilState(navbarState);
+
     const { data: session, status } = useSession();
+    console.log('session', session)
+    console.log('status', status)
     const navLinks = [
         { route: '/find-property', title: 'Find Property' },
         { route: '/find-property?purpose=for-sale', title: 'For Sale' },
-        { route: '/find-property?purpose=for-rent', title: 'For Rent' },
-        { route: '/authentication', title: 'Sign In', session: session },
-    ]
+        { route: '/find-property?purpose=for-rent', title: 'For Rent' }
+    ];
+
+    const showModal = () => {
+        setModal( modal => ({
+            ...modal,
+            signInModal: true,
+        }))
+    }
 
   return (
-    <div className='flex justify-between items-center  xl:w-[1152px] border-b h-[75px] sticky top-0 bg-[#fefefe] z-[22] overflow-hidden'>
+    <div className='flex justify-between items-center xl:w-[1152px] border-b h-[75px] sticky top-0 bg-[#fefefe] z-[22]'>
         <Link href="/" passHref>
             <a> <Image src={Logo} alt="logo" width={180} height={50} priority /> </a>
         </Link>
 
         <div className="hidden md:flex items-center space-x-4">
-            { navLinks.map(({ route, title, session }) => {
+            { navLinks.map(({ route, title }) => {
                 return (
-                    session === undefined ? (
-                        <Link href={route} passHref key={route}>
-                            <a className="navLinks"> { title } </a>
-                        </Link>
-                    ) : session !== undefined && !session ? (
-                        <Link href={route} passHref key={route}>
-                            <a className="navLinks"> { title } </a>
-                        </Link>
-                    ) : null
+                    <Link href={route} passHref key={route}>
+                        <a className="navLinks"> { title } </a>
+                    </Link>
                 )
             }) }
 
-            { session && <Profile imageUrl='' firstName='Salam' email='ad@kf.com'/> }
+            { status === 'loading' ? null : !session ? (
+                <button className="navLinks" onClick={showModal}> Sign In </button>
+            ) : (
+                <Profile imageUrl={session.user?.image} firstName={session.user?.firstname} email={session.user?.email}/>
+            ) }
         </div>
 
         <Hamburger />
