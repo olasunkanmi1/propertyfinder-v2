@@ -5,8 +5,10 @@ import { useRecoilState } from 'recoil'
 import { navbarState } from '../../states'
 import { signIn } from 'next-auth/react';
 import { ISignUpModalProps } from '../../types'
+import { useRouter } from 'next/router'
 
 const SignUpModal: React.FC<ISignUpModalProps> = ({providers}) => {
+    const router = useRouter();
     const [modal, setModal] = useRecoilState(navbarState);
     const closeModal = () => {
         setModal( modal => ({
@@ -26,7 +28,7 @@ const SignUpModal: React.FC<ISignUpModalProps> = ({providers}) => {
                 <button 
                     key={provider.name} 
                     className='flex items-center border rounded-full py-4 px-5 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] font-medium text-xl mt-4 hover:bg-slate-50'
-                    onClick={() => signIn(provider.id, { callbackUrl: "/" })}
+                    onClick={() => signIn(provider.id, { callbackUrl: router.asPath })}
                 > 
                     <FcGoogle size={30} className='mr-3' /> Sign in with {provider.id} 
                 </button>
