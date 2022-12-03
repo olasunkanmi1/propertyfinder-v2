@@ -13,6 +13,7 @@ const Profile: React.FC<IProfileProps> = ({mobile}) => {
     const imageUrl = session ? session.user?.image : '';
     const firstName = session ? session.user?.firstName : '';
     const email = session ? session.user?.email : '';
+    console.log(session)
 
     const [dropdown, setDropdown] = useRecoilState(navbarState);
     const handleDropdown = () => {

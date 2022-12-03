@@ -13,7 +13,6 @@ const Id: React.FC<UniquePropertyPageProps & SimilarPropertiesProps> = ({propert
   Router.events.on("routeChangeComplete", () => setLoading({propertiesLoading: false, routeChangeLoading: false}) );
 
   const {title} = propertyDetails;
-  console.log(propertyDetails)
   return (
     <Layout title={title} providers={providers}>
       <div className='grid grid-cols-1 xll:grid-cols-3 gap-x-5 gap-y-10 pb-5'>
