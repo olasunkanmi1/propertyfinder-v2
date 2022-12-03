@@ -6,7 +6,7 @@ const PropertyInfo: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
   const infos = [
     { title: 'Type', value: category[1].nameSingular },
     { title: 'Active', value: active ? 'Yes' : 'No' },
-    { title: 'Furnishing status', value: furnishingStatus },
+    { title: 'Furnishing status', value: furnishingStatus === null ? 'Not specified' : furnishingStatus },
     { title: 'Completion status', value: completionStatus },
     { title: 'Purpose', value: purpose === 'for-rent' ? 'For rent' : 'For sale' },
     { title: 'Reference no.', value: referenceNumber },
@@ -23,7 +23,7 @@ const PropertyInfo: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
             return (
               <div key={title} className='flex justify-between w-full sm:w-[47%] border-b pb-2'>
                 <p className='font-medium'> {title} </p>
-                <p className='font-semibold'> {`${value}`} </p>
+                <p className='font-semibold capitalize'> {`${value}`} </p>
               </div>
             )
           }) }

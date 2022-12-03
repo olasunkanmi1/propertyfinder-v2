@@ -1,6 +1,6 @@
 import React from 'react'
-import { Layout, Details, Contact, SimilarProperties } from '../../components'
-import { UniquePropertyPageProps, SimilarPropertiesProps } from '../../types';
+import { Layout, Details, Contact, SimilarProperties, NoProperty } from '../../components'
+import { UniquePropertyPageProps, SimilarPropertiesProps, Property } from '../../types';
 import { baseUrl, fetchApi } from '../../utils/fetchApi';
 import Router from "next/router";
 import { useSetRecoilState } from 'recoil';
@@ -13,14 +13,21 @@ const Id: React.FC<UniquePropertyPageProps & SimilarPropertiesProps> = ({propert
   Router.events.on("routeChangeComplete", () => setLoading({propertiesLoading: false, routeChangeLoading: false}) );
 
   const {title} = propertyDetails;
+
   return (
-    <Layout title={title} providers={providers}>
-      <div className='grid grid-cols-1 xll:grid-cols-3 gap-x-5 gap-y-10 pb-5'>
-        <Details propertyDetails={propertyDetails} />
-        <Contact propertyDetails={propertyDetails} />
-        <SimilarProperties similarProperties={similarProperties} />
-      </div>
-    </Layout>
+    <>
+      { Object.keys(propertyDetails).length !== 0 ? (
+        <Layout title={title} providers={providers}>
+            <div className='grid grid-cols-1 xll:grid-cols-3 gap-x-5 gap-y-10 pb-5'>
+              <Details propertyDetails={propertyDetails} />
+              <Contact propertyDetails={propertyDetails} />
+              <SimilarProperties similarProperties={similarProperties} />
+            </div>
+        </Layout>
+      ) : (
+          <NoProperty providers={providers} />
+      ) }
+    </>
   )
 }
 
@@ -28,13 +35,13 @@ export default Id;
 
 export async function getServerSideProps({ params: { id } }: any) {
   const data = await fetchApi(`${baseUrl}/properties/detail?externalID=${id}`);
-  const similarProperties =  await fetchApi(`${baseUrl}/properties/list?hitsPerPage=4&locationExternalIDs=${data.location[1].externalID}&purpose=${data.purpose}&categoryExternalID=${data.category[1].externalID}&rentFrequency=${data.rentFrequency}&furnishingStatus=${data.furnishingStatus}`);
+  const similarProperties = Object.keys(data).length !== 0 ? await fetchApi(`${baseUrl}/properties/list?hitsPerPage=4&locationExternalIDs=${data.location[1].externalID}&purpose=${data.purpose}&categoryExternalID=${data.category[1].externalID}&rentFrequency=${data.rentFrequency}&furnishingStatus=${data.furnishingStatus}`) : [];
   const providers = await getProviders();
 
   return {
     props: {
       propertyDetails: data,
-      similarProperties: similarProperties?.hits,
+      similarProperties: similarProperties?.hits ? similarProperties?.hits : [],
       providers,
     },
   };

@@ -1,7 +1,6 @@
 import { BuiltInProviderType } from "next-auth/providers";
 import { ClientSafeProvider, LiteralUnion } from "next-auth/react";
 import { StaticImageData } from "next/image";
-import { Dispatch, SetStateAction } from "react";
 
 export interface LayoutProps {
     title: string;

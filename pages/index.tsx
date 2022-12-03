@@ -26,8 +26,8 @@ const Home: React.FC<HomepageProps> = ({ featuredProperties, featuredAgencies, p
 export default Home
 
 export async function getStaticProps() {
-  const featuredProperties = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&hitsPerPage=6`)
-  const featuredAgencies = await fetchApi(`${baseUrl}/agencies/list?query=.`, FeaturedAgencies)
+  const featuredProperties = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&hitsPerPage=6`);
+  const featuredAgencies = await fetchApi(`${baseUrl}/agencies/list?query=.`, FeaturedAgencies);
   const providers = await getProviders();
 
   return {
@@ -35,6 +35,6 @@ export async function getStaticProps() {
       featuredProperties: featuredProperties?.hits,
       featuredAgencies: featuredAgencies,
       providers,
-    }
-  }
+    },
+  };
 }
