@@ -9,7 +9,7 @@ import { filterAtom } from '../../../../states';
 
 export interface ISearchboxProps {
   desktop?: boolean;
-  suggestionsRef: React.MutableRefObject<HTMLDivElement | null>;
+  suggestionsRef?: React.MutableRefObject<HTMLDivElement | null>;
 }
 
 const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {

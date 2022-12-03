@@ -12,7 +12,7 @@ interface IDropdownProps {
     setSuggestions: SetterOrUpdater<addressSuggestionsAtomState>;
     inputRef: React.RefObject<HTMLInputElement>;
     desktop?: boolean;
-    suggestionsRef: React.MutableRefObject<HTMLDivElement | null>;
+    suggestionsRef?: React.MutableRefObject<HTMLDivElement | null>;
 }
 
 const Dropdown = ({loading, suggestions, setSuggestions, inputRef, desktop, suggestionsRef}: IDropdownProps) => {
