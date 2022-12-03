@@ -15,14 +15,14 @@ const Contact: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
             <h1 className='font-semibold mb-2 text-primary'>AGENCY:</h1>
 
             <div className='space-y-1'>
-                <div className='flex flex-wrap md:flex-nowrap o wrgap-3 justify-between items-center'>
-                    <p className='font-semibold leading-[18px]'> {agency.name} </p>
-                
+                <div className='flex flex-col items-center space-y-1'>
                     <div className="flex justify-center items-center w-[100px] text-white">
                         <img
                             src={agency.logo ? agency.logo.url : 'https://i.ibb.co/6vv08Pk/homr-removebg-preview.png'} alt="Agency Logo" 
                         />
                     </div> 
+
+                    <p className='font-semibold leading-[18px]'> {agency.name} </p>
                 </div>
                 
                 { permitNumber && <p className='font-medium text-center'> Permit no.: {permitNumber} </p> }

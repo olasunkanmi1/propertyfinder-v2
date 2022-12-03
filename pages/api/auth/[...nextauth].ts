@@ -14,7 +14,7 @@ export default NextAuth({
   callbacks: {
     // reconfigure response
     async session({ session, token, user }) {
-      session.user!.firstname! = session?.user?.name?.split(' ')[0]
+      session.user!.firstName = session?.user?.name?.split(' ')[0]
       session.user!.id = token.sub;
 
       return session;

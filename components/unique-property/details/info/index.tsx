@@ -8,6 +8,7 @@ import PropertyInfos from './property-info';
 import Amenities from './amenities';
 import ReactPlayer from 'react-player'
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
+import { MdLocationOn } from 'react-icons/md'
 
 const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
     const descriptionRef = useRef<HTMLParagraphElement>(null)
@@ -15,7 +16,8 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
     const [descriptionVisibility, setDescriptionVisibility] = useState<boolean>(false);
     const [screenWidth, setscreenWidth] = useState<number | undefined>(undefined);
 
-    const { isVerified, price, rentFrequency, rooms, baths, area, title, description, coverVideo, amenities } = propertyDetails;
+    const { isVerified, price, rentFrequency, rooms, baths, area, title, description, coverVideo, amenities, location } = propertyDetails;
+    const propertyLocation = `${location[5] ? location[5].name + ', ' : ''}` + `${location[4] ? location[4].name + ', ' : ''}` + `${location[3] ? location[3].name + ', ' : ''}` + `${location[2] ? location[2].name + ', ' : ''}` + `${location[1] ? location[1].name + '.' : ''}`
 
     const handleDescription = () => {
         setDescriptionVisibility(!descriptionVisibility);
@@ -71,6 +73,15 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
         {coverVideo && (
             <ReactPlayer url={coverVideo.url} width={screenWidth && screenWidth < 500 ? '100%' : '380px'} height={'250px'} controls /> 
         )}
+
+        <div>
+            <div className='flex items-center text-primary mb-2'>
+                <MdLocationOn size={20} />
+                <h1 className='font-bold text-xl'> Location </h1>
+            </div>
+
+            <p className='font-medium'>  {propertyLocation} </p>
+        </div>
 
         <PropertyInfos propertyDetails={propertyDetails} />
         {amenities.length !== 0 && <Amenities propertyDetails={propertyDetails} /> }

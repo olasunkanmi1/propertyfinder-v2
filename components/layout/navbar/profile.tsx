@@ -1,13 +1,19 @@
 import React from 'react'
 import Image from 'next/image'
-import { ProfileProps } from '../../../types'
+import { IProfileProps } from '../../../types'
 import { AiOutlineUp } from 'react-icons/ai'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 import { navbarState } from '../../../states'
 import { signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
-const Profile: React.FC<ProfileProps> = ({imageUrl, firstName, email, big}) => {
+const Profile: React.FC<IProfileProps> = ({mobile}) => {
+    const { data: session } = useSession();
+    const imageUrl = session ? session.user?.image : '';
+    const firstName = session ? session.user?.firstName : '';
+    const email = session ? session.user?.email : '';
+
     const [dropdown, setDropdown] = useRecoilState(navbarState);
     const handleDropdown = () => {
         setDropdown(dropdown => ({
@@ -18,10 +24,19 @@ const Profile: React.FC<ProfileProps> = ({imageUrl, firstName, email, big}) => {
 
   return (
     <div className='flex space-x-2 items-center cursor-pointer text-gray-500' onClick={handleDropdown}>
-        <div className={`flex items-center justify-center bg-secondary text-white rounded-full relative ${big ? 'w-[50px] h-[50px]' : 'w-[40px] h-[40px]'}`}>
+        <div className={`flex items-center justify-center bg-secondary text-white rounded-full relative ${mobile ? 'w-[50px] h-[50px]' : 'w-[40px] h-[40px]'}`}>
             { imageUrl && <Image src={imageUrl} alt='dp' layout='fill' priority className='rounded-full border' /> }
         </div>
-        <AiOutlineUp className={`transition-all duration-300 ${dropdown.profileDropdown ? '' : '-rotate-180'}`} />
+
+        {mobile ? (
+            <div className='overflow-hidden w-[calc(100%-55px)]'>
+                <h6 className='font-semibold select-none text-ellipsis truncate'> {firstName} </h6>
+                <p className='text-sm break-words'> {email} </p>
+            </div> 
+        ) : (
+            <AiOutlineUp className={`transition-all duration-300 ${dropdown.profileDropdown ? '' : '-rotate-180'}`} />
+        )}
+
 
         { dropdown.profileDropdown && (
             <div className="flex flex-col items-start absolute right-0 top-[74px] shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-md py-2 z-20 bg-white space-y-2 max-w-[250px]">

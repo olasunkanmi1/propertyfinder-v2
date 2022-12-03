@@ -9,11 +9,8 @@ export interface LayoutProps {
     providers?: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
 }
 
-export interface ProfileProps {
-    imageUrl?: string | null;
-    firstName?: string | null;
-    email?: string | null;
-    big?: boolean;
+export interface IProfileProps {
+    mobile?: boolean;
 }
 
 export interface SectionLayoutProps {
@@ -75,6 +72,9 @@ export interface Property {
     category: {
         nameSingular: string;
     }[];
+    location: {
+        name: string;
+    }[];
 }
 
 export interface Agency {
@@ -99,10 +99,17 @@ export interface HomepageProps {
 export interface FindPropertyPageProps {
     properties: Property[];
     nbHits?: number;
+    providers?: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
 }
 
 export interface UniquePropertyPageProps {
     propertyDetails: Property;
+    providers?: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
+}
+
+export interface SavedPropertiesPageProps {
+    propertyDetails: Property;
+    providers?: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
 }
 
 export interface SimilarPropertiesProps {

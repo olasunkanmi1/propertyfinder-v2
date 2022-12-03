@@ -11,8 +11,6 @@ const Navbar = () => {
   const setModal = useSetRecoilState(navbarState);
 
     const { data: session, status } = useSession();
-    console.log('session', session)
-    console.log('status', status)
     const navLinks = [
         { route: '/find-property', title: 'Find Property' },
         { route: '/find-property?purpose=for-sale', title: 'For Sale' },
@@ -44,7 +42,7 @@ const Navbar = () => {
             { status === 'loading' ? null : !session ? (
                 <button className="navLinks" onClick={showModal}> Sign In </button>
             ) : (
-                <Profile imageUrl={session.user?.image} firstName={session.user?.firstname} email={session.user?.email}/>
+                <Profile />
             ) }
         </div>
 
