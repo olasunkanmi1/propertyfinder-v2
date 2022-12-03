@@ -11,13 +11,13 @@ export default NextAuth({
     // ...add more providers here
   ],
   secret: process.env.SECRET,
-  callbacks: {
-    // reconfigure response
-    async session({ session, token, user }) {
-      session.user!.firstName = session?.user?.name?.split(' ')[0]
-      session.user!.id = token.sub;
+  // callbacks: {
+  //   // reconfigure response
+  //   async session({ session, token, user }) {
+  //     session.user!.firstName = session?.user?.name?.split(' ')[0]
+  //     session.user!.id = token.sub;
 
-      return session;
-    }
-  },
+  //     return session;
+  //   }
+  // },
 })

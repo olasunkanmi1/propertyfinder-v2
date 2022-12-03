@@ -11,16 +11,19 @@ import { useSession } from 'next-auth/react';
 const Profile: React.FC<IProfileProps> = ({mobile}) => {
     const { data: session } = useSession();
     const imageUrl = session ? session.user?.image : '';
-    const firstName = session ? session.user?.firstName : '';
+    const firstName = session ? session.user?.name?.split(' ')[0] : '';
     const email = session ? session.user?.email : '';
-    console.log(session)
+    // console.log(session)
 
     const [dropdown, setDropdown] = useRecoilState(navbarState);
     const handleDropdown = () => {
-        setDropdown(dropdown => ({
-            ...dropdown,
-            profileDropdown: !dropdown.profileDropdown, 
-        }))
+        if(!mobile) {
+            setDropdown(dropdown => ({
+                ...dropdown,
+                profileDropdown: !dropdown.profileDropdown, 
+            }))
+        }
+
     }
 
   return (
