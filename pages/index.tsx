@@ -28,6 +28,7 @@ export default Home
 export async function getStaticProps() {
   const featuredProperties = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&hitsPerPage=6`);
   const featuredAgencies = await fetchApi(`${baseUrl}/agencies/list?query=.`, FeaturedAgencies);
+  
   const providers = await getProviders();
 
   return {
