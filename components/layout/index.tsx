@@ -45,7 +45,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children, providers }) => {
       <Sidebar />
       <Filterbar />
       <SignUpModal providers={providers} />
-      {loading.routeChangeLoading && <RouteChangeLoader /> }
+      {/* {loading.routeChangeLoading && <RouteChangeLoader /> } */}
     </div>
   )
 }
