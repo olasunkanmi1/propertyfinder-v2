@@ -35,9 +35,6 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = ({providers}) => {
   )
 , [])
   
-  // console.log('properties', savedProperties)
-
-  
   return (
     <Layout title='View your saved properties' providers={providers}>
       { session ? (
