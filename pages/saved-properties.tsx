@@ -10,6 +10,7 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { db } from '../firebase'
 import Heading from '../components/heading';
 import { Loader } from '../components/loader';
+import Cookies from 'universal-cookie';
 
 const SavedProperties: React.FC<SavedPropertiesPageProps> = ({providers}) => {
   const router = useRouter();
@@ -60,6 +61,17 @@ export default SavedProperties
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const providers = await getProviders();
+  const cookies = new Cookies();
+  const sessionCookie = cookies.get('next-auth.session-token');
+
+  if(sessionCookie === undefined) {
+    return {
+        redirect: {
+          permanent: false,
+          destination: '/',
+        },
+    }
+  }
 
   return {
     props: {

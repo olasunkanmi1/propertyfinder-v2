@@ -33,15 +33,6 @@ const Sidebar = () => {
             }));
         } else if(name === 'out') {
             signOut();
-        } else if(name === 'saved') {
-            if(session) {
-                router.push('/saved-properties')
-            } else {
-                setOpen(open => ({
-                    ...open,
-                    signInModal: true
-                }));
-            }
         }
     };
 
@@ -55,12 +46,16 @@ const Sidebar = () => {
                 { navLinks.map(({ route, title, active }) => {
                     return (
                         <Link href={route} passHref key={route}>
-                            <a className={`sidebarNavLinks ${active && 'bg-primary text-white'}`} onClick={() => closeSidebar('')}> { title } </a>
+                            <a className={`sidebarNavLinks ${active ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar('')}> { title } </a>
                         </Link>
                     )
                 }) }
 
-                <button className={`sidebarNavLinks ${router.pathname === '/saved-properties' ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar('saved')}> Saved Properties </button>
+                { session && (
+                    <Link href='/saved-properties' passHref>
+                        <a className={`sidebarNavLinks ${router.pathname === '/saved-properties' ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar('')}> Saved Properties </a>
+                    </Link>
+                ) }
             </div>
 
             { status === 'loading' ? null : !session ? (
