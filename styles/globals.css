@@ -30,7 +30,7 @@
   }
 
   .hamburgerSpan {
-    @apply absolute h-[4px] text-primary rounded duration-500 bg-primary
+    @apply absolute h-[4px] text-primary rounded duration-300 bg-primary
   }
   
   .pagination {
