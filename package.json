@@ -8,11 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.2.9",
-    "@emotion/react": "^11.10.0",
-    "@emotion/styled": "^11.10.0",
     "axios": "^0.27.2",
-    "firebase": "^9.9.3",
     "framer-motion": "^7.2.1",
     "millify": "^5.0.0",
     "next": "12.2.5",

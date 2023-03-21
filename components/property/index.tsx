@@ -8,34 +8,17 @@ import millify from "millify";
 import { FaBath, FaBed } from 'react-icons/fa';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { MdWindow } from 'react-icons/md';
-import { db, storage } from '../../firebase'
-import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore'
-import { ref } from 'firebase/storage'
-import { useSession } from 'next-auth/react'
 import { useSetRecoilState } from 'recoil';
 import { navbarState } from '../../states';
 
 const Property: React.FC<PropertyProps> = ({ property }) => {
-  const { data: session, status } = useSession();
   const setModal = useSetRecoilState(navbarState);
 
 //   console.log(session)
     const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID } = property
 
     const handleClick = async () => {
-        // alert('saved')
-        if(session) {
-            await addDoc(collection(db, "saved-properties"), {
-                userId: session?.user?.email,
-                coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID,
-                timestamp: serverTimestamp(),
-            })
-        } else {
-            setModal( modal => ({
-                ...modal,
-                signInModal: true,
-            }))
-        }
+        
     }
 
     return (

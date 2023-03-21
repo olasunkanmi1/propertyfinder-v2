@@ -1,11 +1,8 @@
-import { BuiltInProviderType } from "next-auth/providers";
-import { ClientSafeProvider, LiteralUnion } from "next-auth/react";
 import { StaticImageData } from "next/image";
 
 export interface LayoutProps {
     title: string;
     children: JSX.Element[] | JSX.Element;
-    providers?: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
 }
 
 export interface IProfileProps {
@@ -92,23 +89,19 @@ export interface PropertyProps {
 export interface HomepageProps {
     featuredProperties?: Property[];
     featuredAgencies?: Agency[];
-    providers?: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
 }
 
 export interface FindPropertyPageProps {
     properties: Property[];
     nbHits?: number;
-    providers?: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
 }
 
 export interface UniquePropertyPageProps {
     propertyDetails: Property;
-    providers?: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
 }
 
 export interface SavedPropertiesPageProps {
     propertyDetails: Property;
-    providers?: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
 }
 
 export interface SimilarPropertiesProps {
@@ -283,5 +276,4 @@ export interface IDirectDropdownLayoutProps {
 }
 
 export interface ISignUpModalProps {
-    providers?: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
 }

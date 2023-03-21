@@ -1,17 +1,11 @@
 import React from 'react'
 import Layout from '../layout'
-import { BuiltInProviderType } from "next-auth/providers";
-import { ClientSafeProvider, LiteralUnion } from "next-auth/react";
 import Image from 'next/image';
 import homeNotFound from "../../public/assets/homeNotFound.webp";
 
-interface INoPropertyProps {
-    providers?: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
-};
-
-const NoProperty: React.FC<INoPropertyProps> = ({providers}) => {
+const NoProperty: React.FC = () => {
   return (
-    <Layout title='No property found' providers={providers}>
+    <Layout title='No property found'>
         <div className='flex flex-col justify-center items-center w-full h-[400px]'>
             <h1 className='text-xl font-bold text-primary'> Property Does Not Exist </h1>
 

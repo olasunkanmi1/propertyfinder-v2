@@ -3,11 +3,10 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
 import { useRecoilState } from 'recoil'
 import { navbarState } from '../../states'
-import { signIn } from 'next-auth/react';
 import { ISignUpModalProps } from '../../types'
 import { useRouter } from 'next/router'
 
-const SignUpModal: React.FC<ISignUpModalProps> = ({providers}) => {
+const SignUpModal: React.FC<ISignUpModalProps> = () => {
     const router = useRouter();
     const [modal, setModal] = useRecoilState(navbarState);
     const closeModal = () => {
@@ -24,15 +23,11 @@ const SignUpModal: React.FC<ISignUpModalProps> = ({providers}) => {
             <AiOutlineClose size={20} className='absolute top-0 right-0 text-primary cursor-pointer' onClick={closeModal} />
             <h1 className='font-semibold text-center'> SIGN IN </h1>
 
-            {providers && Object.values(providers).map((provider) => (
                 <button 
-                    key={provider.name} 
                     className='flex items-center border rounded-full py-4 px-3 ms:px-5 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] font-medium ms:text-xl mt-4 mx-auto hover:bg-slate-50'
-                    onClick={() => signIn(provider.id, { callbackUrl: router.asPath })}
+                    // onClick={() => signIn()}
                 > 
-                    <FcGoogle size={30} className='mr-3' /> Sign in with {provider.id} 
                 </button>
-            ))}
 
         </div>
     </div>

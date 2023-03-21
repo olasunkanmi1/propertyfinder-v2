@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../../../public/assets/logo.png'
 import Profile from './profile'
-import { useSession } from 'next-auth/react';
 import Hamburger from './hamburger'
 import { useSetRecoilState } from 'recoil';
 import { navbarState } from '../../../states';
@@ -10,7 +9,6 @@ import { navbarState } from '../../../states';
 const Navbar = () => {
   const setModal = useSetRecoilState(navbarState);
 
-    const { data: session, status } = useSession();
     const navLinks = [
         { route: '/find-property', title: 'Find Property' },
         { route: '/find-property?purpose=for-sale', title: 'For Sale' },
@@ -39,11 +37,8 @@ const Navbar = () => {
                 )
             }) }
 
-            { status === 'loading' ? null : !session ? (
                 <button className="navLinks" onClick={showModal}> Sign In </button>
-            ) : (
                 <Profile />
-            ) }
         </div>
 
         <Hamburger />
