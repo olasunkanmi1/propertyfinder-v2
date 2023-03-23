@@ -1,4 +1,7 @@
 import { StaticImageData } from "next/image";
+import { ReactElement } from "react";
+import { IconType } from "react-icons/lib";
+import * as Yup from 'yup'
 
 export interface LayoutProps {
     title: string;
@@ -275,5 +278,29 @@ export interface IDirectDropdownLayoutProps {
     })[];
 }
 
-export interface ISignUpModalProps {
+export interface SignInInitialValues {
+    email: string;
+    password: string;
+}
+
+export interface SignUpInitialValues {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
+
+export interface IModalLayoutProps {
+    heading: string;
+    children: JSX.Element[] | JSX.Element;
+    signIn?: boolean;
+}
+
+export interface IFormFieldProps {
+    title: string;
+    icon: ReactElement<IconType>;
+    name: string;
+    placeholder: string;
+    password?: boolean;
+    error: boolean;
 }

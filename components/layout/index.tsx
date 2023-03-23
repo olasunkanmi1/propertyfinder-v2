@@ -8,9 +8,11 @@ import { loadingState, navbarState } from '../../states'
 import Sidebar from './sidebar'
 import Filterbar from '../find-property-page/search-filters/mobile/filterbar'
 import RouteChangeLoader from './route-change-loader'
-import SignUpModal from './sign-up-modal'
+import SignInModal from './sign-in-register/sign-in'
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
-const Layout: React.FC<LayoutProps> = ({ title, children, providers }) => {
+const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const [open, setOpen] = useRecoilState(navbarState);
   const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal} = open;
   const loading = useRecoilValue(loadingState);
@@ -44,8 +46,16 @@ const Layout: React.FC<LayoutProps> = ({ title, children, providers }) => {
 
       <Sidebar />
       <Filterbar />
-      <SignUpModal providers={providers} />
+      <SignInModal />
       {/* {loading.routeChangeLoading && <RouteChangeLoader /> } */}
+
+
+      <ToastContainer
+        position="bottom-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        closeOnClick
+      />
     </div>
   )
 }
