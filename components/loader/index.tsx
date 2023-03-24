@@ -54,30 +54,30 @@
   
         @keyframes loader {
           0% {
-            background: rgba(8, 71, 168, .25);
+            background: rgba(8, 71, 168, .65);
           }
           25% {
             background: rgba(8, 71, 168);
           }
           50% {
-            background: rgba(8, 71, 168, .25);
+            background: rgba(8, 71, 168, .65);
           }
           100% {
-            background: rgba(8, 71, 168, .25);
+            background: rgba(8, 71, 168, .65);
           }
         }
         @-webkit-keyframes loader {
           0% {
-            background: rgba(8, 71, 168, .25);
+            background: rgba(8, 71, 168, .65);
           }
           25% {
             background: rgba(8, 71, 168);
           }
           50% {
-            background: rgba(8, 71, 168, .25);
+            background: rgba(8, 71, 168, .65);
           }
           100% {
-            background: rgba(8, 71, 168, .25);
+            background: rgba(8, 71, 168, .65);
           }
         }
         `}</style>

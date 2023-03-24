@@ -25,10 +25,10 @@ const SignUpModal = () => {
     };
 
     const validationSchema = Yup.object({
-        firstName: Yup.string().required("Enter first name"),
-        lastName: Yup.string().required("Enter last name"),
+        firstName: Yup.string().required("Enter first name").min(3, "First name must be at least 3 characters"),
+        lastName: Yup.string().required("Enter last name").min(3, "Last name must be at least 3 characters"),
         email: Yup.string().email("Enter a Valid Email").required("Enter email"),
-        password: Yup.string().required("Enter password"),
+        password: Yup.string().required("Enter password").min(6, "Password must be at least 6 characters"),
     });  
 
   const handleSubmit = (values: SignUpInitialValues) => {
@@ -36,24 +36,22 @@ const SignUpModal = () => {
 
     axios.post("auth/register", values)
       .then((res) => {
+        console.log(res)
         setLoading(false);
-        
-        if (res.status === 200) {
-          toast.success('Logged in successfully');
-        }
 
+        if (res.status === 201) {
+            toast.success('Logged in successfully');
+        }
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error.response)
         setLoading(false);
 
-        // if (error.response.status === 500) {
-        //   toast.error('Incorrect Email');
-        // } else if (error.response.status === 401) {
-        //   toast.error('Incorrect Password');
-        // } else {
-        //   toast.error('Unknown Error');
-        // }
+        if(error.response.status === 401) {
+            toast.error(error.reponse.data.msg);
+        } else if (error.response.status === 500) {
+            toast.error('Unknown error, please try again');
+        }
       });
 
 
@@ -68,44 +66,44 @@ const SignUpModal = () => {
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
-                    {({ isSubmitting, errors, values }) => {
+                    {({ isSubmitting, errors, values, touched }) => {
                         return (
                             <Form className='space-y-3 flex flex-col justify-end'>
                                 <FormField 
                                     title='First Name' 
-                                    icon={<AiOutlineUser size={25} color={errors.email ? '#E65050' : '#000'} />} 
+                                    icon={<AiOutlineUser size={25} color={touched.firstName && errors.firstName ? '#E65050' : '#000'} />} 
                                     name='firstName'
                                     placeholder='Enter your first name'
-                                    error={errors.firstName !== undefined}
+                                    error={touched.firstName && errors.firstName !== undefined}
                                 />
                                 
                                 <FormField 
                                     title='Last Name' 
-                                    icon={<AiOutlineUser size={25} color={errors.email ? '#E65050' : '#000'} />} 
+                                    icon={<AiOutlineUser size={25} color={touched.lastName && errors.lastName ? '#E65050' : '#000'} />} 
                                     name='lastName'
                                     placeholder='Enter your last name'
-                                    error={errors.lastName !== undefined}
+                                    error={touched.lastName && errors.lastName !== undefined}
                                 />
 
                                 <FormField 
                                     title='Email' 
-                                    icon={<AiOutlineMail size={25} color={errors.email ? '#E65050' : '#000'} />} 
+                                    icon={<AiOutlineMail size={25} color={touched.email && errors.email ? '#E65050' : '#000'} />} 
                                     name='email'
                                     placeholder='Enter your email'
-                                    error={errors.email !== undefined}
+                                    error={touched.email && errors.email !== undefined}
                                 />
                                 
                                 <FormField 
                                     title='Password' 
-                                    icon={<AiOutlineLock size={25} color={errors.password ? '#E65050' : '#000'} />} 
+                                    icon={<AiOutlineLock size={25} color={touched.password && errors.password ? '#E65050' : '#000'} />} 
                                     name='password'
                                     placeholder='Enter your password'
                                     password
-                                    error={errors.password !== undefined}
+                                    error={touched.password && errors.password !== undefined}
                                     value={values.password}
                                 />
                                 
-                                <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed'> 
+                                <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed h-[32px]'> 
                                     { loading ? <Loader /> : 'Create Account' }
                                 </button>
                             </Form>

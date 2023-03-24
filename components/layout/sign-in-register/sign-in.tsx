@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from 'react'
-import { AiOutlineClose, AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
-import { FcGoogle } from 'react-icons/fc'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import React, {useState} from 'react'
+import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
+import { useResetRecoilState, useRecoilValue } from 'recoil'
 import { navbarState } from '../../../states'
 import { useRouter } from 'next/router'
 import ModalLayout from './modal-layout'
 import * as Yup from 'yup';
-import { Form, Formik, FormikErrors } from 'formik'
+import { Form, Formik, FormikHelpers } from 'formik'
 import FormField from './field'
 import axios from 'axios'
 import { toast } from "react-toastify";
@@ -16,6 +15,7 @@ import { Loader } from '../../loader'
 const SignInModal = () => {
     const [loading, setLoading] = useState(false);
     const modal = useRecoilValue(navbarState);
+    const closeModal = useResetRecoilState(navbarState);
 
     const initialValues: SignInInitialValues = {
         email: '',
@@ -27,32 +27,31 @@ const SignInModal = () => {
         password: Yup.string().required("Enter password"),
     });  
 
-  const handleSubmit = (values: SignInInitialValues) => {
+  const handleSubmit = (values: SignInInitialValues, { setSubmitting }: FormikHelpers<SignInInitialValues>) => {
     setLoading(true);
 
     axios.post("auth/login", values)
       .then((res) => {
+        console.log(res)
+
         setLoading(false);
         
         if (res.status === 200) {
           toast.success('Logged in successfully');
+          closeModal();
         }
-
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error.response)
         setLoading(false);
+        setSubmitting(false)
 
-        // if (error.response.status === 500) {
-        //   toast.error('Incorrect Email');
-        // } else if (error.response.status === 401) {
-        //   toast.error('Incorrect Password');
-        // } else {
-        //   toast.error('Unknown Error');
-        // }
-      });
-
-
+        if(error.response.status === 401) {
+            toast.error('Invalid email or password');
+        } else if (error.response.status === 500) {
+            toast.error('Unknown error, please try again');
+        }
+      })
   }
     
   return (
@@ -64,30 +63,30 @@ const SignInModal = () => {
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
-                    {({ isSubmitting, errors, values }) => {
+                    {({ isSubmitting, errors, values, touched }) => {
                         return (
                             <Form className='space-y-3 flex flex-col justify-end'>
                                 <FormField 
                                     title='Email' 
-                                    icon={<AiOutlineMail size={25} color={errors.email ? '#E65050' : '#000'} />} 
+                                    icon={<AiOutlineMail size={25} color={touched.email && errors.email ? '#E65050' : '#000'} />} 
                                     name='email'
                                     placeholder='Enter your email'
-                                    error={errors.email !== undefined}
+                                    error={touched.email && errors.email !== undefined}
                                 />
                                 
                                 <FormField 
                                     title='Password' 
-                                    icon={<AiOutlineLock size={25} color={errors.password ? '#E65050' : '#000'} />} 
+                                    icon={<AiOutlineLock size={25} color={touched.password && errors.password ? '#E65050' : '#000'} />} 
                                     name='password'
                                     placeholder='Enter your password'
                                     password
-                                    error={errors.password !== undefined}
+                                    error={touched.password && errors.password !== undefined}
                                     value={values.password}
                                 />
                                 
                                 <button type='button' className='text-xs text-primary font-semibold ml-auto'> Forgot password </button>
                     
-                                <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed'> 
+                                <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-20 disabled:cursor-not-allowed h-[32px]'> 
                                     { loading ? <Loader /> : 'Sign In' }
                                 </button>
                             </Form>
