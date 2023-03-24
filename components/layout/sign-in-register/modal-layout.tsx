@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
-import { useRecoilState } from 'recoil'
-import { navbarState } from '../../../states'
+import { useRecoilState, useResetRecoilState } from 'recoil'
+import { INavbarState, navbarState } from '../../../states'
 import { IModalLayoutProps, SignInInitialValues } from '../../../types'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -13,17 +13,18 @@ import { Form, Formik, FormikErrors } from 'formik'
 const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn}) => {
     const router = useRouter();
     const [modal, setModal] = useRecoilState(navbarState);
-    const closeModal = () => {
+    const closeModal = useResetRecoilState(navbarState);
+
+    const openOppModal = () => {
+        closeModal();
         setModal( modal => ({
             ...modal,
-            signInModal: false,
-        }))
+            [signIn ? 'signUpModal' : 'signInModal' as keyof INavbarState]: true,
+        }));
     }
 
-    
-
   return (
-    <div className={`top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] shadow-[rgba(0,0,0,0.24)_0px_3px_8px] p-4 bg-white rounded-md w-[calc(100%-32px)] ms:w-[295px] ${modal.signInModal ? 'fixed' : 'hidden'}`}>
+    <div className={`top-[calc(50%+40px)] left-[50%] translate-x-[-50%] translate-y-[-50%] shadow-[rgba(0,0,0,0.24)_0px_3px_8px] p-4 bg-white rounded-md w-[calc(100%-32px)] ms:w-[295px] z-[25] ${modal.signInModal || modal.signUpModal ? 'fixed' : 'hidden'}`}>
         <div className="relative pt-5">
             <AiOutlineClose size={20} className='absolute top-0 right-0 text-primary cursor-pointer' onClick={closeModal} />
 
@@ -36,10 +37,11 @@ const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn}) =
             { children }
 
 
-            <p className='text-xs font-semibold text-center pt-3 border-t'> 
+            <p className='text-xs font-semibold text-center pt-3 mt-3 border-t'> 
                 { signIn ? "Don't have an account?" : 'Have an account?' } 
                 <span 
                     className='text-primary cursor-pointer font-semibold ml-2'
+                    onClick={openOppModal}
                 > 
                     { signIn ? 'Create an Account' : 'Log in' }
                 </span> 

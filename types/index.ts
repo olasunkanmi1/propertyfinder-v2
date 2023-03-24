@@ -303,4 +303,5 @@ export interface IFormFieldProps {
     placeholder: string;
     password?: boolean;
     error: boolean;
+    value?: string
 }

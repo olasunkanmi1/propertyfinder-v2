@@ -4,7 +4,7 @@ import Logo from '../../../public/assets/logo.png'
 import Profile from './profile'
 import Hamburger from './hamburger'
 import { useSetRecoilState } from 'recoil';
-import { navbarState } from '../../../states';
+import { navbarState, INavbarState } from '../../../states';
 
 const Navbar = () => {
   const setModal = useSetRecoilState(navbarState);
@@ -15,10 +15,10 @@ const Navbar = () => {
         { route: '/find-property?purpose=for-rent', title: 'For Rent' }
     ];
 
-    const showModal = () => {
+    const showModal = (name: string) => {
         setModal( modal => ({
             ...modal,
-            signInModal: true,
+            [name as keyof INavbarState]: true,
         }))
     }
 
@@ -37,7 +37,8 @@ const Navbar = () => {
                 )
             }) }
 
-                <button className="navLinks" onClick={showModal}> Sign In </button>
+                <button className="navLinks" onClick={() => showModal('signInModal')}> Sign In </button>
+                <button className="registerBtn" onClick={() => showModal('signUpModal')}> Register </button>
                 <Profile />
         </div>
 

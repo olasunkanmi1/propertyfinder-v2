@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { AiOutlineClose, AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { navbarState } from '../../../states'
 import { useRouter } from 'next/router'
 import ModalLayout from './modal-layout'
@@ -15,6 +15,7 @@ import { Loader } from '../../loader'
 
 const SignInModal = () => {
     const [loading, setLoading] = useState(false);
+    const modal = useRecoilValue(navbarState);
 
     const initialValues: SignInInitialValues = {
         email: '',
@@ -53,54 +54,51 @@ const SignInModal = () => {
 
 
   }
-
-  const ValidateForm = ({ validateForm }: any ) => {
-    useEffect(() => {
-        validateForm();
-    }, [validateForm]);
-
-    return null;
-    }
     
   return (
-    <ModalLayout heading='Log in to your Account' signIn> 
-        <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-        >
-            {({ isValid, isSubmitting, errors, validateForm }) => {
-                return (
-                    <Form className='space-y-3 flex flex-col justify-end'>
-                        <FormField 
-                            title='Email' 
-                            icon={<AiOutlineMail size={25} color={errors.email ? '#E65050' : '#000'} />} 
-                            name='email'
-                            placeholder='Enter your email'
-                            error={errors.email !== undefined}
-                        />
-                        
-                        <FormField 
-                            title='Password' 
-                            icon={<AiOutlineLock size={25} color={errors.password ? '#E65050' : '#000'} />} 
-                            name='password'
-                            placeholder='Enter your password'
-                            password
-                            error={errors.password !== undefined}
-                        />
-            
-                        <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed'> 
-                            { loading ? <Loader /> : 'Sign In' }
-                        </button>
-                        <ValidateForm validateForm={validateForm}  />
-                    </Form>
-                )
-            }}
-        </Formik>
-        
+    <>
+        { modal.signInModal && (
+            <ModalLayout heading='Log in to your Account' signIn> 
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSubmit}
+                >
+                    {({ isSubmitting, errors, values }) => {
+                        return (
+                            <Form className='space-y-3 flex flex-col justify-end'>
+                                <FormField 
+                                    title='Email' 
+                                    icon={<AiOutlineMail size={25} color={errors.email ? '#E65050' : '#000'} />} 
+                                    name='email'
+                                    placeholder='Enter your email'
+                                    error={errors.email !== undefined}
+                                />
+                                
+                                <FormField 
+                                    title='Password' 
+                                    icon={<AiOutlineLock size={25} color={errors.password ? '#E65050' : '#000'} />} 
+                                    name='password'
+                                    placeholder='Enter your password'
+                                    password
+                                    error={errors.password !== undefined}
+                                    value={values.password}
+                                />
+                                
+                                <button type='button' className='text-xs text-primary font-semibold ml-auto'> Forgot password </button>
+                    
+                                <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed'> 
+                                    { loading ? <Loader /> : 'Sign In' }
+                                </button>
+                            </Form>
+                        )
+                    }}
+                </Formik>
+                
 
-        <button type='button' className='text-xs text-primary font-semibold ml-auto'> Forgot password </button>
-    </ModalLayout>
+            </ModalLayout>
+        ) }
+    </>
   )
 }
 

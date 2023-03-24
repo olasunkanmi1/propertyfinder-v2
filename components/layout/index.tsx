@@ -3,28 +3,25 @@ import Head from 'next/head'
 import Navbar from './navbar'
 import Footer from './footer'
 import { LayoutProps } from '../../types'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useResetRecoilState, useRecoilValue } from 'recoil'
 import { loadingState, navbarState } from '../../states'
 import Sidebar from './sidebar'
 import Filterbar from '../find-property-page/search-filters/mobile/filterbar'
 import RouteChangeLoader from './route-change-loader'
 import SignInModal from './sign-in-register/sign-in'
+import SignUpModal from './sign-in-register/sign-up'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
-  const [open, setOpen] = useRecoilState(navbarState);
-  const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal} = open;
+  const open = useRecoilValue(navbarState);
+  const closeALll = useResetRecoilState(navbarState)
+  const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal, signUpModal} = open;
   const loading = useRecoilValue(loadingState);
 
   const toggleSidebarAndDropdown = () => {
-    if(isSidebarOpen || profileDropdown || isFilterbarOpen || signInModal) {
-      setOpen({
-        isSidebarOpen: false,
-        profileDropdown: false,
-        isFilterbarOpen: false,
-        signInModal: false,
-      })
+    if(isSidebarOpen || profileDropdown || isFilterbarOpen || signInModal || signUpModal) {
+      closeALll();
     }
   }
 
@@ -38,7 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       <div onClick={toggleSidebarAndDropdown} className={`w-full xl:max-w-6xl m-auto px-4 sm:px-8 xl:px-0 min-h-screen space-y-10 ${isSidebarOpen || isFilterbarOpen ? 'touch-none' : ''}`}>
           <Navbar />
 
-          <div className={`space-y-10 ${open.signInModal ? 'blur-sm' : ''}`}>
+          <div className={`space-y-10 ${open.signInModal || open.signUpModal ? 'blur-sm' : ''}`}>
             { children }
           </div>
       </div>
@@ -47,6 +44,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       <Sidebar />
       <Filterbar />
       <SignInModal />
+      <SignUpModal />
       {/* {loading.routeChangeLoading && <RouteChangeLoader /> } */}
 
 
