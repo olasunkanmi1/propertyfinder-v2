@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from 'react'
-import { AiOutlineClose, AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai'
-import { FcGoogle } from 'react-icons/fc'
-import { useRecoilValue } from 'recoil'
+import React, {useState} from 'react'
+import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai'
+import { useRecoilState, useResetRecoilState } from 'recoil'
 import { navbarState } from '../../../states'
 import { useRouter } from 'next/router'
 import ModalLayout from './modal-layout'
 import * as Yup from 'yup';
-import { Form, Formik, FormikErrors } from 'formik'
+import { Form, Formik, FormikErrors, FormikHelpers } from 'formik'
 import FormField from './field'
 import axios from 'axios'
 import { toast } from "react-toastify";
@@ -15,7 +14,16 @@ import { Loader } from '../../loader'
 
 const SignUpModal = () => {
     const [loading, setLoading] = useState(false);
-    const modal = useRecoilValue(navbarState);
+    const [modal, setModal] = useRecoilState(navbarState);
+    const closeModal = useResetRecoilState(navbarState);
+
+    const switchToLogin = () => {
+        closeModal();
+        setModal(modal => ({
+            ...modal,
+            signInModal: true
+        }))
+    }
 
     const initialValues: SignUpInitialValues = {
         firstName: '',
@@ -31,24 +39,24 @@ const SignUpModal = () => {
         password: Yup.string().required("Enter password").min(6, "Password must be at least 6 characters"),
     });  
 
-  const handleSubmit = (values: SignUpInitialValues) => {
+  const handleSubmit = (values: SignUpInitialValues, { setSubmitting }: FormikHelpers<SignUpInitialValues>) => {
     setLoading(true);
 
     axios.post("auth/register", values)
       .then((res) => {
-        console.log(res)
         setLoading(false);
 
         if (res.status === 201) {
-            toast.success('Logged in successfully');
+            toast.success('Account created successfully');
+            switchToLogin();
         }
       })
       .catch((error) => {
-        console.log(error.response)
         setLoading(false);
+        setSubmitting(false)
 
-        if(error.response.status === 401) {
-            toast.error(error.reponse.data.msg);
+        if(error.response.status === 400) {
+            toast.error('Email already exist');
         } else if (error.response.status === 500) {
             toast.error('Unknown error, please try again');
         }
@@ -103,7 +111,7 @@ const SignUpModal = () => {
                                     value={values.password}
                                 />
                                 
-                                <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed h-[32px]'> 
+                                <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-40 disabled:cursor-not-allowed h-[32px]'> 
                                     { loading ? <Loader /> : 'Create Account' }
                                 </button>
                             </Form>

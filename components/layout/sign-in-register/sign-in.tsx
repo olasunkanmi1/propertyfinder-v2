@@ -32,8 +32,6 @@ const SignInModal = () => {
 
     axios.post("auth/login", values)
       .then((res) => {
-        console.log(res)
-
         setLoading(false);
         
         if (res.status === 200) {
@@ -42,7 +40,6 @@ const SignInModal = () => {
         }
       })
       .catch((error) => {
-        console.log(error.response)
         setLoading(false);
         setSubmitting(false)
 
@@ -86,7 +83,7 @@ const SignInModal = () => {
                                 
                                 <button type='button' className='text-xs text-primary font-semibold ml-auto'> Forgot password </button>
                     
-                                <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-20 disabled:cursor-not-allowed h-[32px]'> 
+                                <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-40 disabled:cursor-not-allowed h-[32px]'> 
                                     { loading ? <Loader /> : 'Sign In' }
                                 </button>
                             </Form>
