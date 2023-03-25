@@ -30,7 +30,7 @@ const SignInModal = () => {
   const handleSubmit = (values: SignInInitialValues, { setSubmitting }: FormikHelpers<SignInInitialValues>) => {
     setLoading(true);
 
-    axios.post("auth/login", values)
+    axios.post("auth/login", values, { withCredentials: true })
       .then((res) => {
         setLoading(false);
         
