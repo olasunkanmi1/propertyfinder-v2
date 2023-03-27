@@ -1,9 +1,16 @@
 import { atom } from 'recoil'
 
-export const loadingState = atom({
-    key: 'loadingState',
+export interface ILoadingState {
+    routeChangeLoading: boolean;
+    propertiesLoading: boolean;
+    userLoading: boolean;
+};
+
+export const loadingState = atom<ILoadingState>({
+    key: 'loadingAtom',
     default: {
         routeChangeLoading: false,
-        propertiesLoading: false
+        propertiesLoading: false,
+        userLoading: true
     }
 });

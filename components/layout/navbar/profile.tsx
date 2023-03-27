@@ -3,11 +3,14 @@ import Image from 'next/image'
 import { IProfileProps } from '../../../types'
 import { AiOutlineUp } from 'react-icons/ai'
 import Link from 'next/link'
-import { useRecoilState } from 'recoil'
-import { navbarState } from '../../../states'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { navbarState, userState } from '../../../states'
 
 const Profile: React.FC<IProfileProps> = ({mobile}) => {
+  const user = useRecoilValue(userState);
     const [dropdown, setDropdown] = useRecoilState(navbarState);
+
+    const { firstName, lastName } = user;
     const handleDropdown = () => {
         if(!mobile) {
             setDropdown(dropdown => ({
@@ -20,8 +23,8 @@ const Profile: React.FC<IProfileProps> = ({mobile}) => {
 
   return (
     <div className='flex space-x-2 items-center cursor-pointer text-gray-500' onClick={handleDropdown}>
-        <div className={`flex items-center justify-center bg-secondary text-white rounded-full relative ${mobile ? 'w-[50px] h-[50px]' : 'w-[40px] h-[40px]'}`}>
-            {/* { imageUrl && <Image src={imageUrl} alt='dp' layout='fill' priority className='rounded-full border' /> } */}
+        <div className={`flex items-center justify-center bg-secondary text-white font-bold rounded-full relative ${mobile ? 'w-[50px] h-[50px]' : 'w-[40px] h-[40px]'}`}>
+            {firstName.charAt(0)} {lastName.charAt(0)}
         </div>
 
         {mobile ? (
@@ -30,7 +33,10 @@ const Profile: React.FC<IProfileProps> = ({mobile}) => {
                 <p className='text-sm break-words'> email </p>
             </div> 
         ) : (
-            <AiOutlineUp className={`transition-all duration-300 ${dropdown.profileDropdown ? '' : '-rotate-180'}`} />
+            <>
+                <p> {firstName} </p>
+                <AiOutlineUp className={`transition-all duration-300 ${dropdown.profileDropdown ? '' : '-rotate-180'}`} />
+            </>
         )}
 
 

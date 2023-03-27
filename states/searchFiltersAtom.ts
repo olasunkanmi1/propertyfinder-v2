@@ -11,7 +11,7 @@ const { persistAtom } = recoilPersist({
 })
 
 export const searchFiltersState = atom<IsearchFiltersState>({
-  key: 'searchFiltersState', 
+  key: 'searchFiltersAtom', 
   default: {
     main: null,
     minMax: null

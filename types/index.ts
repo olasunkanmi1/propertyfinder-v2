@@ -1,11 +1,18 @@
 import { StaticImageData } from "next/image";
 import { ReactElement } from "react";
 import { IconType } from "react-icons/lib";
-import * as Yup from 'yup'
 
 export interface LayoutProps {
     title: string;
     children: JSX.Element[] | JSX.Element;
+}
+
+export interface INavbarProps {
+    user: {
+        firstName: string;
+        lastName: string;
+        userId: string;
+    } | null;
 }
 
 export interface IProfileProps {

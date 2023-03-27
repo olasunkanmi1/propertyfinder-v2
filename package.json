@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "cookies-next": "^2.1.1",
     "formik": "^2.2.9",
     "framer-motion": "^7.2.1",
+    "js-cookie": "^3.0.1",
     "millify": "^5.0.0",
     "next": "12.2.5",
     "next-auth": "^4.10.3",
@@ -31,6 +33,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^6.3.1",
+    "@types/js-cookie": "^3.0.3",
     "@types/node": "^18.7.13",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^18.0.17",

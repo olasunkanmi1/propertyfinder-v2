@@ -3,11 +3,18 @@ import Link from 'next/link'
 import Logo from '../../../public/assets/logo.png'
 import Profile from './profile'
 import Hamburger from './hamburger'
-import { useSetRecoilState } from 'recoil';
-import { navbarState, INavbarState } from '../../../states';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { navbarState, INavbarState, loadingState, userState } from '../../../states';
+import { INavbarProps } from '../../../types'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const Navbar = () => {
+  const loading = useRecoilValue(loadingState);
+  const user = useRecoilValue(userState);
   const setModal = useSetRecoilState(navbarState);
+
+  const {userLoading} = loading;
 
     const navLinks = [
         { route: '/find-property', title: 'Find Property' },
@@ -37,9 +44,19 @@ const Navbar = () => {
                 )
             }) }
 
-                <button className="navLinks" onClick={() => showModal('signInModal')}> Sign In </button>
-                <button className="registerBtn" onClick={() => showModal('signUpModal')}> Register </button>
+            { userLoading ? (
+                <>
+                    { [...Array(2)].map((arr, i) => <Skeleton key={i} width={40} />) }
+                    <Skeleton circle width={40} height={40} />
+                </>
+            ) : !userLoading && !user ? (
+                <>
+                    <button className="navLinks" onClick={() => showModal('signInModal')}> Sign In </button>
+                    <button className="registerBtn" onClick={() => showModal('signUpModal')}> Register </button>
+                </>
+            ) : (
                 <Profile />
+            )}
         </div>
 
         <Hamburger />
