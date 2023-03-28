@@ -103,7 +103,7 @@ export interface UniquePropertyPageProps {
 }
 
 export interface SavedPropertiesPageProps {
-    propertyDetails: Property;
+    savedProperties: Property[];
 }
 
 export interface SimilarPropertiesProps {
