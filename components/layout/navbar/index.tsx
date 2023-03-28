@@ -5,7 +5,6 @@ import Profile from './profile'
 import Hamburger from './hamburger'
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { navbarState, INavbarState, loadingState, userState } from '../../../states';
-import { INavbarProps } from '../../../types'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 

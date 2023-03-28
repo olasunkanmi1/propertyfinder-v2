@@ -13,6 +13,7 @@ import SignUpModal from './sign-in-register/sign-up'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import {fetchUser} from '../../utils/fetchUser'
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const open = useRecoilValue(navbarState);
@@ -29,17 +30,15 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   }
 
   useEffect(() => {
-    axios.get('user', { withCredentials: true  })
-    .then(({data}) => {
-      setUser(data.user)
+    async function getUser() {
+      const user = await fetchUser();
+      setUser(user)
       setLoading(loading => ({...loading, userLoading: false}));
-    }).catch((err) => {
-      setUser(null)
-      setLoading(loading => ({...loading, userLoading: false}));
-    })
+    }
+    
+    getUser();
   }, [setUser, setLoading])
   
-
   return (
     <div className="bg-[#fefefe] w-full">
       <Head>

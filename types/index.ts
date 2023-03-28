@@ -7,14 +7,6 @@ export interface LayoutProps {
     children: JSX.Element[] | JSX.Element;
 }
 
-export interface INavbarProps {
-    user: {
-        firstName: string;
-        lastName: string;
-        userId: string;
-    } | null;
-}
-
 export interface IProfileProps {
     mobile?: boolean;
 }

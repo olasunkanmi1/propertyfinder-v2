@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
-import { useResetRecoilState, useRecoilValue } from 'recoil'
-import { navbarState } from '../../../states'
+import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { navbarState, userState } from '../../../states'
 import { useRouter } from 'next/router'
 import ModalLayout from './modal-layout'
 import * as Yup from 'yup';
@@ -11,11 +11,13 @@ import axios from 'axios'
 import { toast } from "react-toastify";
 import { SignInInitialValues } from '../../../types'
 import { Loader } from '../../loader'
+import { fetchUser } from '../../../utils/fetchUser'
 
 const SignInModal = () => {
     const [loading, setLoading] = useState(false);
     const modal = useRecoilValue(navbarState);
     const closeModal = useResetRecoilState(navbarState);
+    const setUser = useSetRecoilState(userState);
 
     const initialValues: SignInInitialValues = {
         email: '',
@@ -31,11 +33,13 @@ const SignInModal = () => {
     setLoading(true);
 
     axios.post("auth/login", values, { withCredentials: true })
-      .then((res) => {
+      .then(async (res) => {
         setLoading(false);
         
         if (res.status === 200) {
           toast.success('Logged in successfully');
+          const user = await fetchUser();
+            setUser(user)
           closeModal();
         }
       })

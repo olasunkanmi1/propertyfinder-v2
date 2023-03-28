@@ -17,6 +17,10 @@
     @apply font-medium text-white bg-secondary py-1 px-2 rounded-md
   }
   
+  .dropdownLinks {
+    @apply flex py-1 px-2 text-black hover:bg-slate-300 rounded-md w-full ease-out duration-500 z-50
+  }
+  
   .sidebarNavLinks {
     @apply flex gap-3 font-medium text-gray-500 w-full p-3 hover:bg-primary hover:text-white
   }
