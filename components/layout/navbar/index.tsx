@@ -7,6 +7,7 @@ import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { navbarState, INavbarState, loadingState, userState } from '../../../states';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useRouter } from 'next/router'
 
 const Navbar = () => {
   const loading = useRecoilValue(loadingState);
@@ -14,6 +15,7 @@ const Navbar = () => {
   const setModal = useSetRecoilState(navbarState);
 
   const {userLoading} = loading;
+  const router = useRouter();
 
     const navLinks = [
         { route: '/find-property', title: 'Find Property' },
@@ -36,9 +38,11 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center space-x-4">
             { navLinks.map(({ route, title }) => {
+                const isActive = router.asPath === route
+
                 return (
                     <Link href={route} passHref key={route}>
-                        <a className="navLinks"> { title } </a>
+                        <a className={`navLinks ${isActive ? 'text-primary font-semibold' : ''}`}> { title } </a>
                     </Link>
                 )
             }) }

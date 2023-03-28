@@ -22,13 +22,12 @@ const Profile: React.FC<IProfileProps> = ({mobile}) => {
                 profileDropdown: !dropdown.profileDropdown, 
             }))
         }
-
     }
 
   return (
     <div className='flex space-x-2 items-center cursor-pointer text-gray-500' onClick={handleDropdown}>
-        <div className={`flex items-center justify-center bg-secondary text-white font-bold rounded-full relative ${mobile ? 'w-[50px] h-[50px]' : 'w-[40px] h-[40px]'}`}>
-            {firstName.charAt(0)} {lastName.charAt(0)}
+        <div className={`flex items-center justify-center bg-secondary text-white font-bold rounded-full relative ${mobile ? 'w-[50px] h-[50px]' : 'w-[35px] h-[35px]'}`}>
+            {firstName.charAt(0)}{lastName.charAt(0)}
         </div>
 
         {mobile ? (

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PropertyProps } from '../../types'
@@ -10,15 +10,50 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { MdWindow } from 'react-icons/md';
 import { useSetRecoilState } from 'recoil';
 import { navbarState } from '../../states';
+import axios from 'axios';
+import { toast } from "react-toastify";
+import { Spinner } from '../loader';
 
 const Property: React.FC<PropertyProps> = ({ property }) => {
+    const [loading, setLoading] = useState(false);
   const setModal = useSetRecoilState(navbarState);
 
-//   console.log(session)
     const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID } = property
 
     const handleClick = async () => {
-        
+        setLoading(true);
+        const obj = {
+            coverPhoto: {
+                url: coverPhoto.url
+            },
+            price, rooms, title, baths, area,
+            isVerified, rentFrequency,
+            agency: {
+                logo: {
+                    url: agency.logo.url
+                },
+                name: agency.name
+            },
+            externalID
+        }
+
+        axios.post("property", obj, { withCredentials: true })
+      .then(async (res) => {
+        setLoading(false);
+
+        if (res.status === 200) {
+          toast.success('Property saved');
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+
+        if(error.response.status === 401) {
+            setModal(modal => ({...modal, signInModal: true}));
+        } else {
+            toast.error('Unable to save property, please try again');
+        }
+      })
     }
 
     return (
@@ -45,8 +80,10 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                         </a>
                     </Link>
                     
-                    <button className="flex justify-center items-center mt-2 bg-primary bg-opacity-50 cursor-pointer transition ease-in-out w-[30px] h-[30px] rounded-md" onClick={() =>  handleClick()}>
-                        <AiOutlineHeart size={20} color='#fff' />
+                    <button className="flex justify-center items-center mt-2 bg-primary bg-opacity-50 cursor-pointer transition ease-in-out w-[30px] h-[30px] overflow-hidden rounded-md" onClick={() =>  handleClick()}>
+                        {loading ? <Spinner /> : (
+                            <AiOutlineHeart size={20} color='#fff' />
+                        )}
                         {/* <AiFillHeart size={20} color='rgb(255, 0, 0)' /> */}
                     </button>
                 </div>

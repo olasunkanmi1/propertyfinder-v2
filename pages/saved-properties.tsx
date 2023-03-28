@@ -8,8 +8,9 @@ import { SavedPropertiesPageProps } from '../types';
 import Heading from '../components/heading';
 import { Loader } from '../components/loader';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
 
-const SavedProperties: React.FC<SavedPropertiesPageProps> = () => {
+const SavedProperties: React.FC<SavedPropertiesPageProps> = ({properties}) => {
   const router = useRouter();
 
   const setLoading = useSetRecoilState(loadingState);
@@ -39,5 +40,12 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = () => {
 
 export default SavedProperties
 
-// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-// } 
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const {data} = await axios.get('property', { withCredentials: true });
+
+  return {
+    props: {
+      properties: data
+    },
+  };
+} 

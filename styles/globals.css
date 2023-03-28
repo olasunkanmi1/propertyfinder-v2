@@ -5,20 +5,16 @@
 @tailwind utilities;
 
 @layer components {
-  .navBtn {
-    @apply hidden h-6 md:inline-flex cursor-pointer hover:scale-125 transition-all duration-150 ease-out
-  }
-  
   .navLinks {
-    @apply font-medium text-gray-500 hover:text-primary
+    @apply font-medium text-gray-500 relative hover:text-primary py-1 overflow-hidden after:content-[''] after:block after:h-[2px] after:w-full after:bg-secondary after:absolute after:bottom-0 after:-left-[100%] after:duration-300 after:ease-in-out hover:after:left-0
   }
   
   .registerBtn {
-    @apply font-medium text-white bg-secondary py-1 px-2 rounded-md
+    @apply font-medium text-white bg-secondary bg-opacity-90 hover:bg-opacity-100 ease-in-out duration-500 py-1 px-2 rounded-md
   }
   
   .dropdownLinks {
-    @apply flex py-1 px-2 text-black hover:bg-slate-300 rounded-md w-full ease-out duration-500 z-50
+    @apply flex py-1 px-2 text-black hover:bg-slate-300 font-medium rounded-md w-full ease-out duration-500 z-50
   }
   
   .sidebarNavLinks {
