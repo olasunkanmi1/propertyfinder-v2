@@ -8,17 +8,22 @@ import millify from "millify";
 import { FaBath, FaBed } from 'react-icons/fa';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { MdWindow } from 'react-icons/md';
-import { useSetRecoilState } from 'recoil';
-import { navbarState } from '../../states';
+import { useSetRecoilState, useRecoilState } from 'recoil';
+import { navbarState, propertiesState } from '../../states';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { Spinner } from '../loader';
 
 const Property: React.FC<PropertyProps> = ({ property }) => {
     const [loading, setLoading] = useState(false);
-  const setModal = useSetRecoilState(navbarState);
-
+    const setModal = useSetRecoilState(navbarState);
+    const [properties, setProperties] = useRecoilState(propertiesState);
+    
+    const savedProperties = properties.savedProperties;
     const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID } = property
+
+    const savedPropertiesIDs = savedProperties?.map((pty) => pty.externalID);
+    const [isSaved, setIsSaved] = useState(savedPropertiesIDs && savedPropertiesIDs.includes(externalID));
 
     const handleClick = async () => {
         setLoading(true);
@@ -37,23 +42,49 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
             externalID
         }
 
-        axios.post("property", obj, { withCredentials: true })
-      .then(async (res) => {
-        setLoading(false);
-
-        if (res.status === 200) {
-          toast.success('Property saved');
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-
-        if(error.response.status === 401) {
-            setModal(modal => ({...modal, signInModal: true}));
+        if(isSaved) {
+            axios.delete(`property/${externalID}`, { withCredentials: true })
+          .then(async (res) => {
+            setLoading(false);
+    
+            if (res.status === 200) {
+                setProperties(properties => ({
+                    ...properties,
+                    savedProperties: savedProperties?.filter((pty) => pty.externalID !== externalID)
+                }))
+                setIsSaved(false)
+              toast.success('Property unsaved');
+            }
+          })
+          .catch((error) => {
+            setLoading(false);
+    
+            if(error.response.status === 401) {
+                setModal(modal => ({...modal, signInModal: true}));
+            } else {
+                toast.error('Unable to unsave property, please try again');
+            }
+          })
         } else {
-            toast.error('Unable to save property, please try again');
+            axios.post("property", obj, { withCredentials: true })
+          .then(async (res) => {
+            setLoading(false);
+    
+            if (res.status === 200) {
+                setIsSaved(true)
+              toast.success('Property saved');
+            }
+          })
+          .catch((error) => {
+            setLoading(false);
+    
+            if(error.response.status === 401) {
+                setModal(modal => ({...modal, signInModal: true}));
+            } else {
+                toast.error('Unable to save property, please try again');
+            }
+          })
         }
-      })
     }
 
     return (
@@ -81,10 +112,11 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                     </Link>
                     
                     <button className="flex justify-center items-center mt-2 bg-primary bg-opacity-50 cursor-pointer transition ease-in-out w-[30px] h-[30px] overflow-hidden rounded-md" onClick={() =>  handleClick()}>
-                        {loading ? <Spinner /> : (
+                        {loading ? <Spinner /> : isSaved ? (
+                            <AiFillHeart size={20} color='rgb(255, 0, 0)' />
+                        ) : (
                             <AiOutlineHeart size={20} color='#fff' />
                         )}
-                        {/* <AiFillHeart size={20} color='rgb(255, 0, 0)' /> */}
                     </button>
                 </div>
 

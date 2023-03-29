@@ -1,99 +1,94 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react';
 import { GetServerSideProps } from 'next';
 import { Layout, Property } from '../components'
 import Router, { useRouter } from "next/router";
-import { useSetRecoilState } from 'recoil';
-import { loadingState } from '../states';
-import { Property as Pty, SavedPropertiesPageProps } from '../types';
+import { useSetRecoilState, useRecoilState } from 'recoil';
+import { loadingState, propertiesState } from '../states';
+import { SavedPropertiesPageProps } from '../types';
 import Heading from '../components/heading';
-import { Loader } from '../components/loader';
-import Cookies from 'universal-cookie';
 import axios from 'axios';
-import { fetchUser } from '../utils/fetchUser';
+import CardSkeleton from '../components/property/skeleton';
+import { Loader } from '../components/loader';
 
-const SavedProperties: React.FC= () => {
-  const [loadingPage, setLoadingPage] = useState(true);
-  const [savedProperties, setSavedProperties] = useState<Pty[]>([]);
+const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) => {
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const setLoading = useSetRecoilState(loadingState);
-  Router.events.on("routeChangeStart", () => setLoading(loading => ({...loading, routeChangeLoading: true})) );
-  Router.events.on("routeChangeComplete", () => setLoading(loading => ({...loading, propertiesLoading: false, routeChangeLoading: false})) );
+  const setRouteLoading = useSetRecoilState(loadingState);
+  const [properties, setProperties] = useRecoilState(propertiesState);
 
   useEffect(() => {
-    axios.get("property", { withCredentials: true })
-      .then(async (res) => {
-        setLoadingPage(false);
+    setProperties(properties => ({
+      ...properties,
+      savedProperties: savedProperties
+    }));
 
-        if (res.status === 200) {
-          setSavedProperties(res.data.savedProperties)
-        }
-      })
-      .catch((error) => {
-        setLoadingPage(false);
+    setLoading(false)
+  }, [savedProperties, setProperties])
 
-        console.log(error)
-      })
-  }, [])
-  
-
+  Router.events.on("routeChangeStart", () => setRouteLoading(routeLoading => ({...routeLoading, routeChangeLoading: true})) );
+  Router.events.on("routeChangeComplete", () => setRouteLoading(routeLoading => ({...routeLoading, propertiesLoading: false, routeChangeLoading: false})) );
   
   return (
     <Layout title='View your saved properties'>
-      { loadingPage ? (
-        <Loader />
-      ) : (
-        <div>
-          <Heading heading={`${savedProperties.length >= 1 ? 'Saved Properties' : 'You have no saved properties'}`} />
+      {loading ? <Loader /> : <Heading heading={`${properties.savedProperties && properties.savedProperties.length >= 1 ? 'Saved Properties' : 'You have no saved properties'}`} /> }
 
-          <div className='flex flex-wrap gap-x-5 gap-y-10 w-full justify-center py-5'>
-            { savedProperties && savedProperties.map((property) => {
-                return (
-                  <Property property={property} key={property.externalID} />
-                )
-            })}
-          </div>
-        </div>
-      ) }
+      <div className='flex flex-wrap justify-center gap-x-5 gap-y-10 w-full py-5'>
+        { loading ? (
+          [...Array(3)].map((arr, index) => <CardSkeleton key={index} />)
+        ) : (
+          properties.savedProperties?.map((property) => {
+              return (
+                <Property property={property} key={property.externalID} />
+              )
+          })
+        )}
+      </div>
     </Layout>
   )
 }
 
 export default SavedProperties
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  let res;
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+  let user;
+  let savedProperties;
+  
+  const config = {
+    withCredentials: true,
+    headers: req.headers.cookie ? {
+      Cookie: req.headers.cookie
+    } : {
+      Cookie: ''
+    }
+  };
 
   try {
-    const user = await fetchUser();
-    if (!user) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/',
-        },
-      };
-    }
-
-    res = {
-      user,
-    }
+    const {data} = await axios.get('user', config)
+    user = await data
   } catch (error) {
-    if (error) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/',
-        },
-      };
-    } else {
-      throw error;
-    }
+    user = null
   }
 
+  try {
+    const {data} = await axios.get('property', config)
+    savedProperties = await data.savedProperties
+  } catch (error) {
+    savedProperties = null
+  }
+
+  if(!user) {
+    return {
+        redirect: {
+          permanent: false,
+          destination: '/',
+        },
+    }
+  }
+    
   return {
     props: {
-      res,
+      savedProperties,
     },
   };
 };

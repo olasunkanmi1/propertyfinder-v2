@@ -91,6 +91,7 @@ export interface PropertyProps {
 export interface HomepageProps {
     featuredProperties?: Property[];
     featuredAgencies?: Agency[];
+    savedProperties?: Property[];
 }
 
 export interface FindPropertyPageProps {
