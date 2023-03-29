@@ -9,7 +9,8 @@ export interface INavbarState {
     resetPasswordModal: boolean
 }
 
-export const navbarState = atom<INavbarState>({
+export const 
+navbarState = atom<INavbarState>({
     key: 'dropdownState',
     default: {
         profileDropdown: false,

@@ -9,7 +9,7 @@ import { FaBath, FaBed } from 'react-icons/fa';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { MdWindow } from 'react-icons/md';
 import { useSetRecoilState, useRecoilState } from 'recoil';
-import { navbarState, propertiesState } from '../../states';
+import { navbarState, savedPropertiesState } from '../../states';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { Spinner } from '../loader';
@@ -17,9 +17,8 @@ import { Spinner } from '../loader';
 const Property: React.FC<PropertyProps> = ({ property }) => {
     const [loading, setLoading] = useState(false);
     const setModal = useSetRecoilState(navbarState);
-    const [properties, setProperties] = useRecoilState(propertiesState);
+    const [savedProperties, setSavedProperties] = useRecoilState(savedPropertiesState);
     
-    const savedProperties = properties.savedProperties;
     const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID } = property
 
     const savedPropertiesIDs = savedProperties?.map((pty) => pty.externalID);
@@ -48,10 +47,7 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
             setLoading(false);
     
             if (res.status === 200) {
-                setProperties(properties => ({
-                    ...properties,
-                    savedProperties: savedProperties?.filter((pty) => pty.externalID !== externalID)
-                }))
+                setSavedProperties(savedProperties?.filter((pty) => pty.externalID !== externalID))
                 setIsSaved(false)
               toast.success('Property unsaved');
             }
@@ -93,8 +89,8 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                 <a className="w-full">
                     <div className="relative rounded-xl w-full h-[160px] overflow-hidden">
                         <Image 
-                            src={coverPhoto ? coverPhoto.url : DefaultImage} alt="cover-photo" layout="fill" priority
-                            blurDataURL={coverPhoto && coverPhoto.url} 
+                            src={coverPhoto ? coverPhoto.url : DefaultImage} alt="cover-photo" layout="fill"
+                            blurDataURL={coverPhoto && coverPhoto.url} loading="lazy"
                         />
                     </div>
                 </a>

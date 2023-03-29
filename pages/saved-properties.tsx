@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import { Layout, Property } from '../components'
 import Router, { useRouter } from "next/router";
 import { useSetRecoilState, useRecoilState } from 'recoil';
-import { loadingState, propertiesState } from '../states';
+import { loadingState, savedPropertiesState } from '../states';
 import { SavedPropertiesPageProps } from '../types';
 import Heading from '../components/heading';
 import axios from 'axios';
@@ -15,29 +15,25 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) 
   const router = useRouter();
 
   const setRouteLoading = useSetRecoilState(loadingState);
-  const [properties, setProperties] = useRecoilState(propertiesState);
+  const [savedPts, setSavedProperties] = useRecoilState(savedPropertiesState);
 
   useEffect(() => {
-    setProperties(properties => ({
-      ...properties,
-      savedProperties: savedProperties
-    }));
-
+    setSavedProperties(savedProperties);
     setLoading(false)
-  }, [savedProperties, setProperties])
+  }, [savedProperties, setSavedProperties])
 
   Router.events.on("routeChangeStart", () => setRouteLoading(routeLoading => ({...routeLoading, routeChangeLoading: true})) );
   Router.events.on("routeChangeComplete", () => setRouteLoading(routeLoading => ({...routeLoading, propertiesLoading: false, routeChangeLoading: false})) );
   
   return (
     <Layout title='View your saved properties'>
-      {loading ? <Loader /> : <Heading heading={`${properties.savedProperties && properties.savedProperties.length >= 1 ? 'Saved Properties' : 'You have no saved properties'}`} /> }
+      {loading ? <Loader /> : <Heading heading={`${savedPts && savedPts.length >= 1 ? 'Saved Properties' : 'You have no saved properties'}`} /> }
 
       <div className='flex flex-wrap justify-center gap-x-5 gap-y-10 w-full py-5'>
         { loading ? (
           [...Array(3)].map((arr, index) => <CardSkeleton key={index} />)
         ) : (
-          properties.savedProperties?.map((property) => {
+          savedPts?.map((property) => {
               return (
                 <Property property={property} key={property.externalID} />
               )

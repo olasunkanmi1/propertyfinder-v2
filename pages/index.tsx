@@ -9,7 +9,8 @@ import { GetServerSideProps } from 'next';
 import axios from 'axios';
 
 const Home: React.FC<HomepageProps> = ({ featuredProperties, featuredAgencies, savedProperties }) => {
-  const setLoading = useSetRecoilState(loadingState);
+  const [loading, setLoading] = useState(true);
+  const setRouteLoading = useSetRecoilState(loadingState);
   const setProperties = useSetRecoilState(propertiesState);
 
   useEffect(() => {
@@ -19,16 +20,15 @@ const Home: React.FC<HomepageProps> = ({ featuredProperties, featuredAgencies, s
     });
 
     setLoading(false)
-
   }, [savedProperties, featuredProperties, setProperties])
 
-  Router.events.on("routeChangeStart", () => setLoading(loading => ({...loading, routeChangeLoading: true})) );
-  Router.events.on("routeChangeComplete", () => setLoading(loading => ({...loading, propertiesLoading: false, routeChangeLoading: false})) );
+  Router.events.on("routeChangeStart", () => setRouteLoading(routeLoading => ({...routeLoading, routeChangeLoading: true})) );
+  Router.events.on("routeChangeComplete", () => setRouteLoading(routeLoading => ({...routeLoading, propertiesLoading: false, routeChangeLoading: false})) );
 
   return (
     <Layout title="Find your dream property">
       <FindHome />
-      <FeaturedProperties />
+      <FeaturedProperties loading={loading} />
       <ForRent />
       <ForSale />
       <FeaturedAgencies featuredAgencies={featuredAgencies} />
