@@ -8,8 +8,9 @@ import { loadingState } from '../../states';
 
 const Id: React.FC<UniquePropertyPageProps & SimilarPropertiesProps> = ({propertyDetails, similarProperties}) => {
   const setLoading = useSetRecoilState(loadingState);
+
   Router.events.on("routeChangeStart", () => setLoading(loading => ({...loading, routeChangeLoading: true})) );
-  Router.events.on("routeChangeComplete", () => setLoading({propertiesLoading: false, routeChangeLoading: false}) );
+  Router.events.on("routeChangeComplete", () => setLoading(loading => ({...loading, propertiesLoading: false, routeChangeLoading: false})) );
 
   const {title} = propertyDetails;
 

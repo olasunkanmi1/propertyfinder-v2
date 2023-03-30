@@ -14,6 +14,7 @@ export interface IProfileProps {
 export interface SectionLayoutProps {
     heading: string;
     paragraph: string;
+    text: string;
     buttonText: string;
     route: string;
     image: StaticImageData;
