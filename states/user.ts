@@ -5,6 +5,8 @@ export interface IUserState {
     lastName: string;
     email: string;
     userId: string;
+    isVerified: boolean;
+    verificationToken: string;
 };
 
 export const userState = atom<IUserState | null>({

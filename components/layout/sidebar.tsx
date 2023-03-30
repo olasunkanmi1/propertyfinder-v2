@@ -40,7 +40,7 @@ const Sidebar = () => {
                 signUpModal: true
             }));
         } else if(name === 'out') {
-            axios.get("auth/logout", { withCredentials: true })
+            axios.delete("auth/logout", { withCredentials: true })
             .then(async (res) => {
                 
                 if (res.status === 200) {

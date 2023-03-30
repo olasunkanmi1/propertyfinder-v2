@@ -1,29 +1,22 @@
 import React, {useState} from 'react'
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai'
 import { useRecoilState, useResetRecoilState } from 'recoil'
-import { navbarState } from '../../../states'
-import { useRouter } from 'next/router'
+import { navbarState, userState } from '../../../states'
 import ModalLayout from './modal-layout'
 import * as Yup from 'yup';
-import { Form, Formik, FormikErrors, FormikHelpers } from 'formik'
+import { Form, Formik, FormikHelpers } from 'formik'
 import FormField from './field'
 import axios from 'axios'
 import { toast } from "react-toastify";
 import { SignUpInitialValues } from '../../../types'
 import { Loader } from '../../loader'
+import { fetchUser } from '../../../utils/fetchUser'
 
 const SignUpModal = () => {
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useRecoilState(navbarState);
     const closeModal = useResetRecoilState(navbarState);
-
-    const switchToLogin = () => {
-        closeModal();
-        setModal(modal => ({
-            ...modal,
-            signInModal: true
-        }))
-    }
+    const [user, setUser] = useRecoilState(userState);
 
     const initialValues: SignUpInitialValues = {
         firstName: '',
@@ -42,13 +35,22 @@ const SignUpModal = () => {
   const handleSubmit = (values: SignUpInitialValues, { setSubmitting }: FormikHelpers<SignUpInitialValues>) => {
     setLoading(true);
 
-    axios.post("auth/register", values)
-      .then((res) => {
+    axios.post("auth/register", values, { withCredentials: true })
+      .then(async (res) => {
         setLoading(false);
 
         if (res.status === 201) {
             toast.success('Account created successfully');
-            switchToLogin();
+            closeModal();
+            const user = await fetchUser();
+            setUser(user)
+            toast.info(`Hi ${user?.firstName}, we just sent a verification link to your email. Click on it and start enjoying PropertyFinder`, {
+                position: "top-right",
+                autoClose: 20000,
+                hideProgressBar: true,
+                theme: "dark",
+                closeOnClick: false,
+              });
         }
       })
       .catch((error) => {

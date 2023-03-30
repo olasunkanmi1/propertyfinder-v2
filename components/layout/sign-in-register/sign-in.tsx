@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { navbarState, userState } from '../../../states'
-import { useRouter } from 'next/router'
 import ModalLayout from './modal-layout'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'

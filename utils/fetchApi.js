@@ -6,8 +6,8 @@ export const fetchApi = async (url, featuredAgencies, autoComplete, e) => {
     const { data } = await axios.get((url), {
         headers: {
             'x-rapidapi-host': 'bayut.p.rapidapi.com',
-            'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_ONE
-            // 'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_TWO
+            // 'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_ONE
+            'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_TWO
             // 'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_THREE
             // 'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_FOUR
             // 'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY_FIVE
