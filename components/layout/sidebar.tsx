@@ -1,16 +1,22 @@
 import React from 'react'
-import { useRecoilState } from 'recoil'
-import { navbarState } from '../../states';
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { navbarState, loadingState, userState } from '../../states';
 import Link from 'next/link';
 import Profile from './navbar/profile';
-import { BsBoxArrowRight } from 'react-icons/bs';
 import { useRouter } from 'next/router';
+import { FiLogOut } from 'react-icons/fi';
+import axios from 'axios';
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
-    const router = useRouter();
-
+    const loading = useRecoilValue(loadingState);
+    const [user, setUser] = useRecoilState(userState);
     const [open, setOpen] = useRecoilState(navbarState);
+
+    const router = useRouter();
+    const {userLoading} = loading;
     const { isSidebarOpen } = open;
+
     const navLinks = [
         { route: '/find-property', title: 'Find Property', active: router.pathname === '/find-property' && !router.query.purpose },
         { route: '/find-property?purpose=for-sale', title: 'For Sale', active: router.query.purpose === 'for-sale' },
@@ -28,15 +34,29 @@ const Sidebar = () => {
                 ...open,
                 signInModal: true
             }));
+        } else if(name === 'reg') {
+            setOpen(open => ({
+                ...open,
+                signUpModal: true
+            }));
         } else if(name === 'out') {
-            // logout
+            axios.get("auth/logout", { withCredentials: true })
+            .then(async (res) => {
+                
+                if (res.status === 200) {
+                    toast.success('Logged out successfully');
+                    setUser(null)
+                }
+            })
+            .catch((error) => {
+                toast.error('Unknown error, please try again');
+            })
         }
     };
 
-
   return (
     <div className={`md:hidden fixed top-[75px] z-10 w-full ms:w-[300px] h-[calc(100vh-75px)] overflow-auto duration-500 ease-in-out bg-[#fefefe] p-3 pb-[100px]  space-y-5 ${isSidebarOpen ? 'right-0' : '-right-[100%] ms:-right-[300px]'}`}>
-        <Profile mobile />
+        { user && <Profile mobile /> }
 
         <div className='flex flex-col justify-between h-[calc(100%-100px)] min-h-[280px]'>
             <div>
@@ -48,13 +68,23 @@ const Sidebar = () => {
                     )
                 }) }
 
-                    <Link href='/saved-properties' passHref>
-                        <a className={`sidebarNavLinks ${router.pathname === '/saved-properties' ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar('')}> Saved Properties </a>
-                    </Link>
+                { userLoading ? null : !userLoading && !user ? (
+                    <>
+                        <button className='sidebarNavLinks' onClick={() => closeSidebar('in')}> Sign In </button>
+                        <button className='sidebarNavLinks' onClick={() => closeSidebar('reg')}> Register </button>
+                    </>
+                ) : (
+                    <>
+                        <Link href='/saved-properties' passHref>
+                            <a className={`sidebarNavLinks ${router.pathname === '/saved-properties' ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar('')}> Saved Properties </a>
+                        </Link>
+                        
+                        <button className='sidebarNavLinks' onClick={() => closeSidebar('out')}> <FiLogOut size={25} /> Sign Out </button>
+                    </>
+                )}
+
             </div>
 
-                <button className='sidebarNavLinks' onClick={() => closeSidebar('in')}> <BsBoxArrowRight size={25} /> Sign In </button>
-                <button className='sidebarNavLinks' onClick={() => closeSidebar('out')}> Sign Out </button>
         </div>
     </div>
   )
