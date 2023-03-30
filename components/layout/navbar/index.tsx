@@ -18,9 +18,9 @@ const Navbar = () => {
   const router = useRouter();
 
     const navLinks = [
-        { route: '/find-property', title: 'Find Property' },
-        { route: '/find-property?purpose=for-sale', title: 'For Sale' },
-        { route: '/find-property?purpose=for-rent', title: 'For Rent' }
+        { route: '/find-property', title: 'Find Property', isActive: router.route === '/find-property' && !router.query.purpose },
+        { route: '/find-property?purpose=for-sale', title: 'For Sale', isActive: router.route === '/find-property' && router.query.purpose === 'for-sale' },
+        { route: '/find-property?purpose=for-rent', title: 'For Rent', isActive: router.route === '/find-property' && router.query.purpose === 'for-rent' }
     ];
 
     const showModal = (name: string) => {
@@ -33,13 +33,11 @@ const Navbar = () => {
   return (
     <div className='flex justify-between items-center xl:w-[1152px] border-b h-[75px] sticky top-0 bg-[#fefefe] z-[22]'>
         <Link href="/" passHref>
-            <a> <Image src={Logo} alt="logo" width={180} height={50} priority /> </a>
+            <a className='h-[60px]'> <Image src={Logo} alt="logo" width={95} height={60} priority /> </a>
         </Link>
 
         <div className="hidden md:flex items-center space-x-4">
-            { navLinks.map(({ route, title }) => {
-                const isActive = router.asPath === route
-
+            { navLinks.map(({ route, title, isActive }) => {
                 return (
                     <Link href={route} passHref key={route}>
                         <a className={`navLinks ${isActive ? 'text-primary font-semibold' : ''}`}> { title } </a>

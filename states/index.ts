@@ -4,4 +4,4 @@ export * from './filterAtom';
 export * from './loading';
 export * from './addressSuggestions';
 export * from './user';
-export * from './savedProperties';
+export * from './properties';

@@ -28,7 +28,7 @@ const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn}) =
         <div className="relative pt-6">
             <AiOutlineClose size={20} className='absolute top-0 right-0 text-primary cursor-pointer' onClick={closeModal} />
             <div className='absolute top-[-56px] left-[50%] translate-x-[-50%] w-[75px] h-[75px] rounded-full overflow-hidden bg-white shadow-[rgba(0,0,0,0.24)_0px_3px_8px] flex items-center justify-center'>
-                <Image src={logo} alt="logo" width={65} height={30} priority />
+                <Image src={logo} alt="logo" width={60} height={47} priority />
             </div>
 
             <div className="max-h-[calc(100vh-140px)] overflow-y-auto">

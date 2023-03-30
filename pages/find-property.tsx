@@ -1,10 +1,10 @@
-import React, {useRef, useEffect} from 'react'
+import React, {useRef, useEffect, useState} from 'react'
 import { Layout, SearchFilters, Properties, Pagination } from "../components";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
 import { FindPropertyPageProps } from '../types';
 import { GetServerSideProps } from 'next';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
-import { filterAtom, loadingState, searchFiltersState, addressSuggestionsAtom } from '../states';
+import { filterAtom, loadingState, searchFiltersState, addressSuggestionsAtom, propertiesState } from '../states';
 import Router, { useRouter } from "next/router";
 
 const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) => {
@@ -16,6 +16,8 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) =
   const resetDropdown = useResetRecoilState(searchFiltersState);
   const [filter, setFilter] = useRecoilState(filterAtom);
   const setSuggestions = useSetRecoilState(addressSuggestionsAtom);
+  const [prpts, setProperties] = useRecoilState(propertiesState);
+  const [pageLoading, setPageLoading] = useState(true);
 
   // Router.events.on("routeChangeStart", () => setLoading(loading => ({...loading, routeChangeLoading: true})) );
   // Router.events.on("routeChangeComplete", () => setLoading({propertiesLoading: false, routeChangeLoading: false}) );
@@ -43,6 +45,13 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) =
       sortBy: router.query.sort ? filter.sortBy : 'Sort',
     }))
 
+    setProperties(prpts => ({
+      ...prpts,
+      properties: properties
+    }));
+
+    setPageLoading(false);
+
     const closeDropdown = (e: any) => {
       if(filterRef.current && !filterRef.current.contains(e.target)) {
         resetDropdown();
@@ -57,13 +66,13 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) =
     }
     document.addEventListener('click', closeDropdown, true);
     return () => document.removeEventListener('click', closeDropdown, true)
-  }, [ resetDropdown, setSuggestions, router.query.purpose, router.query.rentFrequency, router.query.furnishingStatus, router.query.roomsMin, router.query.roomsMax, router.query.bathsMin, router.query.bathsMax, router.query.priceMin, router.query.priceMax, router.query.areaMin, router.query.areaMax, router.query.propertyType, router.query.categoryExternalID, router.query.locationExternalIDs, router.query.sort, setFilter])
+  }, [ resetDropdown, setSuggestions, router.query.purpose, router.query.rentFrequency, router.query.furnishingStatus, router.query.roomsMin, router.query.roomsMax, router.query.bathsMin, router.query.bathsMax, router.query.priceMin, router.query.priceMax, router.query.areaMin, router.query.areaMax, router.query.propertyType, router.query.categoryExternalID, router.query.locationExternalIDs, router.query.sort, setFilter, properties, setProperties])
 
   return (
     <Layout title="Find Property">
         <SearchFilters filterRef={filterRef} suggestionsRef={suggestionsRef} /> 
-        <Properties properties={properties} />
-        <> { properties.length >= 1 && !loading.propertiesLoading && <Pagination pageCount={nbHits} /> } </>
+        <Properties pageLoading={pageLoading} />
+        <> { prpts.properties && prpts.properties.length >= 1 && !loading.propertiesLoading || pageLoading && <Pagination pageCount={nbHits} /> } </>
     </Layout> 
   )
 }

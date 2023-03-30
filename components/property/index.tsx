@@ -9,7 +9,7 @@ import { FaBath, FaBed } from 'react-icons/fa';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { MdWindow } from 'react-icons/md';
 import { useSetRecoilState, useRecoilState } from 'recoil';
-import { navbarState, savedPropertiesState } from '../../states';
+import { navbarState, propertiesState } from '../../states';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { Spinner } from '../loader';
@@ -17,8 +17,9 @@ import { Spinner } from '../loader';
 const Property: React.FC<PropertyProps> = ({ property }) => {
     const [loading, setLoading] = useState(false);
     const setModal = useSetRecoilState(navbarState);
-    const [savedProperties, setSavedProperties] = useRecoilState(savedPropertiesState);
+    const [properties, setProperties] = useRecoilState(propertiesState);
     
+    const savedProperties = properties.savedProperties;
     const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID } = property
 
     const savedPropertiesIDs = savedProperties?.map((pty) => pty.externalID);
@@ -47,7 +48,10 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
             setLoading(false);
     
             if (res.status === 200) {
-                setSavedProperties(savedProperties?.filter((pty) => pty.externalID !== externalID))
+                setProperties(properties => ({
+                    ...properties,
+                    savedProperties: savedProperties?.filter((pty) => pty.externalID !== externalID)
+                }))
                 setIsSaved(false)
               toast.success('Property unsaved');
             }
