@@ -13,7 +13,7 @@ import SignUpModal from './sign-in-register/sign-up'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import {fetchUser} from '../../utils/fetchUser'
+import {fetchUser} from '../../utils/fetchFns'
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const open = useRecoilValue(navbarState);

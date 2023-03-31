@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PropertyProps } from '../../types'
@@ -13,17 +13,18 @@ import { navbarState, propertiesState } from '../../states';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { Spinner } from '../loader';
+import { fetchSavedProperties } from '../../utils/fetchFns';
 
 const Property: React.FC<PropertyProps> = ({ property }) => {
     const [loading, setLoading] = useState(false);
     const setModal = useSetRecoilState(navbarState);
     const [properties, setProperties] = useRecoilState(propertiesState);
     
-    const savedProperties = properties.savedProperties;
+    const savedProperties = properties.savedProperties ? properties.savedProperties : [];
     const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID } = property
 
-    const savedPropertiesIDs = savedProperties?.map((pty) => pty.externalID);
-    const [isSaved, setIsSaved] = useState(savedPropertiesIDs && savedPropertiesIDs.includes(externalID));
+    const savedPropertiesIDs = savedProperties.map((pty) => pty.externalID);
+    const [isSaved, setIsSaved] = useState(savedPropertiesIDs.includes(externalID));
 
     const handleClick = async () => {
         setLoading(true);
@@ -50,7 +51,7 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
             if (res.status === 200) {
                 setProperties(properties => ({
                     ...properties,
-                    savedProperties: savedProperties?.filter((pty) => pty.externalID !== externalID)
+                    savedProperties: savedProperties.filter((pty) => pty.externalID !== externalID)
                 }))
                 setIsSaved(false)
               toast.success('Property unsaved');
@@ -72,7 +73,13 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
     
             if (res.status === 200) {
                 setIsSaved(true)
-              toast.success('Property saved');
+                const savedProperties = await fetchSavedProperties();
+
+                setProperties(properties => ({
+                    ...properties,
+                    savedProperties: savedProperties
+                }))
+                toast.success('Property saved');
             }
           })
           .catch((error) => {
@@ -86,6 +93,10 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
           })
         }
     }
+
+    useEffect(() => {
+        setIsSaved(savedPropertiesIDs.includes(externalID))
+    }, [savedPropertiesIDs, externalID])
 
     return (
         <div className="w-full ls:w-[300px]">

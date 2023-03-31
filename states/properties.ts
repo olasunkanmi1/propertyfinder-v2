@@ -3,7 +3,7 @@ import { Property } from '../types';
 
 export interface IPropertiesState {
     featuredProperties?: Property[],
-    savedProperties?: Property[],
+    savedProperties?: Property[] | null,
     properties?: Property[],
 }
 

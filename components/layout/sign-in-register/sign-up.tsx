@@ -10,7 +10,7 @@ import axios from 'axios'
 import { toast } from "react-toastify";
 import { SignUpInitialValues } from '../../../types'
 import { Loader } from '../../loader'
-import { fetchUser } from '../../../utils/fetchUser'
+import { fetchUser } from '../../../utils/fetchFns'
 
 const SignUpModal = () => {
     const [loading, setLoading] = useState(false);
@@ -44,7 +44,7 @@ const SignUpModal = () => {
             closeModal();
             const user = await fetchUser();
             setUser(user)
-            toast.info(`Hi ${user?.firstName}, we just sent a verification link to your email. Click on it and start enjoying PropertyFinder`, {
+            toast.info(`Hi ${user?.firstName.toUpperCase()}, we just sent a verification link to your email. Click on it and start enjoying PropertyFinder`, {
                 position: "top-right",
                 autoClose: 20000,
                 hideProgressBar: true,

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { navbarState, userState } from '../../../states'
+import { navbarState, userState, propertiesState } from '../../../states'
 import ModalLayout from './modal-layout'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
@@ -10,13 +10,14 @@ import axios from 'axios'
 import { toast } from "react-toastify";
 import { SignInInitialValues } from '../../../types'
 import { Loader } from '../../loader'
-import { fetchUser } from '../../../utils/fetchUser'
+import { fetchUser, fetchSavedProperties } from '../../../utils/fetchFns'
 
 const SignInModal = () => {
     const [loading, setLoading] = useState(false);
     const modal = useRecoilValue(navbarState);
     const closeModal = useResetRecoilState(navbarState);
     const setUser = useSetRecoilState(userState);
+    const setProperties = useSetRecoilState(propertiesState);
 
     const initialValues: SignInInitialValues = {
         email: '',
@@ -37,9 +38,16 @@ const SignInModal = () => {
         
         if (res.status === 200) {
           toast.success('Logged in successfully');
+          closeModal(); 
+
           const user = await fetchUser();
+          const savedProperties = await fetchSavedProperties();
+
             setUser(user)
-          closeModal();
+            setProperties(properties => ({
+                ...properties,
+                savedProperties: savedProperties
+            }))
         }
       })
       .catch((error) => {

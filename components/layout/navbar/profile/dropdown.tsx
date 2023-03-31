@@ -4,12 +4,13 @@ import { AiOutlineHeart } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
 import { GoVerified, GoUnverified } from "react-icons/go";
 import axios from 'axios'
-import { useRecoilState } from 'recoil'
-import { userState } from '../../../../states'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { userState, propertiesState } from '../../../../states'
 import Settings from './settings'
 
 const Dropdown = () => {
   const [user, setUser] = useRecoilState(userState);
+  const setProperties = useSetRecoilState(propertiesState);
 
     const firstName = user ? user.firstName : ''
     const lastName = user ? user.lastName : ''
@@ -31,7 +32,11 @@ const Dropdown = () => {
         
         if (res.status === 200) {
           toast.success('Logged out successfully');
-            setUser(null)
+            setUser(null);
+            setProperties(properties => ({
+              ...properties,
+              savedProperties: []
+            }))
         }
       })
       .catch((error) => {

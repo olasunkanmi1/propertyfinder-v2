@@ -72,7 +72,7 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) =
     <Layout title="Find Property">
         <SearchFilters filterRef={filterRef} suggestionsRef={suggestionsRef} /> 
         <Properties pageLoading={pageLoading} />
-        <> { prpts.properties && prpts.properties.length >= 1 && !loading.propertiesLoading || pageLoading && <Pagination pageCount={nbHits} /> } </>
+        <> { prpts.properties && prpts.properties.length >= 1 && !loading.propertiesLoading && !pageLoading && <Pagination pageCount={nbHits} /> } </>
     </Layout> 
   )
 }
