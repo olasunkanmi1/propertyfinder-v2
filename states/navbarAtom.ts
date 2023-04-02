@@ -6,7 +6,10 @@ export interface INavbarState {
     isFilterbarOpen: boolean,
     signInModal: boolean,
     signUpModal: boolean,
-    resetPasswordModal: boolean
+    forgotPasswordModal: boolean,
+    forgotPasswordMail: string,
+    forgotPasswordMailSent: boolean,
+    verifyEmailMailSent: boolean,
 }
 
 export const 
@@ -18,6 +21,9 @@ navbarState = atom<INavbarState>({
         isFilterbarOpen: false,
         signInModal: false,
         signUpModal: false,
-        resetPasswordModal: false
+        forgotPasswordModal: false,
+        forgotPasswordMail: '',
+        forgotPasswordMailSent: false,
+        verifyEmailMailSent: false,
     },
 });

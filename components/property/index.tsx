@@ -124,7 +124,7 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                     
                     <button className="flex justify-center items-center mt-2 bg-primary bg-opacity-50 cursor-pointer transition ease-in-out w-[30px] h-[30px] overflow-hidden rounded-md" onClick={() =>  handleClick()}>
                         {loading ? <Spinner /> : isSaved ? (
-                            <AiFillHeart size={20} color='rgb(255, 0, 0)' />
+                            <AiFillHeart size={20} color='#0847A8' />
                         ) : (
                             <AiOutlineHeart size={20} color='#fff' />
                         )}

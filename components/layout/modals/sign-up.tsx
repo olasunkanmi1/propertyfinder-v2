@@ -44,13 +44,10 @@ const SignUpModal = () => {
             closeModal();
             const user = await fetchUser();
             setUser(user)
-            toast.info(`Hi ${user?.firstName.toUpperCase()}, we just sent a verification link to your email. Click on it and start enjoying PropertyFinder`, {
-                position: "top-right",
-                autoClose: 20000,
-                hideProgressBar: true,
-                theme: "dark",
-                closeOnClick: false,
-              });
+            setModal(modal => ({
+                ...modal,
+                verifyEmailMailSent: true
+            }))
         }
       })
       .catch((error) => {
@@ -70,7 +67,7 @@ const SignUpModal = () => {
   return (
     <>
         { modal.signUpModal && (
-            <ModalLayout heading='Create Account'> 
+            <ModalLayout heading='Create Account' signUp> 
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}

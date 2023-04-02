@@ -1,30 +1,23 @@
 import Link from 'next/link'
-import { toast, ToastOptions } from "react-toastify";
+import { toast} from "react-toastify";
 import { AiOutlineHeart } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
 import { GoVerified, GoUnverified } from "react-icons/go";
 import axios from 'axios'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { userState, propertiesState } from '../../../../states'
+import { userState, propertiesState, navbarState } from '../../../../states'
 import Settings from './settings'
 
 const Dropdown = () => {
   const [user, setUser] = useRecoilState(userState);
   const setProperties = useSetRecoilState(propertiesState);
+  const setModal = useSetRecoilState(navbarState);
 
     const firstName = user ? user.firstName : ''
     const lastName = user ? user.lastName : ''
     const email = user ? user.email : ''
     const isVerified = user ? user.isVerified : ''
     const verificationToken = user ? user.verificationToken : ''
-
-    const toastOptions:ToastOptions<{}> = {
-      position: "top-right",
-      autoClose: false,
-      hideProgressBar: true,
-      theme: "dark",
-      closeOnClick: false,
-    }
 
     const logOut = () => {
         axios.delete("auth/logout", { withCredentials: true })
@@ -45,23 +38,34 @@ const Dropdown = () => {
     }
     
     const verifyEmail = () => {
-      toast.loading('Sending verification link...', toastOptions)
+      toast.loading('Sending verification link...', {
+        position: "top-right",
+        autoClose: false,
+        hideProgressBar: true,
+        theme: "dark",
+        closeOnClick: false,
+      })
       
       const obj = {
         verificationToken,
         email,
         fromDropdown: true
       }
-        axios.post("auth/verify-email", obj, { withCredentials: true })
+      
+      axios.post("auth/verify-email", obj, { withCredentials: true })
       .then(async (res) => {
         toast.dismiss();
+        
         if (res.status === 200) {
-          toast.success('Verification link has been sent to your email', toastOptions);
+          setModal(modal => ({
+              ...modal,
+              verifyEmailMailSent: true
+          }))
         };
       })
       .catch((error) => {
         toast.dismiss();
-        toast.error('Unable to send verification link, pLease try again', toastOptions);
+        toast.error('Unable to send verification link, pLease try again');
       })
     }
 

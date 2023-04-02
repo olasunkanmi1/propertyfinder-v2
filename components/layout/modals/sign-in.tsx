@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
-import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { useResetRecoilState, useRecoilState, useSetRecoilState } from 'recoil'
 import { navbarState, userState, propertiesState } from '../../../states'
 import ModalLayout from './modal-layout'
 import * as Yup from 'yup';
@@ -14,7 +14,7 @@ import { fetchUser, fetchSavedProperties } from '../../../utils/fetchFns'
 
 const SignInModal = () => {
     const [loading, setLoading] = useState(false);
-    const modal = useRecoilValue(navbarState);
+    const [modal, setModal] = useRecoilState(navbarState);
     const closeModal = useResetRecoilState(navbarState);
     const setUser = useSetRecoilState(userState);
     const setProperties = useSetRecoilState(propertiesState);
@@ -61,6 +61,14 @@ const SignInModal = () => {
         }
       })
   }
+
+  const openForgotPasswordModal = () => {
+    closeModal();
+    setModal( modal => ({
+        ...modal,
+        forgotPasswordModal: true,
+    }));
+    }
     
   return (
     <>
@@ -92,7 +100,7 @@ const SignInModal = () => {
                                     value={values.password}
                                 />
                                 
-                                <button type='button' className='text-xs text-primary font-semibold ml-auto'> Forgot password </button>
+                                <button type='button' className='text-xs text-primary font-semibold ml-auto' onClick={openForgotPasswordModal}> Forgot password </button>
                     
                                 <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-40 disabled:cursor-not-allowed h-[32px]'> 
                                     { loading ? <Loader /> : 'Sign In' }

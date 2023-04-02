@@ -292,9 +292,10 @@ export interface SignUpInitialValues {
 }
 
 export interface IModalLayoutProps {
-    heading: string;
+    heading?: string;
     children: JSX.Element[] | JSX.Element;
     signIn?: boolean;
+    signUp?: boolean;
 }
 
 export interface IFormFieldProps {
