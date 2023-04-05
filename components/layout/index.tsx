@@ -23,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const modals = signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal
 
   const toggleSidebarAndDropdown = () => {
-    if(isSidebarOpen || isFilterbarOpen || signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal) {
+    if(isSidebarOpen || profileDropdown || isFilterbarOpen || signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal) {
       closeALll();
     }
   }

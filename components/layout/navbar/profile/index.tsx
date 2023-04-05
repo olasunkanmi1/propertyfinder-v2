@@ -14,6 +14,7 @@ const Profile: React.FC<IProfileProps> = ({mobile}) => {
     const firstName = user ? user.firstName : ''
     const lastName = user ? user.lastName : ''
     const email = user ? user.email : ''
+    const photoUrl = user ? user.photoUrl : ''
 
     const handleDropdown = () => {
         if(!mobile) {
@@ -26,8 +27,12 @@ const Profile: React.FC<IProfileProps> = ({mobile}) => {
 
   return (
     <div className='flex space-x-2 items-center cursor-pointer text-gray-500' onClick={handleDropdown}>
-        <div className={`flex items-center justify-center bg-secondary text-white font-bold rounded-full relative ${mobile ? 'w-[50px] h-[50px]' : 'w-[35px] h-[35px]'}`}>
-            {firstName.charAt(0).toUpperCase()}{lastName.charAt(0).toUpperCase()}
+        <div className={`flex items-center justify-center bg-secondary text-white font-bold rounded-full overflow-hidden relative ${mobile ? 'w-[50px] h-[50px]' : 'w-[35px] h-[35px]'}`}>
+            { photoUrl ? (
+                <Image src={photoUrl} alt="display picture" layout='fill' loading='lazy' />
+            ) : (
+                <> {firstName.charAt(0).toUpperCase()}{lastName.charAt(0).toUpperCase()} </>
+            ) }
         </div>
 
         {mobile ? (

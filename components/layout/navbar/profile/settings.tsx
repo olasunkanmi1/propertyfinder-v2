@@ -5,11 +5,13 @@ import { INavbarState, navbarState } from '../../../../states'
 const Settings = () => {
     const setModal = useSetRecoilState(navbarState);
     const showModal = (name: string) => {
-        setModal( modal => ({
-            ...modal,
-            profileDropdown: false,
-            [name as keyof INavbarState]: true,
-        }))
+        setTimeout(() => {
+            setModal( modal => ({
+                ...modal,
+                profileDropdown: false,
+                [name as keyof INavbarState]: true,
+            }))
+        }, 0);
     }
 
   return (
