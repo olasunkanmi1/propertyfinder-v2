@@ -7,6 +7,7 @@ export interface IUserState {
     userId: string;
     isVerified: boolean;
     verificationToken: string;
+    photoUrl: string;
 };
 
 export const userState = atom<IUserState | null>({

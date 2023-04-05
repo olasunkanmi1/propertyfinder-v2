@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
   };
 
   try {
-    const {data} = await axios.post('auth/verify-email', obj);
+    const {data} = await axios.post('auth/verify-email', obj, config);
     if(data) isVerified = true
   } catch (error) {
     isVerified = false

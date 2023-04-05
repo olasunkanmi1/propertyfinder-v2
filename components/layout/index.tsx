@@ -8,21 +8,22 @@ import { loadingState, navbarState, userState } from '../../states'
 import Sidebar from './sidebar'
 import Filterbar from '../find-property-page/search-filters/mobile/filterbar'
 import RouteChangeLoader from './route-change-loader'
-import { SignInModal, SignUpModal, ForgotPasswordModal, ForgotPasswordEmailSentModal, VerifyEmailSentModal } from './modals'
+import { SignInModal, SignUpModal, ForgotPasswordModal, ForgotPasswordEmailSentModal, VerifyEmailSentModal, EditProfileModal, ChangePasswordModal } from './modals'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {fetchUser} from '../../utils/fetchFns'
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
-  const open = useRecoilValue(navbarState);
   const setUser = useSetRecoilState(userState);
   const [loading, setLoading] = useRecoilState(loadingState);
+  const [modal, setModal] = useRecoilState(navbarState);
   const closeALll = useResetRecoilState(navbarState);
 
-  const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent} = open;
+  const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal } = modal;
+  const modals = signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal
 
   const toggleSidebarAndDropdown = () => {
-    if(isSidebarOpen || profileDropdown || isFilterbarOpen || signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent) {
+    if(isSidebarOpen || isFilterbarOpen || signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal) {
       closeALll();
     }
   }
@@ -47,7 +48,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       <div onClick={toggleSidebarAndDropdown} className={`w-full xl:max-w-6xl m-auto px-4 sm:px-8 xl:px-0 min-h-screen space-y-10 ${isSidebarOpen || isFilterbarOpen ? 'touch-none' : ''}`}>
           <Navbar/>
 
-          <div className={`space-y-10 ${signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent ? 'blur-sm' : ''}`}>
+          <div className={`space-y-10 ${modals ? 'blur-sm' : ''}`}>
             { children }
           </div>
       </div>
@@ -60,6 +61,8 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       <ForgotPasswordModal />
       <ForgotPasswordEmailSentModal />
       <VerifyEmailSentModal />
+      <EditProfileModal />
+      <ChangePasswordModal />
       {/* {loading.routeChangeLoading && <RouteChangeLoader /> } */}
 
 

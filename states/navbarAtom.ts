@@ -10,10 +10,11 @@ export interface INavbarState {
     forgotPasswordMail: string,
     forgotPasswordMailSent: boolean,
     verifyEmailMailSent: boolean,
+    editProfileModal: boolean,
+    changePasswordModal: boolean,
 }
 
-export const 
-navbarState = atom<INavbarState>({
+export const navbarState = atom<INavbarState>({
     key: 'dropdownState',
     default: {
         profileDropdown: false,
@@ -25,5 +26,7 @@ navbarState = atom<INavbarState>({
         forgotPasswordMail: '',
         forgotPasswordMailSent: false,
         verifyEmailMailSent: false,
+        editProfileModal: false,
+        changePasswordModal: false,
     },
 });

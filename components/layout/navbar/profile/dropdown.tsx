@@ -65,7 +65,7 @@ const Dropdown = () => {
       })
       .catch((error) => {
         toast.dismiss();
-        toast.error('Unable to send verification link, pLease try again');
+        toast.error('Unable to send verification link, please try again');
       })
     }
 
