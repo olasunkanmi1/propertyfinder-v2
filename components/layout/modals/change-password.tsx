@@ -29,7 +29,7 @@ const ChangePasswordModal = () => {
 
     const validationSchema = Yup.object({
         oldPassword: Yup.string().required("Enter current password"),
-        newPassword: Yup.string().required("Enter new password").notOneOf([Yup.ref('oldPassword')], 'New password must be different from current password'),
+        newPassword: Yup.string().required("Enter new password").notOneOf([Yup.ref('oldPassword')], 'New password must be different from current password').min(6, "Password must be at least 6 characters"),
     });  
 
   const handleSubmit = (values: ChangePasswordInitialValues, { setSubmitting }: FormikHelpers<ChangePasswordInitialValues>) => {
