@@ -20,6 +20,7 @@ export interface SectionLayoutProps {
     image: StaticImageData;
     reverse?: boolean;
     noIcon?: boolean;
+    firstImg?: boolean;
 }
 
 export interface Property {

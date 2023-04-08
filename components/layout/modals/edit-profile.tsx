@@ -1,11 +1,11 @@
-import React, {useState, useRef} from 'react'
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import React, {useState, useRef, useEffect} from 'react'
+import { useRecoilState, useResetRecoilState, useSetRecoilState, useRecoilCallback } from 'recoil';
 import { navbarState, userState } from '../../../states';
 import ModalLayout from './modal-layout';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
 import FormField from './field'
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { toast } from "react-toastify";
 import { fetchUser } from '../../../utils/fetchFns';
 import { AiOutlineEdit, AiOutlineMail, AiOutlineUser, AiOutlineDelete } from 'react-icons/ai'
@@ -21,21 +21,21 @@ interface EditProfileInitialValues {
 
 const EditProfileModal = () => {
     const [loading, setLoading] = useState(false);
+    const [res, setRes] = useState<AxiosResponse<any, any>>();
+    const inputRef = useRef<HTMLInputElement>(null);
     
     const [modal, setModal] = useRecoilState(navbarState);
     const closeModal = useResetRecoilState(navbarState);
     const [user, setUser] = useRecoilState(userState);
-    const [imgUrl, setImgUrl] = useState(user?.photoUrl);
-    console.log('imgUrl', imgUrl)
-
-    const inputRef = useRef<HTMLInputElement>(null);
+    
     const { imageBlob, selectedFile, imgUrlToBeDeleted } = modal
+    console.log('imgUrlToBeDeleted', imgUrlToBeDeleted)
 
     const initialValues: EditProfileInitialValues = {
         firstName: user ? user.firstName : '',
         lastName: user ? user.lastName : '',
         email: user ? user.email : '',
-        photoUrl: imgUrl ? imgUrl : '',
+        photoUrl: user ? user.photoUrl : '',
     };
 
     const validationSchema = Yup.object({
@@ -45,7 +45,7 @@ const EditProfileModal = () => {
         photoUrl: Yup.string(),
     });  
 
-    const removePhoto = (values: EditProfileInitialValues) => {
+    const removePhoto = (values: EditProfileInitialValues, setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void) => {
         if(imageBlob || selectedFile) {
             setModal(modal => ({
                 ...modal,
@@ -55,17 +55,20 @@ const EditProfileModal = () => {
         } else {
             setModal(modal => ({
                 ...modal,
-                setImgUrlToBeDeleted: values.photoUrl
+                imgUrlToBeDeleted: values.photoUrl,
+                imgUrl: ''
             }));
-            setImgUrl('')
+
+            setFieldValue('photoUrl', '');
         } 
     }
 
-    const updateProfile = (values: EditProfileInitialValues, setSubmitting: (isSubmitting: boolean) => void) => {
+    const updateProfile = async (values: EditProfileInitialValues, setSubmitting: (isSubmitting: boolean) => void) => {
+        console.log('updateprofile value', values)
+
         axios.patch("user", values, { withCredentials: true })
         .then(async (res) => {
             setLoading(false);
-            console.log(res)
             
             if (res.status === 200) {
                 toast.success('Profile updated successfully');
@@ -81,7 +84,7 @@ const EditProfileModal = () => {
         })
     }
 
-    const updatePhotoAndProfile = (values: EditProfileInitialValues, setSubmitting: (isSubmitting: boolean) => void) => {
+    const updatePhotoAndProfile = async (values: EditProfileInitialValues, setSubmitting: (isSubmitting: boolean) => void) => {
         const formData = new FormData();
 
         if(selectedFile) {
@@ -92,13 +95,8 @@ const EditProfileModal = () => {
                     'Content-Type':'multipart/form-data'
                 } 
             }).then(async (res) => {
-                console.log('imgRes', res)
-                
                 if (res.status === 200) {
-                    setImgUrl(res.data.image.src);
-                    setTimeout(() => {
-                        updateProfile(values, setSubmitting);
-                    }, 500);
+                    updateProfile({ ...values, photoUrl: res.data.image.src}, setSubmitting);
                 }
             }).catch((error) => {
                 setLoading(false);
@@ -112,15 +110,19 @@ const EditProfileModal = () => {
         const image = imgUrlToBeDeleted;
         const parts = image.split("/");
         const publicId = parts[parts.length - 2] + "/" + parts[parts.length - 1].split(".")[0]
+        const encodedPublicId = encodeURIComponent(publicId); //cos publicId has another '/'
         
-        axios.delete(`user/update-photo/:${publicId}`, { withCredentials: true })
+        axios.delete(`user/update-photo/${encodedPublicId}`, { withCredentials: true })
         .then(async (res) => {
             
             if (res.status === 200) {
                 if(reupload) {
                     updatePhotoAndProfile(values, setSubmitting);
                 } else {
-                    setImgUrl('')
+                    setModal(modal => ({
+                        ...modal,
+                        imgUrl: ''
+                    }));
                 }
             }
         }).catch((error) => {
@@ -133,25 +135,31 @@ const EditProfileModal = () => {
   const handleSubmit = (values: EditProfileInitialValues, { setSubmitting }: FormikHelpers<EditProfileInitialValues>) => {
     setLoading(true);
 
-    if(selectedFile && !imgUrlToBeDeleted) {
+    if(selectedFile && !imgUrlToBeDeleted) { //NEW UPLOAD WITH FIELDS: no previous image, just upload fresh image
         updatePhotoAndProfile(values, setSubmitting)
-    } else if(selectedFile && imgUrlToBeDeleted) {
+    } else if(selectedFile && imgUrlToBeDeleted) { //NEW UPLOAD WITH FIELDS: delete previous image, reupload new image
         deletehotoAndUpdateProfile(values, setSubmitting, true)
-    } else if(!selectedFile && imgUrlToBeDeleted) {
+    } else if(!selectedFile && imgUrlToBeDeleted) { //DELETE PREVIOUS IMAGE: just delete previous image, upload just fields without image
         deletehotoAndUpdateProfile(values, setSubmitting)
-    } else {
+    } else { // no upload or delete, just fields
         updateProfile(values, setSubmitting);
     }
   }
 
-  const updatePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updatePhoto = (e: React.ChangeEvent<HTMLInputElement>, values: EditProfileInitialValues) => {
     if(e.target.files) {
         const file = e.target.files[0];
+        if (file.size > 2097152) {
+            toast.error('Image size must be less than 2MB');
+            return;
+        }
+
         const url = URL.createObjectURL(file);
         setModal(modal => ({
             ...modal, 
             imageBlob: url,
-            selectedFile: file
+            selectedFile: file,
+            imgUrlToBeDeleted: values.photoUrl,
         }))
     }
   }
@@ -168,10 +176,10 @@ const EditProfileModal = () => {
                     {({ isSubmitting, errors, values, touched, setFieldValue }) => {
                         return (
                             <Form className='space-y-3 flex flex-col justify-end'>
-                                <input type="file" name='photoUrl' accept="image/*" hidden ref={inputRef} onChange={(e: React.ChangeEvent<HTMLInputElement>) => updatePhoto(e)} />
+                                <input type="file" name='photoUrl' accept="image/*" hidden ref={inputRef} onChange={(e: React.ChangeEvent<HTMLInputElement>) => updatePhoto(e, values)} />
 
                                 <>
-                                    <div className='flex justify-center items-center w-[70px] h-[70px] rounded-full overflow-hidden bg-secondary m-auto text-white text-xl font-extrabold relative'>
+                                    <div className='flex justify-center items-center w-[70px] h-[70px] shadow-md rounded-full overflow-hidden bg-secondary m-auto text-white text-xl font-extrabold relative'>
                                         {!values.photoUrl && !imageBlob ? (
                                             <> {values.firstName.charAt(0).toUpperCase()}{values.lastName.charAt(0).toUpperCase()} </>
                                         ) : imageBlob ? (
@@ -183,10 +191,9 @@ const EditProfileModal = () => {
 
                                     <div className={`flex w-full space-x-1 m-auto ${values.photoUrl || imageBlob ? 'justify-between' : 'justify-center'}`}>
                                         <span onClick={() => inputRef.current?.click()} className='flex justify-center items-center cursor-pointer text-white p-1 bg-primary rounded-md text-xs w-max'> <AiOutlineEdit size={15} className='mr-[3px]' /> Update photo </span>
-                                        { values.photoUrl || imageBlob ? <span onClick={() => removePhoto(values)} className='flex justify-center items-center cursor-pointer text-white p-1 bg-[#E65050] rounded-md text-xs w-max'> <AiOutlineDelete size={15} className='mr-[3px]' /> Delete photo </span> : null}
+                                        { values.photoUrl || imageBlob ? <span onClick={() => removePhoto(values, setFieldValue)} className='flex justify-center items-center cursor-pointer text-white p-1 bg-[#E65050] rounded-md text-xs w-max'> <AiOutlineDelete size={15} className='mr-[3px]' /> Delete photo </span> : null}
                                     </div>
                                 </>
-
 
                                 <FormField 
                                     title='First Name' 

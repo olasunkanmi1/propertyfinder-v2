@@ -10,6 +10,7 @@ const FindHome = () => {
         buttonText="Start finding"
         route="/find-property"
         image={image}
+        firstImg
     />
   )
 }
