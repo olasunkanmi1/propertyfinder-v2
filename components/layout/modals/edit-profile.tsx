@@ -1,11 +1,11 @@
-import React, {useState, useRef, useEffect} from 'react'
-import { useRecoilState, useResetRecoilState, useSetRecoilState, useRecoilCallback } from 'recoil';
+import React, {useState, useRef} from 'react'
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { navbarState, userState } from '../../../states';
 import ModalLayout from './modal-layout';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
 import FormField from './field'
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { toast } from "react-toastify";
 import { fetchUser } from '../../../utils/fetchFns';
 import { AiOutlineEdit, AiOutlineMail, AiOutlineUser, AiOutlineDelete } from 'react-icons/ai'
@@ -21,7 +21,6 @@ interface EditProfileInitialValues {
 
 const EditProfileModal = () => {
     const [loading, setLoading] = useState(false);
-    const [res, setRes] = useState<AxiosResponse<any, any>>();
     const inputRef = useRef<HTMLInputElement>(null);
     
     const [modal, setModal] = useRecoilState(navbarState);
@@ -29,7 +28,6 @@ const EditProfileModal = () => {
     const [user, setUser] = useRecoilState(userState);
     
     const { imageBlob, selectedFile, imgUrlToBeDeleted } = modal
-    console.log('imgUrlToBeDeleted', imgUrlToBeDeleted)
 
     const initialValues: EditProfileInitialValues = {
         firstName: user ? user.firstName : '',
@@ -56,16 +54,12 @@ const EditProfileModal = () => {
             setModal(modal => ({
                 ...modal,
                 imgUrlToBeDeleted: values.photoUrl,
-                imgUrl: ''
             }));
-
-            setFieldValue('photoUrl', '');
         } 
+        setFieldValue('photoUrl', '');
     }
 
     const updateProfile = async (values: EditProfileInitialValues, setSubmitting: (isSubmitting: boolean) => void) => {
-        console.log('updateprofile value', values)
-
         axios.patch("user", values, { withCredentials: true })
         .then(async (res) => {
             setLoading(false);
@@ -119,10 +113,7 @@ const EditProfileModal = () => {
                 if(reupload) {
                     updatePhotoAndProfile(values, setSubmitting);
                 } else {
-                    setModal(modal => ({
-                        ...modal,
-                        imgUrl: ''
-                    }));
+                    updateProfile(values, setSubmitting)
                 }
             }
         }).catch((error) => {
@@ -159,7 +150,7 @@ const EditProfileModal = () => {
             ...modal, 
             imageBlob: url,
             selectedFile: file,
-            imgUrlToBeDeleted: values.photoUrl,
+            imgUrlToBeDeleted: imgUrlToBeDeleted ? imgUrlToBeDeleted : values.photoUrl,
         }))
     }
   }
