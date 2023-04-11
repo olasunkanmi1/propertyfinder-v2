@@ -8,7 +8,7 @@ import { loadingState, navbarState, userState } from '../../states'
 import Sidebar from './sidebar'
 import Filterbar from '../find-property-page/search-filters/mobile/filterbar'
 import RouteChangeLoader from './route-change-loader'
-import { SignInModal, SignUpModal, ForgotPasswordModal, ForgotPasswordEmailSentModal, VerifyEmailSentModal, EditProfileModal, ChangePasswordModal } from './modals'
+import { SignInModal, SignUpModal, ForgotPasswordModal, ForgotPasswordEmailSentModal, VerifyEmailSentModal, EditProfileModal, ChangePasswordModal, ClearSavedPropertiesModal } from './modals'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {fetchUser} from '../../utils/fetchFns'
@@ -19,11 +19,11 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const [modal, setModal] = useRecoilState(navbarState);
   const closeALll = useResetRecoilState(navbarState);
 
-  const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal } = modal;
-  const modals = signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal
+  const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal, clearConfirmationModal } = modal;
+  const modals = signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal
 
   const toggleSidebarAndDropdown = () => {
-    if(isSidebarOpen || profileDropdown || isFilterbarOpen || signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal) {
+    if(isSidebarOpen || profileDropdown || isFilterbarOpen || signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal) {
       closeALll();
     }
   }
@@ -63,8 +63,8 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       <VerifyEmailSentModal />
       <EditProfileModal />
       <ChangePasswordModal />
+      <ClearSavedPropertiesModal />
       {/* {loading.routeChangeLoading && <RouteChangeLoader /> } */}
-
 
       <ToastContainer
         position="bottom-center"

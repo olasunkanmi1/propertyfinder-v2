@@ -14,6 +14,7 @@ import axios from 'axios';
 import { toast } from "react-toastify";
 import { Spinner } from '../loader';
 import { fetchSavedProperties } from '../../utils/fetchFns';
+import { HiOutlineLocationMarker } from 'react-icons/hi';
 
 const Property: React.FC<PropertyProps> = ({ property }) => {
     const [loading, setLoading] = useState(false);
@@ -21,7 +22,8 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
     const [properties, setProperties] = useRecoilState(propertiesState);
     
     const savedProperties = properties.savedProperties ? properties.savedProperties : [];
-    const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID } = property
+    const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID, location } = property
+    const propertyLocation = `${location[2] ? location[2].name + ', ' : ''}` + `${location[1] ? location[1].name + '.' : ''}`
 
     const savedPropertiesIDs = savedProperties.map((pty) => pty.externalID);
     const [isSaved, setIsSaved] = useState(savedPropertiesIDs.includes(externalID));
@@ -99,7 +101,7 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
     }, [savedPropertiesIDs, externalID])
 
     return (
-        <div className="w-full ls:w-[300px]">
+        <div className="grid-cols-1">
             <Link href={`/property/${externalID}`} passHref>
                 <a className="w-full">
                     <div className="relative rounded-xl w-full h-[160px] overflow-hidden">
@@ -107,6 +109,9 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                             src={coverPhoto ? coverPhoto.url : DefaultImage} alt="cover-photo" layout="fill"
                             blurDataURL={coverPhoto && coverPhoto.url} loading="lazy"
                         />
+
+                        { isVerified && <div className='text-green-500 absolute top-2 left-2 rounded-full bg-white p-1 shadow-md'> <GoVerified size={20} /> </div> }
+                        <p className="absolute bottom-2 right-2 p-1 rounded-md text-primary bg-white font-bold font-lg shadow-md leading-tight"> AED {millify(price)} {rentFrequency && ` ${rentFrequency}`} </p>
                     </div>
                 </a>
             </Link>
@@ -115,9 +120,9 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                 <div className="flex justify-between items-center">
                     <Link href={`/property/${externalID}`} passHref>
                         <a className='w-[calc(100%-35px)] h-[38px] pt-2 pl-2'>
-                            <div className="flex space-x-2 items-center h-full">
-                                { isVerified && <div className='text-green-500 '> <GoVerified size={20} /> </div> }
-                                <p className="font-bold font-lg leading-tight"> AED {millify(price)} {rentFrequency && ` ${rentFrequency}`} </p>
+                            <div className="flex space-x-1 items-center h-full">
+                                <span className='w-5 h-5 text-primary'> <HiOutlineLocationMarker size={20} /> </span>
+                                <p className="font-bold text-xs text-primary leading-tight"> {propertyLocation} </p>
                             </div>
                         </a>
                     </Link>

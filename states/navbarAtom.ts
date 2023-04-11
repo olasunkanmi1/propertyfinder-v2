@@ -12,6 +12,7 @@ export interface INavbarState {
     verifyEmailMailSent: boolean,
     editProfileModal: boolean,
     changePasswordModal: boolean,
+    clearConfirmationModal: boolean,
 
     imageBlob: string,
     selectedFile: File | null,
@@ -32,6 +33,7 @@ export const navbarState = atom<INavbarState>({
         verifyEmailMailSent: false,
         editProfileModal: false,
         changePasswordModal: false,
+        clearConfirmationModal: false,
 
         imageBlob: '',
         selectedFile: null,

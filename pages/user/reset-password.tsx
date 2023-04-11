@@ -126,7 +126,7 @@ const ResetPassword = () => {
                         </>
                     ) : (
                         <div className='flex flex-col items-center'>
-                            <h1 className='text-primary text-xl font-semibold w-max'> Password reset successfully </h1>
+                            <h1 className='text-primary text-xl font-semibold text-center'> Password reset successfully </h1>
 
                             <Image src={success} alt='Email Sent' width={180} height={150} loading='lazy' />
 

@@ -28,7 +28,7 @@ const VerifyEmail: React.FC<IVerifyEmail> = ({isVerified}) => {
               
               <div className="max-h-[calc(100vh-140px)] overflow-y-auto">
                 <div className='flex flex-col items-center'>
-                  <h1 className={`text-xl font-semibold w-max ${isVerified ? 'text-primary' : 'text-[#E65050]'}`}> {isVerified ? 'Email verified successfully' : 'Unable to verify your email'} </h1>
+                  <h1 className={`text-xl font-semibold text-center ${isVerified ? 'text-primary' : 'text-[#E65050]'}`}> {isVerified ? 'Email verified successfully' : 'Unable to verify your email'} </h1>
                   <Image src={isVerified ? success : error} alt='Email Sent' width={180} height={150} loading='lazy' />
                   <button type='button' className='text-primary underline cursor-pointer font-semibold mt-2' onClick={() => router.push('/')}> Proceed to Home </button>
                 </div>
@@ -42,8 +42,8 @@ const VerifyEmail: React.FC<IVerifyEmail> = ({isVerified}) => {
 export default VerifyEmail
 
 export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
-  let isVerified;
   const {token, email} = query
+  let isVerified;
 
   const obj = {
     verificationToken: token,

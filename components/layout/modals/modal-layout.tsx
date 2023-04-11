@@ -12,8 +12,8 @@ const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn, si
     const [modal, setModal] = useRecoilState(navbarState);
     const closeModal = useResetRecoilState(navbarState);
 
-    const { signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal } = modal
-    const modals = signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal
+    const { signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal, clearConfirmationModal } = modal
+    const modals = signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal
 
     const openOppModal = () => {
         closeModal();

@@ -5,3 +5,4 @@ export { default as ForgotPasswordEmailSentModal } from './forgot-password-succe
 export { default as VerifyEmailSentModal } from './verify-email-success';
 export { default as EditProfileModal } from './edit-profile';
 export { default as ChangePasswordModal } from './change-password';
+export { default as ClearSavedPropertiesModal } from './clear-saved-properties';

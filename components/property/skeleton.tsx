@@ -4,7 +4,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 const CardSkeleton = () => {
   return (
-    <div className="w-full ls:w-[300px] z-0">
+    <div className="grid-cols-1">
         <div className="relative rounded-xl w-full h-[160px] overflow-hidden">
             <Skeleton height={160} />
         </div>
