@@ -39,7 +39,7 @@ const Home: React.FC<HomepageProps> = ({ featuredProperties, featuredAgencies, s
 export default Home
 
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
-  const featuredProperties = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&hitsPerPage=6`);
+  const featuredProperties = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5001&hitsPerPage=6`);
   const featuredAgencies = await fetchApi(`${baseUrl}/agencies/list?query=.`, FeaturedAgencies);
 
   let savedProperties;

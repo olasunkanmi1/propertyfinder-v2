@@ -92,7 +92,32 @@
   .tooltip {
     @apply absolute right-4 -bottom-[9px] w-0 h-0 border-x-[8px] border-x-transparent border-b-[8px] border-b-white
   }
+}
+
+@layer utilities {
+  .gridLayout {
+    display: grid;
+    grid-gap: 40px 16px;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
   
+  @media (min-width: 400px) {
+    .gridLayout {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  
+  @media (min-width: 640px) {
+    .gridLayout {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .gridLayout {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
 }
 
 html,

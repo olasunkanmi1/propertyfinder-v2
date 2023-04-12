@@ -116,14 +116,11 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                 </a>
             </Link>
 
-            <div className="flex flex-col pr-2">
+            <div className="flex flex-col">
                 <div className="flex justify-between items-center">
                     <Link href={`/property/${externalID}`} passHref>
-                        <a className='w-[calc(100%-35px)] h-[38px] pt-2 pl-2'>
-                            <div className="flex space-x-1 items-center h-full">
-                                <span className='w-5 h-5 text-primary'> <HiOutlineLocationMarker size={20} /> </span>
-                                <p className="font-bold text-xs text-primary leading-tight"> {propertyLocation} </p>
-                            </div>
+                        <a className='flex items-center w-[calc(100%-35px)] h-[38px] pt-2'>
+                            <p className='truncate font-medium'> {title} </p>
                         </a>
                     </Link>
                     
@@ -144,7 +141,18 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                             <p className='propertyBBA'> <MdWindow />{millify(area)} sqft  </p>
                         </div>
 
-                        <p className='truncate font-medium'> {title} </p>
+                        <div className="flex space-x-1 items-center h-[30px]">
+                            <span className='w-5 h-5 text-primary'> <HiOutlineLocationMarker size={20} /> </span>
+                            <p className="font-bold text-xs text-primary overflow-hidden text-overflow-ellipsis whitespace-no-wrap" 
+                                style={{
+                                    display: '-webkit-box',
+                                    WebkitLineClamp: 2,
+                                    WebkitBoxOrient: 'vertical',
+                                    overflow: 'hidden'
+                                }}
+                            > {propertyLocation}
+                            </p>
+                        </div>
 
                         <div className='flex justify-between items-center'>
                             { agency && <p className='truncate font-normal text-sm text-secondary w-[calc(100%-30px)]'> {agency.name} </p>}
