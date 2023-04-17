@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { navbarState, loadingState, userState } from '../../states';
+import { navbarState, loadingState, userState, INavbarState } from '../../states';
 import Link from 'next/link';
 import Profile from './navbar/profile';
 import { useRouter } from 'next/router';
@@ -24,22 +24,7 @@ const Sidebar = () => {
     ]
 
     const closeSidebar = (name: string) => {
-        setOpen(open => ({
-            ...open,
-            isSidebarOpen: false
-        }));
-
-        if(name === 'in') {
-            setOpen(open => ({
-                ...open,
-                signInModal: true
-            }));
-        } else if(name === 'reg') {
-            setOpen(open => ({
-                ...open,
-                signUpModal: true
-            }));
-        } else if(name === 'out') {
+        if(name === 'out') {
             axios.delete("auth/logout", { withCredentials: true })
             .then(async (res) => {
                 
@@ -52,6 +37,12 @@ const Sidebar = () => {
                 toast.error('Unknown error, please try again');
             })
         }
+
+        setOpen(open => ({
+            ...open,
+            isSidebarOpen: false,
+            [name as keyof INavbarState]: true,
+        }));
     };
 
   return (
@@ -70,8 +61,8 @@ const Sidebar = () => {
 
                 { userLoading ? null : !userLoading && !user ? (
                     <>
-                        <button className='sidebarNavLinks' onClick={() => closeSidebar('in')}> Sign In </button>
-                        <button className='sidebarNavLinks' onClick={() => closeSidebar('reg')}> Register </button>
+                        <button className='sidebarNavLinks' onClick={() => closeSidebar('signInModal')}> Sign In </button>
+                        <button className='sidebarNavLinks' onClick={() => closeSidebar('signUpModal')}> Register </button>
                     </>
                 ) : (
                     <>
@@ -79,6 +70,8 @@ const Sidebar = () => {
                             <a className={`sidebarNavLinks ${router.pathname === '/saved-properties' ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar('')}> Saved Properties </a>
                         </Link>
                         
+                       <button className='sidebarNavLinks' onClick={() => closeSidebar('editProfileModal')}> Edit Profile </button>
+                       <button className='sidebarNavLinks' onClick={() => closeSidebar('changePasswordModal')}> Change Password </button>
                         <button className='sidebarNavLinks' onClick={() => closeSidebar('out')}> <FiLogOut size={25} /> Sign Out </button>
                     </>
                 )}

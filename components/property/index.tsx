@@ -42,7 +42,8 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
                 },
                 name: agency.name
             },
-            externalID
+            externalID,
+            location
         }
 
         if(isSaved) {

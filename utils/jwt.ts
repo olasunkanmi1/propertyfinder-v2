@@ -12,9 +12,9 @@ export const attachCookiesToResponse = (user: any) => {
         const oneDay = 1000 * 60 * 60 * 24;
 
         Cookies.set('token', token, { 
-            secure: true,
+            // secure: true,
             expires: new Date(Date.now() + oneDay),
-            sameSite: 'None',
+            // sameSite: 'None',
         });
     } catch (error) {
         console.log(error)
