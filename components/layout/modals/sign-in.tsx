@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import { SignInInitialValues } from '../../../types'
 import { Loader } from '../../loader'
 import { fetchUser, fetchSavedProperties } from '../../../utils/fetchFns'
-import { attachCookiesToResponse } from '../../../utils/jwt'
 
 const SignInModal = () => {
     const [loading, setLoading] = useState(false);
@@ -40,7 +39,6 @@ const SignInModal = () => {
         if (res.status === 200) {
           toast.success('Logged in successfully');
           closeModal(); 
-          attachCookiesToResponse(res.data.user)
           
           const user = await fetchUser();
           const savedProperties = await fetchSavedProperties();

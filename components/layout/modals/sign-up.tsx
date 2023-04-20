@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import { SignUpInitialValues } from '../../../types'
 import { Loader } from '../../loader'
 import { fetchUser } from '../../../utils/fetchFns'
-import { attachCookiesToResponse } from '../../../utils/jwt'
 
 const SignUpModal = () => {
     const [loading, setLoading] = useState(false);
@@ -43,7 +42,6 @@ const SignUpModal = () => {
         if (res.status === 201) {
             toast.success('Account created successfully');
             closeModal();
-            attachCookiesToResponse(res.data.user)
 
             const user = await fetchUser();
             setUser(user)
