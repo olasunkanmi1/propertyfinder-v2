@@ -6,8 +6,9 @@ import { GetServerSideProps } from 'next';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState, searchFiltersState, addressSuggestionsAtom, propertiesState } from '../states';
 import Router, { useRouter } from "next/router";
+import axios from 'axios';
 
-const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) => {
+const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits, savedProperties }) => {
   const filterRef = useRef<HTMLDivElement | null>(null)
   const suggestionsRef = useRef<HTMLDivElement | null>(null)
   const router = useRouter();
@@ -47,7 +48,8 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) =
 
     setProperties(prpts => ({
       ...prpts,
-      properties: properties
+      properties: properties,
+      savedProperties: savedProperties
     }));
 
     setPageLoading(false);
@@ -66,7 +68,7 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) =
     }
     document.addEventListener('click', closeDropdown, true);
     return () => document.removeEventListener('click', closeDropdown, true)
-  }, [ resetDropdown, setSuggestions, router.query.purpose, router.query.rentFrequency, router.query.furnishingStatus, router.query.roomsMin, router.query.roomsMax, router.query.bathsMin, router.query.bathsMax, router.query.priceMin, router.query.priceMax, router.query.areaMin, router.query.areaMax, router.query.propertyType, router.query.categoryExternalID, router.query.locationExternalIDs, router.query.sort, setFilter, properties, setProperties])
+  }, [ resetDropdown, setSuggestions, router.query.purpose, router.query.rentFrequency, router.query.furnishingStatus, router.query.roomsMin, router.query.roomsMax, router.query.bathsMin, router.query.bathsMax, router.query.priceMin, router.query.priceMax, router.query.areaMin, router.query.areaMax, router.query.propertyType, router.query.categoryExternalID, router.query.locationExternalIDs, router.query.sort, setFilter, properties, setProperties, savedProperties])
 
   return (
     <Layout title="Find Property">
@@ -79,7 +81,7 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits }) =
 
 export default FindProperty
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
   const purpose = query.purpose || "for-rent";
   const rentFrequency = query.rentFrequency || "yearly";
   const priceMin = query.priceMin || "0";
@@ -100,10 +102,30 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     `${baseUrl}/properties/list?hitsPerPage=12&locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&bathsMax=${bathsMax}&rentFrequency=${rentFrequency}&priceMin=${priceMin}&priceMax=${priceMax}&roomsMin=${roomsMin}&roomsMax=${roomsMax}&sort=${sort}&areaMin=${areaMin}&areaMax=${areaMax}&furnishingStatus=${furnishingStatus}&page=${page}`
   );
 
+  let savedProperties;
+
+  const cookieHeader = req.headers.cookie
+  const config = {
+    withCredentials: true,
+    headers: cookieHeader ? {
+      Cookie: cookieHeader
+    } : {
+      Cookie: ''
+    }
+  };
+
+  try {
+    const {data} = await axios.get(`${process.env.BACKEND_URL}/property`, config)
+    savedProperties = await data.savedProperties
+  } catch (error) {
+    savedProperties = null
+  }
+
   return {
     props: {
       properties: data?.hits,
       nbHits: data?.nbHits,
+      savedProperties
     },
   };
 } 

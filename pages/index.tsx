@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
   };
 
   try {
-    const {data} = await axios.get('property', config)
+    const {data} = await axios.get(`${process.env.BACKEND_URL}/property`, config)
     savedProperties = await data.savedProperties
   } catch (error) {
     savedProperties = null

@@ -99,6 +99,7 @@ export interface HomepageProps {
 export interface FindPropertyPageProps {
     properties: Property[];
     nbHits?: number;
+    savedProperties: Property[];
 }
 
 export interface UniquePropertyPageProps {
