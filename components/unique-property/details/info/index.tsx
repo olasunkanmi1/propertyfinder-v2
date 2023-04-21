@@ -9,26 +9,119 @@ import Amenities from './amenities';
 import ReactPlayer from 'react-player'
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import { MdLocationOn } from 'react-icons/md'
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { propertiesState, navbarState } from '../../../../states';
+import { unSaveProperty, saveProperty } from '../../../../utils/propertyFns';
+import { fetchSavedProperties } from '../../../../utils/fetchFns';
+import { toast } from "react-toastify";
+import { Spinner } from '../../../loader';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+
+interface MyError {
+    message: string
+    response?: {
+      status: number
+    }
+}
 
 const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
     const descriptionRef = useRef<HTMLParagraphElement>(null)
     const [descriptionHeight, setDescriptionHeight] = useState<number | undefined>(descriptionRef.current?.offsetHeight);
     const [descriptionVisibility, setDescriptionVisibility] = useState<boolean>(false);
     const [screenWidth, setscreenWidth] = useState<number | undefined>(undefined);
-
-    const { isVerified, price, rentFrequency, rooms, baths, area, title, description, coverVideo, amenities, location } = propertyDetails;
+    const [loading, setLoading] = useState(false);
+    const [properties, setProperties] = useRecoilState(propertiesState);
+    const setModal = useSetRecoilState(navbarState);
+    
+    const { isVerified, price, rentFrequency, rooms, baths, area, title, description, coverVideo, amenities, location, externalID, coverPhoto, agency } = propertyDetails;
     const propertyLocation = `${location[5] ? location[5].name + ', ' : ''}` + `${location[4] ? location[4].name + ', ' : ''}` + `${location[3] ? location[3].name + ', ' : ''}` + `${location[2] ? location[2].name + ', ' : ''}` + `${location[1] ? location[1].name + '.' : ''}`
+
+    const savedProperties = properties.savedProperties ? properties.savedProperties : [];
+
+    const savedPropertiesIDs = savedProperties.map((pty) => pty.externalID);
+    const [isSaved, setIsSaved] = useState(savedPropertiesIDs.includes(externalID));
 
     const handleDescription = () => {
         setDescriptionVisibility(!descriptionVisibility);
     }
 
+    const handleClick = async () => {
+        setLoading(true);
+        const obj = {
+            coverPhoto: {
+                url: coverPhoto.url
+            },
+            price, rooms, title, baths, area,
+            isVerified, rentFrequency,
+            agency: {
+                logo: {
+                    url: agency.logo.url
+                },
+                name: agency.name
+            },
+            externalID,
+            location
+        }
+
+        if(isSaved) {
+            try {
+                const unsaveRes = await unSaveProperty(externalID);
+                setLoading(false);
+
+                if (unsaveRes && unsaveRes.status === 200) {
+                    setProperties(properties => ({
+                        ...properties,
+                        savedProperties: savedProperties.filter((pty) => pty.externalID !== externalID)
+                    }))
+                    setIsSaved(false)
+                    toast.success('Property unsaved');
+                }
+            } catch (error) {
+                const myError = error as MyError
+                setLoading(false);
+        
+                if(myError.response && myError.response.status === 401) {
+                    setModal(modal => ({...modal, signInModal: true}));
+                } else {
+                    toast.error('Unable to unsave property, please try again');
+                }
+            }
+
+        } else {
+            try {
+                const saveRes = await saveProperty(obj);
+                setLoading(false);
+
+                if (saveRes && saveRes.status === 200) {
+                    setIsSaved(true)
+                    const savedProperties = await fetchSavedProperties();
+
+                    setProperties(properties => ({
+                        ...properties,
+                        savedProperties: savedProperties
+                    }))
+                    toast.success('Property saved');
+                }
+            } catch (error) {
+                const myError = error as MyError
+                setLoading(false);
+        
+                if(myError.response && myError.response.status === 401) {
+                    setModal(modal => ({...modal, signInModal: true}));
+                } else {
+                    toast.error('Unable to save property, please try again');
+                }
+            }
+        }
+    }
+
+
     useEffect(() => {
       setDescriptionHeight(descriptionRef.current?.offsetHeight);
       window.addEventListener('resize', () => setscreenWidth(window.innerWidth));
 
-      
-    }, [descriptionRef.current?.offsetHeight, ])
+      setIsSaved(savedPropertiesIDs.includes(externalID))
+    }, [descriptionRef.current?.offsetHeight, savedPropertiesIDs, externalID])
     
   return (
     <div className='space-y-5'>
@@ -39,8 +132,13 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
                     <p className="font-bold font-lg leading-tight text-lg capitalize"> AED <span className='text-xl ls:text-2xl xls:text-3xl'>{price.toLocaleString()}</span> {rentFrequency && `${rentFrequency}`} </p>
                 </div>
                 
-                <div className="flex space-x-2 justify-center items-center p-2 xls:px-4 cursor-pointer rounded-md bg-primary bg-opacity-20 border border-primary text-primary font-medium">
-                    <FaRegHeart size={20} /> <span> Save </span>
+                <div className="flex space-x-2 justify-center items-center p-2 xls:px-4 cursor-pointer rounded-md bg-primary bg-opacity-20 border border-primary text-primary font-medium" onClick={() =>  handleClick()}>
+                    {loading ? <Spinner /> : isSaved ? (
+                        <> <AiFillHeart size={20} color='#0847A8' /> <span> Unsave </span> </>
+                    ) : (
+                        <> <AiOutlineHeart size={20} /> <span> Save </span> </>
+                        
+                    )}
                 </div>
             </div>
 
