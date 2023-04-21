@@ -1,17 +1,20 @@
 import React from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { navbarState, loadingState, userState, INavbarState } from '../../states';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { navbarState, loadingState, userState, INavbarState, propertiesState } from '../../states';
 import Link from 'next/link';
 import Profile from './navbar/profile';
 import { useRouter } from 'next/router';
 import { FiLogOut } from 'react-icons/fi';
 import axios from 'axios';
 import { toast } from "react-toastify";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const Sidebar = () => {
     const loading = useRecoilValue(loadingState);
     const [user, setUser] = useRecoilState(userState);
     const [open, setOpen] = useRecoilState(navbarState);
+    const setProperties = useSetRecoilState(propertiesState);
 
     const router = useRouter();
     const {userLoading} = loading;
@@ -30,7 +33,11 @@ const Sidebar = () => {
                 
                 if (res.status === 200) {
                     toast.success('Logged out successfully');
-                    setUser(null)
+                    setUser(null);
+                    setProperties(properties => ({
+                        ...properties,
+                        savedProperties: []
+                    }))
                 }
             })
             .catch((error) => {
@@ -59,7 +66,11 @@ const Sidebar = () => {
                     )
                 }) }
 
-                { userLoading ? null : !userLoading && !user ? (
+                { userLoading ? (
+                    <>
+                        { [...Array(2)].map((arr, i) => <Skeleton key={i} width={200} height={20} className='ml-3 mb-2' />) }
+                    </>
+                ) : !userLoading && !user ? (
                     <>
                         <button className='sidebarNavLinks' onClick={() => closeSidebar('signInModal')}> Sign In </button>
                         <button className='sidebarNavLinks' onClick={() => closeSidebar('signUpModal')}> Register </button>
