@@ -1,20 +1,42 @@
 import axios from "axios";
-import { Property } from "../types";
 
-export const saveProperty = async () => {
+interface IObj {
+    coverPhoto: {
+        url: string;
+    };
+    price: number;
+    rooms: string;
+    title: string;
+    baths: string;
+    area: number;
+    isVerified: boolean;
+    rentFrequency: string;
+    agency: {
+        logo: {
+            url: string;
+        };
+        name: string;
+    };
+    externalID: string;
+    location: {
+        name: string;
+    }[];
+} 
+
+export const saveProperty = async (obj: IObj) => {
     try {
-        const { data } = await axios.get(("user"), {withCredentials: true}) 
-        return data.user
+        const res = await axios.post(("/property"), obj, {withCredentials: true}) 
+        return res
     } catch (error) {
-        return null
+        throw error
     }
 }
 
-export const unSaveProperty = async () => {
+export const unSaveProperty = async (externalID: String) => {
     try {
-        const { data } = await axios.get(("property"), {withCredentials: true}) 
-        return data.savedProperties
+        const res = await axios.delete((`/unsave-property/${externalID}`), {withCredentials: true}) 
+        return res
     } catch (error) {
-        return null
+        throw error
     }
 }

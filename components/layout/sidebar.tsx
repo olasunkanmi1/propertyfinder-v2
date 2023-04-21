@@ -25,7 +25,7 @@ const Sidebar = () => {
 
     const closeSidebar = (name: string) => {
         if(name === 'out') {
-            axios.delete("auth/logout", { withCredentials: true })
+            axios.delete("/logout", { withCredentials: true })
             .then(async (res) => {
                 
                 if (res.status === 200) {

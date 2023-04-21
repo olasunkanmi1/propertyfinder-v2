@@ -16,7 +16,7 @@ const ClearSavedPropertiesModal = () => {
   const clearAllProperties = () => {
     setLoading(true);
 
-    axios.delete("property", { withCredentials: true })
+    axios.delete("/property", { withCredentials: true })
     .then(async (res) => {
       setLoading(false);
 

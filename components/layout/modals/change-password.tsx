@@ -35,7 +35,7 @@ const ChangePasswordModal = () => {
   const handleSubmit = (values: ChangePasswordInitialValues, { setSubmitting }: FormikHelpers<ChangePasswordInitialValues>) => {
     setLoading(true);
 
-    axios.patch("user/update-password", values, { withCredentials: true })
+    axios.patch("/update-password", values, { withCredentials: true })
       .then(async (res) => {
         setLoading(false);
         

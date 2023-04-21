@@ -15,6 +15,14 @@ import { toast } from "react-toastify";
 import { Spinner } from '../loader';
 import { fetchSavedProperties } from '../../utils/fetchFns';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
+import { unSaveProperty, saveProperty } from '../../utils/propertyFns';
+
+interface MyError {
+  message: string
+  response?: {
+    status: number
+  }
+}
 
 const Property: React.FC<PropertyProps> = ({ property }) => {
     const [loading, setLoading] = useState(false);
@@ -47,53 +55,54 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
         }
 
         if(isSaved) {
-            axios.delete(`property/${externalID}`, { withCredentials: true })
-          .then(async (res) => {
-            setLoading(false);
-    
-            if (res.status === 200) {
-                setProperties(properties => ({
-                    ...properties,
-                    savedProperties: savedProperties.filter((pty) => pty.externalID !== externalID)
-                }))
-                setIsSaved(false)
-              toast.success('Property unsaved');
-            }
-          })
-          .catch((error) => {
-            setLoading(false);
-    
-            if(error.response.status === 401) {
-                setModal(modal => ({...modal, signInModal: true}));
-            } else {
-                toast.error('Unable to unsave property, please try again');
-            }
-          })
-        } else {
-            axios.post("property", obj, { withCredentials: true })
-          .then(async (res) => {
-            setLoading(false);
-    
-            if (res.status === 200) {
-                setIsSaved(true)
-                const savedProperties = await fetchSavedProperties();
+            try {
+                const unsaveRes = await unSaveProperty(externalID);
+                setLoading(false);
 
-                setProperties(properties => ({
-                    ...properties,
-                    savedProperties: savedProperties
-                }))
-                toast.success('Property saved');
+                if (unsaveRes && unsaveRes.status === 200) {
+                    setProperties(properties => ({
+                        ...properties,
+                        savedProperties: savedProperties.filter((pty) => pty.externalID !== externalID)
+                    }))
+                    setIsSaved(false)
+                    toast.success('Property unsaved');
+                }
+            } catch (error) {
+                const myError = error as MyError
+                setLoading(false);
+        
+                if(myError.response && myError.response.status === 401) {
+                    setModal(modal => ({...modal, signInModal: true}));
+                } else {
+                    toast.error('Unable to unsave property, please try again');
+                }
             }
-          })
-          .catch((error) => {
-            setLoading(false);
-    
-            if(error.response.status === 401) {
-                setModal(modal => ({...modal, signInModal: true}));
-            } else {
-                toast.error('Unable to save property, please try again');
+
+        } else {
+            try {
+                const saveRes = await saveProperty(obj);
+                setLoading(false);
+
+                if (saveRes && saveRes.status === 200) {
+                    setIsSaved(true)
+                    const savedProperties = await fetchSavedProperties();
+
+                    setProperties(properties => ({
+                        ...properties,
+                        savedProperties: savedProperties
+                    }))
+                    toast.success('Property saved');
+                }
+            } catch (error) {
+                const myError = error as MyError
+                setLoading(false);
+        
+                if(myError.response && myError.response.status === 401) {
+                    setModal(modal => ({...modal, signInModal: true}));
+                } else {
+                    toast.error('Unable to save property, please try again');
+                }
             }
-          })
         }
     }
 

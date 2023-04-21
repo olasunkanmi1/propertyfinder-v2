@@ -45,7 +45,7 @@ const ResetPassword = () => {
         password: values.password
       }
 
-    axios.post("auth/reset-password", obj, { withCredentials: true})
+    axios.post("/reset-password", obj, { withCredentials: true})
       .then(async (res) => {
         setLoading(false);
         

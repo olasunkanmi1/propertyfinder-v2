@@ -35,7 +35,7 @@ const SignUpModal = () => {
   const handleSubmit = (values: SignUpInitialValues, { setSubmitting }: FormikHelpers<SignUpInitialValues>) => {
     setLoading(true);
 
-    axios.post("auth/register", values, { withCredentials: true })
+    axios.post("/register", values, { withCredentials: true })
       .then(async (res) => {
         setLoading(false);
 

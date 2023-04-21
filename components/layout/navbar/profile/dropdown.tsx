@@ -20,7 +20,7 @@ const Dropdown = () => {
     const verificationToken = user ? user.verificationToken : ''
 
     const logOut = () => {
-        axios.delete("auth/logout", { withCredentials: true })
+        axios.delete("/logout", { withCredentials: true })
       .then(async (res) => {
         
         if (res.status === 200) {
@@ -52,7 +52,7 @@ const Dropdown = () => {
         fromDropdown: true
       }
       
-      axios.post("auth/verify-email", obj, { withCredentials: true })
+      axios.post("/verify-email", obj, { withCredentials: true })
       .then(async (res) => {
         toast.dismiss();
         

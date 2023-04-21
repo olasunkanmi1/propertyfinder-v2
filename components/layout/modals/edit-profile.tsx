@@ -60,7 +60,7 @@ const EditProfileModal = () => {
     }
 
     const updateProfile = async (values: EditProfileInitialValues, setSubmitting: (isSubmitting: boolean) => void) => {
-        axios.patch("user", values, { withCredentials: true })
+        axios.patch("/user", values, { withCredentials: true })
         .then(async (res) => {
             setLoading(false);
             
@@ -84,7 +84,7 @@ const EditProfileModal = () => {
         if(selectedFile) {
             formData.append('image', selectedFile)
 
-            axios.post("user/update-photo", formData, { withCredentials: true, 
+            axios.post("/update-photo", formData, { withCredentials: true, 
                 headers: {
                     'Content-Type':'multipart/form-data'
                 } 
@@ -106,7 +106,7 @@ const EditProfileModal = () => {
         const publicId = parts[parts.length - 2] + "/" + parts[parts.length - 1].split(".")[0]
         const encodedPublicId = encodeURIComponent(publicId); //cos publicId has another '/'
         
-        axios.delete(`user/update-photo/${encodedPublicId}`, { withCredentials: true })
+        axios.delete(`/delete-photo/${encodedPublicId}`, { withCredentials: true })
         .then(async (res) => {
             
             if (res.status === 200) {

@@ -76,25 +76,27 @@ export default SavedProperties
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
   let user;
   let savedProperties;
+
+  const cookieHeader = req.headers.cookie
   
   const config = {
     withCredentials: true,
-    headers: req.headers.cookie ? {
-      Cookie: req.headers.cookie
+    headers: cookieHeader ? {
+      Cookie: cookieHeader
     } : {
       Cookie: ''
     }
   };
 
   try {
-    const {data} = await axios.get('user', config)
+    const {data} = await axios.get('/user', config)
     user = await data
   } catch (error) {
     user = null
   }
 
   try {
-    const {data} = await axios.get('property', config)
+    const {data} = await axios.get('/property', config)
     savedProperties = await data.savedProperties
   } catch (error) {
     savedProperties = null
