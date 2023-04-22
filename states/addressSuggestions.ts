@@ -19,5 +19,5 @@ export const addressSuggestionsAtom = atom<addressSuggestionsAtomState>({
         address: "",
         predictions: null
     },
-    effects_UNSTABLE: [persistAtom],
+    // effects_UNSTABLE: [persistAtom],
 });

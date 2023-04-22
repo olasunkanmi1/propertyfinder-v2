@@ -4,9 +4,7 @@ export interface IUserState {
     firstName: string;
     lastName: string;
     email: string;
-    userId: string;
     isVerified: boolean;
-    verificationToken: string;
     photoUrl: string;
 };
 

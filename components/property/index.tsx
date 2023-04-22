@@ -24,7 +24,7 @@ interface MyError {
   }
 }
 
-const Property: React.FC<PropertyProps> = ({ property }) => {
+const Property: React.FC<PropertyProps> = ({ property, featured }) => {
     const [loading, setLoading] = useState(false);
     const setModal = useSetRecoilState(navbarState);
     const [properties, setProperties] = useRecoilState(propertiesState);
@@ -111,7 +111,7 @@ const Property: React.FC<PropertyProps> = ({ property }) => {
     }, [savedPropertiesIDs, externalID])
 
     return (
-        <div className="grid-cols-1">
+        <div className={`grid-cols-1 ${featured ? 'max-w-[300px]' : ''}`}>
             <Link href={`/property/${externalID}`} passHref>
                 <a className="w-full">
                     <div className="relative rounded-xl w-full h-[160px] overflow-hidden">

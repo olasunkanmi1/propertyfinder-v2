@@ -17,7 +17,6 @@ const Dropdown = () => {
     const lastName = user ? user.lastName : ''
     const email = user ? user.email : ''
     const isVerified = user ? user.isVerified : ''
-    const verificationToken = user ? user.verificationToken : ''
 
     const logOut = () => {
         axios.delete("/logout", { withCredentials: true })
@@ -47,7 +46,6 @@ const Dropdown = () => {
       })
       
       const obj = {
-        verificationToken,
         email,
         fromDropdown: true
       }

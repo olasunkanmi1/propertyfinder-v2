@@ -10,7 +10,6 @@ import axios from 'axios'
 import { toast } from "react-toastify";
 import { SignInInitialValues } from '../../../types'
 import { Loader } from '../../loader'
-import { fetchUser, fetchSavedProperties } from '../../../utils/fetchFns'
 
 const SignInModal = () => {
     const [loading, setLoading] = useState(false);
@@ -32,7 +31,6 @@ const SignInModal = () => {
   const handleSubmit = (values: SignInInitialValues, { setSubmitting }: FormikHelpers<SignInInitialValues>) => {
     setLoading(true);
 
-    // axios.post("auth/login", values, { withCredentials: true })
     axios.post("/login", values, { withCredentials: true })
       .then(async (res) => {
         setLoading(false);
@@ -40,14 +38,11 @@ const SignInModal = () => {
         if (res.status === 200) {
           toast.success('Logged in successfully');
           closeModal(); 
-          
-          const user = await fetchUser();
-          const savedProperties = await fetchSavedProperties();
-          
-            setUser(user)
+
+          setUser(res.data.user)
             setProperties(properties => ({
                 ...properties,
-                savedProperties: savedProperties
+                savedProperties: res.data.savedProperties
             }))
         }
       })

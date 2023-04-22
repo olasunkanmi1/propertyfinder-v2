@@ -49,7 +49,7 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) 
           <button type='button' onClick={showModal} className='flex justify-center items-center py-1 px-2 mt-3 bg-primary text-white ml-auto rounded-md'> <AiOutlineDelete size={20} className='mr-2' /> Clear All </button>
         ) : null }
 
-        <div className='gridLayout mt-5'>
+        <div className='gridLayout my-5'>
           { loading ? (
             [...Array(4)].map((arr, index) => <CardSkeleton key={index} />)
           ) : (
