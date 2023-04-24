@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from "next/image"
-import logo from '../../public/assets/logo.png'
+import logo from '../../public/assets/logo.webp'
 import axios from 'axios'
 import {useRouter} from 'next/router';
 import success from '../../public/assets/success.webp'

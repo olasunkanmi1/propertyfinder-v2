@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import Head from 'next/head'
 import Image from "next/image"
-import logo from '../../public/assets/logo.png'
+import logo from '../../public/assets/logo.webp'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
 import axios from 'axios'

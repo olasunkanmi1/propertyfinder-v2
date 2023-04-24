@@ -1,15 +1,15 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
+import dynamic from 'next/dynamic'
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai'
 import { useRecoilState, useResetRecoilState } from 'recoil'
 import { navbarState, userState } from '../../../states'
-import ModalLayout from './modal-layout'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
-import FormField from './field'
-import axios from 'axios'
 import { toast } from "react-toastify";
 import { SignUpInitialValues } from '../../../types'
 import { Loader } from '../../loader'
+const ModalLayout = dynamic(() => import('./modal-layout')) 
+const FormField = dynamic(() => import('./field')) 
 
 const SignUpModal = () => {
     const [loading, setLoading] = useState(false);
@@ -31,7 +31,8 @@ const SignUpModal = () => {
         password: Yup.string().required("Enter password").min(6, "Password must be at least 6 characters"),
     });  
 
-  const handleSubmit = (values: SignUpInitialValues, { setSubmitting }: FormikHelpers<SignUpInitialValues>) => {
+  const handleSubmit = async (values: SignUpInitialValues, { setSubmitting }: FormikHelpers<SignUpInitialValues>) => {
+    const axios = (await import('axios')).default
     setLoading(true);
 
     axios.post("/register", values, { withCredentials: true })

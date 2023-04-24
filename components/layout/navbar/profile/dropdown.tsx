@@ -1,12 +1,12 @@
 import Link from 'next/link'
-import { toast} from "react-toastify";
+import dynamic from 'next/dynamic'
+import {toast} from "react-toastify";
 import { AiOutlineHeart } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
 import { GoVerified, GoUnverified } from "react-icons/go";
-import axios from 'axios'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { userState, propertiesState, navbarState } from '../../../../states'
-import Settings from './settings'
+const Settings = dynamic(() => import('./settings')) 
 
 const Dropdown = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -18,7 +18,8 @@ const Dropdown = () => {
     const email = user ? user.email : ''
     const isVerified = user ? user.isVerified : ''
 
-    const logOut = () => {
+    const logOut = async () => {
+      const axios = (await import('axios')).default
         axios.delete("/logout", { withCredentials: true })
       .then(async (res) => {
         
@@ -36,7 +37,9 @@ const Dropdown = () => {
       })
     }
     
-    const verifyEmail = () => {
+    const verifyEmail = async () => {
+      const axios = (await import('axios')).default
+
       toast.loading('Sending verification link...', {
         position: "top-right",
         autoClose: false,

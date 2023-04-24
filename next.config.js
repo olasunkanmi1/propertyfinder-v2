@@ -1,3 +1,5 @@
+const TerserPlugin = require('terser-webpack-plugin');
+
 const rewrites = () => {
   return [
     // auth
@@ -59,11 +61,31 @@ module.exports = {
   images: {
     domains: ['media.istockphoto.com', 'bayut-production.s3.eu-central-1.amazonaws.com', 'i.ibb.co', 'lh3.googleusercontent.com', 'res.cloudinary.com'],
   },
-  webpack(config) {
+  webpack(config, { isServer }) {
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"]
     });
+    if (!isServer) {
+      // Minify client-side code
+      config.optimization.splitChunks.maxSize = 200000 //split code into smaller chunks that are no larger than 200 KB
+      config.optimization.minimizer.push(new TerserPlugin({
+        terserOptions: {
+          compress: {
+            ecma: 2015,
+            warnings: false,
+            comparisons: false,
+            drop_console: true,
+          },
+          output: {
+            ecma: 2015,
+            comments: false,
+          },
+        },
+        extractComments: false,
+        parallel: true,
+      }));
+    }
 
     return config;
   },

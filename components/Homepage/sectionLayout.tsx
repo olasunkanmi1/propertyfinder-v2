@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SectionLayoutProps } from '../../types';
@@ -22,9 +21,9 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({ heading, paragraph, text,
       
       <div className={`md:w-1/2 md:h-[400px] h-[300px] relative ${reverse ? 'order-first' : ''}`}>
         { firstImg ? (
-          <Image src={image} alt="illustration" layout="fill" priority />          
+          <Image src={image} alt="illustration" layout="fill" priority placeholder="blur" blurDataURL={image.blurDataURL} />          
           ) : (
-          <Image src={image} alt="illustration" layout="fill" loading="lazy" />
+          <Image src={image} alt="illustration" layout="fill" loading="lazy" placeholder="blur" blurDataURL={image.blurDataURL} />
         ) }
       </div>
     </div>

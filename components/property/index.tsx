@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
-import Image from 'next/image'
+import {useState, useEffect} from 'react'
+import Image,  {StaticImageData} from 'next/image'
 import Link from 'next/link'
 import { PropertyProps } from '../../types'
-import DefaultImage from '../../public/assets/house.webp';
+import DefaultImage from '../../public/assets/default.webp';
 import { GoVerified } from "react-icons/go";
 import millify from "millify";
 import { FaBath, FaBed } from 'react-icons/fa';
@@ -10,7 +10,6 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { MdWindow } from 'react-icons/md';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { navbarState, propertiesState } from '../../states';
-import axios from 'axios';
 import { toast } from "react-toastify";
 import { Spinner } from '../loader';
 import { fetchSavedProperties } from '../../utils/fetchFns';
@@ -24,8 +23,9 @@ interface MyError {
   }
 }
 
-const Property: React.FC<PropertyProps> = ({ property, featured }) => {
+const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
     const [loading, setLoading] = useState(false);
+    const [imgUrl, setImgUrl] = useState<string | StaticImageData>(property.coverPhoto.url);
     const setModal = useSetRecoilState(navbarState);
     const [properties, setProperties] = useRecoilState(propertiesState);
     
@@ -111,16 +111,24 @@ const Property: React.FC<PropertyProps> = ({ property, featured }) => {
     }, [savedPropertiesIDs, externalID])
 
     return (
-        <div className={`grid-cols-1 ${featured ? 'max-w-[300px]' : ''}`}>
+        <div className={`grid-cols-1 ${similar ? 'max-w-[300px]' : ''}`}>
             <Link href={`/property/${externalID}`} passHref>
                 <a className="w-full">
                     <div className="relative rounded-xl w-full h-[160px] overflow-hidden">
-                        <Image 
-                            src={coverPhoto ? coverPhoto.url : DefaultImage} alt="cover-photo" layout="fill"
-                            blurDataURL={coverPhoto && coverPhoto.url} loading="lazy"
+                        <Image
+                            src={coverPhoto && imgUrl ? imgUrl : DefaultImage} alt="cover-photo" layout="fill"
+                            placeholder="blur" blurDataURL={DefaultImage.blurDataURL} loading="lazy" onError={() => setImgUrl(DefaultImage)}
                         />
 
                         { isVerified && <div className='text-green-500 absolute top-2 left-2 rounded-full bg-white p-1 shadow-md'> <GoVerified size={20} /> </div> }
+                        { featured && 
+                            <div className='bg-green-500 text-white text-sm absolute top-2 right-0 px-1 shadow-md'> 
+                                <div className="relative bg-green-500 text-white">
+                                    <div className="absolute -left-[19px] top-[5px] w-0 h-0 border-x-[10px] border-x-transparent border-b-[10px] border-b-green-500 transform -rotate-90" />
+                                    <span className="relative z-10">FEATURED</span>
+                                </div>
+                            </div> 
+                        }
                         <p className="absolute bottom-2 right-2 p-1 rounded-md text-primary bg-white font-bold font-lg shadow-md leading-tight"> AED {millify(price)} {rentFrequency && ` ${rentFrequency}`} </p>
                     </div>
                 </a>

@@ -4,8 +4,7 @@ import { INavbarState, navbarState } from '../../../states'
 import { IModalLayoutProps } from '../../../types'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import logo from "../../../public/assets/logo.png";
-import { Loader } from '../../loader'
+import logo from "../../../public/assets/logo.webp";
 
 const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn, signUp}) => {
     const router = useRouter();

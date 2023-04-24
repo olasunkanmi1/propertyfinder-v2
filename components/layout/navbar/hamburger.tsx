@@ -1,4 +1,3 @@
-import React from 'react'
 import { navbarState } from '../../../states'
 import { useRecoilState } from 'recoil'
 

@@ -88,7 +88,8 @@ export interface Agency {
 
 export interface PropertyProps {
     property: Property;
-    featured?: boolean
+    similar?: boolean;
+    featured?: boolean;
 }
 
 export interface HomepageProps {

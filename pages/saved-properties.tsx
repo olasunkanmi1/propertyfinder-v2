@@ -63,7 +63,7 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) 
 
         {properties.savedProperties?.length === 0 && (
           <div className='mb-4 relative w-full h-[300px] md:w-[400px] md:h-[400px] mx-auto'>
-            <Image src={homeNotFound} alt="no result" layout='fill' loading='lazy' />
+            <Image src={homeNotFound} alt="no saved properties" layout='fill'  placeholder="blur" blurDataURL={homeNotFound.blurDataURL} loading='lazy' />
           </div>
         )} 
       </div>

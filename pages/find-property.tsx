@@ -1,4 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react'
+import dynamic from 'next/dynamic'
 import { Layout, SearchFilters, Properties, Pagination } from "../components";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
 import { FindPropertyPageProps } from '../types';
@@ -72,9 +73,9 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits, sav
 
   return (
     <Layout title="Find Property">
-        <SearchFilters filterRef={filterRef} suggestionsRef={suggestionsRef} /> 
-        <Properties pageLoading={pageLoading} />
-        <> { prpts.properties && prpts.properties.length >= 1 && !loading.propertiesLoading && !pageLoading && <Pagination pageCount={nbHits} /> } </>
+      <SearchFilters filterRef={filterRef} suggestionsRef={suggestionsRef} /> 
+      <Properties pageLoading={pageLoading} />
+      <> { prpts.properties && prpts.properties.length >= 1 && !loading.propertiesLoading && !pageLoading && <Pagination pageCount={nbHits} /> } </>
     </Layout> 
   )
 }

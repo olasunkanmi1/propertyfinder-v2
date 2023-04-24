@@ -1,14 +1,13 @@
-import React from 'react'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { IProfileProps } from '../../../../types'
 import { AiOutlineUp } from 'react-icons/ai'
-import Link from 'next/link'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { navbarState, userState } from '../../../../states'
-import Dropdown from './dropdown'
+const Dropdown = dynamic(() => import('./dropdown')) 
 
 const Profile: React.FC<IProfileProps> = ({mobile}) => {
-  const user = useRecoilValue(userState);
+    const user = useRecoilValue(userState);
     const [dropdown, setDropdown] = useRecoilState(navbarState);
 
     const firstName = user ? user.firstName : ''
@@ -46,7 +45,6 @@ const Profile: React.FC<IProfileProps> = ({mobile}) => {
                 <AiOutlineUp className={`transition-all duration-300 ${dropdown.profileDropdown ? '' : '-rotate-180'}`} />
             </>
         )}
-
 
         { dropdown.profileDropdown && <Dropdown />}
     </div>

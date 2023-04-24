@@ -1,8 +1,7 @@
-import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { propertiesState } from '../../../states';
 import Heading from '../../heading';
-import Property from '../../property';
+import {Property} from '../../index';
 import CardSkeleton from '../../property/skeleton';
 
 const FeaturedProperties: React.FC<{loading: boolean}> = ({loading}) => {
@@ -18,7 +17,7 @@ const FeaturedProperties: React.FC<{loading: boolean}> = ({loading}) => {
         ) : (
           properties.featuredProperties?.map((property) => {
               return (
-                <Property property={property} key={property.externalID} />
+                <Property property={property} key={property.externalID} featured />
               )
           })
         )}

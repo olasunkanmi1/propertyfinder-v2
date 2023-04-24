@@ -44,7 +44,7 @@ const EmiratesAndFilterIcon = () => {
             return (
               <div className="flex gap-1" key={placeholder}> 
                 { items?.map((item) => (
-                  <div onClick={() => setEmirate(item.value, queryName, item.name)} key={item.name} className={`flex p-2 border rounded w-max cursor-pointer duration-300 ease-in-out select-none hover:bg-secondary hover:text-white ${ filterState.locationExternalIDs === item.value ? 'bg-secondary text-white' : '' }`}>
+                  <div onClick={() => setEmirate(item.value, queryName, item.name)} key={item.name} className={`flex p-2 border rounded w-max cursor-pointer duration-300 ease-in-out select-none ${ filterState.locationExternalIDs === item.value ? 'bg-secondary text-white' : '' }`}>
                     { item.name }
                   </div>
                 )) }
