@@ -1,17 +1,16 @@
 import {useState, useEffect} from 'react';
-import { GetServerSideProps } from 'next';
 import { Layout, Property } from '../components'
 import Router, { useRouter } from "next/router";
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { loadingState, propertiesState, navbarState } from '../states';
 import { SavedPropertiesPageProps } from '../types';
 import Heading from '../components/heading';
-import axios from 'axios';
 import CardSkeleton from '../components/property/skeleton';
 import { Loader } from '../components/loader';
 import { AiOutlineDelete } from 'react-icons/ai';
 import Image from 'next/image'
 import homeNotFound from "../public/assets/homeNotFound.webp";
+import { getServerSideProps } from '../utils/getServerSideFns/savedProperties';
 
 const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) => {
   const [loading, setLoading] = useState(true);
@@ -73,47 +72,4 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) 
 
 export default SavedProperties
 
-export const getServerSideProps: GetServerSideProps = async ({req}) => {
-  let user;
-  let savedProperties;
-
-  const cookieHeader = req.headers.cookie
-  
-  const config = {
-    withCredentials: true,
-    headers: cookieHeader ? {
-      Cookie: cookieHeader
-    } : {
-      Cookie: ''
-    }
-  };
-
-  try {
-    const {data} = await axios.get(`${process.env.BACKEND_URL}/user`, config)
-    user = await data
-  } catch (error) {
-    user = null
-  }
-
-  try {
-    const {data} = await axios.get(`${process.env.BACKEND_URL}/property`, config)
-    savedProperties = await data.savedProperties
-  } catch (error) {
-    savedProperties = null
-  }
-
-  if(!user) {
-    return {
-        redirect: {
-          permanent: false,
-          destination: '/',
-        },
-    }
-  }
-    
-  return {
-    props: {
-      savedProperties,
-    },
-  };
-};
+export { getServerSideProps }

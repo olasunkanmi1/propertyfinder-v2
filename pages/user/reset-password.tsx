@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Loader } from '../../components/loader';
 import {useRouter} from 'next/router';
 import success from '../../public/assets/success.webp'
-import { GetServerSideProps } from 'next';
+import { getServerSideProps } from '../../utils/getServerSideFns/resetPassword';
 
 interface ResetPasswordInitialValues {
     password: string;
@@ -149,19 +149,4 @@ const ResetPassword = () => {
 
 export default ResetPassword
 
-export const getServerSideProps: GetServerSideProps = async ({query}) => {
-    const {token, email} = query
-  
-    if(!token || !email) {
-      return {
-          redirect: {
-            permanent: false,
-            destination: '/',
-          },
-      }
-    }
-      
-    return {
-      props: {},
-    };
-  };
+export { getServerSideProps }

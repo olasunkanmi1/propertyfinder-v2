@@ -1,13 +1,11 @@
-import React, {useRef, useEffect, useState} from 'react'
+import {useRef, useEffect, useState} from 'react'
 import dynamic from 'next/dynamic'
 import { Layout, SearchFilters, Properties, Pagination } from "../components";
-import { baseUrl, fetchApi } from "../utils/fetchApi";
 import { FindPropertyPageProps } from '../types';
-import { GetServerSideProps } from 'next';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState, searchFiltersState, addressSuggestionsAtom, propertiesState } from '../states';
 import Router, { useRouter } from "next/router";
-import axios from 'axios';
+import { getServerSideProps } from '../utils/getServerSideFns/findProperty';
 
 const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits, savedProperties }) => {
   const filterRef = useRef<HTMLDivElement | null>(null)
@@ -82,51 +80,4 @@ const FindProperty: React.FC<FindPropertyPageProps> = ({ properties, nbHits, sav
 
 export default FindProperty
 
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
-  const purpose = query.purpose || "for-rent";
-  const rentFrequency = query.rentFrequency || "yearly";
-  const priceMin = query.priceMin || "0";
-  const priceMax = query.priceMax || "1000000";
-  const sort = query.sort || "";
-  const areaMin = query.areaMin || "0";
-  const areaMax = query.areaMax || "35000";
-  const roomsMin = query.roomsMin || "0";
-  const roomsMax = query.roomsMax || "10";
-  const bathsMin = query.bathsMin || "0";
-  const bathsMax = query.bathsMax || "10";
-  const furnishingStatus = query.furnishingStatus || "";
-  const categoryExternalID = query.categoryExternalID || "1"; 
-  const locationExternalIDs = query.locationExternalIDs || "5001"; //5001 all UAE
-  const page = query.page || "1";
-
-  const data = await fetchApi( 
-    `${baseUrl}/properties/list?hitsPerPage=12&locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&bathsMax=${bathsMax}&rentFrequency=${rentFrequency}&priceMin=${priceMin}&priceMax=${priceMax}&roomsMin=${roomsMin}&roomsMax=${roomsMax}&sort=${sort}&areaMin=${areaMin}&areaMax=${areaMax}&furnishingStatus=${furnishingStatus}&page=${page}`
-  );
-
-  let savedProperties;
-
-  const cookieHeader = req.headers.cookie
-  const config = {
-    withCredentials: true,
-    headers: cookieHeader ? {
-      Cookie: cookieHeader
-    } : {
-      Cookie: ''
-    }
-  };
-
-  try {
-    const {data} = await axios.get(`${process.env.BACKEND_URL}/property`, config)
-    savedProperties = await data.savedProperties
-  } catch (error) {
-    savedProperties = null
-  }
-
-  return {
-    props: {
-      properties: data?.hits,
-      nbHits: data?.nbHits,
-      savedProperties
-    },
-  };
-} 
+export { getServerSideProps }

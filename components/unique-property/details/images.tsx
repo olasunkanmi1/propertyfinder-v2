@@ -27,7 +27,7 @@ const Images: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
             return (
               <SwiperSlide key={photo.url} className="relative">
                 <Image
-                    src={photo.url} alt="photo" layout="fill" priority
+                    src={photo.url} alt="photo" layout="fill" priority placeholder='blur'
                     blurDataURL={photo.url}  
                 />
               </SwiperSlide>

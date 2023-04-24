@@ -1,11 +1,10 @@
 import Head from 'next/head'
 import Image from "next/image"
 import logo from '../../public/assets/logo.webp'
-import axios from 'axios'
 import {useRouter} from 'next/router';
 import success from '../../public/assets/success.webp'
 import error from '../../public/assets/error.webp'
-import { GetServerSideProps } from 'next';
+import { getServerSideProps } from '../../utils/getServerSideFns/verifyEmail';
 
 interface IVerifyEmail {
   isVerified: boolean
@@ -41,43 +40,4 @@ const VerifyEmail: React.FC<IVerifyEmail> = ({isVerified}) => {
 
 export default VerifyEmail
 
-export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
-  const {token, email} = query
-  let isVerified;
-
-  const obj = {
-    verificationToken: token,
-    email,
-  }
-  
-  const config = {
-    withCredentials: true,
-    headers: req.headers.cookie ? {
-      Cookie: req.headers.cookie
-    } : {
-      Cookie: ''
-    }
-  };
-
-  try {
-    const {data} = await axios.post('/verify-email', obj, config);
-    if(data) isVerified = true
-  } catch (error) {
-    isVerified = false
-  }
-
-  if(!token || !email) {
-    return {
-        redirect: {
-          permanent: false,
-          destination: '/',
-        },
-    }
-  }
-    
-  return {
-    props: {
-      isVerified,
-    },
-  };
-};
+export { getServerSideProps }

@@ -1,10 +1,9 @@
-import React from 'react'
 import { Layout, Details, Contact, SimilarProperties, NoProperty } from '../../components'
 import { UniquePropertyPageProps, SimilarPropertiesProps, Property } from '../../types';
-import { baseUrl, fetchApi } from '../../utils/fetchApi';
 import Router from "next/router";
 import { useSetRecoilState } from 'recoil';
 import { loadingState } from '../../states';
+import { getServerSideProps } from '../../utils/getServerSideFns/propertyId';
 
 const Id: React.FC<UniquePropertyPageProps & SimilarPropertiesProps> = ({propertyDetails, similarProperties}) => {
   const setLoading = useSetRecoilState(loadingState);
@@ -33,14 +32,4 @@ const Id: React.FC<UniquePropertyPageProps & SimilarPropertiesProps> = ({propert
 
 export default Id;
 
-export async function getServerSideProps({ params: { id } }: any) {
-  const data = await fetchApi(`${baseUrl}/properties/detail?externalID=${id}`);
-  const similarProperties = Object.keys(data).length !== 0 ? await fetchApi(`${baseUrl}/properties/list?hitsPerPage=4&locationExternalIDs=${data.location[1].externalID}&purpose=${data.purpose}&categoryExternalID=${data.category[1].externalID}&rentFrequency=${data.rentFrequency}&furnishingStatus=${data.furnishingStatus}`) : [];
-
-  return {
-    props: {
-      propertyDetails: data,
-      similarProperties: similarProperties?.hits ? similarProperties?.hits : [],
-    },
-  };
-}
+export { getServerSideProps }

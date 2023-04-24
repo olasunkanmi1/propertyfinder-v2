@@ -16,7 +16,7 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({similarProperties}
             <div className="flex gap-5 mx-auto pb-2 overflow-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100">
                 {filteredProperties.map((property) => {
                     return (
-                      <Property key={property.externalID} property={property} featured />
+                      <Property key={property.externalID} property={property} similar />
                     )
                 })}
             </div>
