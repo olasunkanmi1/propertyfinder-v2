@@ -41,8 +41,8 @@ const rewrites = () => {
       destination: `${process.env.BACKEND_URL}/user/update-photo`
     },
     {
-      source: "/update-photo/:encodedPublicId",
-      destination: `${process.env.BACKEND_URL}/user/update-photo?public_id=:encodedPublicId`
+      source: "/update-photo/:public_id",
+      destination: `${process.env.BACKEND_URL}/user/update-photo/:public_id`
     },
     // property
     {

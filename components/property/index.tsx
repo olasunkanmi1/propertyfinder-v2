@@ -12,7 +12,6 @@ import { useSetRecoilState, useRecoilState } from 'recoil';
 import { navbarState, propertiesState } from '../../states';
 import { toast } from "react-toastify";
 import { Spinner } from '../loader';
-import { fetchSavedProperties } from '../../utils/fetchFns';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { unSaveProperty, saveProperty } from '../../utils/propertyFns';
 
@@ -64,7 +63,6 @@ const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
                         ...properties,
                         savedProperties: savedProperties.filter((pty) => pty.externalID !== externalID)
                     }))
-                    setIsSaved(false)
                     toast.success('Property unsaved');
                 }
             } catch (error) {
@@ -84,12 +82,9 @@ const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
                 setLoading(false);
 
                 if (saveRes && saveRes.status === 200) {
-                    setIsSaved(true)
-                    const savedProperties = await fetchSavedProperties();
-
                     setProperties(properties => ({
                         ...properties,
-                        savedProperties: savedProperties
+                        savedProperties: [...savedProperties, saveRes.data.property]
                     }))
                     toast.success('Property saved');
                 }

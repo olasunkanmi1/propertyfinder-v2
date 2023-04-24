@@ -19,7 +19,7 @@ const Images: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
-        autoplay={{ delay: 3000 }}
+        // autoplay={{ delay: 3000 }}
         className='h-[300px] sm:h-[400px] w-full'
       > 
         {

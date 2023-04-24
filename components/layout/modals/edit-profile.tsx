@@ -106,7 +106,7 @@ const EditProfileModal = () => {
         const publicId = parts[parts.length - 2] + "/" + parts[parts.length - 1].split(".")[0]
         const encodedPublicId = encodeURIComponent(publicId); //cos publicId has another '/'
         
-        axios.delete(`/delete-photo/${encodedPublicId}`, { withCredentials: true })
+        axios.delete(`/update-photo/${encodedPublicId}`, { withCredentials: true })
         .then(async (res) => {
             
             if (res.status === 200) {

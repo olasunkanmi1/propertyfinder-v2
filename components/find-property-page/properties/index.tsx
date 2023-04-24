@@ -1,8 +1,6 @@
-import React from 'react'
 import Image from 'next/image'
 import Property from '../../property'
 import homeNotFound from "../../../public/assets/homeNotFound.webp";
-import { FindPropertyPageProps } from '../../../types';
 import { useRouter } from 'next/router';
 import Heading from '../../heading';
 import { useRecoilValue } from 'recoil';
@@ -30,15 +28,15 @@ const Properties: React.FC<{pageLoading: boolean}> = ({ pageLoading }) => {
                 )
             })}
 
-            {properties.properties?.length === 0 && (
-              <div className='mb-4 relative w-full h-[300px] md:w-[400px] md:h-[400px]'>
-                <Image src={homeNotFound} alt="no result" priority layout='fill' />
-              </div>
-            )} 
           </>
-        )}
+        )}        
       </div>
-
+      
+      {properties.properties?.length === 0 && (
+        <div className='mb-4 relative w-full h-[300px] md:w-[400px] md:h-[400px] mx-auto'>
+          <Image src={homeNotFound} alt="no result" priority layout='fill' />
+        </div>
+      )} 
     </div>
   )
 }

@@ -8,6 +8,7 @@ import { Form, Formik, FormikHelpers } from 'formik'
 import { toast } from "react-toastify";
 import { SignInInitialValues } from '../../../types'
 import { Loader } from '../../loader'
+import axios from 'axios'
 const ModalLayout = dynamic(() => import('./modal-layout')) 
 const FormField = dynamic(() => import('./field')) 
 
@@ -28,8 +29,7 @@ const SignInModal = () => {
         password: Yup.string().required("Enter password"),
     });  
 
-  const handleSubmit = async (values: SignInInitialValues, { setSubmitting }: FormikHelpers<SignInInitialValues>) => {
-    const axios = (await import('axios')).default
+  const handleSubmit = (values: SignInInitialValues, { setSubmitting }: FormikHelpers<SignInInitialValues>) => {
     setLoading(true);
 
     axios.post("/login", values, { withCredentials: true })
