@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, addressSuggestionsAtom, IFilterState, loadingState, searchFiltersState } from '../../../../../../states';
 import { findProperties } from '../../..';

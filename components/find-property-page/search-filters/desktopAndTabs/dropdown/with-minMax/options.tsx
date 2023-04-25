@@ -1,4 +1,3 @@
-import React from 'react'
 import { findProperties } from '../../..';
 import { filterAtom, IFilterState, searchFiltersState } from '../../../../../../states';
 import { useRecoilState, useSetRecoilState } from 'recoil';

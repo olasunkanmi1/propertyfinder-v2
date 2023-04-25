@@ -1,4 +1,3 @@
-import React from 'react'
 import router from "next/router";
 import DesktopAndTabs from './desktopAndTabs'
 import MobileFilters from './mobile'

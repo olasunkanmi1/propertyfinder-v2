@@ -1,16 +1,9 @@
+import {memo} from 'react'
 import { Layout, Details, Contact, SimilarProperties, NoProperty } from '../../components'
-import { UniquePropertyPageProps, SimilarPropertiesProps, Property } from '../../types';
-import Router from "next/router";
-import { useSetRecoilState } from 'recoil';
-import { loadingState } from '../../states';
+import { UniquePropertyPageProps, SimilarPropertiesProps } from '../../types';
 import { getServerSideProps } from '../../utils/getServerSideFns/propertyId';
 
-const Id: React.FC<UniquePropertyPageProps & SimilarPropertiesProps> = ({propertyDetails, similarProperties}) => {
-  const setLoading = useSetRecoilState(loadingState);
-
-  Router.events.on("routeChangeStart", () => setLoading(loading => ({...loading, routeChangeLoading: true})) );
-  Router.events.on("routeChangeComplete", () => setLoading(loading => ({...loading, propertiesLoading: false, routeChangeLoading: false})) );
-
+const Id: React.FC<UniquePropertyPageProps & SimilarPropertiesProps> = memo(({propertyDetails, similarProperties}) => {
   const {title} = propertyDetails;
 
   return (
@@ -28,8 +21,9 @@ const Id: React.FC<UniquePropertyPageProps & SimilarPropertiesProps> = ({propert
       ) }
     </>
   )
-}
+})
 
+Id.displayName = 'Id';
 export default Id;
 
 export { getServerSideProps }

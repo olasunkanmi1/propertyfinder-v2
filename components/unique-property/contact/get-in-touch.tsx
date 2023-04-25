@@ -1,4 +1,3 @@
-import React from 'react'
 import Link from 'next/link';
 import { UniquePropertyPageProps } from '../../../types'
 import { BsTelephoneOutbound } from 'react-icons/bs';

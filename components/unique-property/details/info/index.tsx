@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { GoVerified } from 'react-icons/go';
 import { MdWindow } from 'react-icons/md';
-import { FaBath, FaBed, FaRegHeart } from 'react-icons/fa'
+import { FaBath, FaBed } from 'react-icons/fa'
 import millify from 'millify';
 import { UniquePropertyPageProps } from '../../../../types';
 import PropertyInfos from './property-info';

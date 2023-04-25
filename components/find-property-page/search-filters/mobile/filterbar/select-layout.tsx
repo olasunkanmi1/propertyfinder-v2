@@ -1,4 +1,3 @@
-import React from 'react'
 import { ISelectLayoutProps } from '../../../../../types';
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { filterAtom, IFilterState, loadingState } from '../../../../../states';

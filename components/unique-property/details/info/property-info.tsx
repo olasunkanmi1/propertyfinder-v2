@@ -1,4 +1,3 @@
-import React from 'react'
 import { UniquePropertyPageProps } from '../../../../types';
 
 const PropertyInfo: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {

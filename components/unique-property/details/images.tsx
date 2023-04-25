@@ -1,4 +1,3 @@
-import React from 'react'
 import { UniquePropertyPageProps } from '../../../types';
 import Image from 'next/image'
 import { Navigation, Pagination, A11y, Autoplay, Thumbs } from 'swiper';

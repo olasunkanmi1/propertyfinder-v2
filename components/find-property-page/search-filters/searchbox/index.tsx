@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { MdLocationOn, MdOutlineTune } from 'react-icons/md'
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';

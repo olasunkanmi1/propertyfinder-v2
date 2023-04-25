@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { navbarState, userState } from '../../../states';
 import ModalLayout from './modal-layout';

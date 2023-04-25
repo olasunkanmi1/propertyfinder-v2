@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import ReactPaginate from 'react-paginate';
 import { useRouter } from "next/router";
 import { MdArrowBack, MdArrowForward } from 'react-icons/md';

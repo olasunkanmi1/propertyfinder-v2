@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRouter } from 'next/router';
 import { useSetRecoilState, useRecoilState } from 'recoil'
 import { findProperties } from '../..';

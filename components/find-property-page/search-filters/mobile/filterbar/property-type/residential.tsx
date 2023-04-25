@@ -1,4 +1,3 @@
-import React from 'react'
 import { IPropertyType } from '.';
 import PropertyTypeLayout from './layout';
 

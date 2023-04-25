@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRouter } from 'next/router';
 import {  useSetRecoilState, useResetRecoilState } from 'recoil'
 import { addressSuggestionsAtom, filterAtom, navbarState } from '../../../../../states'

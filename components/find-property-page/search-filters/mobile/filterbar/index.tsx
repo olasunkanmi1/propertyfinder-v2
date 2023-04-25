@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { navbarState } from '../../../../../states';
 import Top from './top';

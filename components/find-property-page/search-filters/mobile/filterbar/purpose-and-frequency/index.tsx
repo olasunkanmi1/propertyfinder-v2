@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import { filterData } from '../../../../../../utils/filterData';
 import { findProperties } from '../../..';
 import { useRouter } from 'next/router';

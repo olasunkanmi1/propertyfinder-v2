@@ -1,4 +1,3 @@
-import React from 'react'
 import { SimilarPropertiesProps } from '../../types'
 import Property from '../property'
 import { useRouter } from 'next/router'

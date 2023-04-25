@@ -15,7 +15,7 @@
       "jsx": "preserve",
       "incremental": true
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "additional.d.ts", "pages/api/auth/[...nextauth].ts", "components/find-property-page/properties/searchbox"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "additional.d.ts", "pages/api/auth/[...nextauth].ts", "components/find-property-page/properties/searchbox", "utils/filterData.js"],
     "exclude": ["node_modules"]
   }
   

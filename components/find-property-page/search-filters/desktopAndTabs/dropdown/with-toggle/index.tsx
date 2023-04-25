@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../../../states';
 import { IDropdownWithToggleProps } from '../../../../../../types';

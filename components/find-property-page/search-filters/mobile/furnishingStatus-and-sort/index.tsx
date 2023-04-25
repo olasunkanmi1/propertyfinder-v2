@@ -1,4 +1,3 @@
-import React from 'react'
 import FurnishingStatus from './furnishing-status'
 import Sort from './sort'
 

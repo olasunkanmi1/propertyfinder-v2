@@ -1,4 +1,3 @@
-import React from 'react'
 import Layout from '../layout'
 import Image from 'next/image';
 import homeNotFound from "../../public/assets/homeNotFound.webp";

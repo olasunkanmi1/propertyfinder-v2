@@ -1,11 +1,11 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, memo} from 'react';
 import { Layout, FindHome, FeaturedProperties, ForRent, ForSale, FeaturedAgencies } from "../components";
 import { useSetRecoilState } from 'recoil';
 import { HomepageProps } from '../types';
 import { propertiesState } from '../states';
 import { getServerSideProps } from '../utils/getServerSideFns/homepage'
 
-const Home: React.FC<HomepageProps> = ({ featuredProperties, featuredAgencies, savedProperties }) => {
+const Home: React.FC<HomepageProps> = memo(({ featuredProperties, featuredAgencies, savedProperties }) => {
   const [loading, setLoading] = useState(true);
   const setProperties = useSetRecoilState(propertiesState);
 
@@ -27,8 +27,9 @@ const Home: React.FC<HomepageProps> = ({ featuredProperties, featuredAgencies, s
         <FeaturedAgencies featuredAgencies={featuredAgencies} />
       </Layout>
   )
-}
+})
 
+Home.displayName = 'Home';
 export default Home
 
 export { getServerSideProps };

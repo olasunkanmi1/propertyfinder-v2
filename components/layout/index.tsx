@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { LayoutProps } from '../../types'

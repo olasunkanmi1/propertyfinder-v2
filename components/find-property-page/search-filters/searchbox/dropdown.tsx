@@ -1,4 +1,3 @@
-import React from 'react'
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { SetterOrUpdater, useSetRecoilState } from 'recoil';
 import { findProperties } from '..';

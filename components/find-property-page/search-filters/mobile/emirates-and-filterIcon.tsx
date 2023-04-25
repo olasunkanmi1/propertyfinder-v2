@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil'
 import { MdOutlineTune } from 'react-icons/md'
 import { filterData } from '../../../../utils/filterData'

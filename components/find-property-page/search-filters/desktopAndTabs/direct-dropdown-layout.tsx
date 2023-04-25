@@ -1,4 +1,3 @@
-import React from 'react'
 import { AiOutlineUp } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
 import { filterAtom, searchFiltersState } from '../../../../states';

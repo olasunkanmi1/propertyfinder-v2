@@ -1,4 +1,3 @@
-import React from 'react'
 import { filterData } from '../../../../../utils/filterData';
 import SelectLayout from './select-layout'
 

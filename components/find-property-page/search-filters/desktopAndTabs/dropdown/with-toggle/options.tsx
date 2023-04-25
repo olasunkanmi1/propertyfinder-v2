@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, IFilterState, searchFiltersState } from '../../../../../../states';
 import { ICategoryType } from '../../../../../../types'

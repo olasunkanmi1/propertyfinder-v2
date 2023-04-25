@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { BsSortDown } from 'react-icons/bs';
 import { filterData } from '../../../../../utils/filterData';

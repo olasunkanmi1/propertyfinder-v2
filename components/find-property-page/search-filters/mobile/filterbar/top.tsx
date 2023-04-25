@@ -1,4 +1,3 @@
-import React from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { useSetRecoilState } from 'recoil'
 import { navbarState } from '../../../../../states'

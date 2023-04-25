@@ -1,3 +1,5 @@
-export { default as SearchFilters } from './search-filters';
-export { default as Properties } from './properties';
-export { default as Pagination } from './pagination';
+import dynamic from 'next/dynamic'
+
+export const SearchFilters = dynamic(() => import('./search-filters'));
+export const Properties = dynamic(() => import('./properties'));
+export const Pagination = dynamic(() => import('./pagination'));

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { navbarState, loadingState, userState, INavbarState, propertiesState } from '../../states';
 import Link from 'next/link';
