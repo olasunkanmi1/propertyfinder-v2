@@ -9,7 +9,7 @@ const Contact: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
     const { agency, permitNumber, phoneNumber } = propertyDetails;
 
   return (
-    <div className='col-span-1 xll:h-[calc(100vh-135px)] min-h-[]'>
+    <div className='col-span-1'>
         <div className='border-b pb-3'>
             <h1 className='font-semibold mb-2 text-primary'>AGENCY:</h1>
 

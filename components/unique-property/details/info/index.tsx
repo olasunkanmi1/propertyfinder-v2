@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, CSSProperties } from 'react'
 import { GoVerified } from 'react-icons/go';
 import { MdWindow } from 'react-icons/md';
 import { FaBath, FaBed } from 'react-icons/fa'
@@ -11,27 +11,17 @@ import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import { MdLocationOn } from 'react-icons/md'
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { propertiesState, navbarState } from '../../../../states';
-import { unSaveProperty, saveProperty } from '../../../../utils/propertyFns';
-import { fetchSavedProperties } from '../../../../utils/fetchFns';
-import { toast } from "react-toastify";
-import { Spinner } from '../../../loader';
+import { handleSaveAndUnsave } from '../../../../utils/propertyFns';
+import { Loader } from '../../../loader';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
-interface MyError {
-    message: string
-    response?: {
-      status: number
-    }
-}
-
 const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
-    const descriptionRef = useRef<HTMLParagraphElement>(null)
-    const [descriptionHeight, setDescriptionHeight] = useState<number | undefined>(descriptionRef.current?.offsetHeight);
     const [descriptionVisibility, setDescriptionVisibility] = useState<boolean>(false);
     const [screenWidth, setscreenWidth] = useState<number | undefined>(undefined);
     const [loading, setLoading] = useState(false);
     const [properties, setProperties] = useRecoilState(propertiesState);
     const setModal = useSetRecoilState(navbarState);
+    const [lines, setLines] = useState(5);
     
     const { isVerified, price, rentFrequency, rooms, baths, area, title, description, coverVideo, amenities, location, externalID, coverPhoto, agency } = propertyDetails;
     const propertyLocation = `${location[5] ? location[5].name + ', ' : ''}` + `${location[4] ? location[4].name + ', ' : ''}` + `${location[3] ? location[3].name + ', ' : ''}` + `${location[2] ? location[2].name + ', ' : ''}` + `${location[1] ? location[1].name + '.' : ''}`
@@ -43,85 +33,29 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
 
     const handleDescription = () => {
         setDescriptionVisibility(!descriptionVisibility);
+        setLines(descriptionVisibility ?  5 : 1000)
     }
 
     const handleClick = async () => {
-        setLoading(true);
-        const obj = {
-            coverPhoto: {
-                url: coverPhoto.url
-            },
-            price, rooms, title, baths, area,
-            isVerified, rentFrequency,
-            agency: {
-                logo: {
-                    url: agency.logo.url
-                },
-                name: agency.name
-            },
-            externalID,
-            location
-        }
-
-        if(isSaved) {
-            try {
-                const unsaveRes = await unSaveProperty(externalID);
-                setLoading(false);
-
-                if (unsaveRes && unsaveRes.status === 200) {
-                    setProperties(properties => ({
-                        ...properties,
-                        savedProperties: savedProperties.filter((pty) => pty.externalID !== externalID)
-                    }))
-                    setIsSaved(false)
-                    toast.success('Property unsaved');
-                }
-            } catch (error) {
-                const myError = error as MyError
-                setLoading(false);
-        
-                if(myError.response && myError.response.status === 401) {
-                    setModal(modal => ({...modal, signInModal: true}));
-                } else {
-                    toast.error('Unable to unsave property, please try again');
-                }
-            }
-
-        } else {
-            try {
-                const saveRes = await saveProperty(obj);
-                setLoading(false);
-
-                if (saveRes && saveRes.status === 200) {
-                    setIsSaved(true)
-                    const savedProperties = await fetchSavedProperties();
-
-                    setProperties(properties => ({
-                        ...properties,
-                        savedProperties: savedProperties
-                    }))
-                    toast.success('Property saved');
-                }
-            } catch (error) {
-                const myError = error as MyError
-                setLoading(false);
-        
-                if(myError.response && myError.response.status === 401) {
-                    setModal(modal => ({...modal, signInModal: true}));
-                } else {
-                    toast.error('Unable to save property, please try again');
-                }
-            }
-        }
+        handleSaveAndUnsave(
+            {setLoading, coverPhoto, price, rooms, title, baths, area, isVerified,
+            rentFrequency, agency, externalID, isSaved, setProperties, savedProperties,
+            setModal, location}
+        );
     }
+
+    const styles: CSSProperties  = {
+        display: '-webkit-box',
+        WebkitLineClamp: lines,
+        WebkitBoxOrient: 'vertical',
+        overflow: 'hidden',
+    } 
 
 
     useEffect(() => {
-      setDescriptionHeight(descriptionRef.current?.offsetHeight);
       window.addEventListener('resize', () => setscreenWidth(window.innerWidth));
-
       setIsSaved(savedPropertiesIDs.includes(externalID))
-    }, [descriptionRef.current?.offsetHeight, savedPropertiesIDs, externalID])
+    }, [savedPropertiesIDs, externalID])
     
   return (
     <div className='space-y-5'>
@@ -132,8 +66,8 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
                     <p className="font-bold font-lg leading-tight text-lg capitalize"> AED <span className='text-xl ls:text-2xl xls:text-3xl'>{price.toLocaleString()}</span> {rentFrequency && `${rentFrequency}`} </p>
                 </div>
                 
-                <div className="flex space-x-2 justify-center items-center p-2 xls:px-4 cursor-pointer rounded-md bg-primary bg-opacity-20 border border-primary text-primary font-medium" onClick={() =>  handleClick()}>
-                    {loading ? <Spinner /> : isSaved ? (
+                <div className="flex space-x-2 justify-center items-center p-2 xls:px-4 cursor-pointer rounded-md bg-primary bg-opacity-20 border border-primary text-primary font-medium w-[117px] h-[42px]" onClick={() =>  handleClick()}>
+                    {loading ? <Loader /> : isSaved ? (
                         <> <AiFillHeart size={20} color='#0847A8' /> <span> Unsave </span> </>
                     ) : (
                         <> <AiOutlineHeart size={20} /> <span> Save </span> </>
@@ -152,8 +86,9 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
 
             <div>
                 <h1 className='font-bold text-xl mb-2 text-primary'> Property Description </h1>
-                <p ref={descriptionRef} dangerouslySetInnerHTML={{__html: description}} 
-                    className={`font-medium overflow-hidden ${descriptionHeight === undefined || descriptionHeight > 119 && !descriptionVisibility ? 'propertyDetails_description' : 'h-auto'}`} 
+                <p dangerouslySetInnerHTML={{__html: description}} 
+                    className={`font-medium overflow-hidden text-overflow-ellipsis whitespace-no-wrap`} 
+                    style={styles}
                 />
 
                 {/* { descriptionHeight && descriptionHeight > 120 && ( */}

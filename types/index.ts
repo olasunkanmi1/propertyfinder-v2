@@ -1,6 +1,8 @@
 import { StaticImageData } from "next/image";
-import { ReactElement } from "react";
+import { Dispatch, ReactElement, SetStateAction } from "react";
 import { IconType } from "react-icons/lib";
+import { SetterOrUpdater } from "recoil";
+import { INavbarState, IPropertiesState } from "../states";
 
 export interface LayoutProps {
     title: string;
@@ -310,4 +312,62 @@ export interface IFormFieldProps {
     password?: boolean;
     error?: boolean;
     value?: string
+}
+
+export interface IObj {
+    coverPhoto: {
+        url: string;
+    };
+    price: number;
+    rooms: string;
+    title: string;
+    baths: string;
+    area: number;
+    isVerified: boolean;
+    rentFrequency: string;
+    agency: {
+        logo: {
+            url: string;
+        };
+        name: string;
+    };
+    externalID: string;
+    location: {
+        name: string;
+    }[];
+} 
+
+export interface MyError {
+  message: string
+  response?: {
+    status: number
+  }
+}
+
+export interface IHandleSaveAndUnsaveProps {
+ setLoading: Dispatch<SetStateAction<boolean>>;
+ coverPhoto: {
+    url: string;
+ };
+ price: number;
+ rooms: string;
+ title: string;
+ baths: string;
+ area: number;
+ isVerified: boolean;
+ rentFrequency: string;
+ agency: {
+    logo: {
+        url: string;
+    };
+    name: string;
+ };
+ externalID: string;
+ isSaved: boolean;
+ setProperties: SetterOrUpdater<IPropertiesState>;
+ savedProperties: Property[];
+ setModal: SetterOrUpdater<INavbarState>;
+ location: {
+    name: string;
+}[];
 }

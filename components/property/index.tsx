@@ -10,17 +10,9 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { MdWindow } from 'react-icons/md';
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { navbarState, propertiesState } from '../../states';
-import { toast } from "react-toastify";
 import { Spinner } from '../loader';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
-import { unSaveProperty, saveProperty } from '../../utils/propertyFns';
-
-interface MyError {
-  message: string
-  response?: {
-    status: number
-  }
-}
+import { handleSaveAndUnsave } from '../../utils/propertyFns';
 
 const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
     const [loading, setLoading] = useState(false);
@@ -36,69 +28,11 @@ const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
     const [isSaved, setIsSaved] = useState(savedPropertiesIDs.includes(externalID));
 
     const handleClick = async () => {
-        setLoading(true);
-        const obj = {
-            coverPhoto: {
-                url: coverPhoto.url
-            },
-            price, rooms, title, baths, area,
-            isVerified, rentFrequency,
-            agency: {
-                logo: {
-                    url: agency.logo.url
-                },
-                name: agency.name
-            },
-            externalID,
-            location
-        }
-
-        if(isSaved) {
-            try {
-                const unsaveRes = await unSaveProperty(externalID);
-                setLoading(false);
-
-                if (unsaveRes && unsaveRes.status === 200) {
-                    setProperties(properties => ({
-                        ...properties,
-                        savedProperties: savedProperties.filter((pty) => pty.externalID !== externalID)
-                    }))
-                    toast.success('Property unsaved');
-                }
-            } catch (error) {
-                const myError = error as MyError
-                setLoading(false);
-        
-                if(myError.response && myError.response.status === 401) {
-                    setModal(modal => ({...modal, signInModal: true}));
-                } else {
-                    toast.error('Unable to unsave property, please try again');
-                }
-            }
-
-        } else {
-            try {
-                const saveRes = await saveProperty(obj);
-                setLoading(false);
-
-                if (saveRes && saveRes.status === 200) {
-                    setProperties(properties => ({
-                        ...properties,
-                        savedProperties: [...savedProperties, saveRes.data.property]
-                    }))
-                    toast.success('Property saved');
-                }
-            } catch (error) {
-                const myError = error as MyError
-                setLoading(false);
-        
-                if(myError.response && myError.response.status === 401) {
-                    setModal(modal => ({...modal, signInModal: true}));
-                } else {
-                    toast.error('Unable to save property, please try again');
-                }
-            }
-        }
+        handleSaveAndUnsave(
+            {setLoading, coverPhoto, price, rooms, title, baths, area, isVerified,
+            rentFrequency, agency, externalID, isSaved, setProperties, savedProperties,
+            setModal, location}
+        );
     }
 
     useEffect(() => {

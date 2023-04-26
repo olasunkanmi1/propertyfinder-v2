@@ -34,7 +34,7 @@ const Navbar = () => {
   return (
     <div className='flex justify-between items-center xl:w-[1152px] border-b h-[75px] sticky top-0 bg-[#fefefe] z-[22]'>
         <Link href="/" passHref>
-            <a className='h-[60px]'> <Image src={Logo} alt="logo" width={95} height={60} priority /> </a>
+            <a className='h-[60px]'> <Image src={Logo} alt="logo" width={75} height={60} priority /> </a>
         </Link>
 
         <div className="hidden md:flex items-center space-x-4">
