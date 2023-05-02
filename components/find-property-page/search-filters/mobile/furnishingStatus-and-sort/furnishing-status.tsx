@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useSetRecoilState, useRecoilState } from 'recoil'
-import { findProperties } from '../..';
 import { filterAtom, loadingState } from '../../../../../states';
 import { filterData } from '../../../../../utils/filterData';
+import { findProperties } from '../../../../../utils/findProperties';
 
 const FurnishingStatus = () => {
   const router = useRouter();
@@ -22,7 +22,7 @@ const FurnishingStatus = () => {
          propertiesLoading: true
      }))
 
-     findProperties({ [queryName]: value })
+     findProperties({ [queryName]: value }, setLoading)
   }
 
   return (

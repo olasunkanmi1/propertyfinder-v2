@@ -1,26 +1,7 @@
-import router from "next/router";
-import DesktopAndTabs from './desktopAndTabs'
-import MobileFilters from './mobile'
-import { getFilterValues } from '../../../utils/filterData';
+import dynamic from 'next/dynamic'
 
-export const findProperties = (filterValues: any) => {
-  const path = router.pathname;
-  const { query } = router;
-
-  const values = getFilterValues(filterValues);
-
-  values.forEach((item) => {
-    if (item.value && filterValues?.[item.name]) { //allow url to only show selected query. not all.
-      if(item.value !== 'any') {
-        query[item.name] = item.value;
-      } else {
-        query[item.name] = [];
-      }
-    }
-  });
-
-  router.push({ pathname: path, query }); //pathname:path, query:query
-};
+const DesktopAndTabs = dynamic(() => import('./desktopAndTabs'));
+const MobileFilters = dynamic(() => import('./mobile'));
 
 export interface ISearchFiltersProps {
   filterRef: React.MutableRefObject<HTMLDivElement | null>;

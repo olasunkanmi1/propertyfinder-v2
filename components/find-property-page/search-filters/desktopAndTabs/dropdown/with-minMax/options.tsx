@@ -1,6 +1,6 @@
-import { findProperties } from '../../..';
-import { filterAtom, IFilterState, searchFiltersState } from '../../../../../../states';
+import { filterAtom, IFilterState, searchFiltersState, loadingState } from '../../../../../../states';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import { findProperties } from '../../../../../../utils/findProperties';
 
 interface IOptionsProps {
   items: {
@@ -12,6 +12,7 @@ interface IOptionsProps {
 
 const Options: React.FC<IOptionsProps> = ({items, queryName}) => {
     const setDropdown = useSetRecoilState(searchFiltersState);
+  const setLoading = useSetRecoilState(loadingState);
     const [filterState, setFilterState] = useRecoilState(filterAtom);
 
     const handleChange = (value: string) => {
@@ -25,12 +26,12 @@ const Options: React.FC<IOptionsProps> = ({items, queryName}) => {
           [queryName]: value,
         }))
     
-        // setLoading(loading => ({
-        //   ...loading,
-        //   propertiesLoading: true
-        // }))
+        setLoading(loading => ({
+          ...loading,
+          propertiesLoading: true
+        }))
     
-         findProperties({ [queryName]: value })
+         findProperties({ [queryName]: value }, setLoading)
       }
     
   return (

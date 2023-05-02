@@ -2,7 +2,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import { BsSortDown } from 'react-icons/bs';
 import { filterData } from '../../../../../utils/filterData';
 import { filterAtom, loadingState } from '../../../../../states';
-import { findProperties } from '../..';
+import { findProperties } from '../../../../../utils/findProperties';
 
 const Sort = () => {
   const [filterState, setFilterState] = useRecoilState(filterAtom);
@@ -17,12 +17,12 @@ const Sort = () => {
          sortBy: name
      }))
     
-    //  setLoading(loading => ({
-    //      ...loading,
-    //      propertiesLoading: true
-    //  }))
+     setLoading(loading => ({
+         ...loading,
+         propertiesLoading: true
+     }))
 
-     findProperties({ [queryName]: value })
+     findProperties({ [queryName]: value }, setLoading)
   }
 
   return (
@@ -33,7 +33,7 @@ const Sort = () => {
         const { items, placeholder, queryName } = sort;
 
         return (
-            <select className="flex outline-none text-sm appearance-none bg-transparent" key={placeholder}
+            <select className="flex outline-none te appearance-none bg-transparent" key={placeholder}
             onChange={(e) => setSortBy(e.target.value, queryName!, e.target.options[e.target.selectedIndex].innerText)}
             > 
             { items?.map((item) => (

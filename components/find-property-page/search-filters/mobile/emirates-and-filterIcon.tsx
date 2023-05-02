@@ -2,8 +2,8 @@ import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil'
 import { MdOutlineTune } from 'react-icons/md'
 import { filterData } from '../../../../utils/filterData'
 import { addressSuggestionsAtom, filterAtom, loadingState, navbarState } from '../../../../states'
-import { findProperties } from '..'
 import { useRouter } from 'next/router'
+import { findProperties } from '../../../../utils/findProperties'
 
 const EmiratesAndFilterIcon = () => {
   const router = useRouter();
@@ -25,13 +25,19 @@ const EmiratesAndFilterIcon = () => {
     
     const setEmirate = (value: string, queryName: string, name: string) => {
       resetSuggestions();
+
+      setLoading(loading => ({
+            ...loading,
+            propertiesLoading: true
+      }))
+      
       setFilterState(filterState => ({
           ...filterState,
           locationExternalIDs: value,
           emirates: name
       }))
 
-      findProperties({ [queryName]: value });
+      findProperties({ [queryName]: value }, setLoading);
     }
 
   return (

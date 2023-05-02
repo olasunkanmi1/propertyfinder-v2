@@ -10,7 +10,7 @@ export const loadingState = atom<ILoadingState>({
     key: 'loadingAtom',
     default: {
         routeChangeLoading: false,
-        propertiesLoading: false,
+        propertiesLoading: true,
         userLoading: true
     }
 });

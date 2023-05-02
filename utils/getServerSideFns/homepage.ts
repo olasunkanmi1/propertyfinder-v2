@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
   const featuredProperties = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5001&hitsPerPage=6`);
-  const featuredAgencies = await fetchApi(`${baseUrl}/agencies/list?query=.`, 'featuredAgencies');
+  const featuredAgencies = await fetchApi(`${baseUrl}/agencies/list?query=a&hitsPerPage=4`, 'featuredAgencies');
 
   let savedProperties;
   const config = {

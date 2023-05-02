@@ -13,10 +13,13 @@ export interface INavbarState {
     editProfileModal: boolean,
     changePasswordModal: boolean,
     clearConfirmationModal: boolean,
+    imageModal: boolean,
 
     imageBlob: string,
     selectedFile: File | null,
     imgUrlToBeDeleted: string,
+    modalImages: string[],
+    initialSlide: number,
 }
 
 export const navbarState = atom<INavbarState>({
@@ -34,9 +37,12 @@ export const navbarState = atom<INavbarState>({
         editProfileModal: false,
         changePasswordModal: false,
         clearConfirmationModal: false,
+        imageModal: false,
 
         imageBlob: '',
         selectedFile: null,
         imgUrlToBeDeleted: '',
+        modalImages: [],
+        initialSlide: 0
     },
 });

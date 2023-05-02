@@ -1,19 +1,32 @@
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 import {  useSetRecoilState, useResetRecoilState } from 'recoil'
-import { addressSuggestionsAtom, filterAtom, navbarState } from '../../../../../states'
+import { addressSuggestionsAtom, filterAtom, navbarState, loadingState } from '../../../../../states'
 
 const ResetAndFind = () => {
-  const router = useRouter();
-
   const resetFilter = useResetRecoilState(filterAtom);
   const resetSuggestions = useResetRecoilState(addressSuggestionsAtom);
   const closeFilter = useSetRecoilState(navbarState);
+  const setLoading = useSetRecoilState(loadingState);
 
   const handleReset = () => {
+    setLoading(loading => ({
+      ...loading,
+      propertiesLoading: true
+    }))
     resetFilter();
     resetSuggestions();
+    closeFilter(filter => ({
+      ...filter, 
+      isFilterbarOpen: false
+    }));
 
-    router.push({pathname: router.pathname, query: null})
+    Router.push({pathname: Router.pathname, query: null})
+    Router.events.off('routeChangeComplete', () =>
+    setLoading(loading => ({
+         ...loading,
+         propertiesLoading: false
+     }))
+    )
   }
 
   const handleFind = () => {

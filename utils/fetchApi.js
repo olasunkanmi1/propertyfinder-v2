@@ -14,7 +14,7 @@ export const fetchApi = async (url, featuredAgencies, autoComplete, e) => {
     }) 
 
     if(featuredAgencies) {
-        return data.hits.filter((agency) => agency.product === 'featured');
+        return data.hits.filter((agency) => agency.product === 'premium');
     } else {
         return data;
     }

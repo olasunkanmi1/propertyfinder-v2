@@ -18,25 +18,27 @@ const FeaturedAgencies: React.FC<HomepageProps> = ({featuredAgencies}) => {
 
   return (
     <div className='space-y-4 relative mx-auto'>
-      <Heading heading='Featured Agencies' />
+      <Heading heading='Premium Agencies' />
 
       <Swiper
         modules={[Navigation, Pagination, A11y, Autoplay]}
         spaceBetween={0}
         slidesPerView={screenSize && screenSize < 400 ? 1 : screenSize && screenSize < 720 ? 2 : 3}
         navigation
+        loop={true}
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000 }}
+        className='agencies'
       >
         {
           featuredAgencies?.map((agency) => {
             return (
               <SwiperSlide key={agency.id} className="flex flex-col items-center mb-[40px] px-[40px] space-y-2">
                 <div className="w-full h-[100px] relative">
-                  <Image src={agency.logo.url} alt="logo" layout="fill" objectFit='contain' priority />
+                  <Image src={agency.logo.url} alt="logo" layout="fill" objectFit='contain' loading='lazy' />
                 </div>
 
-                <p className='text-center text-secondary'> {agency.name} </p>
+                <p className='text-center text-secondary mx-2'> {agency.name} </p>
               </SwiperSlide>
             )
           })

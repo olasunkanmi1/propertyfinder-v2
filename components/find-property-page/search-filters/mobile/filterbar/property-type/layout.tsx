@@ -9,10 +9,10 @@ import * as Gi from 'react-icons/gi';
 import * as Si from 'react-icons/si';
 import { IconType } from 'react-icons/lib';
 import { IPropertyType } from '.';
-import { findProperties } from '../../..';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../../../states';
+import { findProperties } from '../../../../../../utils/findProperties';
 
 const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
   const router = useRouter();
@@ -26,12 +26,12 @@ const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
       propertyType: name
     }))
     
-    // setLoading(loading => ({
-    //   ...loading,
-    //   propertiesLoading: true
-    // }))
+    setLoading(loading => ({
+      ...loading,
+      propertiesLoading: true
+    }))
 
-     findProperties({ [queryName]: value })
+     findProperties({ [queryName]: value }, setLoading)
   }
 
   return (

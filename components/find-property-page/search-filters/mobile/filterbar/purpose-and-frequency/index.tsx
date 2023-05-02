@@ -1,10 +1,10 @@
 import {useState, useEffect} from 'react'
 import { filterData } from '../../../../../../utils/filterData';
-import { findProperties } from '../../..';
 import { useRouter } from 'next/router';
 import Frequency from './frequency';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../../../states';
+import { findProperties } from '../../../../../../utils/findProperties';
 
 const PurposeAndFrequency = () => {
   const router = useRouter();
@@ -18,12 +18,12 @@ const PurposeAndFrequency = () => {
       ...filterState,
       purpose: value
     }))
-    // setLoading(loading => ({
-    //   ...loading,
-    //   propertiesLoading: true
-    // }))
+    setLoading(loading => ({
+      ...loading,
+      propertiesLoading: true
+    }))
 
-    findProperties({ [queryName]: value })
+    findProperties({ [queryName]: value }, setLoading)
   }
 
   return (

@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { loadingState, propertiesState } from '../../../states';
 import CardSkeleton from '../../property/skeleton';
 
-const Properties: React.FC<{pageLoading: boolean}> = ({ pageLoading }) => {
+const Properties = () => {
   const loading = useRecoilValue(loadingState);
   const properties = useRecoilValue(propertiesState);
   const router = useRouter();
@@ -15,10 +15,10 @@ const Properties: React.FC<{pageLoading: boolean}> = ({ pageLoading }) => {
 
   return (
     <div className='space-y-4'>
-      <Heading heading={`${loading.propertiesLoading || pageLoading ? 'Loading properties' : properties.properties?.length === 0 ? 'No property found. Try other options' : `Properties available ${purpose}`}`} /> 
+      <Heading heading={`${loading.propertiesLoading ? 'Loading properties' : properties.properties?.length === 0 ? 'No property found. Try other options' : `Properties available ${purpose}`}`} /> 
 
       <div className='gridLayout'>
-        { loading.propertiesLoading || pageLoading ? (
+        { loading.propertiesLoading ? (
           [...Array(6)].map((arr, index) => <CardSkeleton key={index} />)
         ) : (
           <>

@@ -1,7 +1,7 @@
 import { filterData } from '../../../../../../utils/filterData';
-import { findProperties } from '../../..';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../../../states';
+import { findProperties } from '../../../../../../utils/findProperties';
 
 const Frequency  = () => {
   const setLoading = useSetRecoilState(loadingState);
@@ -14,12 +14,12 @@ const Frequency  = () => {
       ...filterState,
       rentFrequency: value
     }))
-    // setLoading(loading => ({
-    //      ...loading,
-    //      propertiesLoading: true
-    //  }))
+    setLoading(loading => ({
+         ...loading,
+         propertiesLoading: true
+     }))
 
-    findProperties({ [queryName]: value })
+    findProperties({ [queryName]: value }, setLoading)
   }
 
   return (

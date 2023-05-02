@@ -1,74 +1,57 @@
 import {useState, useEffect} from 'react'
 import { UniquePropertyPageProps } from '../../../types';
 import Image from 'next/image'
-import { Navigation, Thumbs, FreeMode, Scrollbar } from 'swiper';
+import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useSetRecoilState } from 'recoil';
+import { navbarState } from '../../../states';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/thumbs';
-import "swiper/css/free-mode";
 
 const Images: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
-  const [screenSize, setScreenSize] = useState<number | undefined>(undefined);
-  const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-    const { photos  } = propertyDetails;
+  const setModal = useSetRecoilState(navbarState)
+  const { photos  } = propertyDetails;
 
-    useEffect(() => {
-    window.addEventListener('resize', () => setScreenSize(window.innerWidth))
-  }, []);
+  const openModal = (index: number, e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+    const clickedOnNavIcon = e.target instanceof HTMLElement && e.target.classList.contains('swiper-button-prev') || e.target instanceof HTMLElement && e.target.classList.contains('swiper-button-next');
+    if (clickedOnNavIcon) {
+      return;
+    }
+
+    setModal(modal => ({
+      ...modal,
+      imageModal: true,
+      modalImages: photos.map(photo => photo.url),
+      initialSlide: index
+    }))
+  }
 
   return (
-    <div className='flex flex-col h-[390px]'>
-      <Swiper
-        spaceBetween={10}
-        navigation={true}
-        thumbs={{ swiper: thumbsSwiper }}
-        initialSlide={0}
-        modules={[FreeMode, Navigation, Thumbs]}
-        className="max-h-[300px] w-full"
-        onSwiper={(swiper) => swiper.slideTo(0)}
-      >
-        {
-          photos.map((photo) => {
-            return (
-                <SwiperSlide key={photo.url} className="relative">
-                  <Image
-                      src={photo.url} alt="photo" layout="fill" loading='lazy' placeholder='blur'
-                      blurDataURL={photo.url}  
-                  />
-                </SwiperSlide>
-              )
-            })
-          }
-      </Swiper>
-      
-      <Swiper
-        onClick={(swiper) => setThumbsSwiper(swiper)}
-        spaceBetween={10}
-        slidesPerView={screenSize && screenSize < 350 ? 2 : screenSize && screenSize < 450 ? 3 : screenSize && screenSize < 720 ? 4 : 5}
-        freeMode={true}
-        initialSlide={0} 
-        watchSlidesProgress={true}
-        scrollbar={{ draggable: true }}
-        modules={[FreeMode, Navigation, Thumbs, Scrollbar]}
-        className="box-border max-h-[90px] bg-primary bg-opacity-60 pt-[10px] mySwiper"
-      >
-        {
-          photos.map((photo) => {
-            return (
-                <SwiperSlide key={photo.url} className="relative">
-                  <Image
-                      src={photo.url} alt="photo" layout="fill" loading='lazy' placeholder='blur'
-                      blurDataURL={photo.url}  
-                  />
-                </SwiperSlide>
-              )
-            })
-          }
-      </Swiper>
-    </div>
+    <>
+      <div className='flex flex-col ms:h-[300px] md:h-[350px] h-[250px]'>
+        <Swiper
+          spaceBetween={10}
+          navigation={true}
+          initialSlide={0}
+          modules={[Navigation]}
+          className="ms:min-h-[300px] md:min-h-[350px] min-h-[250px] h-full w-full"
+        >
+          { photos.map((photo, index) => {
+              return (
+                  <SwiperSlide key={photo.url} className="relative h-full w-full cursor-pointer">
+                    <Image
+                        src={photo.url} alt="photo" layout="fill" loading='lazy' placeholder='blur'
+                        blurDataURL={photo.url} onClick={(e) => openModal(index, e)}
+                    />
+                  </SwiperSlide>
+                )
+            })}
+        </Swiper>
+
+      </div>
+      <p className='mx-auto text-primary font-semibold'> click to expand </p>
+    </>
   )
 }
 

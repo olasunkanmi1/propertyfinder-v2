@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, addressSuggestionsAtom, IFilterState, loadingState, searchFiltersState } from '../../../../../../states';
-import { findProperties } from '../../..';
+import { findProperties } from '../../../../../../utils/findProperties';
 
 interface IDirectDropdownProps {
     title: string;
@@ -38,6 +38,11 @@ const DirectDropdown: React.FC<IDirectDropdownProps> = ({ title, options, queryN
       }))
     }
 
+    setLoading(loading => ({
+      ...loading,
+      propertiesLoading: true
+  }))
+
     setDropdown(dropdown => ({
       ...dropdown,
       main: null
@@ -49,7 +54,7 @@ const DirectDropdown: React.FC<IDirectDropdownProps> = ({ title, options, queryN
     }))
 
 
-    if(queryName) findProperties({ [queryName]: value }) 
+    if(queryName) findProperties({ [queryName]: value }, setLoading) 
   }
 
   return (

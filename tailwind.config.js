@@ -23,6 +23,9 @@ module.exports = {
         'ls': '400px',
         'xls': '500px',
         'xll': '900px',
+        
+        'ft': '346px',
+        'ft2': '370px',
       },
       animation: {
         'ping-slow': 'ping 2s linear infinite',

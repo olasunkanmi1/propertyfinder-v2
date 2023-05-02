@@ -1,4 +1,4 @@
-import {useRef, useEffect, useState, memo} from 'react'
+import {useRef, useEffect, memo} from 'react'
 import { Layout, SearchFilters, Properties, Pagination } from "../components";
 import { FindPropertyPageProps } from '../types';
 import { useRecoilState, useResetRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
@@ -12,12 +12,11 @@ const FindProperty: React.FC<FindPropertyPageProps> = memo(({ properties, nbHits
   const suggestionsRef = useRef<HTMLDivElement | null>(null)
   const router = useRouter();
 
-  const loading = useRecoilValue(loadingState);
+  const [loading, setLoading] = useRecoilState(loadingState);
   const resetDropdown = useResetRecoilState(searchFiltersState);
   const setFilter = useSetRecoilState(filterAtom);
   const setSuggestions = useSetRecoilState(addressSuggestionsAtom);
   const [prpts, setProperties] = useRecoilState(propertiesState);
-  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
     setFilters(setFilter, router);
@@ -26,7 +25,11 @@ const FindProperty: React.FC<FindPropertyPageProps> = memo(({ properties, nbHits
       properties: properties,
       savedProperties: savedProperties
     }));
-    setPageLoading(false);
+
+    setLoading(loading => ({
+        ...loading,
+        propertiesLoading: false
+    }))
 
     const closeDropdown = (e: any) => {
       if(filterRef.current && !filterRef.current.contains(e.target)) {
@@ -42,13 +45,13 @@ const FindProperty: React.FC<FindPropertyPageProps> = memo(({ properties, nbHits
     }
     document.addEventListener('click', closeDropdown, true);
     return () => document.removeEventListener('click', closeDropdown, true)
-  }, [ resetDropdown, setSuggestions, router.query.purpose, router.query.rentFrequency, router.query.furnishingStatus, router.query.roomsMin, router.query.roomsMax, router.query.bathsMin, router.query.bathsMax, router.query.priceMin, router.query.priceMax, router.query.areaMin, router.query.areaMax, router.query.propertyType, router.query.categoryExternalID, router.query.locationExternalIDs, router.query.sort, setFilter, properties, setProperties, savedProperties, router])
+  }, [ resetDropdown, setSuggestions, router.query.purpose, router.query.rentFrequency, router.query.furnishingStatus, router.query.roomsMin, router.query.roomsMax, router.query.bathsMin, router.query.bathsMax, router.query.priceMin, router.query.priceMax, router.query.areaMin, router.query.areaMax, router.query.propertyType, router.query.categoryExternalID, router.query.locationExternalIDs, router.query.sort, setFilter, properties, setProperties, savedProperties, router, setLoading])
 
   return (
     <Layout title="Find Property">
       <SearchFilters filterRef={filterRef} suggestionsRef={suggestionsRef} /> 
-      <Properties pageLoading={pageLoading} />
-      <> { prpts.properties && prpts.properties.length >= 1 && !loading.propertiesLoading && !pageLoading && <Pagination pageCount={nbHits} /> } </>
+      <Properties />
+      <> { prpts.properties && prpts.properties.length >= 1 && !loading.propertiesLoading && <Pagination pageCount={nbHits} /> } </>
     </Layout> 
   )
 })

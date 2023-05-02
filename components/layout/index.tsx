@@ -13,6 +13,7 @@ const Footer = dynamic(() => import('./footer'));
 const Sidebar = dynamic(() => import('./sidebar'));
 const RouteChangeLoader = dynamic(() => import('./route-change-loader'));
 const Filterbar = dynamic(() => import('../find-property-page/search-filters/mobile/filterbar'));
+const ImageModal = dynamic(() => import('../unique-property/image-modal'));
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const [loading, setLoading] = useRecoilState(loadingState);
@@ -20,11 +21,11 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const setUser = useSetRecoilState(userState);
   const closeALll = useResetRecoilState(navbarState);
 
-  const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal, clearConfirmationModal } = modal;
-  const modals = signInModal || signUpModal || isFilterbarOpen || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal
+  const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal, clearConfirmationModal, imageModal } = modal;
+  const modals = signInModal || signUpModal || isFilterbarOpen || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal || imageModal
 
   const toggleSidebarAndDropdown = () => {
-    if(isSidebarOpen || profileDropdown || isFilterbarOpen || signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal) closeALll()
+    if(isSidebarOpen || profileDropdown || isFilterbarOpen || signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal || imageModal) closeALll()
   }
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
           <meta name="desciption" content="Find your dream property" />
       </Head>
 
-      <div onClick={toggleSidebarAndDropdown} className={`w-full xl:max-w-6xl m-auto px-3 sm:px-8 xl:px-0 min-h-screen space-y-10 ${isSidebarOpen || isFilterbarOpen ? 'touch-none' : ''}`}>
+      <div onClick={toggleSidebarAndDropdown} className={`w-full xl:max-w-6xl m-auto px-3 sm:px-8 xl:px-0 min-h-[calc(100vh-250px)] ft:min-h-[calc(100vh-195px)] ft2:min-h-[calc(100vh-160px)] md:min-h-[calc(100vh-120px)] space-y-10 ${isSidebarOpen || isFilterbarOpen ? 'touch-none' : ''}`}>
           <Navbar/>
           <div className={`space-y-10 ${modals ? 'blur-sm' : ''}`}> { children } </div>
       </div>
@@ -59,6 +60,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       <EditProfileModal />
       <ChangePasswordModal />
       <ClearSavedPropertiesModal />
+      <ImageModal />
       {/* {loading.routeChangeLoading && <RouteChangeLoader /> } */}
 
       <ToastContainer position="bottom-center" autoClose={4000} hideProgressBar={false} closeOnClick />

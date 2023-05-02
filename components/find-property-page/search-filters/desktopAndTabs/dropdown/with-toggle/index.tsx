@@ -3,8 +3,8 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../../../states';
 import { IDropdownWithToggleProps } from '../../../../../../types';
 import { filterData } from '../../../../../../utils/filterData';
-import { findProperties } from '../../..';
 import Options from './options';
+import { findProperties } from '../../../../../../utils/findProperties';
 
 const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title, tabs, queryName, categories }) => {
   const setLoading = useSetRecoilState(loadingState);
@@ -24,10 +24,10 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
         purpose: value
       }))
 
-      // setLoading(loading => ({
-      //   ...loading,
-      //   propertiesLoading: true
-      // }))
+      setLoading(loading => ({
+        ...loading,
+        propertiesLoading: true
+      }))
     } else {
       setFilterState(filterState => ({
         ...filterState,
@@ -35,7 +35,7 @@ const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title,
       }))
     }
 
-    if(queryName) findProperties({ [queryName]: value }) 
+    if(queryName) findProperties({ [queryName]: value }, setLoading) 
   }
 
   return (

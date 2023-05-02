@@ -42,7 +42,7 @@
   }
   
   .furnishingStatusSort {
-    @apply flex items-center justify-center p-2  xls:px-4 w-full ls:w-max cursor-pointer duration-300 select-none ease-in-out text-sm ls:text-base hover:bg-secondary hover:text-white
+    @apply flex items-center justify-center p-2  xls:px-4 w-full ls:w-max cursor-pointer duration-300 select-none ease-in-out text-sm ls:text-base
   }
   
   .tabSort {
@@ -89,6 +89,10 @@
     @apply select-none text-ellipsis truncate
   }
   
+  .searchDropdown {
+    @apply w-full border shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-lg bg-white text-black
+  }
+
   .tooltip {
     @apply absolute right-4 -bottom-[9px] w-0 h-0 border-x-[8px] border-x-transparent border-b-[8px] border-b-white
   }
@@ -136,39 +140,20 @@ a {
   box-sizing: border-box;
 }
 
-/* image swiper */
-.swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide {
-  /* Center slide text vertically */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.mySwiper .swiper-slide {
-  width: 20%;
-  height: 70px;
-  margin: 10px 0;
-  cursor: pointer;
-}
-
-.mySwiper .swiper-slide-thumb-active {
-  border: 4px solid #0847A8;
-  opacity: 1;
-}
 
 .swiper-button-next, .swiper-button-prev {
   color: #0847A8 !important;
+}
+
+.agencies .swiper-button-next, .agencies .swiper-button-prev {
+  transform: translateY(-40px);
 }
 
 .swiper-button-next::after {
   content: "\21E8" !important;
   font-size: 50px !important;
   font-weight: 900 !important;
+  
 }
 
 .swiper-button-prev::after {

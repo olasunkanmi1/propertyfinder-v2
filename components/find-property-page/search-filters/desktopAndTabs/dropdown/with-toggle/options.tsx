@@ -1,7 +1,7 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { filterAtom, IFilterState, searchFiltersState } from '../../../../../../states';
+import { filterAtom, IFilterState, searchFiltersState, loadingState } from '../../../../../../states';
 import { ICategoryType } from '../../../../../../types'
-import { findProperties } from '../../..';
+import { findProperties } from '../../../../../../utils/findProperties';
 
 interface IOptionsProps {
   options?: ICategoryType[] | ({
@@ -39,6 +39,7 @@ select: string;
 const Options: React.FC<IOptionsProps> = ({options, select}) => {
   const [filterState, setFilterState] = useRecoilState(filterAtom);
   const setDropdown = useSetRecoilState(searchFiltersState);
+  const setLoading = useSetRecoilState(loadingState);
 
   const handleChange = (queryName: string | undefined, value: string, name: string) => {
     if(select === 'property-type') {
@@ -47,6 +48,11 @@ const Options: React.FC<IOptionsProps> = ({options, select}) => {
         propertyType: name
       }))
     }
+
+    setLoading(loading => ({
+      ...loading,
+      propertiesLoading: true
+  }))
 
     setDropdown(dropdown => ({
         ...dropdown,
@@ -58,7 +64,7 @@ const Options: React.FC<IOptionsProps> = ({options, select}) => {
         [options![0].queryName as keyof IFilterState]: value
     }))
 
-    if(queryName) findProperties({ [queryName]: value }) 
+    if(queryName) findProperties({ [queryName]: value }, setLoading) 
   }
 
   return (

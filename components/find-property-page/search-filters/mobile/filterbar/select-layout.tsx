@@ -1,7 +1,7 @@
 import { ISelectLayoutProps } from '../../../../../types';
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { filterAtom, IFilterState, loadingState } from '../../../../../states';
-import { findProperties } from '../..';
+import { findProperties } from '../../../../../utils/findProperties';
 
 interface IOptionsProps {
   items: {
@@ -26,7 +26,7 @@ const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
       propertiesLoading: true
     }))
 
-     findProperties({ [queryName]: value })
+     findProperties({ [queryName]: value }, setLoading)
   }
 
   const Options = ({items, queryName}: IOptionsProps) => {

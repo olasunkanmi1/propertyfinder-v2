@@ -16,7 +16,7 @@ import { handleSaveAndUnsave } from '../../utils/propertyFns';
 
 const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
     const [loading, setLoading] = useState(false);
-    const [imgUrl, setImgUrl] = useState<string | StaticImageData>(property.coverPhoto.url);
+    const [imgUrl, setImgUrl] = useState<string | StaticImageData>(property.coverPhoto && property.coverPhoto.url ? property.coverPhoto.url : "");
     const setModal = useSetRecoilState(navbarState);
     const [properties, setProperties] = useRecoilState(propertiesState);
     

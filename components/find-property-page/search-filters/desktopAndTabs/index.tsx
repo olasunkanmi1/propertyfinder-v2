@@ -1,17 +1,17 @@
 import { filterData } from '../../../../utils/filterData';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { searchFiltersState } from '../../../../states/searchFiltersAtom';
 import Searchbox from '../searchbox';
 import MinMaxLayout from './min-max-layout';
 import DirectDropdownLayout from './direct-dropdown-layout';
 import ToggleLayout from './toggle-layout';
-import { addressSuggestionsAtom, filterAtom } from '../../../../states';
-import { useRouter } from 'next/router';
+import { addressSuggestionsAtom, filterAtom, loadingState } from '../../../../states';
+import Router from 'next/router';
 import { ISearchFiltersProps } from '..';
 
 const DesktopAndTabs: React.FC<ISearchFiltersProps> = ({filterRef, suggestionsRef}) => {
-  const router = useRouter();
   const [dropdown, setDropdown] = useRecoilState(searchFiltersState);
+  const setLoading = useSetRecoilState(loadingState);
   const resetFilterState = useResetRecoilState(filterAtom);
   const resetSuggestions = useResetRecoilState(addressSuggestionsAtom);
 
@@ -29,13 +29,24 @@ const DesktopAndTabs: React.FC<ISearchFiltersProps> = ({filterRef, suggestionsRe
     }
   }
   const resetFilters = () => {
+    setLoading(loading => ({
+        ...loading,
+        propertiesLoading: true
+    }))
     resetFilterState();
     resetSuggestions();
     setDropdown({
       main: null,
       minMax: null,
     })
-    router.push('/find-property')
+
+    Router.push('/find-property')
+    Router.events.off('routeChangeComplete', () =>
+    setLoading(loading => ({
+         ...loading,
+         propertiesLoading: false
+     }))
+    )
   }
 
   const purposes = filterData.filter((filter) => filter.placeholder === 'Purpose');

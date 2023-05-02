@@ -1,8 +1,8 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { findProperties } from '../../..';
 import { filterAtom, IFilterState, loadingState, searchFiltersState } from '../../../../../../states';
 import { ICategoryType, IDropdownWithMinMaxProps } from '../../../../../../types';
 import Options from './options';
+import { findProperties } from '../../../../../../utils/findProperties';
 
 const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ select, title, min, max }) => {
   const setLoading = useSetRecoilState(loadingState);
@@ -23,14 +23,19 @@ const DropdownWithMinMax: React.FC<IDropdownWithMinMaxProps> = ({ select, title,
     }
   }
 
-  const handleButton = (reset: boolean) => {
+  const handleButton = (reset: boolean) => {    
     if(reset) {
+      setLoading(loading => ({
+        ...loading,
+        propertiesLoading: true
+      }))
+      
       setFilterState(filterState => ({
       ...filterState,
         [min.queryName]: '0',
         [max.queryName]: 'any',
       }))
-      findProperties({ [min.queryName]: [],  [max.queryName]: [] })
+      findProperties({ [min.queryName]: [],  [max.queryName]: [] }, setLoading)
     }
 
     setDropdown({
