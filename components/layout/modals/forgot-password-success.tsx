@@ -25,7 +25,7 @@ const ForgotPasswordSuccess = () => {
 
                     <Image src={mailSent} alt='Email Sent' width={200} height={150} loading='lazy' />
 
-                    <p className='text-center'> A reset link has been sent to your <span className='font-semibold'> {modal.forgotPasswordMail} </span> inbox. </p>
+                    <p className='text-center'> A reset link has been sent to your <span className='font-semibold'> {modal.forgotPasswordMail} </span> inbox. If you don&apos;t see our email in your inbox, please check your spam or promotions folder as it may have been filtered there.</p>
 
                     <button type='button' className='text-primary underline cursor-pointer font-semibold mt-2' onClick={backToLogin}> Go back to login screen </button>
                 </div>

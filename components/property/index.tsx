@@ -8,8 +8,8 @@ import millify from "millify";
 import { FaBath, FaBed } from 'react-icons/fa';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { MdWindow } from 'react-icons/md';
-import { useSetRecoilState, useRecoilState } from 'recoil';
-import { navbarState, propertiesState } from '../../states';
+import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
+import { navbarState, propertiesState, userState } from '../../states';
 import { Spinner } from '../loader';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { handleSaveAndUnsave } from '../../utils/propertyFns';
@@ -18,6 +18,7 @@ const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
     const [loading, setLoading] = useState(false);
     const [imgUrl, setImgUrl] = useState<string | StaticImageData>(property.coverPhoto && property.coverPhoto.url ? property.coverPhoto.url : "");
     const setModal = useSetRecoilState(navbarState);
+    const user = useRecoilValue(userState);
     const [properties, setProperties] = useRecoilState(propertiesState);
     
     const savedProperties = properties.savedProperties ? properties.savedProperties : [];
@@ -31,7 +32,7 @@ const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
         handleSaveAndUnsave(
             {setLoading, coverPhoto, price, rooms, title, baths, area, isVerified,
             rentFrequency, agency, externalID, isSaved, setProperties, savedProperties,
-            setModal, location}
+            setModal, location, user}
         );
     }
 

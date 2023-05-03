@@ -97,7 +97,7 @@ const SignInModal = () => {
                                     value={values.password}
                                 />
                                 
-                                <button type='button' className='text-xs text-primary font-semibold ml-auto' onClick={openForgotPasswordModal}> Forgot password </button>
+                                <button type='button' className='text-sm text-primary font-semibold ml-auto' onClick={openForgotPasswordModal}> Forgot password </button>
                     
                                 <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-40 disabled:cursor-not-allowed h-[32px]'> 
                                     { loading ? <Loader /> : 'Sign In' }

@@ -140,23 +140,18 @@ a {
   box-sizing: border-box;
 }
 
-
 .swiper-button-next, .swiper-button-prev {
   color: #0847A8 !important;
 }
 
-.agencies .swiper-button-next, .agencies .swiper-button-prev {
-  transform: translateY(-40px);
-}
-
-.swiper-button-next::after {
+.propertyId .swiper-button-next::after {
   content: "\21E8" !important;
   font-size: 50px !important;
   font-weight: 900 !important;
   
 }
 
-.swiper-button-prev::after {
+.propertyId .swiper-button-prev::after {
   content: "\21E6" !important;
   font-size: 50px !important;
   font-weight: 900 !important;

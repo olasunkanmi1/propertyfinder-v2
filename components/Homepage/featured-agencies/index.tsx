@@ -18,7 +18,7 @@ const FeaturedAgencies: React.FC<HomepageProps> = ({featuredAgencies}) => {
 
   return (
     <div className='space-y-4 relative mx-auto'>
-      <Heading heading='Premium Agencies' />
+      <Heading heading='Featured Agencies' />
 
       <Swiper
         modules={[Navigation, Pagination, A11y, Autoplay]}
@@ -28,7 +28,6 @@ const FeaturedAgencies: React.FC<HomepageProps> = ({featuredAgencies}) => {
         loop={true}
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000 }}
-        className='agencies'
       >
         {
           featuredAgencies?.map((agency) => {

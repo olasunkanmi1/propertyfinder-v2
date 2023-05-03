@@ -29,13 +29,13 @@ const Images: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
 
   return (
     <>
-      <div className='flex flex-col ms:h-[300px] md:h-[350px] h-[250px]'>
+      <div className='flex flex-col h-[300px] md:h-[350px] '>
         <Swiper
           spaceBetween={10}
           navigation={true}
           initialSlide={0}
           modules={[Navigation]}
-          className="ms:min-h-[300px] md:min-h-[350px] min-h-[250px] h-full w-full"
+          className="min-h-[300px] md:min-h-[350px] h-full w-full propertyId"
         >
           { photos.map((photo, index) => {
               return (

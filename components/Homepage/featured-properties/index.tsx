@@ -9,7 +9,7 @@ const FeaturedProperties: React.FC<{loading: boolean}> = ({loading}) => {
 
   return (
     <div className="space-y-4">
-      <Heading heading='Featured Properties' />
+      <Heading heading='Popular Properties' />
 
       <div className='gridLayout'>
         { loading ? (

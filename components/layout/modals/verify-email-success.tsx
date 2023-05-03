@@ -17,7 +17,7 @@ const VerifyEmailSuccess = () => {
 
                         <Image src={mailSent} alt='Email Sent' width={200} height={150} loading='lazy' />
 
-                        <p className='text-center'> A verification link has been sent to your <span className='font-semibold'> {user?.email} </span> inbox. </p>
+                        <p className='text-center'> A verification link has been sent to your <span className='font-semibold'> {user?.email} </span> inbox. If you don&apos;t see our email in your inbox, please check your spam or promotions folder as it may have been filtered there.</p>
                     </div>
                 </ModalLayout>
             ) }

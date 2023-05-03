@@ -9,8 +9,8 @@ import Amenities from './amenities';
 import ReactPlayer from 'react-player'
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import { MdLocationOn } from 'react-icons/md'
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { propertiesState, navbarState } from '../../../../states';
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
+import { propertiesState, navbarState, userState } from '../../../../states';
 import { handleSaveAndUnsave } from '../../../../utils/propertyFns';
 import { Loader } from '../../../loader';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -21,6 +21,7 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
     const [loading, setLoading] = useState(false);
     const [properties, setProperties] = useRecoilState(propertiesState);
     const setModal = useSetRecoilState(navbarState);
+    const user = useRecoilValue(userState);
     const [lines, setLines] = useState(5);
     
     const { isVerified, price, rentFrequency, rooms, baths, area, title, description, coverVideo, amenities, location, externalID, coverPhoto, agency } = propertyDetails;
@@ -40,7 +41,7 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
         handleSaveAndUnsave(
             {setLoading, coverPhoto, price, rooms, title, baths, area, isVerified,
             rentFrequency, agency, externalID, isSaved, setProperties, savedProperties,
-            setModal, location}
+            setModal, location, user}
         );
     }
 

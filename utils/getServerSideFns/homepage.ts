@@ -3,8 +3,8 @@ import { baseUrl, fetchApi } from "../fetchApi";
 import axios from "axios";
 
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
-  const featuredProperties = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5001&hitsPerPage=6`);
-  const featuredAgencies = await fetchApi(`${baseUrl}/agencies/list?query=a&hitsPerPage=4`, 'featuredAgencies');
+  const featuredProperties = await fetchApi({url: `${baseUrl}/properties/list?locationExternalIDs=5001`, superhotProperties: true});
+  const featuredAgencies = await fetchApi({url: `${baseUrl}/agencies/list?query=i`, featuredAgencies: true});
 
   let savedProperties;
   const config = {
@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
   return {
     props: {
-      featuredProperties: featuredProperties?.hits,
+      featuredProperties,
       featuredAgencies,
       savedProperties
     },

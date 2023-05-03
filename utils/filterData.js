@@ -93,7 +93,7 @@ export const filterData = [
         queryName: 'priceMax',
       },
     ],
-    placeholder: 'Price(AED)',
+    placeholder: 'Price (AED)',
     dropdown: 'priceDropdown',
   },
   // Sort

@@ -37,7 +37,7 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
       const featuredAgencies = false
       const autoComplete = true
 
-      const data = await fetchApi('https://bayut.p.rapidapi.com/auto-complete', null, autoComplete, e);
+      const data = await fetchApi({url: 'https://bayut.p.rapidapi.com/auto-complete', autoComplete: true, e});
       
       if(data) {
         setLoading(false);

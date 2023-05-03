@@ -30,7 +30,7 @@ const ForgotPassword = () => {
   const handleSubmit = (values: ForgotPasswordInitialValues, { setSubmitting }: FormikHelpers<ForgotPasswordInitialValues>) => {
     setLoading(true);
 
-    axios.post("auth/forgot-password", values, { withCredentials: true })
+    axios.post("/forgot-password", values, { withCredentials: true })
       .then(async (res) => {
         setLoading(false);
         

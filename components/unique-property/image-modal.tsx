@@ -17,8 +17,8 @@ const ImageModal = () => {
   return (
     <>
         { modal.imageModal && (
-            <div className='flex flex-col h-[506px] max-h-[calc(100vh-80px)] top-[calc(50%+20px)] left-[50%] translate-x-[-50%] translate-y-[-50%] shadow-[rgba(0,0,0,0.24)_0px_3px_8px] p-2 bg-white rounded-md w-[calc(100%-32px)] xll:w-[800px] z-[25] fixed'>
-                <div className="relative">
+            <div className='flex flex-col h-[366px] ls:h-[416px] max-h-[calc(100vh-80px)] top-[calc(50%+20px)] left-[50%] translate-x-[-50%] translate-y-[-50%] shadow-[rgba(0,0,0,0.24)_0px_3px_8px] p-2 bg-white rounded-md w-[calc(100%-16px)] xll:w-[800px] z-[25] fixed overflow-auto'>
+                <div className="relative h-full">
                     <AiOutlineClose size={28} className='absolute top-0 right-0 text-primary cursor-pointer bg-white z-[26] p-1' onClick={closeModal} />
 
                     <Swiper
@@ -27,15 +27,15 @@ const ImageModal = () => {
                         pagination={true}
                         initialSlide={modal.initialSlide}
                         modules={[Navigation, Pagination]}
-                        className="min-h-[400px] max-h-[400px] h-[400px] w-full"
+                        className="min-h-[300px] h-full w-full propertyId"
                     >
                         {
                             modal.modalImages.map((photo) => {
                                 return (
-                                    <SwiperSlide key={photo} className="relative">
+                                    <SwiperSlide key={photo} className="relative h-full w-full">
                                         <Image
                                             src={photo} alt="photo" layout="fill" loading='lazy' placeholder='blur'
-                                            blurDataURL={photo}  
+                                            blurDataURL={photo}  objectFit='cover'
                                         />
                                     </SwiperSlide>
                                 )

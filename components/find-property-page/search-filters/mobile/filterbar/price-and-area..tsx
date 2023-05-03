@@ -2,7 +2,7 @@ import { filterData } from '../../../../../utils/filterData';
 import SelectLayout from './select-layout'
 
 const PriceAndArea = () => {
-  const price = filterData.filter((filter) => filter.placeholder === 'Price(AED)');
+  const price = filterData.filter((filter) => filter.placeholder === 'Price (AED)');
   const area = filterData.filter((filter) => filter.placeholder === 'Area (sqft)');
   
   const priceMin = {
@@ -27,8 +27,8 @@ const PriceAndArea = () => {
 
   return (
     <div className='space-y-4'>
-      <SelectLayout heading='Price' min={priceMin} max={priceMax} />
-      <SelectLayout heading='Area' min={areaMin} max={areaMax} />
+      <SelectLayout heading='Price (AED)' min={priceMin} max={priceMax} />
+      <SelectLayout heading='Area (sqft)' min={areaMin} max={areaMax} />
     </div> 
   )
 }

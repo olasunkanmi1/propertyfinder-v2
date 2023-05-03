@@ -1,7 +1,9 @@
 import { UniquePropertyPageProps } from '../../../../types';
 
 const PropertyInfo: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
-  const { furnishingStatus, completionStatus, purpose, referenceNumber, active, category } = propertyDetails;
+  const { furnishingStatus, completionStatus, purpose, referenceNumber, active, category, createdAt, updatedAt } = propertyDetails;
+  const creDate = new Date(createdAt * 1000).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const updDate = new Date(updatedAt * 1000).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
   const infos = [
     { title: 'Type', value: category[1].nameSingular },
     { title: 'Active', value: active ? 'Yes' : 'No' },
@@ -9,6 +11,8 @@ const PropertyInfo: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
     { title: 'Completion status', value: completionStatus },
     { title: 'Purpose', value: purpose === 'for-rent' ? 'For rent' : 'For sale' },
     { title: 'Reference no.', value: referenceNumber },
+    { title: 'Created at', value: creDate },
+    { title: 'Last updated', value: updDate },
   ];
 
   return (

@@ -1,8 +1,8 @@
 import { StaticImageData } from "next/image";
-import { Dispatch, ReactElement, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, ReactElement, SetStateAction } from "react";
 import { IconType } from "react-icons/lib";
 import { SetterOrUpdater } from "recoil";
-import { INavbarState, IPropertiesState } from "../states";
+import { INavbarState, IPropertiesState, IUserState } from "../states";
 
 export interface LayoutProps {
     title: string;
@@ -77,6 +77,8 @@ export interface Property {
     location: {
         name: string;
     }[];
+    createdAt: number
+    updatedAt: number
 }
 
 export interface Agency {
@@ -337,13 +339,6 @@ export interface IObj {
     }[];
 } 
 
-export interface MyError {
-  message: string
-  response?: {
-    status: number
-  }
-}
-
 export interface IHandleSaveAndUnsaveProps {
  setLoading: Dispatch<SetStateAction<boolean>>;
  coverPhoto: {
@@ -370,4 +365,13 @@ export interface IHandleSaveAndUnsaveProps {
  location: {
     name: string;
 }[];
+user: IUserState | null
+}
+
+export interface FetchApiProps {
+    url: string;
+    superhotProperties?: boolean;
+    featuredAgencies?: boolean;
+    autoComplete?: boolean;
+    e?: ChangeEvent<HTMLInputElement>;
 }

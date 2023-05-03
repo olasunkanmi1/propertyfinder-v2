@@ -181,8 +181,8 @@ const EditProfileModal = () => {
                                     </div>
 
                                     <div className={`flex w-full space-x-1 m-auto ${values.photoUrl || imageBlob ? 'justify-between' : 'justify-center'}`}>
-                                        <span onClick={() => inputRef.current?.click()} className='flex justify-center items-center cursor-pointer text-white p-1 bg-primary rounded-md text-xs w-max'> <AiOutlineEdit size={15} className='mr-[3px]' /> Update photo </span>
-                                        { values.photoUrl || imageBlob ? <span onClick={() => removePhoto(values, setFieldValue)} className='flex justify-center items-center cursor-pointer text-white p-1 bg-[#E65050] rounded-md text-xs w-max'> <AiOutlineDelete size={15} className='mr-[3px]' /> Delete photo </span> : null}
+                                        <span onClick={() => inputRef.current?.click()} className='flex justify-center items-center cursor-pointer text-white p-1 bg-primary rounded-md text-sm w-max'> <AiOutlineEdit size={15} className='mr-[3px]' /> Update photo </span>
+                                        { values.photoUrl || imageBlob ? <span onClick={() => removePhoto(values, setFieldValue)} className='flex justify-center items-center cursor-pointer text-white p-1 bg-[#E65050] rounded-md text-sm w-max'> <AiOutlineDelete size={15} className='mr-[3px]' /> Delete photo </span> : null}
                                     </div>
                                 </>
 
