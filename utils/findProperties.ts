@@ -2,8 +2,9 @@ import Router from "next/router";
 import { getFilterValues } from "./filterData";
 import { SetterOrUpdater } from "recoil";
 import { ILoadingState } from "../states";
+import { IFilterValues } from "../types";
 
-export const findProperties = (filterValues: any, setLoading: SetterOrUpdater<ILoadingState>) => {
+export const findProperties = (filterValues: IFilterValues, setLoading: SetterOrUpdater<ILoadingState>) => {
     const path = Router.pathname;
     const { query } = Router;
   
@@ -26,4 +27,4 @@ export const findProperties = (filterValues: any, setLoading: SetterOrUpdater<IL
          propertiesLoading: false
      }))
     )
-  };
+};

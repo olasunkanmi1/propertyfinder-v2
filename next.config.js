@@ -51,7 +51,7 @@ const rewrites = () => {
     },
     {
       source: "/unsave-property/:externalID",
-      destination: `${process.env.BACKEND_URL}/property?externalID=:externalID`
+      destination: `${process.env.BACKEND_URL}/property/:externalID`
     },
   ]
 }

@@ -32,7 +32,7 @@ const Properties = () => {
         )}        
       </div>
       
-      {properties.properties?.length === 0 && (
+      {properties.properties?.length === 0 && !loading.propertiesLoading && (
         <div className='mb-4 relative w-full h-[300px] md:w-[400px] md:h-[400px] mx-auto'>
           <Image src={homeNotFound} alt="no result" priority layout='fill' />
         </div>

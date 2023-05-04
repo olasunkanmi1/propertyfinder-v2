@@ -1,6 +1,6 @@
 import {useState, useRef} from 'react'
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import { navbarState, userState } from '../../../states';
+import { layoutState, userState } from '../../../states';
 import ModalLayout from './modal-layout';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
@@ -23,8 +23,8 @@ const EditProfileModal = () => {
     const [loading, setLoading] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     
-    const [modal, setModal] = useRecoilState(navbarState);
-    const closeModal = useResetRecoilState(navbarState);
+    const [modal, setModal] = useRecoilState(layoutState);
+    const closeModal = useResetRecoilState(layoutState);
     const [user, setUser] = useRecoilState(userState);
     
     const { imageBlob, selectedFile, imgUrlToBeDeleted } = modal
@@ -123,11 +123,37 @@ const EditProfileModal = () => {
         })
     }
 
-  const handleSubmit = (values: EditProfileInitialValues, { setSubmitting }: FormikHelpers<EditProfileInitialValues>) => {
-    setLoading(true);
 
+    const updateProfileOnce = (values: EditProfileInitialValues, setSubmitting: (isSubmitting: boolean) => void) => {
+        axios.patch("/user", values, { withCredentials: true })
+        .then(async (res) => {
+            setLoading(false);
+            
+            if (res.status === 200) {
+                toast.success('Profile updated successfully');
+                closeModal(); 
+
+                const user = await fetchUser();
+                setUser(user);
+            }
+        }).catch((error) => {
+            setLoading(false);
+            setSubmitting(false);
+            toast.error('Unable to update profile, please try again');
+        })
+    }
+
+  const handleSubmit = (values: EditProfileInitialValues, { setSubmitting }: FormikHelpers<EditProfileInitialValues>) => {
+    const formData = new FormData();
+    setLoading(true);
+    
     if(selectedFile && !imgUrlToBeDeleted) { //NEW UPLOAD WITH FIELDS: no previous image, just upload fresh image
-        updatePhotoAndProfile(values, setSubmitting)
+        formData.append('image', selectedFile)
+        
+        
+        
+        
+        // updatePhotoAndProfile(values, setSubmitting)
     } else if(selectedFile && imgUrlToBeDeleted) { //NEW UPLOAD WITH FIELDS: delete previous image, reupload new image
         deletehotoAndUpdateProfile(values, setSubmitting, true)
     } else if(!selectedFile && imgUrlToBeDeleted) { //DELETE PREVIOUS IMAGE: just delete previous image, upload just fields without image

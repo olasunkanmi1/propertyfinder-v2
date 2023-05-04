@@ -1,17 +1,19 @@
 import Link from 'next/link'
+import {useRouter} from 'next/router'
 import dynamic from 'next/dynamic'
 import {toast} from "react-toastify";
 import { AiOutlineHeart } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
 import { GoVerified, GoUnverified } from "react-icons/go";
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { userState, propertiesState, navbarState } from '../../../../states'
+import { userState, propertiesState, layoutState } from '../../../../states'
 const Settings = dynamic(() => import('./settings')) 
 
 const Dropdown = () => {
   const [user, setUser] = useRecoilState(userState);
   const setProperties = useSetRecoilState(propertiesState);
-  const setModal = useSetRecoilState(navbarState);
+  const setModal = useSetRecoilState(layoutState);
+  const router = useRouter();
 
     const firstName = user ? user.firstName : ''
     const lastName = user ? user.lastName : ''
@@ -25,6 +27,7 @@ const Dropdown = () => {
         
         if (res.status === 200) {
           toast.success('Logged out successfully');
+          if(router.pathname ==='/saved-properties') router.push('/')
             setUser(null);
             setProperties(properties => ({
               ...properties,

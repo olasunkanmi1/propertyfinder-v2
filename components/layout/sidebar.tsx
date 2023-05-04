@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { navbarState, loadingState, userState, INavbarState, propertiesState } from '../../states';
+import { layoutState, loadingState, userState, ILayoutState, propertiesState } from '../../states';
 import Link from 'next/link';
 import Profile from './navbar/profile';
 import { useRouter } from 'next/router';
@@ -12,7 +12,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 const Sidebar = () => {
     const loading = useRecoilValue(loadingState);
     const [user, setUser] = useRecoilState(userState);
-    const [open, setOpen] = useRecoilState(navbarState);
+    const [open, setOpen] = useRecoilState(layoutState);
     const setProperties = useSetRecoilState(propertiesState);
 
     const router = useRouter();
@@ -32,6 +32,7 @@ const Sidebar = () => {
                 
                 if (res.status === 200) {
                     toast.success('Logged out successfully');
+                    if(router.pathname ==='/saved-properties') router.push('/')
                     setUser(null);
                     setProperties(properties => ({
                         ...properties,
@@ -47,7 +48,7 @@ const Sidebar = () => {
         setOpen(open => ({
             ...open,
             isSidebarOpen: false,
-            [name as keyof INavbarState]: true,
+            [name as keyof ILayoutState]: true,
         }));
     };
 

@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { LayoutProps } from '../../types'
 import { useRecoilState, useRecoilValue, useSetRecoilState, useResetRecoilState } from 'recoil'
-import { loadingState, navbarState, userState } from '../../states'
+import { loadingState, layoutState, userState } from '../../states'
 import { SignInModal, SignUpModal, ForgotPasswordModal, ForgotPasswordEmailSentModal, VerifyEmailSentModal, EditProfileModal, ChangePasswordModal, ClearSavedPropertiesModal } from './modals';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,9 +17,9 @@ const ImageModal = dynamic(() => import('../unique-property/image-modal'));
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const [loading, setLoading] = useRecoilState(loadingState);
-  const modal = useRecoilValue(navbarState);
+  const modal = useRecoilValue(layoutState);
   const setUser = useSetRecoilState(userState);
-  const closeALll = useResetRecoilState(navbarState);
+  const closeALll = useResetRecoilState(layoutState);
 
   const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal, clearConfirmationModal, imageModal } = modal;
   const modals = signInModal || signUpModal || isFilterbarOpen || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal || imageModal

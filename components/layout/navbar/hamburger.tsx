@@ -1,8 +1,8 @@
-import { navbarState } from '../../../states'
+import { layoutState } from '../../../states'
 import { useRecoilState } from 'recoil'
 
 const Hamburger = () => {
-    const [sidebarOpen, setSidebarOpen] = useRecoilState(navbarState);
+    const [sidebarOpen, setSidebarOpen] = useRecoilState(layoutState);
     const { isSidebarOpen } = sidebarOpen;
 
     const toggleSidebar = () => {

@@ -10,7 +10,7 @@ import ReactPlayer from 'react-player'
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import { MdLocationOn } from 'react-icons/md'
 import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
-import { propertiesState, navbarState, userState } from '../../../../states';
+import { propertiesState, layoutState, userState } from '../../../../states';
 import { handleSaveAndUnsave } from '../../../../utils/propertyFns';
 import { Loader } from '../../../loader';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -20,7 +20,7 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
     const [screenWidth, setscreenWidth] = useState<number | undefined>(undefined);
     const [loading, setLoading] = useState(false);
     const [properties, setProperties] = useRecoilState(propertiesState);
-    const setModal = useSetRecoilState(navbarState);
+    const setModal = useSetRecoilState(layoutState);
     const user = useRecoilValue(userState);
     const [lines, setLines] = useState(5);
     

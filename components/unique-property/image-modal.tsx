@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import Image from 'next/image'
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { navbarState } from "../../states";
+import { layoutState } from "../../states";
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -11,8 +11,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const ImageModal = () => {
-    const [modal, setModal] = useRecoilState(navbarState);
-    const closeModal = useResetRecoilState(navbarState);
+    const [modal, setModal] = useRecoilState(layoutState);
+    const closeModal = useResetRecoilState(layoutState);
 
   return (
     <>

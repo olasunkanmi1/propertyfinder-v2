@@ -9,7 +9,7 @@ import { FaBath, FaBed } from 'react-icons/fa';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { MdWindow } from 'react-icons/md';
 import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
-import { navbarState, propertiesState, userState } from '../../states';
+import { layoutState, propertiesState, userState } from '../../states';
 import { Spinner } from '../loader';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { handleSaveAndUnsave } from '../../utils/propertyFns';
@@ -17,7 +17,7 @@ import { handleSaveAndUnsave } from '../../utils/propertyFns';
 const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
     const [loading, setLoading] = useState(false);
     const [imgUrl, setImgUrl] = useState<string | StaticImageData>(property.coverPhoto && property.coverPhoto.url ? property.coverPhoto.url : "");
-    const setModal = useSetRecoilState(navbarState);
+    const setModal = useSetRecoilState(layoutState);
     const user = useRecoilValue(userState);
     const [properties, setProperties] = useRecoilState(propertiesState);
     
@@ -29,11 +29,7 @@ const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
     const [isSaved, setIsSaved] = useState(savedPropertiesIDs.includes(externalID));
 
     const handleClick = async () => {
-        handleSaveAndUnsave(
-            {setLoading, coverPhoto, price, rooms, title, baths, area, isVerified,
-            rentFrequency, agency, externalID, isSaved, setProperties, savedProperties,
-            setModal, location, user}
-        );
+        handleSaveAndUnsave({property, setLoading, isSaved, setProperties, savedProperties, setModal, user});
     }
 
     useEffect(() => {
@@ -72,7 +68,7 @@ const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
                         </a>
                     </Link>
                     
-                    <button className="flex justify-center items-center mt-2 bg-primary bg-opacity-50 cursor-pointer transition ease-in-out w-[30px] h-[30px] overflow-hidden rounded-md" onClick={() =>  handleClick()}>
+                    <button className="flex justify-center items-center mt-2 bg-primary bg-opacity-50 cursor-pointer transition ease-in-out w-[30px] h-[30px] overflow-hidden rounded-md disabled:bg-opacity-30" onClick={() =>  handleClick()} disabled={properties.ptyWaitLoading}>
                         {loading ? <Spinner /> : isSaved ? (
                             <AiFillHeart size={20} color='#0847A8' />
                         ) : (

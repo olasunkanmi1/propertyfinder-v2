@@ -4,13 +4,13 @@ import Image from 'next/image'
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useSetRecoilState } from 'recoil';
-import { navbarState } from '../../../states';
+import { layoutState } from '../../../states';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 
 const Images: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
-  const setModal = useSetRecoilState(navbarState)
+  const setModal = useSetRecoilState(layoutState)
   const { photos  } = propertyDetails;
 
   const openModal = (index: number, e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {

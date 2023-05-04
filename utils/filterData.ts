@@ -1,3 +1,5 @@
+import { IFilterValues } from "../types";
+
 export const filterData = [
   // Purpose
   {
@@ -360,7 +362,7 @@ export const filterData = [
   },
 ]; 
   
-export const getFilterValues = (filterValues) => {
+export const getFilterValues = (filterValues: IFilterValues) => {
   const {
     purpose,
     rentFrequency,

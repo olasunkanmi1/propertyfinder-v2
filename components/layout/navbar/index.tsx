@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Logo from '../../../public/assets/logo.webp'
 import Hamburger from './hamburger'
 import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { navbarState, INavbarState, loadingState, userState } from '../../../states';
+import { layoutState, ILayoutState, loadingState, userState } from '../../../states';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useRouter } from 'next/router'
@@ -13,7 +13,7 @@ const Profile = dynamic(() => import('./profile'))
 const Navbar = () => {
   const loading = useRecoilValue(loadingState);
   const user = useRecoilValue(userState);
-  const setModal = useSetRecoilState(navbarState);
+  const setModal = useSetRecoilState(layoutState);
 
   const {userLoading} = loading;
   const router = useRouter();
@@ -27,7 +27,7 @@ const Navbar = () => {
     const showModal = (name: string) => {
         setModal( modal => ({
             ...modal,
-            [name as keyof INavbarState]: true,
+            [name as keyof ILayoutState]: true,
         }))
     }
 

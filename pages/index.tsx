@@ -6,7 +6,6 @@ import { propertiesState } from '../states';
 import { getServerSideProps } from '../utils/getServerSideFns/homepage'
 
 const Home: React.FC<HomepageProps> = memo(({ featuredProperties, featuredAgencies, savedProperties }) => {
-  const [loading, setLoading] = useState(true);
   const setProperties = useSetRecoilState(propertiesState);
 
   useEffect(() => {
@@ -15,13 +14,12 @@ const Home: React.FC<HomepageProps> = memo(({ featuredProperties, featuredAgenci
       featuredProperties: featuredProperties,
       savedProperties: savedProperties,
     }));
-    setLoading(false)
     }, [savedProperties, featuredProperties, setProperties])
 
   return (
       <Layout title="Find your dream property">
         <FindHome />
-        <FeaturedProperties loading={loading} />
+        <FeaturedProperties />
         <ForRent />
         <ForSale />
         <FeaturedAgencies featuredAgencies={featuredAgencies} />

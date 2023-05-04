@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
       
     return {
       props: {
-        savedProperties,
+        savedProperties: savedProperties.reverse(),
       },
     };
   };

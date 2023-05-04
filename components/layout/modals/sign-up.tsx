@@ -2,7 +2,7 @@ import {useState} from 'react'
 import dynamic from 'next/dynamic'
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai'
 import { useRecoilState, useResetRecoilState } from 'recoil'
-import { navbarState, userState } from '../../../states'
+import { layoutState, userState } from '../../../states'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
 import { toast } from "react-toastify";
@@ -14,8 +14,8 @@ const FormField = dynamic(() => import('./field'))
 
 const SignUpModal = () => {
     const [loading, setLoading] = useState(false);
-    const [modal, setModal] = useRecoilState(navbarState);
-    const closeModal = useResetRecoilState(navbarState);
+    const [modal, setModal] = useRecoilState(layoutState);
+    const closeModal = useResetRecoilState(layoutState);
     const [user, setUser] = useRecoilState(userState);
 
     const initialValues: SignUpInitialValues = {

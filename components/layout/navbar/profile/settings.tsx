@@ -1,15 +1,15 @@
 import { AiOutlineSetting, AiOutlineUser, AiOutlineLock } from 'react-icons/ai'
 import { useSetRecoilState } from 'recoil'
-import { INavbarState, navbarState } from '../../../../states'
+import { ILayoutState, layoutState } from '../../../../states'
 
 const Settings = () => {
-    const setModal = useSetRecoilState(navbarState);
+    const setModal = useSetRecoilState(layoutState);
     const showModal = (name: string) => {
         setTimeout(() => {
             setModal( modal => ({
                 ...modal,
                 profileDropdown: false,
-                [name as keyof INavbarState]: true,
+                [name as keyof ILayoutState]: true,
             }))
         }, 0);
     }

@@ -5,6 +5,7 @@ export interface IPropertiesState {
     featuredProperties?: Property[],
     savedProperties?: Property[] | null,
     properties?: Property[],
+    ptyWaitLoading: boolean,
 }
 
 export const propertiesState = atom<IPropertiesState>({
@@ -12,6 +13,7 @@ export const propertiesState = atom<IPropertiesState>({
     default: {
         featuredProperties: [],
         savedProperties: [],
-        properties:[]
+        properties:[],
+        ptyWaitLoading: false,
     },
 });

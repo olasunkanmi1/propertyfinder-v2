@@ -2,7 +2,7 @@ import {useState} from 'react'
 import dynamic from 'next/dynamic'
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
 import { useResetRecoilState, useRecoilState, useSetRecoilState } from 'recoil'
-import { navbarState, userState, propertiesState } from '../../../states'
+import { layoutState, userState, propertiesState } from '../../../states'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
 import { toast } from "react-toastify";
@@ -14,8 +14,8 @@ const FormField = dynamic(() => import('./field'))
 
 const SignInModal = () => {
     const [loading, setLoading] = useState(false);
-    const [modal, setModal] = useRecoilState(navbarState);
-    const closeModal = useResetRecoilState(navbarState);
+    const [modal, setModal] = useRecoilState(layoutState);
+    const closeModal = useResetRecoilState(layoutState);
     const setUser = useSetRecoilState(userState);
     const setProperties = useSetRecoilState(propertiesState);
 
@@ -31,19 +31,23 @@ const SignInModal = () => {
 
   const handleSubmit = (values: SignInInitialValues, { setSubmitting }: FormikHelpers<SignInInitialValues>) => {
     setLoading(true);
+    if(modal.ptyToSaveOnLogin) values.ptyToSaveOnLogin = modal.ptyToSaveOnLogin
 
     axios.post("/login", values, { withCredentials: true })
       .then(async (res) => {
+        const {alreadySaved} = res.data
         setLoading(false);
         
         if (res.status === 200) {
           toast.success('Logged in successfully');
+          if (alreadySaved !== undefined && !alreadySaved) toast.success('Property saved');
           closeModal(); 
 
           setUser(res.data.user)
             setProperties(properties => ({
                 ...properties,
-                savedProperties: res.data.savedProperties
+                savedProperties: res.data.savedProperties,
+                ptyToSaveOnLogin: undefined
             }))
         }
       })

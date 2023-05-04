@@ -1,9 +1,9 @@
 import { AiOutlineClose } from 'react-icons/ai'
 import { useSetRecoilState } from 'recoil'
-import { navbarState } from '../../../../../states'
+import { layoutState } from '../../../../../states'
 
 const Top = () => {
-    const closeFilter = useSetRecoilState(navbarState)
+    const closeFilter = useSetRecoilState(layoutState)
     const closeFilterBar = () => {
         closeFilter(others => ({
             ...others,

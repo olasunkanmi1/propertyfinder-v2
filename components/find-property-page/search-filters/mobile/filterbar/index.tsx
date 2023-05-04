@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil'
-import { navbarState } from '../../../../../states';
+import { layoutState } from '../../../../../states';
 import Top from './top';
 import PurposeAndFrequency from './purpose-and-frequency';
 import PropertyType from './property-type';
@@ -8,7 +8,7 @@ import PriceAndArea from './price-and-area.';
 import ResetAndFind from './reset-and-find';
 
 const Filterbar = () => {
-  const filterbarOpen = useRecoilValue(navbarState);
+  const filterbarOpen = useRecoilValue(layoutState);
   const { isFilterbarOpen } = filterbarOpen;
 
   return (

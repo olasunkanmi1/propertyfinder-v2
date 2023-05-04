@@ -1,7 +1,7 @@
 import {useState, useEffect, memo} from 'react';
 import { Layout, Property } from '../components'
 import { useSetRecoilState, useRecoilState } from 'recoil';
-import { propertiesState, navbarState } from '../states';
+import { propertiesState, layoutState } from '../states';
 import { SavedPropertiesPageProps } from '../types';
 import Heading from '../components/heading';
 import CardSkeleton from '../components/property/skeleton';
@@ -13,7 +13,7 @@ import { getServerSideProps } from '../utils/getServerSideFns/savedProperties';
 
 const SavedProperties: React.FC<SavedPropertiesPageProps> = memo(({savedProperties}) => {
   const [loading, setLoading] = useState(true);
-  const setModal = useSetRecoilState(navbarState);
+  const setModal = useSetRecoilState(layoutState);
   const [properties, setProperties] = useRecoilState(propertiesState);
 
   const showModal = () => {

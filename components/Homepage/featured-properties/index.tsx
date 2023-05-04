@@ -4,7 +4,7 @@ import Heading from '../../heading';
 import {Property} from '../../index';
 import CardSkeleton from '../../property/skeleton';
 
-const FeaturedProperties: React.FC<{loading: boolean}> = ({loading}) => {
+const FeaturedProperties = () => {
   const properties = useRecoilValue(propertiesState)
 
   return (
@@ -12,8 +12,8 @@ const FeaturedProperties: React.FC<{loading: boolean}> = ({loading}) => {
       <Heading heading='Popular Properties' />
 
       <div className='gridLayout'>
-        { loading ? (
-          [...Array(4)].map((arr, index) => <CardSkeleton key={index} />)
+        { properties.featuredProperties?.length === 0 ? (
+          [...Array(4)].map((_, index) => <CardSkeleton key={index} />)
         ) : (
           properties.featuredProperties?.map((property) => {
               return (

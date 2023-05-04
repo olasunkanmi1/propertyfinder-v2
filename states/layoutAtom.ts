@@ -1,6 +1,7 @@
 import { atom } from 'recoil'
+import { SignInInitialValues } from '../types';
 
-export interface INavbarState {
+export interface ILayoutState {
     profileDropdown: boolean,
     isSidebarOpen: boolean,
     isFilterbarOpen: boolean,
@@ -20,10 +21,11 @@ export interface INavbarState {
     imgUrlToBeDeleted: string,
     modalImages: string[],
     initialSlide: number,
+    ptyToSaveOnLogin?: SignInInitialValues['ptyToSaveOnLogin']
 }
 
-export const navbarState = atom<INavbarState>({
-    key: 'dropdownState',
+export const layoutState = atom<ILayoutState>({
+    key: 'dropdownAndModalState',
     default: {
         profileDropdown: false,
         isSidebarOpen: false,
@@ -43,6 +45,7 @@ export const navbarState = atom<INavbarState>({
         selectedFile: null,
         imgUrlToBeDeleted: '',
         modalImages: [],
-        initialSlide: 0
+        initialSlide: 0,
+        ptyToSaveOnLogin: undefined
     },
 });

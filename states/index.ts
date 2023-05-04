@@ -1,4 +1,4 @@
-export * from './navbarAtom';
+export * from './layoutAtom';
 export * from './searchFiltersAtom';
 export * from './filterAtom';
 export * from './loading';

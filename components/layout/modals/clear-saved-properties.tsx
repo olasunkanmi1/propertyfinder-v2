@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { navbarState, propertiesState } from '../../../states';
+import { layoutState, propertiesState } from '../../../states';
 import ModalLayout from './modal-layout';
 import axios from 'axios';
 import { toast } from "react-toastify";
@@ -9,8 +9,8 @@ import { Loader, Spinner } from '../../loader';
 
 const ClearSavedPropertiesModal = () => {
     const [loading, setLoading] = useState(false);
-    const modal = useRecoilValue(navbarState);
-    const closeModal = useResetRecoilState(navbarState);
+    const modal = useRecoilValue(layoutState);
+    const closeModal = useResetRecoilState(layoutState);
     const setProperties = useSetRecoilState(propertiesState);
 
   const clearAllProperties = () => {

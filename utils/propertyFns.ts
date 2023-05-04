@@ -20,63 +20,67 @@ const unSaveProperty = async (externalID: String) => {
     }
 }
 
-export const handleSaveAndUnsave = async (
-    {setLoading, coverPhoto, price, rooms, title, baths, area, isVerified,
-    rentFrequency, agency, externalID, isSaved, setProperties, savedProperties, setModal, location, user}: IHandleSaveAndUnsaveProps
-) => {
-        setLoading(true);
-        const obj = {
-            coverPhoto: {
-                url: coverPhoto.url
-            },
-            price, rooms, title, baths, area,
-            isVerified, rentFrequency,
-            agency: {
-                logo: {
-                    url: agency.logo.url
-                },
-                name: agency.name
-            },
-            externalID,
-            location
-        }
+export const handleSaveAndUnsave = async ({property, setLoading, isSaved, setProperties, savedProperties, setModal, user}: IHandleSaveAndUnsaveProps) => {    
+    const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID, location } = property
 
-        if(!user) {
-            setModal(modal => ({...modal, signInModal: true}));
-            setLoading(false);
+    const obj = {
+        coverPhoto: {
+            url: coverPhoto.url
+        },
+        price, rooms, title, baths, area,
+        isVerified, rentFrequency,
+        agency: {
+            logo: {
+                url: agency.logo.url
+            },
+            name: agency.name
+        },
+        externalID,
+        location
+    }
+
+    if(!user) {
+        setModal(modal => ({...modal, signInModal: true, ptyToSaveOnLogin: obj}));
+    } else {
+        setLoading(true);
+        setProperties(pty => ({...pty, ptyWaitLoading: true}));
+
+        if(isSaved) {
+            try {
+                const unsaveRes = await unSaveProperty(externalID);
+                setLoading(false);
+                setProperties(pty => ({...pty, ptyWaitLoading: false}));
+
+                if (unsaveRes && unsaveRes.status === 200) {
+                    setProperties(properties => ({
+                        ...properties,
+                        savedProperties: savedProperties.filter((pty) => pty.externalID !== externalID)
+                    }))
+                    toast.success('Property unsaved');
+                }
+            } catch (error) {
+                setLoading(false);
+                setProperties(pty => ({...pty, ptyWaitLoading: false}));
+                toast.error('Unable to unsave property, please try again');
+            }
         } else {
-            if(isSaved) {
-                try {
-                    const unsaveRes = await unSaveProperty(externalID);
-                    setLoading(false);
-    
-                    if (unsaveRes && unsaveRes.status === 200) {
-                        setProperties(properties => ({
-                            ...properties,
-                            savedProperties: savedProperties.filter((pty) => pty.externalID !== externalID)
-                        }))
-                        toast.success('Property unsaved');
-                    }
-                } catch (error) {
-                    setLoading(false);
-                    toast.error('Unable to unsave property, please try again');
+            try {
+                const saveRes = await saveProperty(obj);
+                setLoading(false);
+                setProperties(pty => ({...pty, ptyWaitLoading: false}));
+
+                if (saveRes && saveRes.status === 200) {
+                    setProperties(properties => ({
+                        ...properties,
+                        savedProperties: [...savedProperties, saveRes.data.property]
+                    }))
+                    toast.success('Property saved');
                 }
-            } else {
-                try {
-                    const saveRes = await saveProperty(obj);
-                    setLoading(false);
-    
-                    if (saveRes && saveRes.status === 200) {
-                        setProperties(properties => ({
-                            ...properties,
-                            savedProperties: [...savedProperties, saveRes.data.property]
-                        }))
-                        toast.success('Property saved');
-                    }
-                } catch (error) {
-                    setLoading(false);
-                    toast.error('Unable to save property, please try again');
-                }
+            } catch (error) {
+                setLoading(false);
+                setProperties(pty => ({...pty, ptyWaitLoading: false}));
+                toast.error('Unable to save property, please try again');
             }
         }
+    }
 }

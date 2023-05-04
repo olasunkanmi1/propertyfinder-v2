@@ -2,7 +2,7 @@ import { StaticImageData } from "next/image";
 import { ChangeEvent, Dispatch, ReactElement, SetStateAction } from "react";
 import { IconType } from "react-icons/lib";
 import { SetterOrUpdater } from "recoil";
-import { INavbarState, IPropertiesState, IUserState } from "../states";
+import { ILayoutState, IPropertiesState, IUserState } from "../states";
 
 export interface LayoutProps {
     title: string;
@@ -290,6 +290,28 @@ export interface IDirectDropdownLayoutProps {
 export interface SignInInitialValues {
     email: string;
     password: string;
+    ptyToSaveOnLogin?: {
+        coverPhoto: {
+            url: string;
+        };
+        price: number;
+        rooms: string;
+        title: string;
+        baths: string;
+        area: number;
+        isVerified: boolean;
+        rentFrequency: string;
+        agency: {
+            logo: {
+                url: string;
+            };
+            name: string;
+        };
+        externalID: string;
+        location: {
+            name: string;
+        }[];
+    }
 }
 
 export interface SignUpInitialValues {
@@ -340,32 +362,13 @@ export interface IObj {
 } 
 
 export interface IHandleSaveAndUnsaveProps {
- setLoading: Dispatch<SetStateAction<boolean>>;
- coverPhoto: {
-    url: string;
- };
- price: number;
- rooms: string;
- title: string;
- baths: string;
- area: number;
- isVerified: boolean;
- rentFrequency: string;
- agency: {
-    logo: {
-        url: string;
-    };
-    name: string;
- };
- externalID: string;
- isSaved: boolean;
- setProperties: SetterOrUpdater<IPropertiesState>;
- savedProperties: Property[];
- setModal: SetterOrUpdater<INavbarState>;
- location: {
-    name: string;
-}[];
-user: IUserState | null
+    property: Property;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+    isSaved: boolean;
+    setProperties: SetterOrUpdater<IPropertiesState>;
+    savedProperties: Property[];
+    setModal: SetterOrUpdater<ILayoutState>;
+    user: IUserState | null;
 }
 
 export interface FetchApiProps {
@@ -374,4 +377,8 @@ export interface FetchApiProps {
     featuredAgencies?: boolean;
     autoComplete?: boolean;
     e?: ChangeEvent<HTMLInputElement>;
+}
+
+export interface IFilterValues {
+    [key: string]: string | []
 }

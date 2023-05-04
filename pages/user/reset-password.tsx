@@ -8,7 +8,7 @@ import axios from 'axios'
 import { AiOutlineLock } from "react-icons/ai";
 import FormField from "../../components/layout/modals/field";
 import { useSetRecoilState } from 'recoil';
-import { navbarState } from '../../states';
+import { layoutState } from '../../states';
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { Loader } from '../../components/loader';
@@ -24,7 +24,7 @@ interface ResetPasswordInitialValues {
 const ResetPassword = () => {
     const [loading, setLoading] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
-    const setModal = useSetRecoilState(navbarState);
+    const setModal = useSetRecoilState(layoutState);
     const router = useRouter();
 
     const initialValues: ResetPasswordInitialValues = {

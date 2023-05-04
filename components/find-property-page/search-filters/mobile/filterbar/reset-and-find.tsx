@@ -1,11 +1,11 @@
 import Router from 'next/router';
 import {  useSetRecoilState, useResetRecoilState } from 'recoil'
-import { addressSuggestionsAtom, filterAtom, navbarState, loadingState } from '../../../../../states'
+import { addressSuggestionsAtom, filterAtom, layoutState, loadingState } from '../../../../../states'
 
 const ResetAndFind = () => {
   const resetFilter = useResetRecoilState(filterAtom);
   const resetSuggestions = useResetRecoilState(addressSuggestionsAtom);
-  const closeFilter = useSetRecoilState(navbarState);
+  const closeFilter = useSetRecoilState(layoutState);
   const setLoading = useSetRecoilState(loadingState);
 
   const handleReset = () => {

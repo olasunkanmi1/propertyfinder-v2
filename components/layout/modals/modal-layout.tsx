@@ -1,6 +1,6 @@
 import { AiOutlineClose } from 'react-icons/ai'
 import { useRecoilState, useResetRecoilState } from 'recoil'
-import { INavbarState, navbarState } from '../../../states'
+import { ILayoutState, layoutState } from '../../../states'
 import { IModalLayoutProps } from '../../../types'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -8,8 +8,8 @@ import logo from "../../../public/assets/logo.webp";
 
 const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn, signUp}) => {
     const router = useRouter();
-    const [modal, setModal] = useRecoilState(navbarState);
-    const closeModal = useResetRecoilState(navbarState);
+    const [modal, setModal] = useRecoilState(layoutState);
+    const closeModal = useResetRecoilState(layoutState);
 
     const { signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal, clearConfirmationModal } = modal
     const modals = signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal
@@ -18,7 +18,7 @@ const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn, si
         closeModal();
         setModal( modal => ({
             ...modal,
-            [signIn ? 'signUpModal' : 'signInModal' as keyof INavbarState]: true,
+            [signIn ? 'signUpModal' : 'signInModal' as keyof ILayoutState]: true,
         }));
     }
 

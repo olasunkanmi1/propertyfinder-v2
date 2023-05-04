@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
-import { navbarState, userState } from '../../../states';
+import { layoutState, userState } from '../../../states';
 import ModalLayout from './modal-layout';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
@@ -18,8 +18,8 @@ interface ChangePasswordInitialValues {
 
 const ChangePasswordModal = () => {
     const [loading, setLoading] = useState(false);
-    const [modal, setModal] = useRecoilState(navbarState);
-    const closeModal = useResetRecoilState(navbarState);
+    const [modal, setModal] = useRecoilState(layoutState);
+    const closeModal = useResetRecoilState(layoutState);
     const setUser = useSetRecoilState(userState);
 
     const initialValues: ChangePasswordInitialValues = {

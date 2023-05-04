@@ -1,12 +1,12 @@
 import { useRecoilValue } from 'recoil'
-import { navbarState, userState } from '../../../states'
+import { layoutState, userState } from '../../../states'
 import ModalLayout from './modal-layout';
 import Image from 'next/image';
 import mailSent from '../../../public/assets/mailSent.webp'
 
 const VerifyEmailSuccess = () => {
     const user = useRecoilValue(userState);
-    const modal = useRecoilValue(navbarState);
+    const modal = useRecoilValue(layoutState);
 
     return (
         <>

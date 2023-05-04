@@ -6,7 +6,7 @@ import axios from 'axios'
 import { toast } from "react-toastify";
 import { Loader } from '../../loader'
 import { useResetRecoilState, useRecoilState } from 'recoil'
-import { navbarState } from '../../../states'
+import { layoutState } from '../../../states'
 import { AiOutlineMail } from 'react-icons/ai';
 import ModalLayout from './modal-layout';
 
@@ -16,8 +16,8 @@ interface ForgotPasswordInitialValues {
 
 const ForgotPassword = () => {
     const [loading, setLoading] = useState(false);
-    const [modal, setModal] = useRecoilState(navbarState);
-    const closeModal = useResetRecoilState(navbarState);
+    const [modal, setModal] = useRecoilState(layoutState);
+    const closeModal = useResetRecoilState(layoutState);
 
     const initialValues: ForgotPasswordInitialValues = {
         email: '',

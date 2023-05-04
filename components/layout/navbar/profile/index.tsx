@@ -3,12 +3,12 @@ import dynamic from 'next/dynamic'
 import { IProfileProps } from '../../../../types'
 import { AiOutlineUp } from 'react-icons/ai'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { navbarState, userState } from '../../../../states'
+import { layoutState, userState } from '../../../../states'
 const Dropdown = dynamic(() => import('./dropdown')) 
 
 const Profile: React.FC<IProfileProps> = ({mobile}) => {
     const user = useRecoilValue(userState);
-    const [dropdown, setDropdown] = useRecoilState(navbarState);
+    const [dropdown, setDropdown] = useRecoilState(layoutState);
 
     const firstName = user ? user.firstName : ''
     const lastName = user ? user.lastName : ''
