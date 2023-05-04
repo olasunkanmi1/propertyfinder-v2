@@ -38,11 +38,7 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
     }
 
     const handleClick = async () => {
-        handleSaveAndUnsave(
-            {setLoading, coverPhoto, price, rooms, title, baths, area, isVerified,
-            rentFrequency, agency, externalID, isSaved, setProperties, savedProperties,
-            setModal, location, user}
-        );
+        handleSaveAndUnsave({property: propertyDetails, setLoading, isSaved, setProperties, savedProperties, setModal, user});
     }
 
     const styles: CSSProperties  = {
@@ -51,7 +47,6 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
         WebkitBoxOrient: 'vertical',
         overflow: 'hidden',
     } 
-
 
     useEffect(() => {
       window.addEventListener('resize', () => setscreenWidth(window.innerWidth));
