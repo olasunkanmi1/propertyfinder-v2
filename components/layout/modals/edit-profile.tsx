@@ -1,23 +1,16 @@
 import {useState, useRef} from 'react'
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import { layoutState, userState } from '../../../states';
+import { IUserState, layoutState, userState } from '../../../states';
 import ModalLayout from './modal-layout';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
 import FormField from './field'
-import axios from 'axios';
 import { toast } from "react-toastify";
-import { fetchUser } from '../../../utils/fetchFns';
 import { AiOutlineEdit, AiOutlineMail, AiOutlineUser, AiOutlineDelete } from 'react-icons/ai'
 import { Loader } from '../../loader';
 import Image from 'next/image'
-
-interface EditProfileInitialValues {
-    firstName: string;
-    lastName: string;
-    email: string;
-    photoUrl: string;
-}
+import { EditProfileInitialValues } from '../../../types';
+import { editProfile } from '../../../utils/updateProfile';
 
 const EditProfileModal = () => {
     const [loading, setLoading] = useState(false);
@@ -43,6 +36,25 @@ const EditProfileModal = () => {
         photoUrl: Yup.string(),
     });  
 
+    const updatePhoto = (e: React.ChangeEvent<HTMLInputElement>, values: EditProfileInitialValues, setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void) => {
+        if(e.target.files) {
+            const file = e.target.files[0];
+            if (file.size > 2097152) {
+                toast.error('Image size must be less than 2MB');
+                return;
+            }
+
+            const url = URL.createObjectURL(file);
+            setFieldValue('photoUrl', url);
+            setModal(modal => ({
+                ...modal, 
+                imageBlob: url,
+                selectedFile: file,
+                imgUrlToBeDeleted: imgUrlToBeDeleted ? imgUrlToBeDeleted : values.photoUrl,
+            }))
+        }
+    }
+
     const removePhoto = (values: EditProfileInitialValues, setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void) => {
         if(imageBlob || selectedFile) {
             setModal(modal => ({
@@ -59,127 +71,20 @@ const EditProfileModal = () => {
         setFieldValue('photoUrl', '');
     }
 
-    const updateProfile = async (values: EditProfileInitialValues, setSubmitting: (isSubmitting: boolean) => void) => {
-        axios.patch("/user", values, { withCredentials: true })
-        .then(async (res) => {
-            setLoading(false);
-            
-            if (res.status === 200) {
-                toast.success('Profile updated successfully');
-                closeModal(); 
-
-                const user = await fetchUser();
-                setUser(user);
-            }
-        }).catch((error) => {
-            setLoading(false);
-            setSubmitting(false);
-            toast.error('Unable to update profile, please try again');
-        })
-    }
-
-    const updatePhotoAndProfile = async (values: EditProfileInitialValues, setSubmitting: (isSubmitting: boolean) => void) => {
+    const handleSubmit = (values: EditProfileInitialValues, { setSubmitting }: FormikHelpers<EditProfileInitialValues>) => {
+        setLoading(true);
         const formData = new FormData();
+        if(selectedFile) formData.append('image', selectedFile);
+        const content = selectedFile ? formData : values
+        const file = selectedFile ? true : false
 
-        if(selectedFile) {
-            formData.append('image', selectedFile)
+        // ARRANGE VALUES. capitalize firstName/lastName and make email lowercase
+        values.firstName = values.firstName.charAt(0).toUpperCase() + values.firstName.slice(1).toLowerCase();
+        values.lastName = values.lastName.charAt(0).toUpperCase() + values.lastName.slice(1).toLowerCase();
+        values.email = values.email.toLowerCase();
 
-            axios.post("/update-photo", formData, { withCredentials: true, 
-                headers: {
-                    'Content-Type':'multipart/form-data'
-                } 
-            }).then(async (res) => {
-                if (res.status === 200) {
-                    updateProfile({ ...values, photoUrl: res.data.image.src}, setSubmitting);
-                }
-            }).catch((error) => {
-                setLoading(false);
-                setSubmitting(false);
-                toast.error('Unable to update profile, please try again');
-            })
-        }
+        editProfile({content, values, setLoading, setSubmitting, closeModal, file, imgUrlToBeDeleted, setUser})
     }
-    
-    const deletehotoAndUpdateProfile = (values: EditProfileInitialValues, setSubmitting: (isSubmitting: boolean) => void, reupload?: boolean) => {
-        const image = imgUrlToBeDeleted;
-        const parts = image.split("/");
-        const publicId = parts[parts.length - 2] + "/" + parts[parts.length - 1].split(".")[0]
-        const encodedPublicId = encodeURIComponent(publicId); //cos publicId has another '/'
-        
-        axios.delete(`/update-photo/${encodedPublicId}`, { withCredentials: true })
-        .then(async (res) => {
-            
-            if (res.status === 200) {
-                if(reupload) {
-                    updatePhotoAndProfile(values, setSubmitting);
-                } else {
-                    updateProfile(values, setSubmitting)
-                }
-            }
-        }).catch((error) => {
-            setLoading(false);
-            setSubmitting(false);
-            toast.error('Unable to update profile, please try again');
-        })
-    }
-
-
-    const updateProfileOnce = (values: EditProfileInitialValues, setSubmitting: (isSubmitting: boolean) => void) => {
-        axios.patch("/user", values, { withCredentials: true })
-        .then(async (res) => {
-            setLoading(false);
-            
-            if (res.status === 200) {
-                toast.success('Profile updated successfully');
-                closeModal(); 
-
-                const user = await fetchUser();
-                setUser(user);
-            }
-        }).catch((error) => {
-            setLoading(false);
-            setSubmitting(false);
-            toast.error('Unable to update profile, please try again');
-        })
-    }
-
-  const handleSubmit = (values: EditProfileInitialValues, { setSubmitting }: FormikHelpers<EditProfileInitialValues>) => {
-    const formData = new FormData();
-    setLoading(true);
-    
-    if(selectedFile && !imgUrlToBeDeleted) { //NEW UPLOAD WITH FIELDS: no previous image, just upload fresh image
-        formData.append('image', selectedFile)
-        
-        
-        
-        
-        // updatePhotoAndProfile(values, setSubmitting)
-    } else if(selectedFile && imgUrlToBeDeleted) { //NEW UPLOAD WITH FIELDS: delete previous image, reupload new image
-        deletehotoAndUpdateProfile(values, setSubmitting, true)
-    } else if(!selectedFile && imgUrlToBeDeleted) { //DELETE PREVIOUS IMAGE: just delete previous image, upload just fields without image
-        deletehotoAndUpdateProfile(values, setSubmitting)
-    } else { // no upload or delete, just fields
-        updateProfile(values, setSubmitting);
-    }
-  }
-
-  const updatePhoto = (e: React.ChangeEvent<HTMLInputElement>, values: EditProfileInitialValues) => {
-    if(e.target.files) {
-        const file = e.target.files[0];
-        if (file.size > 2097152) {
-            toast.error('Image size must be less than 2MB');
-            return;
-        }
-
-        const url = URL.createObjectURL(file);
-        setModal(modal => ({
-            ...modal, 
-            imageBlob: url,
-            selectedFile: file,
-            imgUrlToBeDeleted: imgUrlToBeDeleted ? imgUrlToBeDeleted : values.photoUrl,
-        }))
-    }
-  }
 
   return (
     <>
@@ -191,9 +96,23 @@ const EditProfileModal = () => {
                     onSubmit={handleSubmit}
                 >
                     {({ isSubmitting, errors, values, touched, setFieldValue }) => {
+                        const objectsAreEqual = () => {
+                            const keysToCheck = ['email', 'firstName', 'lastName', 'photoUrl'];
+                            for (let prop of keysToCheck) {
+                              if (prop in values) {
+                                const val1 = user ? user[prop as keyof IUserState].toString().toLowerCase() : '';
+                                const val2 = values[prop as keyof EditProfileInitialValues]?.toString().toLowerCase();
+                                if (val1 !== val2) {
+                                  return false;
+                                }
+                              }
+                            }
+                            return true;
+                          };
+
                         return (
                             <Form className='space-y-3 flex flex-col justify-end'>
-                                <input type="file" name='photoUrl' accept="image/*" hidden ref={inputRef} onChange={(e: React.ChangeEvent<HTMLInputElement>) => updatePhoto(e, values)} />
+                                <input type="file" name='photoUrl' accept="image/*" hidden ref={inputRef} onChange={(e: React.ChangeEvent<HTMLInputElement>) => updatePhoto(e, values, setFieldValue)} />
 
                                 <>
                                     <div className='flex justify-center items-center w-[70px] h-[70px] shadow-md rounded-full overflow-hidden bg-secondary m-auto text-white text-xl font-extrabold relative'>
@@ -237,7 +156,7 @@ const EditProfileModal = () => {
                                 />
                                 
                     
-                                <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-40 disabled:cursor-not-allowed h-[32px]'> 
+                                <button type="submit" disabled={isSubmitting || objectsAreEqual()} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-40 disabled:cursor-not-allowed h-[32px]'> 
                                     { loading ? <Loader /> : 'Update profile' }
                                 </button>
                             </Form>

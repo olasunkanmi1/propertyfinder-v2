@@ -36,14 +36,6 @@ const rewrites = () => {
       source: "/update-password",
       destination: `${process.env.BACKEND_URL}/user/update-password`
     },
-    {
-      source: "/update-photo",
-      destination: `${process.env.BACKEND_URL}/user/update-photo`
-    },
-    {
-      source: "/update-photo/:public_id",
-      destination: `${process.env.BACKEND_URL}/user/update-photo/:public_id`
-    },
     // property
     {
       source: "/property",

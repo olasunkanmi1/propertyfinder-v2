@@ -1,7 +1,7 @@
 import { StaticImageData } from "next/image";
 import { ChangeEvent, Dispatch, ReactElement, SetStateAction } from "react";
 import { IconType } from "react-icons/lib";
-import { SetterOrUpdater } from "recoil";
+import { Resetter, SetterOrUpdater } from "recoil";
 import { ILayoutState, IPropertiesState, IUserState } from "../states";
 
 export interface LayoutProps {
@@ -381,4 +381,28 @@ export interface FetchApiProps {
 
 export interface IFilterValues {
     [key: string]: string | []
+}
+
+export interface EditProfileInitialValues {
+    firstName: string;
+    lastName: string;
+    email: string;
+    photoUrl: string;
+    public_id?: string;
+    fieldsAndFreshImage?: boolean;
+    fieldsAndDeletePrevAndUploadNew?: boolean;
+    fieldsAndDeletePrevWithoutUploadNew?: boolean;
+    justFields?: boolean;
+    withFormData?: boolean;
+}
+
+export interface IUpdateProfileProps {
+    content: FormData | EditProfileInitialValues;
+    values: EditProfileInitialValues;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+    setSubmitting: (isSubmitting: boolean) => void;
+    closeModal: Resetter;
+    file: boolean;
+    imgUrlToBeDeleted: string;
+    setUser: (valOrUpdater: IUserState | ((currVal: IUserState | null) => IUserState | null) | null) => void
 }
