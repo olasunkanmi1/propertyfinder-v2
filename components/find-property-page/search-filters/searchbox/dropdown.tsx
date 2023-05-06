@@ -3,7 +3,7 @@ import { SetterOrUpdater, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../states';
 import { addressSuggestionsAtomState } from '../../../../states/addressSuggestions';
 import { Loader } from '../../../loader';
-import { findProperties } from '../../../../utils/findProperties';
+import { findProperties } from '../../../../utils/findProperty/findProperties';
 
 interface IDropdownProps {
     loading: boolean;

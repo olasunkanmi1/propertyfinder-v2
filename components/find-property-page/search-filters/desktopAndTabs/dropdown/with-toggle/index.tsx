@@ -2,15 +2,15 @@ import { useState } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../../../states';
 import { IDropdownWithToggleProps } from '../../../../../../types';
-import { filterData } from '../../../../../../utils/filterData';
+import { filterOptions } from '../../../../../../utils/filteringOptions';
 import Options from './options';
-import { findProperties } from '../../../../../../utils/findProperties';
+import { findProperties } from '../../../../../../utils/findProperty/findProperties';
 
 const DropdownWithToggle: React.FC<IDropdownWithToggleProps> = ({ select, title, tabs, queryName, categories }) => {
   const setLoading = useSetRecoilState(loadingState);
   const [filterState, setFilterState] = useRecoilState(filterAtom);
 
-  const rentFrequency = filterData.filter((filter) => filter.placeholder === 'Rent Frequency');
+  const rentFrequency = filterOptions.filter((filter) => filter.placeholder === 'Rent Frequency');
   const residentialProperty = categories?.filter((filter, index) => index === 0);
   const commercialProperty = categories?.filter((filter, index) => index === 1);
 

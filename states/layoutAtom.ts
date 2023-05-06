@@ -1,6 +1,12 @@
 import { atom } from 'recoil'
 import { SignInInitialValues } from '../types';
 
+export interface ToastNotification {
+    id: number,
+    toastType: string,
+    toastMessage: string,
+}
+
 export interface ILayoutState {
     profileDropdown: boolean,
     isSidebarOpen: boolean,
@@ -21,7 +27,9 @@ export interface ILayoutState {
     imgUrlToBeDeleted: string,
     modalImages: string[],
     initialSlide: number,
-    ptyToSaveOnLogin?: SignInInitialValues['ptyToSaveOnLogin']
+    ptyToSaveOnLogin?: SignInInitialValues['ptyToSaveOnLogin'],
+
+    toastNotifications: ToastNotification[];
 }
 
 export const layoutState = atom<ILayoutState>({
@@ -46,6 +54,8 @@ export const layoutState = atom<ILayoutState>({
         imgUrlToBeDeleted: '',
         modalImages: [],
         initialSlide: 0,
-        ptyToSaveOnLogin: undefined
+        ptyToSaveOnLogin: undefined,
+        
+        toastNotifications: []
     },
 });

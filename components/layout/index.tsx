@@ -4,18 +4,18 @@ import Head from 'next/head'
 import { LayoutProps } from '../../types'
 import { useRecoilState, useRecoilValue, useSetRecoilState, useResetRecoilState } from 'recoil'
 import { loadingState, layoutState, userState } from '../../states'
+import Navbar from './navbar';
+import Footer from './footer';
 import { SignInModal, SignUpModal, ForgotPasswordModal, ForgotPasswordEmailSentModal, VerifyEmailSentModal, EditProfileModal, ChangePasswordModal, ClearSavedPropertiesModal } from './modals';
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import {fetchUser} from '../../utils/fetchFns';
-const Navbar = dynamic(() => import('./navbar'));
-const Footer = dynamic(() => import('./footer'));
+import CustomNotification from '../custom-notification';
+const Dropdown = dynamic(() => import('./navbar/profile/dropdown')) 
 const Sidebar = dynamic(() => import('./sidebar'));
-const RouteChangeLoader = dynamic(() => import('./route-change-loader'));
 const Filterbar = dynamic(() => import('../find-property-page/search-filters/mobile/filterbar'));
 const ImageModal = dynamic(() => import('../unique-property/image-modal'));
+import { getServerSideProps } from '../../utils/getServerSideFns/layout'
 
-const Layout: React.FC<LayoutProps> = ({ title, children }) => {
+const Layout: React.FC<LayoutProps> = ({ title, children, user }) => {
   const [loading, setLoading] = useRecoilState(loadingState);
   const modal = useRecoilValue(layoutState);
   const setUser = useSetRecoilState(userState);
@@ -50,6 +50,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       </div>
       <Footer />
 
+      <Dropdown />
       <Sidebar />
       <Filterbar />
       <SignInModal />
@@ -61,11 +62,11 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       <ChangePasswordModal />
       <ClearSavedPropertiesModal />
       <ImageModal />
-      {/* {loading.routeChangeLoading && <RouteChangeLoader /> } */}
-
-      <ToastContainer position="bottom-center" autoClose={4000} hideProgressBar={false} closeOnClick />
+      <CustomNotification />
     </div>
   )
 }
 
 export default Layout
+
+export { getServerSideProps };

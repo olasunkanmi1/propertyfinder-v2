@@ -1,6 +1,6 @@
 import { filterAtom, IFilterState, searchFiltersState, loadingState } from '../../../../../../states';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { findProperties } from '../../../../../../utils/findProperties';
+import { findProperties } from '../../../../../../utils/findProperty/findProperties';
 
 interface IOptionsProps {
   items: {

@@ -1,14 +1,14 @@
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { BsSortDown } from 'react-icons/bs';
-import { filterData } from '../../../../../utils/filterData';
+import { filterOptions } from '../../../../../utils/filteringOptions';
 import { filterAtom, loadingState } from '../../../../../states';
-import { findProperties } from '../../../../../utils/findProperties';
+import { findProperties } from '../../../../../utils/findProperty/findProperties';
 
 const Sort = () => {
   const [filterState, setFilterState] = useRecoilState(filterAtom);
   const setLoading = useSetRecoilState(loadingState);
 
-  const sortBy = filterData.filter((filter) => filter.placeholder === 'Sort');
+  const sortBy = filterOptions.filter((filter) => filter.placeholder === 'Sort');
 
   const setSortBy = (value: string, queryName: string, name: string) => {
     setFilterState(filterState => ({

@@ -1,23 +1,22 @@
 import {useState, useRef} from 'react'
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { IUserState, layoutState, userState } from '../../../states';
 import ModalLayout from './modal-layout';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
 import FormField from './field'
-import { toast } from "react-toastify";
 import { AiOutlineEdit, AiOutlineMail, AiOutlineUser, AiOutlineDelete } from 'react-icons/ai'
 import { Loader } from '../../loader';
 import Image from 'next/image'
 import { EditProfileInitialValues } from '../../../types';
 import { editProfile } from '../../../utils/updateProfile';
+import { setToast } from '../../../utils/setToast';
 
 const EditProfileModal = () => {
     const [loading, setLoading] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     
     const [modal, setModal] = useRecoilState(layoutState);
-    const closeModal = useResetRecoilState(layoutState);
     const [user, setUser] = useRecoilState(userState);
     
     const { imageBlob, selectedFile, imgUrlToBeDeleted } = modal
@@ -40,7 +39,7 @@ const EditProfileModal = () => {
         if(e.target.files) {
             const file = e.target.files[0];
             if (file.size > 2097152) {
-                toast.error('Image size must be less than 2MB');
+                setToast('error', 'Image size must be less than 2MB', setModal)
                 return;
             }
 
@@ -83,7 +82,7 @@ const EditProfileModal = () => {
         values.lastName = values.lastName.charAt(0).toUpperCase() + values.lastName.slice(1).toLowerCase();
         values.email = values.email.toLowerCase();
 
-        editProfile({content, values, setLoading, setSubmitting, closeModal, file, imgUrlToBeDeleted, setUser})
+        editProfile({content, values, setLoading, setSubmitting, setModal, file, imgUrlToBeDeleted, setUser})
     }
 
   return (

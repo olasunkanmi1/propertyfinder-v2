@@ -1,6 +1,6 @@
 import axios from "axios";
 import { IObj, IHandleSaveAndUnsaveProps } from "../types";
-import { toast } from "react-toastify";
+import { setToast } from "./setToast";
 
 const saveProperty = async (obj: IObj) => {
     try {
@@ -56,12 +56,12 @@ export const handleSaveAndUnsave = async ({property, setLoading, isSaved, setPro
                         ...properties,
                         savedProperties: savedProperties.filter((pty) => pty.externalID !== externalID)
                     }))
-                    toast.success('Property unsaved');
+                    setToast('success', 'Property unsaved', setModal)
                 }
             } catch (error) {
                 setLoading(false);
                 setProperties(pty => ({...pty, ptyWaitLoading: false}));
-                toast.error('Unable to unsave property, please try again');
+                setToast('error', 'Unable to unsave property, please try again', setModal)
             }
         } else {
             try {
@@ -74,12 +74,12 @@ export const handleSaveAndUnsave = async ({property, setLoading, isSaved, setPro
                         ...properties,
                         savedProperties: [...savedProperties, saveRes.data.property]
                     }))
-                    toast.success('Property saved');
+                    setToast('success', 'Property saved', setModal)
                 }
             } catch (error) {
                 setLoading(false);
                 setProperties(pty => ({...pty, ptyWaitLoading: false}));
-                toast.error('Unable to save property, please try again');
+                setToast('error', 'Unable to save property, please try again', setModal)
             }
         }
     }

@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { baseUrl, fetchApi } from "../fetchApi";
+import { bayutFetchFn } from "../bayutFetchFn";
 import axios from "axios";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
@@ -19,8 +19,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
     const locationExternalIDs = query.locationExternalIDs || "5001"; //5001 all UAE
     const page = query.page || "1";
   
-    const data = await fetchApi( 
-      {url: `${baseUrl}/properties/list?hitsPerPage=12&locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&bathsMax=${bathsMax}&rentFrequency=${rentFrequency}&priceMin=${priceMin}&priceMax=${priceMax}&roomsMin=${roomsMin}&roomsMax=${roomsMax}&sort=${sort}&areaMin=${areaMin}&areaMax=${areaMax}&furnishingStatus=${furnishingStatus}&page=${page}`}
+    const data = await bayutFetchFn( 
+      {url: `properties/list?hitsPerPage=12&locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&bathsMax=${bathsMax}&rentFrequency=${rentFrequency}&priceMin=${priceMin}&priceMax=${priceMax}&roomsMin=${roomsMin}&roomsMax=${roomsMax}&sort=${sort}&areaMin=${areaMin}&areaMax=${areaMax}&furnishingStatus=${furnishingStatus}&page=${page}`}
     );
   
     let savedProperties;

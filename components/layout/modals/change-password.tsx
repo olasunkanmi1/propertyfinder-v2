@@ -1,15 +1,14 @@
 import {useState} from 'react'
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
-import { layoutState, userState } from '../../../states';
+import { useRecoilState } from 'recoil';
+import { layoutState } from '../../../states';
 import ModalLayout from './modal-layout';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
 import FormField from './field'
 import axios from 'axios';
-import { toast } from "react-toastify";
-import { fetchUser } from '../../../utils/fetchFns';
 import { AiOutlineLock } from 'react-icons/ai'
 import { Loader } from '../../loader';
+import { setToast } from '../../../utils/setToast';
 
 interface ChangePasswordInitialValues {
     oldPassword: string;
@@ -19,8 +18,6 @@ interface ChangePasswordInitialValues {
 const ChangePasswordModal = () => {
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useRecoilState(layoutState);
-    const closeModal = useResetRecoilState(layoutState);
-    const setUser = useSetRecoilState(userState);
 
     const initialValues: ChangePasswordInitialValues = {
         oldPassword: '',
@@ -40,8 +37,11 @@ const ChangePasswordModal = () => {
         setLoading(false);
         
         if (res.status === 200) {
-            toast.success('Password updated successfully');
-            closeModal(); 
+            setToast('success', 'Password updated successfully', setModal)
+            setModal(modal => ({
+                ...modal,
+                changePasswordModal: false
+            }))
         }
       })
       .catch((error) => {
@@ -49,9 +49,9 @@ const ChangePasswordModal = () => {
         setSubmitting(false);
 
         if(error.response.status === 401) {
-            toast.error('Current password incorrect');
+            setToast('error', 'Current password incorrect', setModal)
         } else {
-            toast.error('Unable to change password, please try again');
+            setToast('error', 'Unable to change password, please try again', setModal)
         }
       })
   }

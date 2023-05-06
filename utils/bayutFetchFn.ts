@@ -1,10 +1,8 @@
 import axios from "axios";
-import {Agency, FetchApiProps, Property} from '../types'
+import {Agency, BayutFetchFnProps, Property} from '../types'
 
-export const baseUrl = 'https://bayut.p.rapidapi.com'
-
-export const fetchApi = async ({url, superhotProperties, featuredAgencies, autoComplete, e}: FetchApiProps) => {
-    const { data } = await axios.get((url), {
+export const bayutFetchFn = async ({url, superhotProperties, featuredAgencies, autoComplete, e}: BayutFetchFnProps) => {
+    const { data } = await axios.get((`https://bayut.p.rapidapi.com/${url}`), {
         headers: {
             'x-rapidapi-host': 'bayut.p.rapidapi.com',
             'x-rapidapi-key': process.env.NEXT_PUBLIC_KEY || ''

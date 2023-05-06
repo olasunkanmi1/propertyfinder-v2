@@ -1,21 +1,20 @@
 import {useState} from 'react'
 import dynamic from 'next/dynamic'
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
-import { useResetRecoilState, useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import { layoutState, userState, propertiesState } from '../../../states'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
-import { toast } from "react-toastify";
 import { SignInInitialValues } from '../../../types'
 import { Loader } from '../../loader'
 import axios from 'axios'
+import { setToast } from '../../../utils/setToast'
 const ModalLayout = dynamic(() => import('./modal-layout')) 
 const FormField = dynamic(() => import('./field')) 
 
 const SignInModal = () => {
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useRecoilState(layoutState);
-    const closeModal = useResetRecoilState(layoutState);
     const setUser = useSetRecoilState(userState);
     const setProperties = useSetRecoilState(propertiesState);
 
@@ -39,9 +38,15 @@ const SignInModal = () => {
         setLoading(false);
         
         if (res.status === 200) {
-          toast.success('Logged in successfully');
-          if (alreadySaved !== undefined && !alreadySaved) toast.success('Property saved');
-          closeModal(); 
+            setToast('success', 'Logged in successfully', setModal)
+            if (alreadySaved !== undefined && !alreadySaved) {
+              setToast('success', 'Property saved', setModal)
+            }
+
+            setModal( modal => ({
+                ...modal,
+                signInModal: false,
+            }));
 
           setUser(res.data.user)
             setProperties(properties => ({
@@ -56,17 +61,17 @@ const SignInModal = () => {
         setSubmitting(false)
 
         if(error.response.status === 401) {
-            toast.error('Invalid email or password');
-        } else if (error.response.status === 500) {
-            toast.error('Unknown error, please try again');
+            setToast('error', 'Invalid email or password', setModal)
+        } else {
+            setToast('error', 'Unknown error, please try again', setModal)
         }
       })
   }
 
   const openForgotPasswordModal = () => {
-    closeModal();
     setModal( modal => ({
         ...modal,
+        signInModal: false,
         forgotPasswordModal: true,
     }));
     }

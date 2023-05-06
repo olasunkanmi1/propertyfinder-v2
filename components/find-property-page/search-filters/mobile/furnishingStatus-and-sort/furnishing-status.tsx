@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router';
 import { useSetRecoilState, useRecoilState } from 'recoil'
 import { filterAtom, loadingState } from '../../../../../states';
-import { filterData } from '../../../../../utils/filterData';
-import { findProperties } from '../../../../../utils/findProperties';
+import { filterOptions } from '../../../../../utils/filteringOptions';
+import { findProperties } from '../../../../../utils/findProperty/findProperties';
 
 const FurnishingStatus = () => {
   const router = useRouter();
   const [filterState, setFilterState] = useRecoilState(filterAtom);
   const setLoading = useSetRecoilState(loadingState);
 
-  const furnishedStatus = filterData.filter((filter) => filter.placeholder === 'Furnishing Status')
+  const furnishedStatus = filterOptions.filter((filter) => filter.placeholder === 'Furnishing Status')
 
   const setFurnishingStatus = (value: string, queryName: string) => {
     setFilterState(filterState => ({

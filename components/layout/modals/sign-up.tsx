@@ -1,22 +1,21 @@
 import {useState} from 'react'
 import dynamic from 'next/dynamic'
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai'
-import { useRecoilState, useResetRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import { layoutState, userState } from '../../../states'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
-import { toast } from "react-toastify";
 import { SignUpInitialValues } from '../../../types'
 import { Loader } from '../../loader'
 import axios from 'axios'
+import { setToast } from '../../../utils/setToast'
 const ModalLayout = dynamic(() => import('./modal-layout')) 
 const FormField = dynamic(() => import('./field')) 
 
 const SignUpModal = () => {
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useRecoilState(layoutState);
-    const closeModal = useResetRecoilState(layoutState);
-    const [user, setUser] = useRecoilState(userState);
+    const setUser = useSetRecoilState(userState);
 
     const initialValues: SignUpInitialValues = {
         firstName: '',
@@ -40,13 +39,13 @@ const SignUpModal = () => {
         setLoading(false);
 
         if (res.status === 201) {
-            toast.success('Account created successfully');
-            closeModal();
             setUser(res.data.user)
+            setToast('success', 'Account created successfully', setModal)
 
             setModal(modal => ({
                 ...modal,
-                verifyEmailMailSent: true
+                signUpModal: false,
+                verifyEmailMailSent: true,
             }))
         }
       })
@@ -55,9 +54,9 @@ const SignUpModal = () => {
         setSubmitting(false)
 
         if(error.response.status === 400) {
-            toast.error('Email already exist');
-        } else if (error.response.status === 500) {
-            toast.error('Unknown error, please try again');
+            setToast('error', 'Email already exist', setModal)
+        } else {
+            setToast('error', 'Unknown error, please try again', setModal)
         }
       });
   }

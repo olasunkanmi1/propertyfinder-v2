@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Logo from '../../../public/assets/logo.webp'
 import Hamburger from './hamburger'
@@ -8,7 +7,7 @@ import { layoutState, ILayoutState, loadingState, userState } from '../../../sta
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useRouter } from 'next/router'
-const Profile = dynamic(() => import('./profile')) 
+import Profile from './profile'
 
 const Navbar = () => {
   const loading = useRecoilValue(loadingState);

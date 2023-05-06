@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
   let user = null;
-  let savedProperties = null;
   
   const cookieHeader = req.headers.cookie    
   const config = {
@@ -17,26 +16,14 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
   try {
     const { data } = await axios.get(`${process.env.BACKEND_URL}/user`, config);
-    user = data;
-
-    const { data: propertyData } = await axios.get(`${process.env.BACKEND_URL}/property`, config);
-    savedProperties = propertyData.savedProperties;
+    user = data.user;
   } catch (error) {
-    console.log(error)
+    user = null
   }
 
-  if(!user) {
-    return {
-        redirect: {
-          permanent: false,
-          destination: '/',
-        },
-    }
-  }
-    
   return {
     props: {
-      savedProperties: savedProperties.reverse(),
+      user
     },
   };
 };

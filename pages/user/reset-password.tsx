@@ -9,12 +9,12 @@ import { AiOutlineLock } from "react-icons/ai";
 import FormField from "../../components/layout/modals/field";
 import { useSetRecoilState } from 'recoil';
 import { layoutState } from '../../states';
-import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import { Loader } from '../../components/loader';
 import {useRouter} from 'next/router';
 import success from '../../public/assets/success.webp'
 import { getServerSideProps } from '../../utils/getServerSideFns/resetPassword';
+import CustomNotification from '../../components/custom-notification';
+import { setToast } from '../../utils/setToast';
 
 interface ResetPasswordInitialValues {
     password: string;
@@ -56,8 +56,7 @@ const ResetPassword = () => {
       .catch((error) => {
         setLoading(false);
         setSubmitting(false);
-
-        toast.error('Unable to reset password');
+        setToast('error', 'Unable to reset password', setModal)
       })
   }
 
@@ -137,12 +136,7 @@ const ResetPassword = () => {
             </div>
         </div>
 
-        <ToastContainer
-        position="bottom-center"
-        autoClose={4000}
-        hideProgressBar={false}
-        closeOnClick
-      />
+        <CustomNotification />
     </>
   )
 }

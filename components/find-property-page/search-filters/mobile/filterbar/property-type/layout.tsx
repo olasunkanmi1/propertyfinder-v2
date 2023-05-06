@@ -12,7 +12,7 @@ import { IPropertyType } from '.';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../../../states';
-import { findProperties } from '../../../../../../utils/findProperties';
+import { findProperties } from '../../../../../../utils/findProperty/findProperties';
 
 const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
   const router = useRouter();

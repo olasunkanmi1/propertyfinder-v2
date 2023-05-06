@@ -1,6 +1,6 @@
 import { IFilterValues } from "../types";
 
-export const filterData = [
+export const filterOptions = [
   // Purpose
   {
     items: [

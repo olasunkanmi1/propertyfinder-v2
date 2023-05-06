@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, addressSuggestionsAtom, IFilterState, loadingState, searchFiltersState } from '../../../../../../states';
-import { findProperties } from '../../../../../../utils/findProperties';
+import { findProperties } from '../../../../../../utils/findProperty/findProperties';
 
 interface IDirectDropdownProps {
     title: string;

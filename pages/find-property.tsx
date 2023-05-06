@@ -4,7 +4,7 @@ import { FindPropertyPageProps } from '../types';
 import { useRecoilState, useResetRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 import { filterAtom, loadingState, searchFiltersState, addressSuggestionsAtom, propertiesState } from '../states';
 import { useRouter } from "next/router";
-import { setFilters } from '../utils/findPopertyDefault';
+import { setFilters } from '../utils/findProperty/findPropertyDefault';
 import { getServerSideProps } from '../utils/getServerSideFns/findProperty';
 
 const FindProperty: React.FC<FindPropertyPageProps> = memo(({ properties, nbHits, savedProperties }) => {

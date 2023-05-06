@@ -1,10 +1,10 @@
 import { GetServerSideProps } from "next";
-import { baseUrl, fetchApi } from "../fetchApi";
+import { bayutFetchFn } from "../bayutFetchFn";
 import axios from "axios";
 
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
-  const featuredProperties = await fetchApi({url: `${baseUrl}/properties/list?locationExternalIDs=5001`, superhotProperties: true});
-  const featuredAgencies = await fetchApi({url: `${baseUrl}/agencies/list?query=i`, featuredAgencies: true});
+  const featuredProperties = await bayutFetchFn({url: 'properties/list?locationExternalIDs=5001', superhotProperties: true});
+  const featuredAgencies = await bayutFetchFn({url: 'agencies/list?query=i', featuredAgencies: true});
 
   let savedProperties;
   const config = {

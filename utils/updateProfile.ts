@@ -1,8 +1,8 @@
 import axios from "axios";
 import { IUpdateProfileProps } from "../types";
-import { toast } from "react-toastify";
+import { setToast } from "./setToast";
 
-export const editProfile = ({content, values, setLoading, setSubmitting, closeModal, file, imgUrlToBeDeleted, setUser}: IUpdateProfileProps) => {
+export const editProfile = ({content, values, setLoading, setSubmitting, setModal, file, imgUrlToBeDeleted, setUser}: IUpdateProfileProps) => {
     const isFormData = content instanceof FormData;
     const parts = imgUrlToBeDeleted.split("/");
     const publicId = parts[parts.length - 2] + "/" + parts[parts.length - 1].split(".")[0];
@@ -28,16 +28,16 @@ export const editProfile = ({content, values, setLoading, setSubmitting, closeMo
         params: isFormData ? values : {}
     }).then(async (res) => {
         if (res.status === 200) {
-            toast.success('Profile updated successfully');
+            setToast('success', 'Profile updated successfully', setModal)
             setLoading(false);
             setSubmitting(false);
-            closeModal(); 
+            setModal(modal => ({...modal, editProfileModal: false}))
 
             setUser(res.data.user)
         }
     }).catch((error) => {
         setLoading(false);
         setSubmitting(false);
-        toast.error('Unable to update profile, please try again');
+        setToast('error', 'Unable to update profile, please try again', setModal)
     })
 }

@@ -7,6 +7,7 @@ import { ILayoutState, IPropertiesState, IUserState } from "../states";
 export interface LayoutProps {
     title: string;
     children: JSX.Element[] | JSX.Element;
+    user: any;
 }
 
 export interface IProfileProps {
@@ -371,7 +372,7 @@ export interface IHandleSaveAndUnsaveProps {
     user: IUserState | null;
 }
 
-export interface FetchApiProps {
+export interface BayutFetchFnProps {
     url: string;
     superhotProperties?: boolean;
     featuredAgencies?: boolean;
@@ -401,7 +402,7 @@ export interface IUpdateProfileProps {
     values: EditProfileInitialValues;
     setLoading: Dispatch<SetStateAction<boolean>>;
     setSubmitting: (isSubmitting: boolean) => void;
-    closeModal: Resetter;
+    setModal: SetterOrUpdater<ILayoutState>;
     file: boolean;
     imgUrlToBeDeleted: string;
     setUser: (valOrUpdater: IUserState | ((currVal: IUserState | null) => IUserState | null) | null) => void

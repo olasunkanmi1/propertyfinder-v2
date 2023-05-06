@@ -1,6 +1,5 @@
-import {useState, useEffect} from 'react'
 import Image from 'next/image'
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { layoutState } from "../../states";
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,7 +11,7 @@ import 'swiper/css/pagination';
 
 const ImageModal = () => {
     const [modal, setModal] = useRecoilState(layoutState);
-    const closeModal = useResetRecoilState(layoutState);
+    const closeModal = () => setModal(modal => ({...modal, imageModal: false}))
 
   return (
     <>

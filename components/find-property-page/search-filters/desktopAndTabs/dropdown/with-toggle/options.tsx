@@ -1,7 +1,7 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, IFilterState, searchFiltersState, loadingState } from '../../../../../../states';
 import { ICategoryType } from '../../../../../../types'
-import { findProperties } from '../../../../../../utils/findProperties';
+import { findProperties } from '../../../../../../utils/findProperty/findProperties';
 
 interface IOptionsProps {
   options?: ICategoryType[] | ({

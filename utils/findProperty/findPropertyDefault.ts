@@ -1,7 +1,8 @@
 import { SetterOrUpdater } from "recoil"
-import { IFilterState } from "../states"
+import { IFilterState } from "../../states"
+import { NextRouter } from "next/router"
 
-export const setFilters = (setFilter: SetterOrUpdater<IFilterState>, router: any) => {
+export const setFilters = (setFilter: SetterOrUpdater<IFilterState>, router: NextRouter) => {
     return (
         setFilter(filter => ({ 
             ...filter, 

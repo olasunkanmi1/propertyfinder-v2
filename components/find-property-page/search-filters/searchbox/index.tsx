@@ -4,7 +4,7 @@ import { MdLocationOn, MdOutlineTune } from 'react-icons/md'
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { addressSuggestionsAtom, searchFiltersState } from '../../../../states';
 import Dropdown from './dropdown';
-import { fetchApi } from '../../../../utils/fetchApi';
+import { bayutFetchFn } from '../../../../utils/bayutFetchFn';
 import { filterAtom } from '../../../../states';
 
 export interface ISearchboxProps {
@@ -37,7 +37,7 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
       const featuredAgencies = false
       const autoComplete = true
 
-      const data = await fetchApi({url: 'https://bayut.p.rapidapi.com/auto-complete', autoComplete: true, e});
+      const data = await bayutFetchFn({url: 'auto-complete', autoComplete: true, e});
       
       if(data) {
         setLoading(false);

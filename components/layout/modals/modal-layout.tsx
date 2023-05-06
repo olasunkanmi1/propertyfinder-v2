@@ -2,22 +2,20 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { useRecoilState, useResetRecoilState } from 'recoil'
 import { ILayoutState, layoutState } from '../../../states'
 import { IModalLayoutProps } from '../../../types'
-import { useRouter } from 'next/router'
 import Image from 'next/image'
 import logo from "../../../public/assets/logo.webp";
 
 const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn, signUp}) => {
-    const router = useRouter();
     const [modal, setModal] = useRecoilState(layoutState);
-    const closeModal = useResetRecoilState(layoutState);
+    const closeModal = useResetRecoilState(layoutState)
 
     const { signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal, clearConfirmationModal } = modal
     const modals = signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal
 
     const openOppModal = () => {
-        closeModal();
         setModal( modal => ({
             ...modal,
+            [signIn ? 'signInModal' : 'signUpModal' as keyof ILayoutState]: false,
             [signIn ? 'signUpModal' : 'signInModal' as keyof ILayoutState]: true,
         }));
     }

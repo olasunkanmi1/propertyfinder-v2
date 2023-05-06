@@ -3,12 +3,12 @@ import { Form, Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup';
 import FormField from './field'
 import axios from 'axios'
-import { toast } from "react-toastify";
 import { Loader } from '../../loader'
-import { useResetRecoilState, useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { layoutState } from '../../../states'
 import { AiOutlineMail } from 'react-icons/ai';
 import ModalLayout from './modal-layout';
+import { setToast } from '../../../utils/setToast';
 
 interface ForgotPasswordInitialValues {
     email: string;
@@ -17,7 +17,6 @@ interface ForgotPasswordInitialValues {
 const ForgotPassword = () => {
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useRecoilState(layoutState);
-    const closeModal = useResetRecoilState(layoutState);
 
     const initialValues: ForgotPasswordInitialValues = {
         email: '',
@@ -35,19 +34,18 @@ const ForgotPassword = () => {
         setLoading(false);
         
         if (res.status === 200) {
-          closeModal(); 
             setModal( modal => ({
                 ...modal,
+                forgotPasswordModal: false,
                 forgotPasswordMailSent: true,
                 forgotPasswordMail: values.email
             }));
         }
       })
       .catch((error) => {
+        setToast('error', 'Unknown error, please try again', setModal)
         setLoading(false);
         setSubmitting(false);
-
-        toast.error('Unknown error, please try again');
       })
   }
   

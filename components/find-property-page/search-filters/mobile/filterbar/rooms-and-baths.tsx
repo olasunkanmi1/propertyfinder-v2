@@ -1,9 +1,9 @@
-import { filterData } from '../../../../../utils/filterData';
+import { filterOptions } from '../../../../../utils/filteringOptions';
 import SelectLayout from './select-layout';
 
 const RoomsAndBaths = () => {
-  const rooms = filterData.filter((filter) => filter.placeholder === 'Rooms');
-  const baths = filterData.filter((filter) => filter.placeholder === 'Baths');
+  const rooms = filterOptions.filter((filter) => filter.placeholder === 'Rooms');
+  const baths = filterOptions.filter((filter) => filter.placeholder === 'Baths');
 
   const roomsMin = {
     list: rooms[0].categories?.filter((filter) => filter.placeholder === 'Rooms Min'),

@@ -1,4 +1,4 @@
-import { filterData } from '../../../../utils/filterData';
+import { filterOptions } from '../../../../utils/filteringOptions';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { searchFiltersState } from '../../../../states/searchFiltersAtom';
 import Searchbox from '../searchbox';
@@ -49,15 +49,15 @@ const DesktopAndTabs: React.FC<ISearchFiltersProps> = ({filterRef, suggestionsRe
     )
   }
 
-  const purposes = filterData.filter((filter) => filter.placeholder === 'Purpose');
-  const propertyTypes = filterData.filter((filter) => filter.placeholder === 'Property Type');
-  const rooms = filterData.filter((filter) => filter.placeholder === 'Rooms');
-  const baths = filterData.filter((filter) => filter.placeholder === 'Baths');
-  const area = filterData.filter((filter) => filter.placeholder === 'Area (sqft)');
-  const price = filterData.filter((filter) => filter.placeholder === 'Price (AED)');
-  const emirates = filterData.filter((filter) => filter.placeholder === 'Emirates');
-  const furnishingStatus = filterData.filter((filter) => filter.placeholder === 'Furnishing Status');
-  const sort = filterData.filter((filter) => filter.placeholder === 'Sort');
+  const purposes = filterOptions.filter((filter) => filter.placeholder === 'Purpose');
+  const propertyTypes = filterOptions.filter((filter) => filter.placeholder === 'Property Type');
+  const rooms = filterOptions.filter((filter) => filter.placeholder === 'Rooms');
+  const baths = filterOptions.filter((filter) => filter.placeholder === 'Baths');
+  const area = filterOptions.filter((filter) => filter.placeholder === 'Area (sqft)');
+  const price = filterOptions.filter((filter) => filter.placeholder === 'Price (AED)');
+  const emirates = filterOptions.filter((filter) => filter.placeholder === 'Emirates');
+  const furnishingStatus = filterOptions.filter((filter) => filter.placeholder === 'Furnishing Status');
+  const sort = filterOptions.filter((filter) => filter.placeholder === 'Sort');
 
   const roomsMin = {
     list: rooms[0].categories?.filter((filter) => filter.placeholder === 'Rooms Min'),

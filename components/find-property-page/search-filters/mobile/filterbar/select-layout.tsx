@@ -1,7 +1,7 @@
 import { ISelectLayoutProps } from '../../../../../types';
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { filterAtom, IFilterState, loadingState } from '../../../../../states';
-import { findProperties } from '../../../../../utils/findProperties';
+import { findProperties } from '../../../../../utils/findProperty/findProperties';
 
 interface IOptionsProps {
   items: {

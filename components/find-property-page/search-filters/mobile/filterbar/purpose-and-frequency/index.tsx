@@ -1,17 +1,17 @@
 import {useState, useEffect} from 'react'
-import { filterData } from '../../../../../../utils/filterData';
+import { filterOptions } from '../../../../../../utils/filteringOptions';
 import { useRouter } from 'next/router';
 import Frequency from './frequency';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../../../states';
-import { findProperties } from '../../../../../../utils/findProperties';
+import { findProperties } from '../../../../../../utils/findProperty/findProperties';
 
 const PurposeAndFrequency = () => {
   const router = useRouter();
   const setLoading = useSetRecoilState(loadingState);
   const [filterState, setFilterState] = useRecoilState(filterAtom);
 
-  const purposes = filterData.filter((filter) => filter.placeholder === 'Purpose');
+  const purposes = filterOptions.filter((filter) => filter.placeholder === 'Purpose');
 
   const changeTab = (value: string, queryName: string) => {
     setFilterState(filterState => ({

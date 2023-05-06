@@ -1,9 +1,9 @@
-import { filterData } from '../../../../../utils/filterData';
+import { filterOptions } from '../../../../../utils/filteringOptions';
 import SelectLayout from './select-layout'
 
 const PriceAndArea = () => {
-  const price = filterData.filter((filter) => filter.placeholder === 'Price (AED)');
-  const area = filterData.filter((filter) => filter.placeholder === 'Area (sqft)');
+  const price = filterOptions.filter((filter) => filter.placeholder === 'Price (AED)');
+  const area = filterOptions.filter((filter) => filter.placeholder === 'Area (sqft)');
   
   const priceMin = {
     list: price[0].categories?.filter((filter) => filter.placeholder === 'Min Price(AED)'),

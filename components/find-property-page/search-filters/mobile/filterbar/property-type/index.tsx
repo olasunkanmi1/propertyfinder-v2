@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { filterAtom } from '../../../../../../states';
-import { filterData } from '../../../../../../utils/filterData';
+import { filterOptions } from '../../../../../../utils/filteringOptions';
 import Commercial from './commercial';
 import Residential from './residential';
 
@@ -19,7 +19,7 @@ export interface IPropertyType {
 const PropertyType = () => {
   const [filterState, setFilterState] = useRecoilState(filterAtom);
 
-  const propertyType = filterData.filter((filter) => filter.placeholder === 'Property Type')
+  const propertyType = filterOptions.filter((filter) => filter.placeholder === 'Property Type')
   const residentialList = propertyType[0].categories?.filter((filter) => filter.placeholder === 'Residential')
   const commercialList = propertyType[0].categories?.filter((filter) => filter.placeholder === 'Commercial')
 

@@ -1,8 +1,8 @@
 import Router from "next/router";
-import { getFilterValues } from "./filterData";
+import { getFilterValues } from "../filteringOptions";
 import { SetterOrUpdater } from "recoil";
-import { ILoadingState } from "../states";
-import { IFilterValues } from "../types";
+import { ILoadingState } from "../../states";
+import { IFilterValues } from "../../types";
 
 export const findProperties = (filterValues: IFilterValues, setLoading: SetterOrUpdater<ILoadingState>) => {
     const path = Router.pathname;

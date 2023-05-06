@@ -1,13 +1,13 @@
-import { filterData } from '../../../../../../utils/filterData';
+import { filterOptions } from '../../../../../../utils/filteringOptions';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../../../states';
-import { findProperties } from '../../../../../../utils/findProperties';
+import { findProperties } from '../../../../../../utils/findProperty/findProperties';
 
 const Frequency  = () => {
   const setLoading = useSetRecoilState(loadingState);
   const [filterState, setFilterState] = useRecoilState(filterAtom);
 
-  const frequencies = filterData.filter((filter) => filter.placeholder === 'Rent Frequency');
+  const frequencies = filterOptions.filter((filter) => filter.placeholder === 'Rent Frequency');
 
   const changeTab = (value: string, queryName: string) => {
     setFilterState(filterState => ({

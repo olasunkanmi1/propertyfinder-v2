@@ -1,16 +1,14 @@
 import {useState} from 'react'
-import { useResetRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { layoutState, propertiesState } from '../../../states';
 import ModalLayout from './modal-layout';
 import axios from 'axios';
-import { toast } from "react-toastify";
-import { fetchSavedProperties } from '../../../utils/fetchFns';
-import { Loader, Spinner } from '../../loader';
+import { Spinner } from '../../loader';
+import { setToast } from '../../../utils/setToast';
 
 const ClearSavedPropertiesModal = () => {
     const [loading, setLoading] = useState(false);
-    const modal = useRecoilValue(layoutState);
-    const closeModal = useResetRecoilState(layoutState);
+    const [modal, setModal] = useRecoilState(layoutState);
     const setProperties = useSetRecoilState(propertiesState);
 
   const clearAllProperties = () => {
@@ -20,19 +18,25 @@ const ClearSavedPropertiesModal = () => {
       setLoading(false);
 
       if (res.status === 200) {
-          setProperties(properties => ({
-              ...properties,
-              savedProperties: []
-          }))
-          toast.success('All saved properties cleared');
-          closeModal()
+        setProperties(properties => ({
+          ...properties,
+          savedProperties: []
+        }))
+        
+        setToast('success', 'All saved properties cleared', setModal)
+        setModal(modal => ({
+          ...modal,
+          clearConfirmationModal: false
+        }))
       }
     })
     .catch((error) => {
+      setToast('error', 'Unable to clear properties, please try again', setModal)
       setLoading(false);
-      toast.error('Unable to clear properties, please try again');
     })
   }
+
+  const closeModal = () => setModal(modal => ({...modal, clearConfirmationModal: false}))
 
   return (
     <>

@@ -4,20 +4,21 @@ import Link from 'next/link';
 import Profile from './navbar/profile';
 import { useRouter } from 'next/router';
 import { FiLogOut } from 'react-icons/fi';
-import axios from 'axios';
-import { toast } from "react-toastify";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { GoUnverified, GoVerified } from 'react-icons/go'
+import { sendVerificationEmail } from '../../utils/sendVerificationEmail';
+import { logOut } from '../../utils/logOut';
 
 const Sidebar = () => {
     const loading = useRecoilValue(loadingState);
     const [user, setUser] = useRecoilState(userState);
-    const [open, setOpen] = useRecoilState(layoutState);
+    const [modal, setModal] = useRecoilState(layoutState);
     const setProperties = useSetRecoilState(propertiesState);
 
     const router = useRouter();
     const {userLoading} = loading;
-    const { isSidebarOpen } = open;
+    const { isSidebarOpen } = modal;
 
     const navLinks = [
         { route: '/find-property', title: 'Find Property', active: router.pathname === '/find-property' && !router.query.purpose },
@@ -26,26 +27,9 @@ const Sidebar = () => {
     ]
 
     const closeSidebar = (name: string) => {
-        if(name === 'out') {
-            axios.delete("/logout", { withCredentials: true })
-            .then(async (res) => {
-                
-                if (res.status === 200) {
-                    toast.success('Logged out successfully');
-                    if(router.pathname ==='/saved-properties') router.push('/')
-                    setUser(null);
-                    setProperties(properties => ({
-                        ...properties,
-                        savedProperties: []
-                    }))
-                }
-            })
-            .catch((error) => {
-                toast.error('Unknown error, please try again');
-            })
-        }
+        if(name === 'out') logOut(setModal, router, setUser, setProperties)
 
-        setOpen(open => ({
+        setModal(open => ({
             ...open,
             isSidebarOpen: false,
             [name as keyof ILayoutState]: true,
@@ -53,8 +37,20 @@ const Sidebar = () => {
     };
 
   return (
-    <div className={`md:hidden fixed top-[75px] z-10 w-full ms:w-[300px] h-[calc(100vh-75px)] overflow-auto duration-500 ease-in-out bg-[#fefefe] p-3 pb-[100px]  space-y-5 ${isSidebarOpen ? 'right-0' : '-right-[100%] ms:-right-[300px]'}`}>
-        { user && <Profile mobile /> }
+    <div className={`md:hidden fixed top-[75px] z-10 w-full ms:w-[300px] h-[calc(100vh-75px)] overflow-auto duration-500 ease-in-out bg-[#fefefe] p-3 pb-[100px] ${isSidebarOpen ? 'right-0' : '-right-[100%] ms:-right-[300px]'}`}>
+        { user && (
+            <>
+                <Profile mobile />
+        
+                <div onClick={() => !user.isVerified ? sendVerificationEmail(user.email, setModal) : null} className={`flex items-center px-3 py-[1px] text-sm font-semibold rounded-full w-max ease-in-out duration-500 mt-2 mb-5 mx-auto ${user.isVerified ? 'text-green-700 bg-green-300' : 'text-red-500 bg-red-200 hover:bg-red-300 cursor-pointer'}`}> 
+                    {user.isVerified ? (
+                        <> <GoVerified size={15} className='mr-1' /> Verified </>
+                    ) : (
+                        <> <GoUnverified size={15} className='mr-1' /> Not verified. Click to verify </>
+                    )}  
+                </div> 
+            </>
+        ) }
 
         <div className='flex flex-col justify-between h-[calc(100%-100px)] min-h-[280px]'>
             <div>
