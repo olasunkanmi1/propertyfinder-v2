@@ -1,42 +1,9 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { filterAtom, IFilterState, searchFiltersState, loadingState } from '../../../../../../states';
-import { ICategoryType } from '../../../../../../types'
+import { filterAtom, searchFiltersState, loadingState } from '../../../../../../states';
+import { IOptionsWithToggleProps, IFilterState } from '../../../../../../types'
 import { findProperties } from '../../../../../../utils/findProperty/findProperties';
 
-interface IOptionsProps {
-  options?: ICategoryType[] | ({
-    items: {
-        name: string;
-        value: string;
-    }[];
-    placeholder: string;
-    queryName: string;
-    dropdown: string;
-    categories?: undefined;
-} | {
-    categories: {
-        items: {
-            name: string;
-            value: string;
-        }[];
-        placeholder: string;
-        queryName: string;
-    }[];
-    placeholder: string;
-    dropdown: string;
-    items?: undefined;
-    queryName?: undefined;
-} | {
-  items?: {
-    name: string;
-    value: string;
-}[];
-queryName?: string;
-})[];
-select: string;
-}
-
-const Options: React.FC<IOptionsProps> = ({options, select}) => {
+const Options: React.FC<IOptionsWithToggleProps> = ({options, select}) => {
   const [filterState, setFilterState] = useRecoilState(filterAtom);
   const setDropdown = useSetRecoilState(searchFiltersState);
   const setLoading = useSetRecoilState(loadingState);

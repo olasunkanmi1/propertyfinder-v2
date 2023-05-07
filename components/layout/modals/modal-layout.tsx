@@ -1,7 +1,7 @@
 import { AiOutlineClose } from 'react-icons/ai'
 import { useRecoilState, useResetRecoilState } from 'recoil'
-import { ILayoutState, layoutState } from '../../../states'
-import { IModalLayoutProps } from '../../../types'
+import { layoutState } from '../../../states'
+import { IModalLayoutProps, ILayoutState } from '../../../types'
 import Image from 'next/image'
 import logo from "../../../public/assets/logo.webp";
 

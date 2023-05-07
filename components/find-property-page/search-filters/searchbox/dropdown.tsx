@@ -1,18 +1,9 @@
 import { HiOutlineLocationMarker } from 'react-icons/hi';
-import { SetterOrUpdater, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../states';
-import { addressSuggestionsAtomState } from '../../../../states/addressSuggestions';
 import { Loader } from '../../../loader';
 import { findProperties } from '../../../../utils/findProperty/findProperties';
-
-interface IDropdownProps {
-    loading: boolean;
-    suggestions: addressSuggestionsAtomState;
-    setSuggestions: SetterOrUpdater<addressSuggestionsAtomState>;
-    inputRef: React.RefObject<HTMLInputElement>;
-    desktop?: boolean;
-    suggestionsRef?: React.MutableRefObject<HTMLDivElement | null>;
-}
+import { IDropdownProps } from '../../../../types';
 
 const Dropdown = ({loading, suggestions, setSuggestions, inputRef, desktop, suggestionsRef}: IDropdownProps) => {
   const setLoading = useSetRecoilState(loadingState);

@@ -2,17 +2,14 @@ import {useState} from 'react'
 import { Form, Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup';
 import FormField from './field'
-import axios from 'axios'
 import { Loader } from '../../loader'
 import { useRecoilState } from 'recoil'
 import { layoutState } from '../../../states'
 import { AiOutlineMail } from 'react-icons/ai';
 import ModalLayout from './modal-layout';
 import { setToast } from '../../../utils/setToast';
-
-interface ForgotPasswordInitialValues {
-    email: string;
-}
+import axiosInstance from '../../../utils/axiosInstance';
+import { ForgotPasswordInitialValues } from '../../../types';
 
 const ForgotPassword = () => {
     const [loading, setLoading] = useState(false);
@@ -29,7 +26,7 @@ const ForgotPassword = () => {
   const handleSubmit = (values: ForgotPasswordInitialValues, { setSubmitting }: FormikHelpers<ForgotPasswordInitialValues>) => {
     setLoading(true);
 
-    axios.post("/forgot-password", values, { withCredentials: true })
+    axiosInstance.post("/forgot-password", values)
       .then(async (res) => {
         setLoading(false);
         

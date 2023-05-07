@@ -1,26 +1,6 @@
 import { atom } from 'recoil'
 import { recoilPersist } from 'recoil-persist'
-
-export interface IFilterState {
-    purpose?: string | string[];
-    rentFrequency?: string | string[];
-    priceMin?: string | string[];
-    priceMax?: string | string[];
-    sort?: string | string[];
-    areaMin?: string | string[];
-    areaMax?: string | string[];
-    roomsMin?: string | string[];
-    roomsMax?: string | string[];
-    bathsMin?: string | string[];
-    bathsMax?: string | string[];
-    furnishingStatus?: string | string[];
-    categoryExternalID?: string | string[];
-    locationExternalIDs?: string | string[];
-
-    propertyType?: string;
-    emirates?: string;
-    sortBy?: string;
-}
+import { IFilterState } from '../types';
 
 const { persistAtom } = recoilPersist({
     key: 'filter-persist',

@@ -2,10 +2,7 @@ import { useState, useEffect } from 'react'
 import ReactPaginate from 'react-paginate';
 import { useRouter } from "next/router";
 import { MdArrowBack, MdArrowForward } from 'react-icons/md';
-
-interface PaginationProps {
-    pageCount: number | undefined;
-}
+import { PaginationProps } from '../../../types';
 
 const Pagination: React.FC<PaginationProps> = ({pageCount}) => {
     const router = useRouter();

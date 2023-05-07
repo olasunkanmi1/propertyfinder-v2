@@ -1,6 +1,7 @@
 import { AiOutlineSetting, AiOutlineUser, AiOutlineLock } from 'react-icons/ai'
 import { useSetRecoilState } from 'recoil'
-import { ILayoutState, layoutState } from '../../../../states'
+import { layoutState } from '../../../../states'
+import { ILayoutState } from '../../../../types'
 
 const Settings = () => {
     const setModal = useSetRecoilState(layoutState);

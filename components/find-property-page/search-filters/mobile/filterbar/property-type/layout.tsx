@@ -8,11 +8,11 @@ import * as Hi from 'react-icons/hi';
 import * as Gi from 'react-icons/gi';
 import * as Si from 'react-icons/si';
 import { IconType } from 'react-icons/lib';
-import { IPropertyType } from '.';
 import { useRouter } from 'next/router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '../../../../../../states';
 import { findProperties } from '../../../../../../utils/findProperty/findProperties';
+import { IPropertyType } from '../../../../../../types';
 
 const PropertyTypeLayout: React.FC<IPropertyType> = ({ list }) => {
   const router = useRouter();

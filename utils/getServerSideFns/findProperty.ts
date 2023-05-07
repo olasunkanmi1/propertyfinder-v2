@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { bayutFetchFn } from "../bayutFetchFn";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
     const purpose = query.purpose || "for-rent";
@@ -27,7 +27,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
   
     const cookieHeader = req.headers.cookie
     const config = {
-      withCredentials: true,
       headers: cookieHeader ? {
         Cookie: cookieHeader
       } : {
@@ -36,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
     };
   
     try {
-      const {data} = await axios.get(`${process.env.BACKEND_URL}/property`, config)
+      const {data} = await axiosInstance.get(`${process.env.BACKEND_URL}/property`, config)
       savedProperties = await data.savedProperties
     } catch (error) {
       savedProperties = null

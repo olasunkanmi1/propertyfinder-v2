@@ -1,5 +1,6 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { layoutState, loadingState, userState, ILayoutState, propertiesState } from '../../states';
+import { layoutState, loadingState, userState, propertiesState } from '../../states';
+import { ILayoutState } from '../../types';
 import Link from 'next/link';
 import Profile from './navbar/profile';
 import { useRouter } from 'next/router';
@@ -64,7 +65,7 @@ const Sidebar = () => {
 
                 { userLoading ? (
                     <>
-                        { [...Array(2)].map((arr, i) => <Skeleton key={i} width={200} height={20} className='ml-3 mb-2' />) }
+                        { [...Array(2)].map((arr, i) => <Skeleton key={i} width={200} height={20}  className='ml-3 mt-4' />) }
                     </>
                 ) : !userLoading && !user ? (
                     <>

@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
   let user = null;
@@ -7,7 +7,6 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
   
   const cookieHeader = req.headers.cookie    
   const config = {
-    withCredentials: true,
     headers: cookieHeader ? {
       Cookie: cookieHeader
     } : {
@@ -16,10 +15,10 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
   };
 
   try {
-    const { data } = await axios.get(`${process.env.BACKEND_URL}/user`, config);
+    const { data } = await axiosInstance.get(`${process.env.BACKEND_URL}/user`, config);
     user = data;
 
-    const { data: propertyData } = await axios.get(`${process.env.BACKEND_URL}/property`, config);
+    const { data: propertyData } = await axiosInstance.get(`${process.env.BACKEND_URL}/property`, config);
     savedProperties = propertyData.savedProperties;
   } catch (error) {
     console.log(error)

@@ -2,9 +2,9 @@ import {useState} from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { layoutState, propertiesState } from '../../../states';
 import ModalLayout from './modal-layout';
-import axios from 'axios';
 import { Spinner } from '../../loader';
 import { setToast } from '../../../utils/setToast';
+import axiosInstance from '../../../utils/axiosInstance';
 
 const ClearSavedPropertiesModal = () => {
     const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ const ClearSavedPropertiesModal = () => {
 
   const clearAllProperties = () => {
     setLoading(true);
-    axios.delete("/property", { withCredentials: true })
+    axiosInstance.delete("/property")
     .then(async (res) => {
       setLoading(false);
 

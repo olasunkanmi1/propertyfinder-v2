@@ -23,7 +23,7 @@ const ImageModal = () => {
                     <Swiper
                         spaceBetween={10}
                         navigation={true}
-                        pagination={true}
+                        pagination={{clickable: true}}
                         initialSlide={modal.initialSlide}
                         modules={[Navigation, Pagination]}
                         className="min-h-[300px] h-full w-full propertyId"

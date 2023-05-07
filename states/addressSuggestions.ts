@@ -1,13 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from "recoil-persist";
-
-export interface addressSuggestionsAtomState {
-    address: string;
-    predictions: {
-        externalID: string;
-        name: string;
-    }[] | null;
-}
+import { addressSuggestionsAtomState } from '../types';
 
 const { persistAtom } = recoilPersist({
     key: 'addressSuggestions-persist',

@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { bayutFetchFn } from "../bayutFetchFn";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 export const getServerSideProps: GetServerSideProps = async ({req}) => {
   const featuredProperties = await bayutFetchFn({url: 'properties/list?locationExternalIDs=5001', superhotProperties: true});
@@ -8,7 +8,6 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
   let savedProperties;
   const config = {
-    withCredentials: true,
     headers: req.headers.cookie ? {
       Cookie: req.headers.cookie
     } : {
@@ -17,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
   };
 
   try {
-    const {data} = await axios.get(`${process.env.BACKEND_URL}/property`, config)
+    const {data} = await axiosInstance.get(`${process.env.BACKEND_URL}/property`, config)
     savedProperties = await data.savedProperties
   } catch (error) {
     savedProperties = null

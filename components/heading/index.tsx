@@ -1,6 +1,4 @@
-interface HeadingProps {
-    heading: string;
-}
+import { HeadingProps } from "../../types"
 
 const Heading: React.FC<HeadingProps> = ({heading}) => {
   return (

@@ -1,8 +1,8 @@
-import axios from "axios"
 import { setToast } from "./setToast"
 import { SetterOrUpdater } from "recoil"
-import { ILayoutState, IPropertiesState, IUserState } from "../states"
+import { ILayoutState, IPropertiesState, IUserState } from "../types"
 import {NextRouter} from 'next/router'
+import axiosInstance from "./axiosInstance"
 
 export const logOut = (
     setModal: SetterOrUpdater<ILayoutState>, 
@@ -12,7 +12,7 @@ export const logOut = (
 ) => {
     setToast('loading', 'Logging out', setModal)
 
-    axios.delete("/logout", { withCredentials: true })
+    axiosInstance.delete("/logout")
     .then(async (res) => {
         
         if (res.status === 200) {

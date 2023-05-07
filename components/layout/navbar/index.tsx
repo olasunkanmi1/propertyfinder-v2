@@ -3,7 +3,8 @@ import Link from 'next/link'
 import Logo from '../../../public/assets/logo.webp'
 import Hamburger from './hamburger'
 import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { layoutState, ILayoutState, loadingState, userState } from '../../../states';
+import { layoutState, loadingState, userState } from '../../../states';
+import { ILayoutState } from '../../../types';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useRouter } from 'next/router'
@@ -47,7 +48,7 @@ const Navbar = () => {
 
             { userLoading ? (
                 <>
-                    { [...Array(2)].map((arr, i) => <Skeleton key={i} width={40} />) }
+                    <Skeleton width={40} />
                     <Skeleton circle width={40} height={40} />
                 </>
             ) : !userLoading && !user ? (

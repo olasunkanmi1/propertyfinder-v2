@@ -1,4 +1,4 @@
-import { IPropertyType } from '.';
+import { IPropertyType } from '../../../../../../types';
 import PropertyTypeLayout from './layout';
 
 const Commercial: React.FC<IPropertyType> = ({list}) => {

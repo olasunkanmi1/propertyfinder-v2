@@ -1,10 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-
-export interface IsearchFiltersState {
-  main: string | null;
-  minMax: string | null;
-}
+import { IsearchFiltersState } from '../types';
 
 const { persistAtom } = recoilPersist({
   key: 'search-filter-persist',

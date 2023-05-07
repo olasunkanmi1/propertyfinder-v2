@@ -1,6 +1,7 @@
 import {useState, useRef} from 'react'
 import { useRecoilState } from 'recoil';
-import { IUserState, layoutState, userState } from '../../../states';
+import { layoutState, userState } from '../../../states';
+import { IUserState } from '../../../types';
 import ModalLayout from './modal-layout';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'

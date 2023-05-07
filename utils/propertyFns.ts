@@ -1,10 +1,10 @@
-import axios from "axios";
-import { IObj, IHandleSaveAndUnsaveProps } from "../types";
+import { IHandleSaveAndUnsaveProps, IObj } from "../types";
 import { setToast } from "./setToast";
+import axiosInstance from "./axiosInstance";
 
 const saveProperty = async (obj: IObj) => {
     try {
-        const res = await axios.post(("/property"), obj, {withCredentials: true}) 
+        const res = await axiosInstance.post(("/property"), obj) 
         return res
     } catch (error) {
         throw error
@@ -13,7 +13,7 @@ const saveProperty = async (obj: IObj) => {
 
 const unSaveProperty = async (externalID: String) => {
     try {
-        const res = await axios.delete((`/unsave-property/${externalID}`), {withCredentials: true}) 
+        const res = await axiosInstance.delete((`/unsave-property/${externalID}`)) 
         return res
     } catch (error) {
         throw error

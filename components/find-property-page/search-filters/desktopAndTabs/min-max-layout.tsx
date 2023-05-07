@@ -1,8 +1,8 @@
 import { useRecoilValue } from 'recoil';
-import { filterAtom, IFilterState, searchFiltersState } from '../../../../states';
+import { filterAtom, searchFiltersState } from '../../../../states';
 import { AiOutlineUp } from 'react-icons/ai';
 import DropdownWithMinMax from './dropdown/with-minMax';
-import { IMinMaxLayoutProps } from '../../../../types';
+import { IFilterState, IMinMaxLayoutProps } from '../../../../types';
 
 const MinMaxLayout: React.FC<IMinMaxLayoutProps> = ({handleDropdown, min, max, array, selected}) => {
   const dropdown = useRecoilValue(searchFiltersState);

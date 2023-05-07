@@ -51,7 +51,7 @@ const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
                             <div className='bg-green-500 text-white text-sm absolute top-2 right-0 px-1 shadow-md'> 
                                 <div className="relative bg-green-500 text-white">
                                     <div className="absolute -left-[19px] top-[5px] w-0 h-0 border-x-[10px] border-x-transparent border-b-[10px] border-b-green-500 transform -rotate-90" />
-                                    <span className="relative z-10">FEATURED</span>
+                                    <span className="relative z-10">POPULAR</span>
                                 </div>
                             </div> 
                         }

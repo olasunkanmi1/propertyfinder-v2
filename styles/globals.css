@@ -156,3 +156,7 @@ a {
   font-size: 50px !important;
   font-weight: 900 !important;
 }
+
+.swiper-pagination-bullet {
+  background: #0847A8 !important;
+}

@@ -1,16 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { MdLocationOn, MdOutlineTune } from 'react-icons/md'
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { MdLocationOn } from 'react-icons/md'
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { addressSuggestionsAtom, searchFiltersState } from '../../../../states';
 import Dropdown from './dropdown';
 import { bayutFetchFn } from '../../../../utils/bayutFetchFn';
 import { filterAtom } from '../../../../states';
-
-export interface ISearchboxProps {
-  desktop?: boolean;
-  suggestionsRef?: React.MutableRefObject<HTMLDivElement | null>;
-}
+import { ISearchboxProps } from '../../../../types';
 
 const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -65,7 +60,6 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
   //     inputRef.current.value = suggestions.address
   //  } 
   // }, [suggestions.address])
-  
 
   return (
     <div className={`space-y-2 ${desktop ? 'relative col-span-2' : ''}`}>

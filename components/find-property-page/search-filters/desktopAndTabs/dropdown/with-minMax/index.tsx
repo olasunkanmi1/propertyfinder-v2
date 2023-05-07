@@ -1,6 +1,6 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { filterAtom, IFilterState, loadingState, searchFiltersState } from '../../../../../../states';
-import { ICategoryType, IDropdownWithMinMaxProps } from '../../../../../../types';
+import { filterAtom, loadingState, searchFiltersState } from '../../../../../../states';
+import { IDropdownWithMinMaxProps, IFilterState } from '../../../../../../types';
 import Options from './options';
 import { findProperties } from '../../../../../../utils/findProperty/findProperties';
 

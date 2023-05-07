@@ -1,36 +1,5 @@
 import { atom } from 'recoil'
-import { SignInInitialValues } from '../types';
-
-export interface ToastNotification {
-    id: number,
-    toastType: string,
-    toastMessage: string,
-}
-
-export interface ILayoutState {
-    profileDropdown: boolean,
-    isSidebarOpen: boolean,
-    isFilterbarOpen: boolean,
-    signInModal: boolean,
-    signUpModal: boolean,
-    forgotPasswordModal: boolean,
-    forgotPasswordMail: string,
-    forgotPasswordMailSent: boolean,
-    verifyEmailMailSent: boolean,
-    editProfileModal: boolean,
-    changePasswordModal: boolean,
-    clearConfirmationModal: boolean,
-    imageModal: boolean,
-
-    imageBlob: string,
-    selectedFile: File | null,
-    imgUrlToBeDeleted: string,
-    modalImages: string[],
-    initialSlide: number,
-    ptyToSaveOnLogin?: SignInInitialValues['ptyToSaveOnLogin'],
-
-    toastNotifications: ToastNotification[];
-}
+import { ILayoutState } from '../types';
 
 export const layoutState = atom<ILayoutState>({
     key: 'dropdownAndModalState',

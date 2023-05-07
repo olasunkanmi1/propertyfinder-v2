@@ -7,8 +7,8 @@ import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
 import { SignInInitialValues } from '../../../types'
 import { Loader } from '../../loader'
-import axios from 'axios'
 import { setToast } from '../../../utils/setToast'
+import axiosInstance from '../../../utils/axiosInstance'
 const ModalLayout = dynamic(() => import('./modal-layout')) 
 const FormField = dynamic(() => import('./field')) 
 
@@ -32,7 +32,7 @@ const SignInModal = () => {
     setLoading(true);
     if(modal.ptyToSaveOnLogin) values.ptyToSaveOnLogin = modal.ptyToSaveOnLogin
 
-    axios.post("/login", values, { withCredentials: true })
+    axiosInstance.post("/login", values)
       .then(async (res) => {
         const {alreadySaved} = res.data
         setLoading(false);

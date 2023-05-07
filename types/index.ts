@@ -1,13 +1,11 @@
 import { StaticImageData } from "next/image";
 import { ChangeEvent, Dispatch, ReactElement, SetStateAction } from "react";
 import { IconType } from "react-icons/lib";
-import { Resetter, SetterOrUpdater } from "recoil";
-import { ILayoutState, IPropertiesState, IUserState } from "../states";
+import { SetterOrUpdater } from "recoil";
 
 export interface LayoutProps {
     title: string;
     children: JSX.Element[] | JSX.Element;
-    user: any;
 }
 
 export interface IProfileProps {
@@ -98,9 +96,13 @@ export interface PropertyProps {
 }
 
 export interface HomepageProps {
-    featuredProperties?: Property[];
-    featuredAgencies?: Agency[];
-    savedProperties?: Property[];
+    featuredProperties: Property[];
+    featuredAgencies: Agency[];
+    savedProperties: Property[];
+}
+
+export interface FeaturedAgenciesProps {
+    featuredAgencies: Agency[];
 }
 
 export interface FindPropertyPageProps {
@@ -121,7 +123,7 @@ export interface SimilarPropertiesProps {
     similarProperties: Property[];
 }
 
-export interface ICategoryType {
+interface ICategoryType {
     items: {
         name: string;
         value: string;
@@ -393,7 +395,6 @@ export interface EditProfileInitialValues {
     fieldsAndFreshImage?: boolean;
     fieldsAndDeletePrevAndUploadNew?: boolean;
     fieldsAndDeletePrevWithoutUploadNew?: boolean;
-    justFields?: boolean;
     withFormData?: boolean;
 }
 
@@ -407,3 +408,201 @@ export interface IUpdateProfileProps {
     imgUrlToBeDeleted: string;
     setUser: (valOrUpdater: IUserState | ((currVal: IUserState | null) => IUserState | null) | null) => void
 }
+
+export interface PaginationProps {
+    pageCount?: number;
+}
+
+export interface ISearchFiltersProps {
+  filterRef: React.MutableRefObject<HTMLDivElement | null>;
+  suggestionsRef: React.MutableRefObject<HTMLDivElement | null>;
+}
+
+export interface IDirectDropdownProps {
+    title: string;
+    options?: {
+        name: string;
+        value: string;
+    }[];
+    queryName?: string;
+    select: string;
+}
+
+export interface IOptionsProps {
+  items: {
+    name: string;
+    value: string;
+}[];
+  queryName: string;
+}
+
+export interface IOptionsWithToggleProps {
+  options?: ICategoryType[] | ({
+    items: {
+        name: string;
+        value: string;
+    }[];
+    placeholder: string;
+    queryName: string;
+    dropdown: string;
+    categories?: undefined;
+} | {
+    categories: {
+        items: {
+            name: string;
+            value: string;
+        }[];
+        placeholder: string;
+        queryName: string;
+    }[];
+    placeholder: string;
+    dropdown: string;
+    items?: undefined;
+    queryName?: undefined;
+} | {
+  items?: {
+    name: string;
+    value: string;
+}[];
+queryName?: string;
+})[];
+select: string;
+}
+
+export interface IPropertyType {
+  list?: {
+      items: {
+          name: string;
+          value: string;
+          icon?: string;
+      }[];
+      placeholder: string;
+      queryName: string;
+  }[];
+};
+
+export interface IDropdownProps {
+    loading: boolean;
+    suggestions: addressSuggestionsAtomState;
+    setSuggestions: SetterOrUpdater<addressSuggestionsAtomState>;
+    inputRef: React.RefObject<HTMLInputElement>;
+    desktop?: boolean;
+    suggestionsRef?: React.MutableRefObject<HTMLDivElement | null>;
+}
+
+export interface ISearchboxProps {
+  desktop?: boolean;
+  suggestionsRef?: React.MutableRefObject<HTMLDivElement | null>;
+}
+
+export interface HeadingProps {
+    heading: string;
+}
+
+export interface ChangePasswordInitialValues {
+    oldPassword: string;
+    newPassword: string;
+}
+
+export interface ForgotPasswordInitialValues {
+    email: string;
+}
+
+export interface IDisclaimerProps {
+    agency: string
+};
+
+export interface ResetPasswordInitialValues {
+    password: string;
+    confirmPassword: string;
+}
+
+export interface IVerifyEmail {
+    isVerified: boolean
+}
+
+export interface addressSuggestionsAtomState {
+    address: string;
+    predictions: {
+        externalID: string;
+        name: string;
+    }[] | null;
+}
+
+export interface IFilterState {
+    purpose?: string | string[];
+    rentFrequency?: string | string[];
+    priceMin?: string | string[];
+    priceMax?: string | string[];
+    sort?: string | string[];
+    areaMin?: string | string[];
+    areaMax?: string | string[];
+    roomsMin?: string | string[];
+    roomsMax?: string | string[];
+    bathsMin?: string | string[];
+    bathsMax?: string | string[];
+    furnishingStatus?: string | string[];
+    categoryExternalID?: string | string[];
+    locationExternalIDs?: string | string[];
+
+    propertyType?: string;
+    emirates?: string;
+    sortBy?: string;
+}
+
+export interface ToastNotification {
+    id: number,
+    toastType: string,
+    toastMessage: string,
+}
+
+export interface ILayoutState {
+    profileDropdown: boolean,
+    isSidebarOpen: boolean,
+    isFilterbarOpen: boolean,
+    signInModal: boolean,
+    signUpModal: boolean,
+    forgotPasswordModal: boolean,
+    forgotPasswordMail: string,
+    forgotPasswordMailSent: boolean,
+    verifyEmailMailSent: boolean,
+    editProfileModal: boolean,
+    changePasswordModal: boolean,
+    clearConfirmationModal: boolean,
+    imageModal: boolean,
+
+    imageBlob: string,
+    selectedFile: File | null,
+    imgUrlToBeDeleted: string,
+    modalImages: string[],
+    initialSlide: number,
+    ptyToSaveOnLogin?: SignInInitialValues['ptyToSaveOnLogin'],
+
+    toastNotifications: ToastNotification[];
+}
+
+export interface ILoadingState {
+    routeChangeLoading: boolean;
+    propertiesLoading: boolean;
+    userLoading: boolean;
+};
+
+export interface IPropertiesState {
+    featuredProperties?: Property[],
+    savedProperties?: Property[] | null,
+    properties?: Property[],
+    ptyWaitLoading: boolean,
+}
+
+export interface IsearchFiltersState {
+    main: string | null;
+    minMax: string | null;
+}
+
+export interface IUserState {
+    firstName: string;
+    lastName: string;
+    email: string;
+    isVerified: boolean;
+    photoUrl: string;
+};

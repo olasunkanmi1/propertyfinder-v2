@@ -1,6 +1,6 @@
-import axios from "axios";
 import { IUpdateProfileProps } from "../types";
 import { setToast } from "./setToast";
+import axiosInstance from "./axiosInstance";
 
 export const editProfile = ({content, values, setLoading, setSubmitting, setModal, file, imgUrlToBeDeleted, setUser}: IUpdateProfileProps) => {
     const isFormData = content instanceof FormData;
@@ -17,11 +17,9 @@ export const editProfile = ({content, values, setLoading, setSubmitting, setModa
     } else if(!file && imgUrlToBeDeleted) { //DELETE PREVIOUS IMAGE: just delete previous image, upload just fields without image
         values.fieldsAndDeletePrevWithoutUploadNew = true
         values.public_id = publicId
-    } else { // no upload or delete, just fields
-        values.justFields = true
-    }
+    }  // if none of the above, only fields are edited
 
-    axios.patch("/user", content, { withCredentials: true, 
+    axiosInstance.patch("/user", content, {
         headers: isFormData ? {
             'Content-Type':'multipart/form-data'
         } : {},
@@ -31,7 +29,12 @@ export const editProfile = ({content, values, setLoading, setSubmitting, setModa
             setToast('success', 'Profile updated successfully', setModal)
             setLoading(false);
             setSubmitting(false);
-            setModal(modal => ({...modal, editProfileModal: false}))
+            setModal(modal => ({...modal, 
+                editProfileModal: false,
+                imageBlob: '',
+                selectedFile: null,
+                imgUrlToBeDeleted: ''
+            }))
 
             setUser(res.data.user)
         }

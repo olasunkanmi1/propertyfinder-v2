@@ -5,15 +5,11 @@ import ModalLayout from './modal-layout';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
 import FormField from './field'
-import axios from 'axios';
 import { AiOutlineLock } from 'react-icons/ai'
 import { Loader } from '../../loader';
 import { setToast } from '../../../utils/setToast';
-
-interface ChangePasswordInitialValues {
-    oldPassword: string;
-    newPassword: string;
-}
+import axiosInstance from '../../../utils/axiosInstance';
+import { ChangePasswordInitialValues } from '../../../types';
 
 const ChangePasswordModal = () => {
     const [loading, setLoading] = useState(false);
@@ -32,7 +28,7 @@ const ChangePasswordModal = () => {
   const handleSubmit = (values: ChangePasswordInitialValues, { setSubmitting }: FormikHelpers<ChangePasswordInitialValues>) => {
     setLoading(true);
 
-    axios.patch("/update-password", values, { withCredentials: true })
+    axiosInstance.patch("/update-password", values)
       .then(async (res) => {
         setLoading(false);
         

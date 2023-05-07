@@ -1,12 +1,5 @@
 import { atom } from 'recoil'
-
-export interface IUserState {
-    firstName: string;
-    lastName: string;
-    email: string;
-    isVerified: boolean;
-    photoUrl: string;
-};
+import { IUserState } from '../types';
 
 export const userState = atom<IUserState | null>({
     key: 'userAtom',

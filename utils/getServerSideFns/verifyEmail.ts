@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
     const {token, email} = query
@@ -11,7 +11,6 @@ export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
     }
     
     const config = {
-      withCredentials: true,
       headers: req.headers.cookie ? {
         Cookie: req.headers.cookie
       } : {
@@ -20,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
     };
   
     try {
-      const {data} = await axios.post(`${process.env.BACKEND_URL}/auth/verify-email`, obj, config);
+      const {data} = await axiosInstance.post(`${process.env.BACKEND_URL}/auth/verify-email`, obj, config);
       if(data) isVerified = true
     } catch (error) {
       isVerified = false

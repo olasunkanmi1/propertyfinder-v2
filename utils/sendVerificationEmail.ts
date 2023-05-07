@@ -1,7 +1,7 @@
-import axios from 'axios'
 import { SetterOrUpdater } from 'recoil'
 import { setToast } from './setToast'
-import { ILayoutState } from '../states'
+import { ILayoutState } from '../types'
+import axiosInstance from './axiosInstance'
 
 export const sendVerificationEmail = async (email: string, setModal:  SetterOrUpdater<ILayoutState>) => {
     setToast('loading', 'Sending verification link...', setModal)
@@ -11,7 +11,7 @@ export const sendVerificationEmail = async (email: string, setModal:  SetterOrUp
       fromDropdown: true
     }
     
-    axios.post("/verify-email", obj, { withCredentials: true })
+    axiosInstance.post("/verify-email", obj)
     .then(async (res) => {
       if (res.status === 200) {
         setToast('dismiss', '', setModal)

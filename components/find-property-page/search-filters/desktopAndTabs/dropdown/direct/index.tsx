@@ -1,17 +1,8 @@
 import { useState } from 'react'
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
-import { filterAtom, addressSuggestionsAtom, IFilterState, loadingState, searchFiltersState } from '../../../../../../states';
+import { filterAtom, addressSuggestionsAtom, loadingState, searchFiltersState } from '../../../../../../states';
 import { findProperties } from '../../../../../../utils/findProperty/findProperties';
-
-interface IDirectDropdownProps {
-    title: string;
-    options?: {
-        name: string;
-        value: string;
-    }[];
-    queryName?: string;
-    select: string;
-}
+import { IDirectDropdownProps, IFilterState } from '../../../../../../types';
 
 const DirectDropdown: React.FC<IDirectDropdownProps> = ({ title, options, queryName, select}) => {
   const [filterState, setFilterState] = useRecoilState(filterAtom);

@@ -4,18 +4,6 @@ import { filterOptions } from '../../../../../../utils/filteringOptions';
 import Commercial from './commercial';
 import Residential from './residential';
 
-export interface IPropertyType {
-  list?: {
-      items: {
-          name: string;
-          value: string;
-          icon?: string;
-      }[];
-      placeholder: string;
-      queryName: string;
-  }[];
-};
-
 const PropertyType = () => {
   const [filterState, setFilterState] = useRecoilState(filterAtom);
 

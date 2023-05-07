@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useRecoilState } from "recoil";
-import { ToastNotification, layoutState } from "../../states";
+import { layoutState } from "../../states";
+import { ToastNotification } from "../../types";
 import { Spinner } from "../loader";
 import { AiOutlineCheck, AiOutlineClose, AiOutlineExclamation } from "react-icons/ai";
 import {motion} from 'framer-motion'

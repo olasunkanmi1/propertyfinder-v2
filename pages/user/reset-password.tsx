@@ -4,7 +4,6 @@ import Image from "next/image"
 import logo from '../../public/assets/logo.webp'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
-import axios from 'axios'
 import { AiOutlineLock } from "react-icons/ai";
 import FormField from "../../components/layout/modals/field";
 import { useSetRecoilState } from 'recoil';
@@ -15,11 +14,8 @@ import success from '../../public/assets/success.webp'
 import { getServerSideProps } from '../../utils/getServerSideFns/resetPassword';
 import CustomNotification from '../../components/custom-notification';
 import { setToast } from '../../utils/setToast';
-
-interface ResetPasswordInitialValues {
-    password: string;
-    confirmPassword: string;
-}
+import axiosInstance from '../../utils/axiosInstance';
+import { ResetPasswordInitialValues } from '../../types';
 
 const ResetPassword = () => {
     const [loading, setLoading] = useState(false);
@@ -45,7 +41,7 @@ const ResetPassword = () => {
         password: values.password
       }
 
-    axios.post("/reset-password", obj, { withCredentials: true})
+    axiosInstance.post("/reset-password", obj)
       .then(async (res) => {
         setLoading(false);
         

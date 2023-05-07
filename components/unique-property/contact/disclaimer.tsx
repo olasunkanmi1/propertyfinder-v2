@@ -1,6 +1,4 @@
-interface IDisclaimerProps {
-    agency: string
-};
+import { IDisclaimerProps } from "../../../types"
 
 const Disclaimer:React.FC<IDisclaimerProps> = ({agency}) => {
   return (

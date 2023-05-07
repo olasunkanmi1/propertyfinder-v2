@@ -1,14 +1,7 @@
-import { filterAtom, IFilterState, searchFiltersState, loadingState } from '../../../../../../states';
+import { filterAtom, searchFiltersState, loadingState } from '../../../../../../states';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { findProperties } from '../../../../../../utils/findProperty/findProperties';
-
-interface IOptionsProps {
-  items: {
-    name: string;
-    value: string;
-}[];
-  queryName: string;
-}
+import { IFilterState, IOptionsProps } from '../../../../../../types';
 
 const Options: React.FC<IOptionsProps> = ({items, queryName}) => {
     const setDropdown = useSetRecoilState(searchFiltersState);

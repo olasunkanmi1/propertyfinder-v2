@@ -13,14 +13,13 @@ const Dropdown = dynamic(() => import('./navbar/profile/dropdown'))
 const Sidebar = dynamic(() => import('./sidebar'));
 const Filterbar = dynamic(() => import('../find-property-page/search-filters/mobile/filterbar'));
 const ImageModal = dynamic(() => import('../unique-property/image-modal'));
-import { getServerSideProps } from '../../utils/getServerSideFns/layout'
 
-const Layout: React.FC<LayoutProps> = ({ title, children, user }) => {
-  const [loading, setLoading] = useRecoilState(loadingState);
+const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const modal = useRecoilValue(layoutState);
+  const setLoading = useSetRecoilState(loadingState);
   const setUser = useSetRecoilState(userState);
   const closeALll = useResetRecoilState(layoutState);
-
+  
   const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal, clearConfirmationModal, imageModal } = modal;
   const modals = signInModal || signUpModal || isFilterbarOpen || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal || imageModal
 
@@ -68,5 +67,3 @@ const Layout: React.FC<LayoutProps> = ({ title, children, user }) => {
 }
 
 export default Layout
-
-export { getServerSideProps };

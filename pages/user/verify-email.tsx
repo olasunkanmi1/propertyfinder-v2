@@ -5,10 +5,7 @@ import {useRouter} from 'next/router';
 import success from '../../public/assets/success.webp'
 import error from '../../public/assets/error.webp'
 import { getServerSideProps } from '../../utils/getServerSideFns/verifyEmail';
-
-interface IVerifyEmail {
-  isVerified: boolean
-}
+import { IVerifyEmail } from '../../types';
 
 const VerifyEmail: React.FC<IVerifyEmail> = ({isVerified}) => {
     const router = useRouter();

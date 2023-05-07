@@ -1,15 +1,8 @@
-import { ISelectLayoutProps } from '../../../../../types';
+import { IOptionsProps, ISelectLayoutProps } from '../../../../../types';
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { filterAtom, IFilterState, loadingState } from '../../../../../states';
+import { filterAtom, loadingState } from '../../../../../states';
+import { IFilterState } from '../../../../../types';
 import { findProperties } from '../../../../../utils/findProperty/findProperties';
-
-interface IOptionsProps {
-  items: {
-    name: string;
-    value: string;
-  }[], 
-  queryName: string
-}
 
 const SelectLayout: React.FC<ISelectLayoutProps> = ({heading, min, max}) => {
   const [filterState, setFilterState] = useRecoilState(filterAtom);
