@@ -1,10 +1,9 @@
 import {useState} from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { layoutState, propertiesState } from '../../../states';
 import ModalLayout from './modal-layout';
-import { Spinner } from '../../loader';
-import { setToast } from '../../../utils/setToast';
-import axiosInstance from '../../../utils/axiosInstance';
+import { layoutState, propertiesState } from '@states';
+import { Spinner } from '@components';
+import { setToast, axiosInstance } from '@utils';
 
 const ClearSavedPropertiesModal = () => {
     const [loading, setLoading] = useState(false);

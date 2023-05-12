@@ -1,17 +1,15 @@
-import {memo} from 'react'
-import dynamic from 'next/dynamic'
-import { UniquePropertyPageProps } from '../../../types'
-const Images = dynamic(() => import('./images'));
-const Info = dynamic(() => import('./info'));
+import Images from './images';
+import Info from './info';
+import { UniquePropertyPageProps } from '@types'
 
-const Details: React.FC<UniquePropertyPageProps> = memo(({propertyDetails}) => {
+const Details: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
   return (
-    <div className='flex flex-col col-span-1 xll:col-span-2 xll:pr-3 min-h-auto'>
+    <div className='flex flex-col xll:max-w-[calc(100%-390px)] min-h-auto'>
         <Images propertyDetails={propertyDetails} />
         <Info propertyDetails={propertyDetails} />
     </div> 
   )
-})
+}
 
 Details.displayName = 'Details';
 export default Details

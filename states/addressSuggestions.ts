@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from "recoil-persist";
-import { addressSuggestionsAtomState } from '../types';
+import { addressSuggestionsAtomState } from '@types';
 
 const { persistAtom } = recoilPersist({
     key: 'addressSuggestions-persist',

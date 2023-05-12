@@ -1,29 +1,12 @@
-import { filterOptions } from '../../../../../utils/filteringOptions';
+import { minMaxLayoutArray } from '@utils';
 import SelectLayout from './select-layout'
 
 const PriceAndArea = () => {
-  const price = filterOptions.filter((filter) => filter.placeholder === 'Price (AED)');
-  const area = filterOptions.filter((filter) => filter.placeholder === 'Area (sqft)');
-  
-  const priceMin = {
-    list: price[0].categories?.filter((filter) => filter.placeholder === 'Min Price(AED)'),
-    oppositeQueryName: 'priceMax'
-  };
-  
-  const priceMax = {
-    list: price[0].categories?.filter((filter) => filter.placeholder === 'Max Price(AED)'),
-    oppositeQueryName: 'priceMin'
-  };
-  
-  const areaMin = {
-    list: area[0].categories?.filter((filter) => filter.placeholder === 'Min Area (sqft)'),
-    oppositeQueryName: 'areaMax'
-  };
-  
-  const areaMax = {
-    list: area[0].categories?.filter((filter) => filter.placeholder === 'Max Area (sqft)'),
-    oppositeQueryName: 'areaMin'
-  };
+  const price = minMaxLayoutArray.find(minMax => minMax.selected === 'price')!
+  const area = minMaxLayoutArray.find(minMax => minMax.selected === 'area')!
+
+  const {min: priceMin, max: priceMax} = price
+  const {min: areaMin, max: areaMax} = area
 
   return (
     <div className='space-y-4'>

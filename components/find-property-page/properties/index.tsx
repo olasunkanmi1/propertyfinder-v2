@@ -1,11 +1,9 @@
 import Image from 'next/image'
-import Property from '../../property'
-import homeNotFound from "../../../public/assets/homeNotFound.webp";
 import { useRouter } from 'next/router';
-import Heading from '../../heading';
 import { useRecoilValue } from 'recoil';
-import { loadingState, propertiesState } from '../../../states';
-import CardSkeleton from '../../property/skeleton';
+import {homeNotFound} from "@public";
+import { loadingState, propertiesState } from '@states';
+import {CardSkeleton, Heading, Property} from '@components';
 
 const Properties = () => {
   const loading = useRecoilValue(loadingState);

@@ -1,7 +1,10 @@
-import dynamic from 'next/dynamic'
-
-export const Layout = dynamic(() => import('./layout'));
+export {default as Layout} from './layout';
 export * from './Homepage';
 export * from './find-property-page';
 export * from './unique-property';
 export {default as Property} from './property';
+export {default as FormField} from './layout/modals/field';
+export {Loader, Spinner} from './loader';
+export {default as CustomNotification} from './custom-notification';
+export {default as Heading} from './heading';
+export {default as CardSkeleton} from './property/skeleton';

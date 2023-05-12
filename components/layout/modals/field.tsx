@@ -1,9 +1,9 @@
 import {useState} from 'react'
 import { Field, ErrorMessage } from 'formik';
-import { BiShow } from 'react-icons/bi';
-import { IFormFieldProps } from '../../../types';
-import { TextError } from './error';
 import { AiOutlineEyeInvisible } from 'react-icons/ai';
+import { BiShow } from 'react-icons/bi';
+import { TextError } from './error';
+import { IFormFieldProps } from '@types';
 
 const FormField: React.FC<IFormFieldProps> = ({title, icon, name, placeholder, password, error, value}) => {
     const [pwVisibility, setPwVisibility] = useState(false)

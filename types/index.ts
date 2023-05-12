@@ -92,7 +92,6 @@ export interface Agency {
 export interface PropertyProps {
     property: Property;
     similar?: boolean;
-    featured?: boolean;
 }
 
 export interface HomepageProps {
@@ -136,158 +135,107 @@ interface ICategoryType {
 export interface ISelectLayoutProps {
     heading: string;
     min: {
-        list?: ICategoryType[];
+        items: ICategoryType['items'];
+        queryName: string;
         oppositeQueryName: string;
     }
     
     max: {
-        list?: ICategoryType[];
+        items: ICategoryType['items'];
+        queryName: string;
         oppositeQueryName: string;
     }
+}
+
+export interface IDropdownLayoutProps {
+    selected: string;
+    children: JSX.Element;
+    Dropdown: () => JSX.Element;
+    minMax?:boolean;
 }
 
 export interface IDropdownWithToggleProps {
     select: string;
     title: string;
-    tabs?: {
+    items?: {
         name: string;
         value: string;
     }[];
-    queryName?: string;
-    categories?: ICategoryType[];
-}
-
-export interface IDropdownWithMinMaxProps {
-    select?: string;
-    title: string;
-    min: {
-        list?: ICategoryType[];
-        queryName: string;
-        oppositeQueryName: string;
-    };
-    max: {
-        list?: ICategoryType[];
-        queryName: string;
-        oppositeQueryName: string;
-    };
-}
-
-export interface IToggleLayoutProps {
-    handleDropdown: (dropdownValue: string) => void;
-    selected: string;
-    array: ({
+    queryName: string;
+    categories?: {
         items: {
             name: string;
             value: string;
         }[];
         placeholder: string;
-        queryName: string;
-        dropdown: string;
-        categories?: undefined;
-    } | {
-        categories: {
-            items: {
+    }[];
+}
+
+export interface IDropdownWithMinMaxProps {
+    select: string;
+    title: string;
+    minMaxValues: {
+        values: {
+            title: string;
+            queryName: string;
+            filteredItems: {
                 name: string;
                 value: string;
-            }[];
-            placeholder: string;
-            queryName: string;
-        }[];
-        placeholder: string;
-        dropdown: string;
-        items?: undefined;
-        queryName?: undefined;
-    } | {
-        items?: {
-            name: string;
-            value: string;
-        }[];
+            }[]
+        }[]
+        minKey: string;
+        maxKey: string
+        minValue?: string | string[];
+        maxValue?: string | string[];
+    }
+}
+
+export interface IToggleLayoutProps {
+    selected: string;
+    options: {
+        items?: ICategoryType['items'];
         categories?: {
             items: {
                 name: string;
                 value: string;
             }[];
             placeholder: string;
-            queryName: string;
         }[];
         placeholder: string;
-        queryName: string;
-    })[];
+        queryName: string;    
+    }
 }
 
 export interface IMinMaxLayoutProps {
-    handleDropdown: (dropdownValue: string) => void;
     selected: string;
-    array: ({
+    placeholder: string;
+    min: {
         items: {
             name: string;
             value: string;
         }[];
         placeholder: string;
         queryName: string;
-        dropdown: string;
-        categories?: undefined;
-    } | {
-        categories: {
-            items: {
-                name: string;
-                value: string;
-            }[];
-            placeholder: string;
-            queryName: string;
+        oppositeQueryName: string;
+    }
+    max: {
+        items: {
+            name: string;
+            value: string;
         }[];
         placeholder: string;
-        dropdown: string;
-        items?: undefined;
-        queryName?: undefined;
-    } | {
-        placeholder: string;
-    })[];
-    min: {
-        list?: ICategoryType[];
         queryName: string;
         oppositeQueryName: string;
-    };
-    max: {
-        list?: ICategoryType[];
-        queryName: string;
-        oppositeQueryName: string;
-    };
+    }
 }
 
 export interface IDirectDropdownLayoutProps {
-    handleDropdown: (dropdownValue: string) => void;
     selected: string;
-    array: ({
-        items: {
-            name: string;
-            value: string;
-        }[];
+    options: {
+        items?: ICategoryType['items'];
         placeholder: string;
         queryName: string;
-        dropdown: string;
-        categories?: undefined;
-    } | {
-        categories: {
-            items: {
-                name: string;
-                value: string;
-            }[];
-            placeholder: string;
-            queryName: string;
-        }[];
-        placeholder: string;
-        dropdown: string;
-        items?: undefined;
-        queryName?: undefined;
-    } | {
-        items?: {
-            name: string;
-            value: string;
-        }[];
-        placeholder: string;
-        queryName?: string;
-    })[];
+    }
 }
 
 export interface SignInInitialValues {
@@ -424,7 +372,7 @@ export interface IDirectDropdownProps {
         name: string;
         value: string;
     }[];
-    queryName?: string;
+    queryName: string;
     select: string;
 }
 
@@ -437,48 +385,21 @@ export interface IOptionsProps {
 }
 
 export interface IOptionsWithToggleProps {
-  options?: ICategoryType[] | ({
-    items: {
-        name: string;
-        value: string;
-    }[];
-    placeholder: string;
-    queryName: string;
-    dropdown: string;
-    categories?: undefined;
-} | {
-    categories: {
-        items: {
-            name: string;
-            value: string;
-        }[];
-        placeholder: string;
-        queryName: string;
-    }[];
-    placeholder: string;
-    dropdown: string;
-    items?: undefined;
-    queryName?: undefined;
-} | {
-  items?: {
-    name: string;
-    value: string;
-}[];
-queryName?: string;
-})[];
-select: string;
+    select: string;
+    options?: ICategoryType['items'],
+    queryName: string,
 }
 
 export interface IPropertyType {
-  list?: {
-      items: {
-          name: string;
-          value: string;
-          icon?: string;
-      }[];
-      placeholder: string;
-      queryName: string;
-  }[];
+    options: {
+        items: {
+            name: string;
+            value: string;
+            icon?: string;
+        }[];
+        placeholder: string;
+        queryName: string;
+    }
 };
 
 export interface IDropdownProps {
@@ -530,24 +451,25 @@ export interface addressSuggestionsAtomState {
 }
 
 export interface IFilterState {
-    purpose?: string | string[];
-    rentFrequency?: string | string[];
-    priceMin?: string | string[];
-    priceMax?: string | string[];
-    sort?: string | string[];
-    areaMin?: string | string[];
-    areaMax?: string | string[];
-    roomsMin?: string | string[];
-    roomsMax?: string | string[];
-    bathsMin?: string | string[];
-    bathsMax?: string | string[];
-    furnishingStatus?: string | string[];
-    categoryExternalID?: string | string[];
-    locationExternalIDs?: string | string[];
+    purpose: string | string[];
+    rentFrequency: string | string[];
+    priceMin: string | string[];
+    priceMax: string | string[];
+    sort: string | string[];
+    areaMin: string | string[];
+    areaMax: string | string[];
+    roomsMin: string | string[];
+    roomsMax: string | string[];
+    bathsMin: string | string[];
+    bathsMax: string | string[];
+    furnishingStatus: string | string[];
+    categoryExternalID: string | string[];
+    locationExternalIDs: string | string[];
 
-    propertyType?: string;
-    emirates?: string;
-    sortBy?: string;
+    propertyType: string;
+    emirates: string;
+    sortBy: string;
+    address: string;
 }
 
 export interface ToastNotification {
@@ -605,4 +527,64 @@ export interface IUserState {
     email: string;
     isVerified: boolean;
     photoUrl: string;
+};
+
+export interface IFilterOptionsWithMinMax {
+    categories: {
+        items: {
+            name: string;
+            value: string;
+        }[];
+        placeholder: string;
+        queryName: string;
+        oppositeQueryName: string;
+    }[];
+    placeholder: string;
+};
+
+interface DirectSelections {
+    items?: {
+        name: string;
+        value: string;
+    }[];
+    placeholder: string;
+    queryName: string;
+};
+
+export interface MinMaxSelections {
+    categories: {
+        items: {
+            name: string;
+            value: string;
+        }[];
+        placeholder: string;
+        queryName: string;
+        oppositeQueryName: string;
+    }[];
+    placeholder: string;
+}
+
+export interface ISelections {
+    purposes: DirectSelections;
+    rentFrequency: DirectSelections;
+    propertyTypes: {
+        categories?: {
+            items: {
+                name: string;
+                value: string;
+                icon: string;
+            }[];
+            placeholder: string;
+            queryName: string;
+        }[];
+        placeholder: string;
+        queryName: string;
+    };
+    rooms: MinMaxSelections;
+    baths: MinMaxSelections;
+    area: MinMaxSelections;
+    price: MinMaxSelections;
+    emirates: DirectSelections;
+    furnishingStatus: DirectSelections;
+    sort: DirectSelections;
 };

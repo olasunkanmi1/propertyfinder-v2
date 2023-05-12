@@ -1,5 +1,5 @@
 import axiosInstance from "./axiosInstance";
-import { IUserState, Property } from "../types";
+import { IUserState, Property } from "@types";
 
 export const fetchUser = async (): Promise<IUserState | null> => {
     try {

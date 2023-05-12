@@ -1,6 +1,6 @@
-import { IFilterValues } from "../types";
+import { IFilterOptionsWithMinMax, IFilterValues, ISelections, MinMaxSelections } from "@types";
 
-export const filterOptions = [
+const filterOptions = [
   // Purpose
   {
     items: [
@@ -9,12 +9,10 @@ export const filterOptions = [
     ],
     placeholder: 'Purpose',
     queryName: 'purpose',
-    dropdown: 'purposeDropdown',
   },
   // Rent Frequency
   {
     items: [
-      { name: 'Any', value: 'any' },
       { name: 'Yearly', value: 'yearly' },
       { name: 'Monthly', value: 'monthly' },
       { name: 'Weekly', value: 'weekly' },
@@ -22,86 +20,11 @@ export const filterOptions = [
     ],
     placeholder: 'Rent Frequency',
     queryName: 'rentFrequency',
-    dropdown: 'frequencyDropdown',
-  },
-  // price
-  {
-    categories: [
-      // Min Price(AED)
-      {
-        items: [ 
-          { name: '0', value: '0' },
-          { name: '10,000', value: '10000' },
-          { name: '20,000', value: '20000' },
-          { name: '30,000', value: '30000' },
-          { name: '40,000', value: '40000' },
-          { name: '50,000', value: '50000' },
-          { name: '60,000', value: '60000' },
-          { name: '85,000', value: '85000' },
-          { name: '110,000', value: '110000' },
-          { name: '135,000', value: '135000' },
-          { name: '160,000', value: '160000' },
-          { name: '185,000', value: '185000' },
-          { name: '200,000', value: '200000' },
-          { name: '250,000', value: '250000' },
-          { name: '300,000', value: '300000' },
-          { name: '350,000', value: '350000' },
-          { name: '400,000', value: '400000' },
-          { name: '450,000', value: '450000' },
-          { name: '500,000', value: '500000' },
-          { name: '550,000', value: '550000' },
-          { name: '600,000', value: '600000' },
-          { name: '650,000', value: '650000' },
-          { name: '700,000', value: '700000' },
-          { name: '750,000', value: '750000' },
-          { name: '800,000', value: '800000' },
-          { name: '850,000', value: '850000' },
-          { name: '900,000', value: '900000' },
-          { name: '950,000', value: '950000' },
-        ],
-        placeholder: 'Min Price(AED)',
-        queryName: 'priceMin',
-      },
-      // Max Price(AED)
-      {
-        items: [
-          { name: 'Any', value: 'any' },
-          { name: '50,000', value: '50000' },
-          { name: '60,000', value: '60000' },
-          { name: '85,000', value: '85000' },
-          { name: '110,000', value: '110000' },
-          { name: '135,000', value: '135000' },
-          { name: '160,000', value: '160000' },
-          { name: '185,000', value: '185000' },
-          { name: '200,000', value: '200000' },
-          { name: '250,000', value: '250000' },
-          { name: '300,000', value: '300000' },
-          { name: '350,000', value: '350000' },
-          { name: '400,000', value: '400000' },
-          { name: '450,000', value: '450000' },
-          { name: '500,000', value: '500000' },
-          { name: '550,000', value: '550000' },
-          { name: '600,000', value: '600000' },
-          { name: '650,000', value: '650000' },
-          { name: '700,000', value: '700000' },
-          { name: '750,000', value: '750000' },
-          { name: '800,000', value: '800000' },
-          { name: '850,000', value: '850000' },
-          { name: '900,000', value: '900000' },
-          { name: '950,000', value: '950000' },
-          { name: '1,000,000', value: '1000000' },
-        ],
-        placeholder: 'Max Price(AED)',
-        queryName: 'priceMax',
-      },
-    ],
-    placeholder: 'Price (AED)',
-    dropdown: 'priceDropdown',
   },
   // Sort
   {
     items: [
-      { name: 'Popular', value: 'popular' },
+      { name: 'Any', value: 'any' },
       { name: 'Newest', value: 'date-desc' },
       { name: 'Lowest Price', value: 'price-asc' },
       { name: 'Highest Price', value: 'price-desc' },
@@ -109,174 +32,6 @@ export const filterOptions = [
     ],
     placeholder: 'Sort',
     queryName: 'sort',
-    dropdown: 'sortDropdown',
-  },
-  // Area (sqft)
-  {
-    categories: [
-      // Min Area(sqft)
-      {
-        items: [
-          { name: '0', value: '0' },
-          { name: '800', value: '800' },
-          { name: '1,000', value: '1000' },
-          { name: '1,500', value: '1500' },
-          { name: '2,000', value: '2000' },
-          { name: '2,500', value: '2500' },
-          { name: '3,000', value: '3000' },
-          { name: '3,500', value: '3500' },
-          { name: '4,000', value: '4000' },
-          { name: '4,500', value: '4500' },
-          { name: '5,000', value: '5000' },
-          { name: '5,500', value: '5500' },
-          { name: '6,000', value: '6000' },
-          { name: '6,500', value: '6500' },
-          { name: '7,000', value: '7000' },
-          { name: '7,500', value: '7500' },
-          { name: '8,000', value: '8000' },
-          { name: '9,000', value: '9000' },
-          { name: '10,000', value: '10000' },
-          { name: '11,000', value: '11000' },
-          { name: '12,000', value: '12000' },
-          { name: '13,000', value: '13000' },
-          { name: '14,000', value: '14000' },
-          { name: '15,000', value: '15000' },
-          { name: '17,500', value: '17500' },
-          { name: '20000', value: '20000' },
-          { name: '22,500', value: '22500' },
-          { name: '25,000', value: '25000' },
-          { name: '30,000', value: '30000' },
-          { name: '35,000', value: '35000' },
-        ],
-        placeholder: 'Min Area (sqft)',
-        queryName: 'areaMin',
-      },
-      // Max Area(sqft)
-      {
-        items: [
-          { name: 'Any', value: 'any' },
-          { name: '800', value: '800' },
-          { name: '1,000', value: '1000' },
-          { name: '1,500', value: '1500' },
-          { name: '2,000', value: '2000' },
-          { name: '2,500', value: '2500' },
-          { name: '3,000', value: '3000' },
-          { name: '3,500', value: '3500' },
-          { name: '4,000', value: '4000' },
-          { name: '4,500', value: '4500' },
-          { name: '5,000', value: '5000' },
-          { name: '5,500', value: '5500' },
-          { name: '6,000', value: '6000' },
-          { name: '6,500', value: '6500' },
-          { name: '7,000', value: '7000' },
-          { name: '7,500', value: '7500' },
-          { name: '8,000', value: '8000' },
-          { name: '9,000', value: '9000' },
-          { name: '10,000', value: '10000' },
-          { name: '11,000', value: '11000' },
-          { name: '12,000', value: '12000' },
-          { name: '13,000', value: '13000' },
-          { name: '14,000', value: '14000' },
-          { name: '15,000', value: '15000' },
-          { name: '17,500', value: '17500' },
-          { name: '20000', value: '20000' },
-          { name: '22,500', value: '22500' },
-          { name: '25,000', value: '25000' },
-          { name: '30,000', value: '30000' },
-          { name: '35,000', value: '35000' },
-        ],
-        placeholder: 'Max Area (sqft)',
-        queryName: 'areaMax',
-      },
-    ],
-    placeholder: 'Area (sqft)',
-    dropdown: 'areaDropdown',
-  },
-  // Rooms
-  {
-    categories: [
-      // Rooms Min
-      {
-        items: [
-          { name: '0', value: '0' },
-          { name: '1', value: '1' },
-          { name: '2', value: '2' },
-          { name: '3', value: '3' },
-          { name: '4', value: '4' },
-          { name: '5', value: '5' },
-          { name: '6', value: '6' },
-          { name: '7', value: '7' },
-          { name: '8', value: '8' },
-          { name: '9', value: '9' },
-          { name: '10', value: '10' },
-        ],
-        placeholder: 'Rooms Min',
-        queryName: 'roomsMin',
-      },
-      // Rooms Max
-      {
-        items: [
-          { name: 'Any', value: 'any' },
-          { name: '1', value: '1' },
-          { name: '2', value: '2' },
-          { name: '3', value: '3' },
-          { name: '4', value: '4' },
-          { name: '5', value: '5' },
-          { name: '6', value: '6' },
-          { name: '7', value: '7' },
-          { name: '8', value: '8' },
-          { name: '9', value: '9' },
-          { name: '10', value: '10' },
-        ],
-        placeholder: 'Rooms Max',
-        queryName: 'roomsMax',
-      },
-    ],
-    placeholder: 'Rooms',
-    dropdown: 'roomsDropdown',
-  },
-  // Baths
-  {
-    categories: [
-      // Baths Min
-      {
-        items: [
-          { name: '0', value: '0' },
-          { name: '1', value: '1' },
-          { name: '2', value: '2' },
-          { name: '3', value: '3' },
-          { name: '4', value: '4' },
-          { name: '5', value: '5' },
-          { name: '6', value: '6' },
-          { name: '7', value: '7' },
-          { name: '8', value: '8' },
-          { name: '9', value: '9' },
-          { name: '10', value: '10' },
-        ],
-        placeholder: 'Baths Min',
-        queryName: 'bathsMin',
-      },
-      // Baths Max
-      {
-        items: [
-          { name: 'Any', value: 'any' },
-          { name: '1', value: '1' },
-          { name: '2', value: '2' },
-          { name: '3', value: '3' },
-          { name: '4', value: '4' },
-          { name: '5', value: '5' },
-          { name: '6', value: '6' },
-          { name: '7', value: '7' },
-          { name: '8', value: '8' },
-          { name: '9', value: '9' },
-          { name: '10', value: '10' },
-        ],
-        placeholder: 'Baths Max',
-        queryName: 'bathsMax',
-      },
-    ],
-    placeholder: 'Baths',
-    dropdown: 'bathsDropdown',
   },
   // Furnishing Status
   {
@@ -287,18 +42,6 @@ export const filterOptions = [
     ],
     placeholder: 'Furnishing Status',
     queryName: 'furnishingStatus',
-    dropdown: 'furnishDropdown',
-  },
-  // Completion Status
-  {
-    items: [
-      { name: 'Any', value: 'any' },
-      { name: 'Furnished', value: 'furnished' },
-      { name: 'Unfurnished', value: 'unfurnished' },
-    ],
-    placeholder: 'Completion Status',
-    queryName: 'compeletionStatus',
-    dropdown: 'furnishDropdown',
   },
   // Property Type
   {
@@ -343,11 +86,11 @@ export const filterOptions = [
     ],
     placeholder: 'Property Type',
     queryName: 'categoryExternalID',
-    dropdown: 'propertyTypeDropdown',
   },
   // Emirates
   {
     items: [
+      { name: 'Any', value: 'any' },
       { name: 'Abu Dhabi', value: '6020' },
       { name: 'Ajman', value: '5385' },
       { name: 'Dubai', value: '5002' },
@@ -358,9 +101,256 @@ export const filterOptions = [
     ],
     placeholder: 'Emirates',
     queryName: 'locationExternalIDs',
-    dropdown: 'emiratesDropdown',
   },
 ]; 
+
+const filterOptionsWithMinMax: IFilterOptionsWithMinMax[] = [
+  // price
+  {
+    categories: [
+      // Min Price(AED)
+      {
+        items: [ 
+          { name: '0', value: '0' },
+          { name: '10,000', value: '10000' },
+          { name: '20,000', value: '20000' },
+          { name: '30,000', value: '30000' },
+          { name: '40,000', value: '40000' },
+          { name: '50,000', value: '50000' },
+          { name: '60,000', value: '60000' },
+          { name: '85,000', value: '85000' },
+          { name: '110,000', value: '110000' },
+          { name: '135,000', value: '135000' },
+          { name: '160,000', value: '160000' },
+          { name: '185,000', value: '185000' },
+          { name: '200,000', value: '200000' },
+          { name: '250,000', value: '250000' },
+          { name: '300,000', value: '300000' },
+          { name: '350,000', value: '350000' },
+          { name: '400,000', value: '400000' },
+          { name: '450,000', value: '450000' },
+          { name: '500,000', value: '500000' },
+          { name: '550,000', value: '550000' },
+          { name: '600,000', value: '600000' },
+          { name: '650,000', value: '650000' },
+          { name: '700,000', value: '700000' },
+          { name: '750,000', value: '750000' },
+          { name: '800,000', value: '800000' },
+          { name: '850,000', value: '850000' },
+          { name: '900,000', value: '900000' },
+          { name: '950,000', value: '950000' },
+        ],
+        placeholder: 'Min Price(AED)',
+        queryName: 'priceMin',
+        oppositeQueryName: 'priceMax',
+      },
+      // Max Price(AED)
+      {
+        items: [
+          { name: 'Any', value: 'any' },
+          { name: '50,000', value: '50000' },
+          { name: '60,000', value: '60000' },
+          { name: '85,000', value: '85000' },
+          { name: '110,000', value: '110000' },
+          { name: '135,000', value: '135000' },
+          { name: '160,000', value: '160000' },
+          { name: '185,000', value: '185000' },
+          { name: '200,000', value: '200000' },
+          { name: '250,000', value: '250000' },
+          { name: '300,000', value: '300000' },
+          { name: '350,000', value: '350000' },
+          { name: '400,000', value: '400000' },
+          { name: '450,000', value: '450000' },
+          { name: '500,000', value: '500000' },
+          { name: '550,000', value: '550000' },
+          { name: '600,000', value: '600000' },
+          { name: '650,000', value: '650000' },
+          { name: '700,000', value: '700000' },
+          { name: '750,000', value: '750000' },
+          { name: '800,000', value: '800000' },
+          { name: '850,000', value: '850000' },
+          { name: '900,000', value: '900000' },
+          { name: '950,000', value: '950000' },
+          { name: '1,000,000', value: '1000000' },
+        ],
+        placeholder: 'Max Price(AED)',
+        queryName: 'priceMax',
+        oppositeQueryName: 'priceMin',
+      },
+    ],
+    placeholder: 'Price (AED)',
+  },
+  // Area (sqft)
+  {
+    categories: [
+      // Min Area(sqft)
+      {
+        items: [
+          { name: '0', value: '0' },
+          { name: '800', value: '800' },
+          { name: '1,000', value: '1000' },
+          { name: '1,500', value: '1500' },
+          { name: '2,000', value: '2000' },
+          { name: '2,500', value: '2500' },
+          { name: '3,000', value: '3000' },
+          { name: '3,500', value: '3500' },
+          { name: '4,000', value: '4000' },
+          { name: '4,500', value: '4500' },
+          { name: '5,000', value: '5000' },
+          { name: '5,500', value: '5500' },
+          { name: '6,000', value: '6000' },
+          { name: '6,500', value: '6500' },
+          { name: '7,000', value: '7000' },
+          { name: '7,500', value: '7500' },
+          { name: '8,000', value: '8000' },
+          { name: '9,000', value: '9000' },
+          { name: '10,000', value: '10000' },
+          { name: '11,000', value: '11000' },
+          { name: '12,000', value: '12000' },
+          { name: '13,000', value: '13000' },
+          { name: '14,000', value: '14000' },
+          { name: '15,000', value: '15000' },
+          { name: '17,500', value: '17500' },
+          { name: '20000', value: '20000' },
+          { name: '22,500', value: '22500' },
+          { name: '25,000', value: '25000' },
+          { name: '30,000', value: '30000' },
+          { name: '35,000', value: '35000' },
+        ],
+        placeholder: 'Min Area (sqft)',
+        queryName: 'areaMin',
+        oppositeQueryName: 'areaMax',
+      },
+      // Max Area(sqft)
+      {
+        items: [
+          { name: 'Any', value: 'any' },
+          { name: '800', value: '800' },
+          { name: '1,000', value: '1000' },
+          { name: '1,500', value: '1500' },
+          { name: '2,000', value: '2000' },
+          { name: '2,500', value: '2500' },
+          { name: '3,000', value: '3000' },
+          { name: '3,500', value: '3500' },
+          { name: '4,000', value: '4000' },
+          { name: '4,500', value: '4500' },
+          { name: '5,000', value: '5000' },
+          { name: '5,500', value: '5500' },
+          { name: '6,000', value: '6000' },
+          { name: '6,500', value: '6500' },
+          { name: '7,000', value: '7000' },
+          { name: '7,500', value: '7500' },
+          { name: '8,000', value: '8000' },
+          { name: '9,000', value: '9000' },
+          { name: '10,000', value: '10000' },
+          { name: '11,000', value: '11000' },
+          { name: '12,000', value: '12000' },
+          { name: '13,000', value: '13000' },
+          { name: '14,000', value: '14000' },
+          { name: '15,000', value: '15000' },
+          { name: '17,500', value: '17500' },
+          { name: '20000', value: '20000' },
+          { name: '22,500', value: '22500' },
+          { name: '25,000', value: '25000' },
+          { name: '30,000', value: '30000' },
+          { name: '35,000', value: '35000' },
+        ],
+        placeholder: 'Max Area (sqft)',
+        queryName: 'areaMax',
+        oppositeQueryName: 'areaMin',
+      },
+    ],
+    placeholder: 'Area (sqft)',
+  },
+  // Rooms
+  {
+    categories: [
+      // Rooms Min
+      {
+        items: [
+          { name: '0', value: '0' },
+          { name: '1', value: '1' },
+          { name: '2', value: '2' },
+          { name: '3', value: '3' },
+          { name: '4', value: '4' },
+          { name: '5', value: '5' },
+          { name: '6', value: '6' },
+          { name: '7', value: '7' },
+          { name: '8', value: '8' },
+          { name: '9', value: '9' },
+          { name: '10', value: '10' },
+        ],
+        placeholder: 'Rooms Min',
+        queryName: 'roomsMin',
+        oppositeQueryName: 'roomsMax'
+      },
+      // Rooms Max
+      {
+        items: [
+          { name: 'Any', value: 'any' },
+          { name: '1', value: '1' },
+          { name: '2', value: '2' },
+          { name: '3', value: '3' },
+          { name: '4', value: '4' },
+          { name: '5', value: '5' },
+          { name: '6', value: '6' },
+          { name: '7', value: '7' },
+          { name: '8', value: '8' },
+          { name: '9', value: '9' },
+          { name: '10', value: '10' },
+        ],
+        placeholder: 'Rooms Max',
+        queryName: 'roomsMax',
+        oppositeQueryName: 'roomsMin'
+      },
+    ],
+    placeholder: 'Rooms',
+  },
+  // Baths
+  {
+    categories: [
+      // Baths Min
+      {
+        items: [
+          { name: '0', value: '0' },
+          { name: '1', value: '1' },
+          { name: '2', value: '2' },
+          { name: '3', value: '3' },
+          { name: '4', value: '4' },
+          { name: '5', value: '5' },
+          { name: '6', value: '6' },
+          { name: '7', value: '7' },
+          { name: '8', value: '8' },
+          { name: '9', value: '9' },
+          { name: '10', value: '10' },
+        ],
+        placeholder: 'Baths Min',
+        queryName: 'bathsMin',
+        oppositeQueryName: 'bathsMax',
+      },
+      // Baths Max
+      {
+        items: [
+          { name: 'Any', value: 'any' },
+          { name: '1', value: '1' },
+          { name: '2', value: '2' },
+          { name: '3', value: '3' },
+          { name: '4', value: '4' },
+          { name: '5', value: '5' },
+          { name: '6', value: '6' },
+          { name: '7', value: '7' },
+          { name: '8', value: '8' },
+          { name: '9', value: '9' },
+          { name: '10', value: '10' },
+        ],
+        placeholder: 'Baths Max',
+        queryName: 'bathsMax',
+        oppositeQueryName: 'bathsMin',
+      },
+    ],
+    placeholder: 'Baths',
+  },
+]
   
 export const getFilterValues = (filterValues: IFilterValues) => {
   const {
@@ -441,3 +431,123 @@ export const getFilterValues = (filterValues: IFilterValues) => {
 
   return values;
 };
+
+const findObjectByPlaceholder  = (placeholder: string) => filterOptions.find((filter) => filter.placeholder === placeholder)!
+const findObjectWithMinMaxByPlaceholder = (placeholder: string) => filterOptionsWithMinMax.find((filter) => filter.placeholder === placeholder)!
+export const selections: ISelections = {
+  purposes: findObjectByPlaceholder ('Purpose'),
+  rentFrequency: findObjectByPlaceholder ('Rent Frequency'),
+  propertyTypes: findObjectByPlaceholder ('Property Type'),
+  rooms: findObjectWithMinMaxByPlaceholder('Rooms'),
+  baths: findObjectWithMinMaxByPlaceholder('Baths'),
+  area: findObjectWithMinMaxByPlaceholder('Area (sqft)'),
+  price: findObjectWithMinMaxByPlaceholder('Price (AED)'),
+  emirates: findObjectByPlaceholder ('Emirates'),
+  furnishingStatus: findObjectByPlaceholder ('Furnishing Status'),
+  sort: findObjectByPlaceholder ('Sort'),
+}
+
+export const propertyTypeSelections = {
+  residentialProperty: selections.propertyTypes.categories?.find((category) => category.placeholder === 'Residential')!,
+  commercialProperty: selections.propertyTypes.categories?.find((category) => category.placeholder === 'Commercial')!,
+}
+
+export const propertyTypeSelectionsIDs = {
+  residentialPropertyIDs: [...propertyTypeSelections.residentialProperty.items.map(item => item.value), '1'],
+  commercialPropertyIDs: propertyTypeSelections.commercialProperty.items.map(item => item.value)
+}
+
+const findCategoryByPlaceholder = (option: MinMaxSelections, placeholder: string) =>  option.categories.find((category) => category.placeholder === placeholder)!
+
+// for search filters
+const withMinMax = {
+  roomsMin: findCategoryByPlaceholder(selections.rooms, 'Rooms Min'),
+  roomsMax: findCategoryByPlaceholder(selections.rooms, 'Rooms Max'),
+  bathsMin: findCategoryByPlaceholder(selections.baths, 'Baths Min'),
+  bathsMax: findCategoryByPlaceholder(selections.baths, 'Baths Max'),
+  areaMin: findCategoryByPlaceholder(selections.area, 'Min Area (sqft)'),
+  areaMax: findCategoryByPlaceholder(selections.area, 'Max Area (sqft)'),
+  priceMin: findCategoryByPlaceholder(selections.price, 'Min Price(AED)'),
+  priceMax: findCategoryByPlaceholder(selections.price, 'Max Price(AED)'),
+}
+
+const filterWithMinMax = () => {
+  const {roomsMin, roomsMax, bathsMin, bathsMax, areaMin, areaMax, priceMin, priceMax} = withMinMax;
+
+  return {
+    rooms: {
+      roomsMin,
+      roomsMax
+    },
+  
+    baths: {
+      bathsMin,
+      bathsMax
+    },
+  
+    area: {
+      areaMin,
+      areaMax
+    },
+  
+    price: {
+      priceMin,
+      priceMax
+    }
+  }
+}
+
+const {rooms, baths, area, price} = filterWithMinMax();
+
+export const toggleLayoutArray = [
+  {
+    selected: 'purpose',
+    options: selections.purposes,
+  },
+  {
+    selected: 'propertyType',
+    options: selections.propertyTypes,
+  },
+]
+
+export const minMaxLayoutArray = [
+  {
+    selected: 'rooms',
+    placeholder: selections.rooms.placeholder,
+    min: rooms.roomsMin,
+    max: rooms.roomsMax,
+  },
+  {
+    selected: 'baths',
+    placeholder: selections.baths.placeholder,
+    min: baths.bathsMin,
+    max: baths.bathsMax,
+  },
+  {
+    selected: 'area',
+    placeholder: selections.area.placeholder,
+    min: area.areaMin,
+    max: area.areaMax,
+  },
+  {
+    selected: 'price',
+    placeholder: selections.price.placeholder,
+    min: price.priceMin,
+    max: price.priceMax,
+  },
+]
+
+export const directLayoutArray = [
+  {
+    selected: 'emirates',
+    options: selections.emirates,
+  },
+  {
+    selected: 'furnishingStatus',
+    options: selections.furnishingStatus,  
+  },
+  {
+    selected: 'sortBy',
+    options: selections.sort,
+  },
+]

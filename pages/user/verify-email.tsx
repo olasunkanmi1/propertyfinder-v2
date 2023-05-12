@@ -1,11 +1,9 @@
 import Head from 'next/head'
 import Image from "next/image"
-import logo from '../../public/assets/logo.webp'
 import {useRouter} from 'next/router';
-import success from '../../public/assets/success.webp'
-import error from '../../public/assets/error.webp'
-import { getServerSideProps } from '../../utils/getServerSideFns/verifyEmail';
-import { IVerifyEmail } from '../../types';
+import {logo, success, error} from '@public'
+import { verifyEmailGSSP } from '@utils';
+import { IVerifyEmail } from '@types';
 
 const VerifyEmail: React.FC<IVerifyEmail> = ({isVerified}) => {
     const router = useRouter();
@@ -37,4 +35,4 @@ const VerifyEmail: React.FC<IVerifyEmail> = ({isVerified}) => {
 
 export default VerifyEmail
 
-export { getServerSideProps }
+export const getServerSideProps = verifyEmailGSSP;

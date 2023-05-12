@@ -1,6 +1,6 @@
-import { AiOutlineClose } from 'react-icons/ai'
 import { useSetRecoilState } from 'recoil'
-import { layoutState } from '../../../../../states'
+import { AiOutlineClose } from 'react-icons/ai'
+import { layoutState } from '@states'
 
 const Top = () => {
     const closeFilter = useSetRecoilState(layoutState)
@@ -10,6 +10,7 @@ const Top = () => {
             isFilterbarOpen: false
           }))
     }
+
   return (
     <div className='flex text-primary justify-between p-5'>
         <span />

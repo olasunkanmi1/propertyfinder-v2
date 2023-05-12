@@ -1,10 +1,10 @@
 import {useState, useEffect} from 'react'
-import { UniquePropertyPageProps } from '../../../types';
 import Image from 'next/image'
+import { useSetRecoilState } from 'recoil';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useSetRecoilState } from 'recoil';
-import { layoutState } from '../../../states';
+import { UniquePropertyPageProps } from '@types';
+import { layoutState } from '@states';
 
 import 'swiper/css';
 import 'swiper/css/navigation';

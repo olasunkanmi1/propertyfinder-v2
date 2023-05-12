@@ -1,14 +1,12 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import dynamic from 'next/dynamic'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
+import Settings from './settings'
 import { GoVerified, GoUnverified } from "react-icons/go";
-import { useRecoilState, useSetRecoilState } from 'recoil'
-import { userState, propertiesState, layoutState } from '../../../../states'
-import { sendVerificationEmail } from '../../../../utils/sendVerificationEmail'
-import { logOut } from '../../../../utils/logOut'
-const Settings = dynamic(() => import('./settings')) 
+import { userState, propertiesState, layoutState } from '@states'
+import { sendVerificationEmail, logOut } from '@utils'
 
 const Dropdown = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -26,9 +24,9 @@ const Dropdown = () => {
   return (
     <>
       { modal.profileDropdown && (
-        <div className="hidden w-full xl:max-w-6xl px-3 sm:px-8 xl:px-0 md:block md:fixed left-[50%] translate-x-[-50%] top-0">
+        <div className="hidden w-full xl:max-w-6xl px-3 sm:px-8 xl:px-0 md:block md:fixed left-[50%] translate-x-[-50%] top-0 z-[22]">
           <div className=' relative'>
-              <div className="flex flex-col items-start absolute right-0 top-[74px] shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-md py-2 z-20 bg-white w-[250px] cursor-default" onClick={closeDropdown}>
+              <div className="flex flex-col items-start absolute right-0 top-[74px] shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-md py-2 bg-white w-[250px] cursor-default" onClick={closeDropdown}>
                   <div className='px-2 pb-1 overflow-hidden w-full border-b bg-white'>
                       <h6 className='font-semibold select-none text-ellipsis truncate'> {firstName} {lastName} </h6>
                       <p className='text-sm break-words'> {email} </p>

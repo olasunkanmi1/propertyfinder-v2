@@ -1,13 +1,15 @@
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { useSetRecoilState } from 'recoil';
-import { filterAtom, loadingState } from '../../../../states';
-import { Loader } from '../../../loader';
-import { findProperties } from '../../../../utils/findProperty/findProperties';
-import { IDropdownProps } from '../../../../types';
+import { filterAtom, loadingState } from '@states';
+import { Loader } from '@components';
+import { findProperties, selections } from '@utils';
+import { IDropdownProps } from '@types';
 
 const Dropdown = ({loading, suggestions, setSuggestions, inputRef, desktop, suggestionsRef}: IDropdownProps) => {
   const setLoading = useSetRecoilState(loadingState);
   const setFilter = useSetRecoilState(filterAtom);
+  const emiratesIDs = selections.emirates.items?.map(item => item.value)
+
 
     const handleSelect = async (externalID: string, name: string) => {
         setSuggestions({
@@ -23,7 +25,8 @@ const Dropdown = ({loading, suggestions, setSuggestions, inputRef, desktop, sugg
         setFilter(filter => ({
             ...filter,
             locationExternalIDs: externalID,
-            emirates: 'Emirates'
+            emirates: emiratesIDs?.includes(externalID) ? name : 'Emirates',
+            address: name
         }))
         
         inputRef.current ? inputRef.current.value = name : inputRef.current!.value = ''

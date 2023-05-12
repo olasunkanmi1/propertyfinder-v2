@@ -1,29 +1,12 @@
-import { filterOptions } from '../../../../../utils/filteringOptions';
+import { minMaxLayoutArray } from '@utils';
 import SelectLayout from './select-layout';
 
 const RoomsAndBaths = () => {
-  const rooms = filterOptions.filter((filter) => filter.placeholder === 'Rooms');
-  const baths = filterOptions.filter((filter) => filter.placeholder === 'Baths');
+  const rooms = minMaxLayoutArray.find(minMax => minMax.selected === 'rooms')!
+  const baths = minMaxLayoutArray.find(minMax => minMax.selected === 'baths')!
 
-  const roomsMin = {
-    list: rooms[0].categories?.filter((filter) => filter.placeholder === 'Rooms Min'),
-    oppositeQueryName: 'roomsMax'
-  };
-  
-  const roomsMax = {
-    list: rooms[0].categories?.filter((filter) => filter.placeholder === 'Rooms Max'),
-    oppositeQueryName: 'roomsMin'
-  };
-  
-  const bathsMin = {
-    list: baths[0].categories?.filter((filter) => filter.placeholder === 'Baths Min'),
-    oppositeQueryName: 'bathsMax'
-  };
-  
-  const bathsMax = {
-    list: baths[0].categories?.filter((filter) => filter.placeholder === 'Baths Max'),
-    oppositeQueryName: 'bathsMin'
-  };
+  const {min: roomsMin, max: roomsMax} = rooms
+  const {min: bathsMin, max: bathsMax} = baths
   
   return (
     <div className='space-y-4'>

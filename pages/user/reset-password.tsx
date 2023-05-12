@@ -1,21 +1,16 @@
 import {useState} from 'react'
 import Head from 'next/head'
+import {useRouter} from 'next/router';
 import Image from "next/image"
-import logo from '../../public/assets/logo.webp'
+import { useSetRecoilState } from 'recoil';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
 import { AiOutlineLock } from "react-icons/ai";
-import FormField from "../../components/layout/modals/field";
-import { useSetRecoilState } from 'recoil';
-import { layoutState } from '../../states';
-import { Loader } from '../../components/loader';
-import {useRouter} from 'next/router';
-import success from '../../public/assets/success.webp'
-import { getServerSideProps } from '../../utils/getServerSideFns/resetPassword';
-import CustomNotification from '../../components/custom-notification';
-import { setToast } from '../../utils/setToast';
-import axiosInstance from '../../utils/axiosInstance';
-import { ResetPasswordInitialValues } from '../../types';
+import {FormField, Loader, CustomNotification} from "@components";
+import { layoutState } from '@states';
+import {success, logo} from '@public'
+import { setToast, axiosInstance, resetPasswordGSSP } from '@utils';
+import { ResetPasswordInitialValues } from '@types';
 
 const ResetPassword = () => {
     const [loading, setLoading] = useState(false);
@@ -139,4 +134,4 @@ const ResetPassword = () => {
 
 export default ResetPassword
 
-export { getServerSideProps }
+export const getServerSideProps = resetPasswordGSSP;

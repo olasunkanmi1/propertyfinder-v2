@@ -1,15 +1,14 @@
 import {useState} from 'react'
+import { useRecoilState } from 'recoil'
 import { Form, Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup';
-import FormField from './field'
-import { Loader } from '../../loader'
-import { useRecoilState } from 'recoil'
-import { layoutState } from '../../../states'
 import { AiOutlineMail } from 'react-icons/ai';
+import FormField from './field'
 import ModalLayout from './modal-layout';
-import { setToast } from '../../../utils/setToast';
-import axiosInstance from '../../../utils/axiosInstance';
-import { ForgotPasswordInitialValues } from '../../../types';
+import { layoutState } from '@states'
+import { Loader } from '@components'
+import { setToast, axiosInstance } from '@utils';
+import { ForgotPasswordInitialValues } from '@types';
 
 const ForgotPassword = () => {
     const [loading, setLoading] = useState(false);

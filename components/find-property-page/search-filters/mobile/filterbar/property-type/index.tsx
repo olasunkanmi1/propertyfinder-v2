@@ -1,18 +1,12 @@
 import { useRecoilState } from 'recoil';
-import { filterAtom } from '../../../../../../states';
-import { filterOptions } from '../../../../../../utils/filteringOptions';
-import Commercial from './commercial';
-import Residential from './residential';
+import PropertyTypeLayout from './layout';
+import { filterAtom } from '@states';
+import { propertyTypeSelections, propertyTypeSelectionsIDs } from '@utils';
 
 const PropertyType = () => {
   const [filterState, setFilterState] = useRecoilState(filterAtom);
-
-  const propertyType = filterOptions.filter((filter) => filter.placeholder === 'Property Type')
-  const residentialList = propertyType[0].categories?.filter((filter) => filter.placeholder === 'Residential')
-  const commercialList = propertyType[0].categories?.filter((filter) => filter.placeholder === 'Commercial')
-
-  const residentialPropertyList = ['1', '4', '16', '3', '18', '21', '19', '14', '12', '17'];
-  const commercialPropertyList = ['2', '5', '6', '7', '9', '25', '20', '15', '13', '10', '8', '22', '23', '24', '11'];
+  const {residentialProperty, commercialProperty} = propertyTypeSelections;
+  const {residentialPropertyIDs, commercialPropertyIDs} = propertyTypeSelectionsIDs
 
   const changeTab = (value: string) => {
     setFilterState(filterState => ({
@@ -26,17 +20,17 @@ const PropertyType = () => {
       <h5 className='text-lg'> Property Type </h5>
 
       <div className="flex border p-1 rounded">
-        <div onClick={() => changeTab('1')} className={`tabSort ${residentialPropertyList.includes(filterState.categoryExternalID ? filterState.categoryExternalID.toString() : '') ? 'tabSortActive' : ''}`}>
+        <div onClick={() => changeTab('4')} className={`tabSort ${residentialPropertyIDs.includes(filterState.categoryExternalID.toString()) ? 'tabSortActive' : ''}`}>
             Residential
         </div>
         
-        <div onClick={() => changeTab('2')} className={`tabSort ${commercialPropertyList.includes(filterState.categoryExternalID ? filterState.categoryExternalID.toString() : '') ? 'tabSortActive' : ''}`}>
+        <div onClick={() => changeTab('4')} className={`tabSort ${commercialPropertyIDs.includes(filterState.categoryExternalID.toString()) ? 'tabSortActive' : ''}`}>
             Commercial
         </div>
       </div>
 
-      { residentialPropertyList.includes(filterState.categoryExternalID ? filterState.categoryExternalID.toString() : '') && <Residential list={residentialList} /> }
-      { commercialPropertyList.includes(filterState.categoryExternalID ? filterState.categoryExternalID.toString() : '') && <Commercial list={commercialList} /> }
+      { residentialPropertyIDs.includes(filterState.categoryExternalID.toString()) && <PropertyTypeLayout options={residentialProperty} /> }
+      { commercialPropertyIDs.includes(filterState.categoryExternalID.toString()) && <PropertyTypeLayout options={commercialProperty} /> }
     </div>
   )
 }

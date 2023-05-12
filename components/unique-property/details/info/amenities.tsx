@@ -1,4 +1,4 @@
-import { UniquePropertyPageProps } from '../../../../types';
+import { UniquePropertyPageProps } from '@types';
 
 const Amenities: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
   const { amenities } = propertyDetails;

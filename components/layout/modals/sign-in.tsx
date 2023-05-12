@@ -1,16 +1,14 @@
 import {useState} from 'react'
-import dynamic from 'next/dynamic'
-import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { layoutState, userState, propertiesState } from '../../../states'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
-import { SignInInitialValues } from '../../../types'
-import { Loader } from '../../loader'
-import { setToast } from '../../../utils/setToast'
-import axiosInstance from '../../../utils/axiosInstance'
-const ModalLayout = dynamic(() => import('./modal-layout')) 
-const FormField = dynamic(() => import('./field')) 
+import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
+import ModalLayout from './modal-layout'
+import FormField from './field'
+import { layoutState, userState, propertiesState } from '@states'
+import { SignInInitialValues } from '@types'
+import { Loader } from '@components'
+import { setToast, axiosInstance } from '@utils'
 
 const SignInModal = () => {
     const [loading, setLoading] = useState(false);
@@ -46,13 +44,13 @@ const SignInModal = () => {
             setModal( modal => ({
                 ...modal,
                 signInModal: false,
+                ptyToSaveOnLogin: undefined
             }));
 
           setUser(res.data.user)
             setProperties(properties => ({
                 ...properties,
                 savedProperties: res.data.savedProperties,
-                ptyToSaveOnLogin: undefined
             }))
         }
       })

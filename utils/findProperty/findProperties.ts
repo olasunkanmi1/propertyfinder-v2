@@ -1,7 +1,7 @@
 import Router from "next/router";
 import { getFilterValues } from "../filteringOptions";
 import { SetterOrUpdater } from "recoil";
-import { ILoadingState, IFilterValues } from "../../types";
+import { ILoadingState, IFilterValues } from "@types";
 
 export const findProperties = (filterValues: IFilterValues, setLoading: SetterOrUpdater<ILoadingState>) => {
     const path = Router.pathname;
@@ -9,12 +9,14 @@ export const findProperties = (filterValues: IFilterValues, setLoading: SetterOr
   
     const values = getFilterValues(filterValues);
   
-    values.forEach((item) => {
-      if (item.value && filterValues?.[item.name]) { //allow url to only show selected query. not all.
-        if(item.value !== 'any') {
-          query[item.name] = item.value;
+    values.forEach(({value, name}) => {
+      query.page = []; //set page to first when any filter option is selected
+
+      if (value && filterValues[name]) { //allow url to only show selected query. not all.
+        if(value !== 'any' && value !== '0') {
+          query[name] = value;
         } else {
-          query[item.name] = [];
+          query[name] = [];
         }
       }
     });

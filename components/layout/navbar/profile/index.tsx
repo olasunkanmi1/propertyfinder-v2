@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import { IProfileProps } from '../../../../types'
-import { AiOutlineUp } from 'react-icons/ai'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { layoutState, userState } from '../../../../states'
+import { AiOutlineUp } from 'react-icons/ai'
+import { IProfileProps } from '@types'
+import { layoutState, userState } from '@states'
 
 const Profile: React.FC<IProfileProps> = ({mobile}) => {
     const user = useRecoilValue(userState);

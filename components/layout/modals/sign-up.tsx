@@ -1,16 +1,14 @@
 import {useState} from 'react'
-import dynamic from 'next/dynamic'
-import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { layoutState, userState } from '../../../states'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
-import { SignUpInitialValues } from '../../../types'
-import { Loader } from '../../loader'
-import { setToast } from '../../../utils/setToast'
-import axiosInstance from '../../../utils/axiosInstance'
-const ModalLayout = dynamic(() => import('./modal-layout')) 
-const FormField = dynamic(() => import('./field')) 
+import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai'
+import ModalLayout from './modal-layout'
+import FormField from './field'
+import { SignUpInitialValues } from '@types'
+import { Loader } from '@components'
+import { setToast, axiosInstance } from '@utils'
+import { layoutState, userState } from '@states'
 
 const SignUpModal = () => {
     const [loading, setLoading] = useState(false);

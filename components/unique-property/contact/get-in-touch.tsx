@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { UniquePropertyPageProps } from '../../../types'
 import { BsTelephoneOutbound } from 'react-icons/bs';
 import { FaWhatsapp } from 'react-icons/fa';
+import { UniquePropertyPageProps } from '@types'
 
 const GetInTouch: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
   const { phoneNumber, referenceNumber } = propertyDetails;
@@ -12,11 +12,11 @@ const GetInTouch: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
 
       <div className='flex justify-between'>
         <Link href={`tel:${phoneNumber.mobile}`} passHref>
-          <a className='contact_links'> <BsTelephoneOutbound size={20} /> CALL </a>
+          <a className='contact_links btnAnimation'> <BsTelephoneOutbound size={20} /> CALL </a>
         </Link>
         
         <Link href={`https://wa.me/${phoneNumber.whatsapp}?text=I%20would%20like%20to%20inquire%20about%20your%20property%20Bayut%20-%20${referenceNumber}.`} passHref>
-          <a className='contact_links'> <FaWhatsapp size={20} /> WHATSAPP </a>
+          <a className='contact_links btnAnimation'> <FaWhatsapp size={20} /> WHATSAPP </a>
         </Link>
       </div>
     </div>

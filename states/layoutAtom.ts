@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-import { ILayoutState } from '../types';
+import { ILayoutState } from '@types';
 
 export const layoutState = atom<ILayoutState>({
     key: 'dropdownAndModalState',

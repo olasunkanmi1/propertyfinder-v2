@@ -1,4 +1,4 @@
-import { IHandleSaveAndUnsaveProps, IObj } from "../types";
+import { IHandleSaveAndUnsaveProps, IObj } from "@types";
 import { setToast } from "./setToast";
 import axiosInstance from "./axiosInstance";
 

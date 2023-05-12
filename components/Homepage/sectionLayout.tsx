@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { SectionLayoutProps } from '../../types';
+import { SectionLayoutProps } from '@types';
 import { AiOutlineSearch } from 'react-icons/ai'
 
 const SectionLayout: React.FC<SectionLayoutProps> = ({ heading, paragraph, text, buttonText, route, image, reverse, noIcon, firstImg }) => {

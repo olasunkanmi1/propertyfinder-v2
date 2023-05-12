@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic'
-
-const SectionLayout  = dynamic(() => import('../sectionLayout'));
-import image from '../../../public/assets/forRent.webp';
+import SectionLayout from '../sectionLayout';
+import {forRent} from '@public';
 
 const ForRent = () => {
   return (
@@ -11,7 +9,7 @@ const ForRent = () => {
         text="Explore Our Extensive Listings of Properties for Rent, from Cozy Apartments to Other Properties in any location of your choice in the UAE."
         buttonText="Explore Renting"
         route="/find-property?purpose=for-rent"
-        image={image}
+        image={forRent}
         reverse
         noIcon
     />

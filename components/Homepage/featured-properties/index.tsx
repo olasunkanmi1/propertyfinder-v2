@@ -1,12 +1,10 @@
 import { useRecoilValue } from 'recoil';
-import { propertiesState } from '../../../states';
-import Heading from '../../heading';
-import {Property} from '../../index';
-import CardSkeleton from '../../property/skeleton';
+import { propertiesState } from '@states';
+import {CardSkeleton, Property, Heading} from '@components';
 
 const FeaturedProperties = () => {
   const properties = useRecoilValue(propertiesState)
-
+  
   return (
     <div className="space-y-4">
       <Heading heading='Popular Properties' />
@@ -17,7 +15,7 @@ const FeaturedProperties = () => {
         ) : (
           properties.featuredProperties?.map((property) => {
               return (
-                <Property property={property} key={property.externalID} featured />
+                <Property property={property} key={property.externalID} />
               )
           })
         )}

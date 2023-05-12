@@ -1,4 +1,4 @@
-import { IDisclaimerProps } from "../../../types"
+import { IDisclaimerProps } from "@types"
 
 const Disclaimer:React.FC<IDisclaimerProps> = ({agency}) => {
   return (

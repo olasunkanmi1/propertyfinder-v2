@@ -90,18 +90,32 @@
   }
   
   .searchDropdown {
-    @apply w-full border shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-lg bg-white text-black
+    @apply w-full border shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-lg bg-white text-black overflow-hidden
   }
 
   .tooltip {
     @apply absolute right-4 -bottom-[9px] w-0 h-0 border-x-[8px] border-x-transparent border-b-[8px] border-b-white
   }
+
+  .dropdownWrapper {
+    @apply space-y-2 absolute rounded p-2 bg-white z-20 shadow-[rgba(0,0,0,0.24)_0px_3px_8px]
+  }
+
+  .dropdownWrapperHeader {
+    @apply text-black text-sm font-semibold
+  }
+
+  .btnAnimation {
+    @apply transition ease-in-out hover:scale-105 duration-500
+  }
+  
+  .gridLayout {
+    @apply grid grid-cols-1 gap-y-10 gap-x-4
+  }
 }
 
 @layer utilities {
   .gridLayout {
-    display: grid;
-    grid-gap: 40px 16px;
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 

@@ -1,31 +1,27 @@
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil'
 import { MdOutlineTune } from 'react-icons/md'
-import { filterOptions } from '../../../../utils/filteringOptions'
-import { addressSuggestionsAtom, filterAtom, loadingState, layoutState } from '../../../../states'
-import { useRouter } from 'next/router'
-import { findProperties } from '../../../../utils/findProperty/findProperties'
+import { selections, findProperties } from '@utils'
+import { addressSuggestionsAtom, filterAtom, loadingState, layoutState } from '@states'
 
 const EmiratesAndFilterIcon = () => {
-  const router = useRouter();
   const setLoading = useSetRecoilState(loadingState);
   const [filterState, setFilterState] = useRecoilState(filterAtom);
-  const [filterbarOpen, setFilterbarOpen] = useRecoilState(layoutState);
+  const [layout, setLayout] = useRecoilState(layoutState);
   const resetSuggestions = useResetRecoilState(addressSuggestionsAtom);
 
-  const { isFilterbarOpen } = filterbarOpen;
-
-  const emirates = filterOptions.filter((filter) => filter.placeholder === 'Emirates')
+  const { isFilterbarOpen } = layout;
+  const emirates = selections.emirates
+  const { items, placeholder, queryName } = emirates;
 
     const toggleFilterbar = () => {
-      setFilterbarOpen(filterbarOpen => ({
-            ...filterbarOpen,
+      setLayout(layout => ({
+            ...layout,
             isFilterbarOpen: !isFilterbarOpen
         }))
     }
     
-    const setEmirate = (value: string, queryName: string, name: string) => {
+    const setEmirate = (name: string, value: string) => {
       resetSuggestions();
-
       setLoading(loading => ({
             ...loading,
             propertiesLoading: true
@@ -43,19 +39,13 @@ const EmiratesAndFilterIcon = () => {
   return (
     <div className='flex justify-between '>
         <div className="flex justify-between rounded overflow-auto w-[calc(100%-43px)] ms:w-[calc(100%-105px)] pb-3 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100">
-          { emirates.map((emirate) => {
-            const { items, placeholder, queryName } = emirate;
-
-            return (
-              <div className="flex gap-1" key={placeholder}> 
-                { items?.map((item) => (
-                  <div onClick={() => setEmirate(item.value, queryName, item.name)} key={item.name} className={`flex p-2 border rounded w-max cursor-pointer duration-300 ease-in-out select-none ${ filterState.locationExternalIDs === item.value ? 'bg-secondary text-white' : '' }`}>
-                    { item.name }
-                  </div>
-                )) }
+          <div className="flex gap-1" key={placeholder}> 
+            { items?.map(({name, value}) => (
+              <div onClick={() => setEmirate(name, value)} key={name} className={`flex p-2 border rounded w-max cursor-pointer duration-300 ease-in-out select-none ${ filterState.locationExternalIDs === value ? 'bg-secondary text-white' : '' }`}>
+                { name }
               </div>
-            )
-          }) }
+            )) }
+          </div>
         </div>
 
         <div className="flex items-center gap-2 bg-primary text-white text-sm p-2 rounded ms:w-[98px] mb-3" onClick={toggleFilterbar}>

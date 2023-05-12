@@ -1,6 +1,4 @@
-import dynamic from 'next/dynamic'
-
-export const Details = dynamic(() => import('./details'));
-export const Contact = dynamic(() => import('./contact'));
-export const SimilarProperties = dynamic(() => import('./similar-properties'));
-export const NoProperty = dynamic(() => import('./no-property'));
+export {default as Details} from './details';
+export {default as Contact} from './contact';
+export {default as SimilarProperties} from './similar-properties';
+export {default as NoProperty} from './no-property';

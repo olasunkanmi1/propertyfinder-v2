@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic'
-
-const SectionLayout  = dynamic(() => import('../sectionLayout'));
-import image from '../../../public/assets/forSale.webp';
+import SectionLayout from '../sectionLayout';
+import {forSale} from '@public';
 
 const ForSale = () => {
   return (
@@ -11,7 +9,7 @@ const ForSale = () => {
         text="Explore Our Inventory of Homes That are Updated Daily So You Can Be Sure You're Seeing the Best Properties on The Market."
         buttonText="Explore Buying"
         route="/find-property?purpose=for-sale"
-        image={image}
+        image={forSale}
         noIcon
     />
   )    

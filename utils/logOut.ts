@@ -1,6 +1,6 @@
 import { setToast } from "./setToast"
 import { SetterOrUpdater } from "recoil"
-import { ILayoutState, IPropertiesState, IUserState } from "../types"
+import { ILayoutState, IPropertiesState, IUserState } from "@types"
 import {NextRouter} from 'next/router'
 import axiosInstance from "./axiosInstance"
 

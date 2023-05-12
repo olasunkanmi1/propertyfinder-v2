@@ -1,17 +1,14 @@
-import {useState, useEffect} from 'react'
-import { filterOptions } from '../../../../../../utils/filteringOptions';
-import { useRouter } from 'next/router';
-import Frequency from './frequency';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { filterAtom, loadingState } from '../../../../../../states';
-import { findProperties } from '../../../../../../utils/findProperty/findProperties';
+import RentFrequency from './rent-frequency';
+import { filterAtom, loadingState } from '@states';
+import { selections, findProperties } from '@utils';
 
 const PurposeAndFrequency = () => {
-  const router = useRouter();
   const setLoading = useSetRecoilState(loadingState);
   const [filterState, setFilterState] = useRecoilState(filterAtom);
 
-  const purposes = filterOptions.filter((filter) => filter.placeholder === 'Purpose');
+  const purposes = selections.purposes
+  const { items, placeholder, queryName } = purposes;
 
   const changeTab = (value: string, queryName: string) => {
     setFilterState(filterState => ({
@@ -29,23 +26,16 @@ const PurposeAndFrequency = () => {
   return (
     <div className='space-y-4'>
       <div className="flex border p-1 rounded">
-          { purposes.map((purpose) => {
-              const { items, placeholder, queryName } = purpose;
-
-              return (
-                  <div key={placeholder} className='flex w-full'>
-                      { items?.map((item) => (
-                          <div onClick={() => changeTab(item.value, queryName)} key={item.name} className={`tabSort ${filterState.purpose === item.value ? 'tabSortActive' : ''}`}>
-                              { item.name }
-                          </div>
-                      )) }
-                  </div>
-              )
-
-          }) }
+        <div key={placeholder} className='flex w-full'>
+          { items?.map(({name, value}) => (
+              <div onClick={() => changeTab(value, queryName)} key={name} className={`tabSort ${filterState.purpose === value ? 'tabSortActive' : ''}`}>
+                  { name }
+              </div>
+          )) }
+        </div>
       </div>
 
-      { filterState.purpose === 'for-rent' && <Frequency /> }
+      { filterState.purpose === 'for-rent' && <RentFrequency /> }
     </div>  
   )
 }

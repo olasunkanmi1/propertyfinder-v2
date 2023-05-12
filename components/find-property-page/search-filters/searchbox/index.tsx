@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
-import { MdLocationOn } from 'react-icons/md'
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import { addressSuggestionsAtom, searchFiltersState } from '../../../../states';
+import { MdLocationOn } from 'react-icons/md'
 import Dropdown from './dropdown';
-import { bayutFetchFn } from '../../../../utils/bayutFetchFn';
-import { filterAtom } from '../../../../states';
-import { ISearchboxProps } from '../../../../types';
+import { bayutFetchFn } from '@utils';
+import { addressSuggestionsAtom, searchFiltersState, filterAtom } from '@states';
+import { ISearchboxProps } from '@types';
 
 const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -28,10 +27,6 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
     
     if(e.target.value.length >= 3) {
       setLoading(true);
-
-      const featuredAgencies = false
-      const autoComplete = true
-
       const data = await bayutFetchFn({url: 'auto-complete', autoComplete: true, e});
       
       if(data) {
@@ -55,18 +50,12 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
      inputRef.current.value = '' 
   } 
 
-  // useEffect(() => {
-  //   if(inputRef.current) {
-  //     inputRef.current.value = suggestions.address
-  //  } 
-  // }, [suggestions.address])
-
   return (
-    <div className={`space-y-2 ${desktop ? 'relative col-span-2' : ''}`}>
+    <div className={`space-y-2 ${desktop ? 'relative col-start-2 col-span-2' : ''}`}>
       <div className='flex justify-between'>
           <div className={`flex items-center justify-between w-full border rounded p-2 gap-2 ${desktop ? 'bg-white text-black' : ''}`}>
             <MdLocationOn size={20} />
-            <input type='search' placeholder='Location' ref={inputRef} onChange={(e) => handleChange(e)} className={`outline-none w-[calc(100%-30px)] ${desktop ? 'font-semibold' : ''}`} />
+            <input type='search' placeholder='Location' defaultValue={filterState.address} ref={inputRef} onChange={(e) => handleChange(e)} className={`outline-none w-[calc(100%-30px)] ${desktop ? 'font-semibold' : ''}`} />
           </div>
       </div>
 

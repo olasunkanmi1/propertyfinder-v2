@@ -1,9 +1,9 @@
-import { AiOutlineClose } from 'react-icons/ai'
-import { useRecoilState, useResetRecoilState } from 'recoil'
-import { layoutState } from '../../../states'
-import { IModalLayoutProps, ILayoutState } from '../../../types'
 import Image from 'next/image'
-import logo from "../../../public/assets/logo.webp";
+import { useRecoilState, useResetRecoilState } from 'recoil'
+import { AiOutlineClose } from 'react-icons/ai'
+import { layoutState } from '@states'
+import { IModalLayoutProps, ILayoutState } from '@types'
+import {logo} from "@public";
 
 const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn, signUp}) => {
     const [modal, setModal] = useRecoilState(layoutState);

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
-import { filterAtom, addressSuggestionsAtom, loadingState, searchFiltersState } from '../../../../../../states';
-import { findProperties } from '../../../../../../utils/findProperty/findProperties';
-import { IDirectDropdownProps, IFilterState } from '../../../../../../types';
+import { filterAtom, addressSuggestionsAtom, loadingState, searchFiltersState } from '@states';
+import { findProperties } from '@utils';
+import { IDirectDropdownProps, IFilterState } from '@types';
 
 const DirectDropdown: React.FC<IDirectDropdownProps> = ({ title, options, queryName, select}) => {
   const [filterState, setFilterState] = useRecoilState(filterAtom);
@@ -18,21 +18,28 @@ const DirectDropdown: React.FC<IDirectDropdownProps> = ({ title, options, queryN
     if(select === 'emirates') {
       setFilterState(filterState => ({
         ...filterState,
-        emirates: name
+        locationExternalIDs: value,
+        emirates: value === 'any' ? 'Emirates' : name
       }))
       
       resetSuggestions();
-    } else if (select === 'sort') {
+    } else if (select === 'sortBy') {
       setFilterState(filterState => ({
         ...filterState,
-        sortBy: name
+        sort: value,
+        sortBy: value === 'any' ? 'Sort' : name
+      }))
+    } else {
+      setFilterState(filterState => ({
+        ...filterState,
+        furnishingStatus: value
       }))
     }
 
     setLoading(loading => ({
       ...loading,
       propertiesLoading: true
-  }))
+    }))
 
     setDropdown(dropdown => ({
       ...dropdown,
@@ -45,25 +52,21 @@ const DirectDropdown: React.FC<IDirectDropdownProps> = ({ title, options, queryN
     }))
 
 
-    if(queryName) findProperties({ [queryName]: value }, setLoading) 
+    findProperties({ [queryName]: value }, setLoading) 
   }
 
   return (
-    <div className='space-y-2 absolute top-[47px] left-0 w-full rounded p-2 bg-white z-20 shadow-[rgba(0,0,0,0.24)_0px_3px_8px]'>
-      <h5 className='text-black text-sm font-semibold'> {title} </h5>
+    <div className='dropdownWrapper top-[48px] left-0 w-full'>
+      <h5 className='dropdownWrapperHeader'> {title} </h5>
 
-      <div className="flex flex-col space-y-2 w-full ">
-        { options?.map((option) => {
-           const { name, value } = option
-
-           return (
-             <div onClick={() => handleChange(value, name)} key={name}
-               className={`flex items-center justify-center py-1 px-2 w-full rounded-full border text-sm cursor-pointer hover:tabSortActive ${active === value ? 'tabSortActive text-primary' : 'text-black'}`} 
-              >
-               {name}
-             </div>
-            )
-        }) }
+      <div className="flex flex-col space-y-2 w-full">
+        { options?.map(({name, value}) => (
+          <div onClick={() => handleChange(value, name)} key={name}
+            className={`flex items-center justify-center py-1 px-2 w-full rounded-full border text-sm cursor-pointer hover:tabSortActive ${active === value ? 'tabSortActive text-primary' : 'text-black'}`} 
+          >
+            {name}
+          </div>
+        )) }
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
-import { filterAtom, searchFiltersState, loadingState } from '../../../../../../states';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { findProperties } from '../../../../../../utils/findProperty/findProperties';
-import { IFilterState, IOptionsProps } from '../../../../../../types';
+import { filterAtom, searchFiltersState, loadingState } from '@states';
+import { findProperties } from '@utils';
+import { IFilterState, IOptionsProps } from '@types';
 
 const Options: React.FC<IOptionsProps> = ({items, queryName}) => {
     const setDropdown = useSetRecoilState(searchFiltersState);
@@ -28,12 +28,10 @@ const Options: React.FC<IOptionsProps> = ({items, queryName}) => {
       }
     
   return (
-    <div className='absolute top-[37px] left-0 w-full border rounded overflow-auto z-[100] bg-white max-h-[150px] scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100"'>
-      { items.map((item) => {
-        const { name, value  } = item;
-
+    <div className='absolute top-[37px] left-0 w-full border rounded overflow-auto z-[100] bg-white max-h-[150px] text-sm scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100"'>
+      { items.map(({name, value}) => {
         return (
-            <div key={name} onClick={() => handleChange(value)} className={`flex items-center justify-center w-full hover:bg-primary hover:text-white ${filterState[queryName as keyof IFilterState] === item.value ? 'bg-primary text-white' : ''}`}> {name} </div>
+            <div key={name} onClick={() => handleChange(value)} className={`flex items-center justify-center w-full hover:bg-primary hover:text-white ${filterState[queryName as keyof IFilterState] === value ? 'bg-primary text-white' : ''}`}> {name} </div>
         )
         }) }
     </div>

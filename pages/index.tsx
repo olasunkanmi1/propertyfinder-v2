@@ -1,9 +1,9 @@
-import {useState, useEffect, memo} from 'react';
-import { Layout, FindHome, FeaturedProperties, ForRent, ForSale, FeaturedAgencies } from "../components";
+import {useEffect, memo} from 'react';
+import { Layout, FindHome, FeaturedProperties, ForRent, ForSale, FeaturedAgencies } from "@components";
 import { useSetRecoilState } from 'recoil';
-import { HomepageProps } from '../types';
-import { propertiesState } from '../states';
-import { getServerSideProps } from '../utils/getServerSideFns/homepage'
+import { HomepageProps } from '@types';
+import { propertiesState } from '@states';
+import { homepageGSSP } from '@utils'
 
 const Home: React.FC<HomepageProps> = memo(({ featuredProperties, featuredAgencies, savedProperties }) => {
   const setProperties = useSetRecoilState(propertiesState);
@@ -14,7 +14,7 @@ const Home: React.FC<HomepageProps> = memo(({ featuredProperties, featuredAgenci
       featuredProperties: featuredProperties,
       savedProperties: savedProperties,
     }));
-    }, [savedProperties, featuredProperties, setProperties])
+  }, [savedProperties, featuredProperties, setProperties])
 
   return (
       <Layout title="Find your dream property">
@@ -30,4 +30,4 @@ const Home: React.FC<HomepageProps> = memo(({ featuredProperties, featuredAgenci
 Home.displayName = 'Home';
 export default Home
 
-export { getServerSideProps };
+export const getServerSideProps = homepageGSSP;

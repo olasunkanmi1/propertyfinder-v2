@@ -1,18 +1,17 @@
 import {useEffect} from 'react';
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import { LayoutProps } from '../../types'
-import { useRecoilState, useRecoilValue, useSetRecoilState, useResetRecoilState } from 'recoil'
-import { loadingState, layoutState, userState } from '../../states'
+import { useRecoilValue, useSetRecoilState, useResetRecoilState } from 'recoil'
 import Navbar from './navbar';
 import Footer from './footer';
 import { SignInModal, SignUpModal, ForgotPasswordModal, ForgotPasswordEmailSentModal, VerifyEmailSentModal, EditProfileModal, ChangePasswordModal, ClearSavedPropertiesModal } from './modals';
-import {fetchUser} from '../../utils/fetchFns';
 import CustomNotification from '../custom-notification';
-const Dropdown = dynamic(() => import('./navbar/profile/dropdown')) 
-const Sidebar = dynamic(() => import('./sidebar'));
-const Filterbar = dynamic(() => import('../find-property-page/search-filters/mobile/filterbar'));
-const ImageModal = dynamic(() => import('../unique-property/image-modal'));
+import Dropdown from './navbar/profile/dropdown'
+import Sidebar from './sidebar'
+import Filterbar from '../find-property-page/search-filters/mobile/filterbar'
+import ImageModal from '../unique-property/image-modal'
+import { loadingState, layoutState, userState } from '@states'
+import { LayoutProps } from '@types'
+import {fetchUser} from '@utils';
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const modal = useRecoilValue(layoutState);

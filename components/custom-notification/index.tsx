@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react"
 import { useRecoilState } from "recoil";
-import { layoutState } from "../../states";
-import { ToastNotification } from "../../types";
-import { Spinner } from "../loader";
 import { AiOutlineCheck, AiOutlineClose, AiOutlineExclamation } from "react-icons/ai";
 import {motion} from 'framer-motion'
+import { Spinner } from "../loader";
+import { layoutState } from "@states";
+import { ToastNotification } from "@types";
 
 const CustomNotification = () => {
-  const [isMobile, setIsMobile] = useState(false);
   const [layout, setLayout] = useRecoilState(layoutState);
   const {toastNotifications} = layout
   const [toasts, setToasts] = useState<ToastNotification[]>([]);
@@ -38,13 +37,6 @@ const CustomNotification = () => {
           }));
         }, 5000); // disappear after 5 seconds
       });
-
-      function updateSize() {
-          setIsMobile(window.innerWidth < 768);
-      }
-      window.addEventListener('resize', updateSize);
-      updateSize();
-      return () => window.removeEventListener('resize', updateSize);
   }, [toastNotifications, setLayout]);
 
   return (

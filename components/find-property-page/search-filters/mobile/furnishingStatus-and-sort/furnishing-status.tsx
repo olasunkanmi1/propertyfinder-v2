@@ -1,17 +1,15 @@
-import { useRouter } from 'next/router';
 import { useSetRecoilState, useRecoilState } from 'recoil'
-import { filterAtom, loadingState } from '../../../../../states';
-import { filterOptions } from '../../../../../utils/filteringOptions';
-import { findProperties } from '../../../../../utils/findProperty/findProperties';
+import { filterAtom, loadingState } from '@states';
+import { selections, findProperties } from '@utils';
 
 const FurnishingStatus = () => {
-  const router = useRouter();
   const [filterState, setFilterState] = useRecoilState(filterAtom);
   const setLoading = useSetRecoilState(loadingState);
 
-  const furnishedStatus = filterOptions.filter((filter) => filter.placeholder === 'Furnishing Status')
+  const furnishedStatus = selections.furnishingStatus
+  const { items, placeholder, queryName } = furnishedStatus;
 
-  const setFurnishingStatus = (value: string, queryName: string) => {
+  const setFurnishingStatus = (value: string) => {
     setFilterState(filterState => ({
          ...filterState,
          furnishingStatus: value
@@ -27,19 +25,13 @@ const FurnishingStatus = () => {
 
   return (
     <div className="flex items-center border rounded">
-        { furnishedStatus.map((status) => {
-            const { items, placeholder, queryName } = status;
-
-            return (
-                <div className="grid grid-cols-[25%,35%,40%] ls:flex w-full" key={placeholder}> 
-                  { items?.map((item) => (
-                    <div onClick={() => setFurnishingStatus(item.value, queryName)} key={item.name} className={`furnishingStatusSort border-l ${ filterState.furnishingStatus === item.value ? 'bg-secondary text-white' : '' }`}>
-                    { item.name }
-                    </div>
-                    )) }
-                </div>
-            )
-        }) }
+      <div className="grid grid-cols-[25%,35%,40%] ls:flex w-full" key={placeholder}> 
+        { items?.map(({name, value}) => (
+          <div onClick={() => setFurnishingStatus(value)} key={name} className={`furnishingStatusSort border-l ${ filterState.furnishingStatus === value ? 'bg-secondary text-white' : '' }`}>
+          { name }
+          </div>
+          )) }
+      </div>
     </div>
   )
 }

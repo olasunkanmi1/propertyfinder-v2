@@ -1,15 +1,12 @@
 import {useState, useEffect, memo} from 'react';
-import { Layout, Property } from '../components'
 import { useSetRecoilState, useRecoilState } from 'recoil';
-import { propertiesState, layoutState } from '../states';
-import { SavedPropertiesPageProps } from '../types';
-import Heading from '../components/heading';
-import CardSkeleton from '../components/property/skeleton';
-import { Loader } from '../components/loader';
 import { AiOutlineDelete } from 'react-icons/ai';
 import Image from 'next/image'
-import homeNotFound from "../public/assets/homeNotFound.webp";
-import { getServerSideProps } from '../utils/getServerSideFns/savedProperties';
+import {homeNotFound} from "@public";
+import { propertiesState, layoutState } from '@states';
+import { SavedPropertiesPageProps } from '@types';
+import { Layout, Property, Heading, Loader, CardSkeleton } from '@components'
+import { savedPropertiesGSSP } from '@utils';
 
 const SavedProperties: React.FC<SavedPropertiesPageProps> = memo(({savedProperties}) => {
   const [loading, setLoading] = useState(true);
@@ -66,4 +63,4 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = memo(({savedProperti
 SavedProperties.displayName = 'SavedProperties';
 export default SavedProperties
 
-export { getServerSideProps }
+export const getServerSideProps = savedPropertiesGSSP;

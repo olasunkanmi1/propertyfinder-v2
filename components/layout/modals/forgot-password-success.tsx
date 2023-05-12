@@ -1,8 +1,8 @@
-import { useRecoilState } from 'recoil'
-import { layoutState } from '../../../states'
-import ModalLayout from './modal-layout';
 import Image from 'next/image';
-import mailSent from '../../../public/assets/mailSent.webp'
+import { useRecoilState } from 'recoil'
+import ModalLayout from './modal-layout';
+import { layoutState } from '@states'
+import {mailSent} from '@public'
 
 const ForgotPasswordSuccess = () => {
     const [modal, setModal] = useRecoilState(layoutState);

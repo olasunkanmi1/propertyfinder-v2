@@ -1,15 +1,14 @@
 import {useState} from 'react'
 import { useRecoilState } from 'recoil';
-import { layoutState } from '../../../states';
-import ModalLayout from './modal-layout';
-import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
-import FormField from './field'
+import * as Yup from 'yup';
 import { AiOutlineLock } from 'react-icons/ai'
-import { Loader } from '../../loader';
-import { setToast } from '../../../utils/setToast';
-import axiosInstance from '../../../utils/axiosInstance';
-import { ChangePasswordInitialValues } from '../../../types';
+import ModalLayout from './modal-layout';
+import FormField from './field'
+import { Loader } from '@components';
+import { setToast, axiosInstance } from '@utils';
+import { ChangePasswordInitialValues } from '@types';
+import { layoutState } from '@states';
 
 const ChangePasswordModal = () => {
     const [loading, setLoading] = useState(false);

@@ -1,17 +1,15 @@
 import {useState, useRef} from 'react'
 import { useRecoilState } from 'recoil';
-import { layoutState, userState } from '../../../states';
-import { IUserState } from '../../../types';
-import ModalLayout from './modal-layout';
+import Image from 'next/image'
+import { AiOutlineEdit, AiOutlineMail, AiOutlineUser, AiOutlineDelete } from 'react-icons/ai'
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik'
+import ModalLayout from './modal-layout';
 import FormField from './field'
-import { AiOutlineEdit, AiOutlineMail, AiOutlineUser, AiOutlineDelete } from 'react-icons/ai'
-import { Loader } from '../../loader';
-import Image from 'next/image'
-import { EditProfileInitialValues } from '../../../types';
-import { editProfile } from '../../../utils/updateProfile';
-import { setToast } from '../../../utils/setToast';
+import { Loader } from '@components';
+import { layoutState, userState } from '@states';
+import { IUserState, EditProfileInitialValues } from '@types';
+import { editProfile, setToast } from '@utils';
 
 const EditProfileModal = () => {
     const [loading, setLoading] = useState(false);
@@ -45,7 +43,7 @@ const EditProfileModal = () => {
             }
 
             const url = URL.createObjectURL(file);
-            setFieldValue('photoUrl', url);
+            setFieldValue('photoUrl', url);         
             setModal(modal => ({
                 ...modal, 
                 imageBlob: url,

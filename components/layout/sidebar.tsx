@@ -1,15 +1,14 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { layoutState, loadingState, userState, propertiesState } from '../../states';
-import { ILayoutState } from '../../types';
 import Link from 'next/link';
-import Profile from './navbar/profile';
 import { useRouter } from 'next/router';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { FiLogOut } from 'react-icons/fi';
+import { GoUnverified, GoVerified } from 'react-icons/go'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { GoUnverified, GoVerified } from 'react-icons/go'
-import { sendVerificationEmail } from '../../utils/sendVerificationEmail';
-import { logOut } from '../../utils/logOut';
+import Profile from './navbar/profile';
+import { sendVerificationEmail, logOut } from '@utils';
+import { layoutState, loadingState, userState, propertiesState } from '@states';
+import { ILayoutState } from '@types';
 
 const Sidebar = () => {
     const loading = useRecoilValue(loadingState);

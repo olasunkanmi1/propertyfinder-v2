@@ -1,6 +1,6 @@
 import { SetterOrUpdater } from 'recoil'
 import { setToast } from './setToast'
-import { ILayoutState } from '../types'
+import { ILayoutState } from '@types'
 import axiosInstance from './axiosInstance'
 
 export const sendVerificationEmail = async (email: string, setModal:  SetterOrUpdater<ILayoutState>) => {

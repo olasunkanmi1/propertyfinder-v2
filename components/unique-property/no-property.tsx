@@ -1,6 +1,6 @@
-import Layout from '../layout'
 import Image from 'next/image';
-import homeNotFound from "../../public/assets/homeNotFound.webp";
+import Layout from '../layout'
+import {homeNotFound} from "@public";
 
 const NoProperty: React.FC = () => {
   return (

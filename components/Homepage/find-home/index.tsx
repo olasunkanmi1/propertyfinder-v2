@@ -1,7 +1,6 @@
-import dynamic from 'next/dynamic'
+import SectionLayout from '../sectionLayout';
+import {findHome} from '@public'
 
-const SectionLayout  = dynamic(() => import('../sectionLayout'));
-import image from '../../../public/assets/findHome.webp'
 
 const FindHome = () => {
   return (
@@ -11,7 +10,7 @@ const FindHome = () => {
         text="Find Your Ideal Property Among Our Wide Selection of Listings. Find Your Next Place to Call Home with Us."
         buttonText="Start searching"
         route="/find-property"
-        image={image}
+        image={findHome}
         firstImg
     />
   )

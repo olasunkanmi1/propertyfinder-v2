@@ -1,5 +1,5 @@
-import { layoutState } from '../../../states'
 import { useRecoilState } from 'recoil'
+import { layoutState } from '@states'
 
 const Hamburger = () => {
     const [sidebarOpen, setSidebarOpen] = useRecoilState(layoutState);

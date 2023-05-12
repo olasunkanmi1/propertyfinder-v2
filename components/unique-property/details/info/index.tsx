@@ -1,19 +1,19 @@
 import { useState, useEffect, CSSProperties } from 'react'
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
+import millify from 'millify';
+import ReactPlayer from 'react-player'
 import { GoVerified } from 'react-icons/go';
 import { MdWindow } from 'react-icons/md';
 import { FaBath, FaBed } from 'react-icons/fa'
-import millify from 'millify';
-import { UniquePropertyPageProps } from '../../../../types';
-import PropertyInfos from './property-info';
-import Amenities from './amenities';
-import ReactPlayer from 'react-player'
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import { MdLocationOn } from 'react-icons/md'
-import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
-import { propertiesState, layoutState, userState } from '../../../../states';
-import { handleSaveAndUnsave } from '../../../../utils/propertyFns';
-import { Loader } from '../../../loader';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import PropertyInfos from './property-info';
+import Amenities from './amenities';
+import { propertiesState, layoutState, userState } from '@states';
+import { UniquePropertyPageProps } from '@types';
+import { handleSaveAndUnsave } from '@utils';
+import { Loader } from '@components';
 
 const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
     const [descriptionVisibility, setDescriptionVisibility] = useState<boolean>(false);

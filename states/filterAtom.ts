@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
 import { recoilPersist } from 'recoil-persist'
-import { IFilterState } from '../types';
+import { IFilterState } from '@types';
 
 const { persistAtom } = recoilPersist({
     key: 'filter-persist',
@@ -10,10 +10,10 @@ export const filterAtom = atom<IFilterState>({
     key: 'filterState',
     default: {
         purpose: 'for-rent',
-        rentFrequency: 'any',
+        rentFrequency: 'yearly',
         priceMin: '0',
         priceMax: 'any',
-        sort: 'popular',
+        sort: 'any',
         areaMin: '0',
         areaMax: 'any',
         roomsMin: '0',
@@ -22,11 +22,12 @@ export const filterAtom = atom<IFilterState>({
         bathsMax: 'any',
         furnishingStatus: 'any',
         categoryExternalID: '1',
-        locationExternalIDs: '5001',
+        locationExternalIDs: 'any',
         
         propertyType: 'Property Type',
-        emirates: 'Emirates',
-        sortBy: 'Sort',
+        emirates: 'any',
+        sortBy: 'any',
+        address: '',
     },
     effects_UNSTABLE: [persistAtom],
 });

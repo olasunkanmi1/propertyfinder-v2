@@ -1,0 +1,6 @@
+export {getServerSideProps as homepageGSSP} from './homepage'
+export {getServerSideProps as findPropertyGSSP} from './findProperty'
+export {getServerSideProps as savedPropertiesGSSP} from './savedProperties'
+export {getServerSideProps as uniquePropertyGSSP} from './propertyId'
+export {getServerSideProps as resetPasswordGSSP} from './resetPassword'
+export {getServerSideProps as verifyEmailGSSP} from './verifyEmail'

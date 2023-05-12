@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import { useRecoilState } from "recoil";
-import { layoutState } from "../../states";
+import { AiOutlineClose } from 'react-icons/ai';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { AiOutlineClose } from 'react-icons/ai';
+import { layoutState } from "@states";
 
 import 'swiper/css';
 import 'swiper/css/navigation';

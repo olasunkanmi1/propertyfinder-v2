@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-import { ILoadingState } from '../types';
+import { ILoadingState } from '@types';
 
 export const loadingState = atom<ILoadingState>({
     key: 'loadingAtom',

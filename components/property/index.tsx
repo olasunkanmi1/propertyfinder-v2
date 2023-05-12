@@ -1,20 +1,20 @@
 import {useState, useEffect} from 'react'
 import Image,  {StaticImageData} from 'next/image'
 import Link from 'next/link'
-import { PropertyProps } from '../../types'
-import DefaultImage from '../../public/assets/default.webp';
-import { GoVerified } from "react-icons/go";
+import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import millify from "millify";
 import { FaBath, FaBed } from 'react-icons/fa';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { MdWindow } from 'react-icons/md';
-import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
-import { layoutState, propertiesState, userState } from '../../states';
-import { Spinner } from '../loader';
+import { GoVerified } from "react-icons/go";
 import { HiOutlineLocationMarker } from 'react-icons/hi';
-import { handleSaveAndUnsave } from '../../utils/propertyFns';
+import { MdWindow } from 'react-icons/md';
+import { layoutState, propertiesState, userState } from '@states';
+import { Spinner } from '@components';
+import { PropertyProps } from '@types'
+import {defaultPropertyImg} from '@public';
+import { handleSaveAndUnsave } from '@utils';
 
-const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
+const Property: React.FC<PropertyProps> = ({ property, similar }) => {
     const [loading, setLoading] = useState(false);
     const [imgUrl, setImgUrl] = useState<string | StaticImageData>(property.coverPhoto && property.coverPhoto.url ? property.coverPhoto.url : "");
     const setModal = useSetRecoilState(layoutState);
@@ -22,7 +22,7 @@ const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
     const [properties, setProperties] = useRecoilState(propertiesState);
     
     const savedProperties = properties.savedProperties ? properties.savedProperties : [];
-    const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID, location } = property
+    const { coverPhoto, price, rooms, title, baths, area, isVerified, rentFrequency, agency, externalID, location, product } = property
     const propertyLocation = `${location[2] ? location[2].name + ', ' : ''}` + `${location[1] ? location[1].name + '.' : ''}`
 
     const savedPropertiesIDs = savedProperties.map((pty) => pty.externalID);
@@ -37,17 +37,17 @@ const Property: React.FC<PropertyProps> = ({ property, similar, featured }) => {
     }, [savedPropertiesIDs, externalID])
 
     return (
-        <div className={`grid-cols-1 ${similar ? 'max-w-[300px]' : ''}`}>
+        <div className={`grid-cols-1 ${similar ? 'max-w-[280px] mx-auto' : ''}`}>
             <Link href={`/property/${externalID}`} passHref>
                 <a className="w-full">
                     <div className="relative rounded-xl w-full h-[160px] overflow-hidden">
                         <Image
-                            src={coverPhoto && imgUrl ? imgUrl : DefaultImage} alt="cover-photo" layout="fill"
-                            placeholder="blur" blurDataURL={DefaultImage.blurDataURL} loading="lazy" onError={() => setImgUrl(DefaultImage)}
+                            src={coverPhoto && imgUrl ? imgUrl : defaultPropertyImg} alt="cover-photo" layout="fill"
+                            placeholder="blur" blurDataURL={defaultPropertyImg.blurDataURL} loading="lazy" onError={() => setImgUrl(defaultPropertyImg)}
                         />
 
                         { isVerified && <div className='text-green-500 absolute top-2 left-2 rounded-full bg-white p-1 shadow-md'> <GoVerified size={20} /> </div> }
-                        { featured && 
+                        { product === 'superhot' && 
                             <div className='bg-green-500 text-white text-sm absolute top-2 right-0 px-1 shadow-md'> 
                                 <div className="relative bg-green-500 text-white">
                                     <div className="absolute -left-[19px] top-[5px] w-0 h-0 border-x-[10px] border-x-transparent border-b-[10px] border-b-green-500 transform -rotate-90" />

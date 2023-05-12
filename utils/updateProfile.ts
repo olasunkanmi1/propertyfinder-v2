@@ -1,4 +1,4 @@
-import { IUpdateProfileProps } from "../types";
+import { IUpdateProfileProps } from "@types";
 import { setToast } from "./setToast";
 import axiosInstance from "./axiosInstance";
 

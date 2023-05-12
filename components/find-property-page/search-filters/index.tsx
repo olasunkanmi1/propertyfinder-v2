@@ -1,8 +1,6 @@
-import dynamic from 'next/dynamic'
-import { ISearchFiltersProps } from '../../../types';
-
-const DesktopAndTabs = dynamic(() => import('./desktopAndTabs'));
-const MobileFilters = dynamic(() => import('./mobile'));
+import { ISearchFiltersProps } from '@types';
+import DesktopAndTabs from './desktopAndTabs';
+import MobileFilters from './mobile';
 
 const SearchFilters: React.FC<ISearchFiltersProps> = ({filterRef, suggestionsRef}) => {
   return (

@@ -1,4 +1,4 @@
-import { UniquePropertyPageProps } from '../../../../types';
+import { UniquePropertyPageProps } from '@types';
 
 const PropertyInfo: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
   const { furnishingStatus, completionStatus, purpose, referenceNumber, active, category, createdAt, updatedAt } = propertyDetails;

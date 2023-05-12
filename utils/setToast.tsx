@@ -1,5 +1,5 @@
 import { SetterOrUpdater } from "recoil"
-import { ILayoutState } from "../types"
+import { ILayoutState } from "@types"
 
 export const setToast = (type: string, message: string, setModal: SetterOrUpdater<ILayoutState>) => {
     const newToast = { 

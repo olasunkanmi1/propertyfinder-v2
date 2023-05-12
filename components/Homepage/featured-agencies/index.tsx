@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Navigation, Pagination, A11y, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FeaturedAgenciesProps } from '../../../types'
-import Heading from '../../heading';
+import { FeaturedAgenciesProps } from '@types'
+import {Heading} from '@components';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
