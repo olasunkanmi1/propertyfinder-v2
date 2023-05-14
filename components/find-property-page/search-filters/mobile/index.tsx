@@ -4,7 +4,7 @@ import Searchbox from '../searchbox'
 
 const MobileFilters = () => {
   return (
-    <div className='flex flex-col md:hidden space-y-4'>
+    <div className='flex flex-col md:hidden'>
         <Searchbox />
         <EmiratesAndFilterIcon />
         <FurnishingStatusAndSort />

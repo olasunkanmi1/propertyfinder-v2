@@ -24,7 +24,7 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({similarProperties}
       <h1 className='font-bold text-2xl mb-2 text-primary w-full xll:mx-auto'> Similar properties </h1>
 
       { screenSize && screenSize < 900 ? (
-        <div className='flex gap-5 mx-auto pb-4 overflow-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100'>
+        <div className='flex gap-5 mx-auto pb-4 overflow-auto'>
             {filteredProperties.map((property) => {
                 return (
                   <Property key={property.externalID} property={property} similar />

@@ -1,15 +1,18 @@
+import {useState} from 'react'
 import Image from 'next/image'
 import { useRecoilState } from "recoil";
 import { AiOutlineClose } from 'react-icons/ai';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { layoutState } from "@states";
+import {defaultPropertyImg} from '@public';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const ImageModal = () => {
+  const [imageError, setImageError] = useState(false);
     const [modal, setModal] = useRecoilState(layoutState);
     const closeModal = () => setModal(modal => ({...modal, imageModal: false}))
 
@@ -33,8 +36,8 @@ const ImageModal = () => {
                                 return (
                                     <SwiperSlide key={photo} className="relative h-full w-full">
                                         <Image
-                                            src={photo} alt="photo" layout="fill" loading='lazy' placeholder='blur'
-                                            blurDataURL={photo}  objectFit='cover'
+                                            src={!imageError ? photo: defaultPropertyImg} alt="photo" layout="fill" loading='lazy' placeholder='blur'
+                                            blurDataURL={defaultPropertyImg.blurDataURL} objectFit='cover' onError={() => setImageError(true)}
                                         />
                                     </SwiperSlide>
                                 )

@@ -24,10 +24,10 @@ const FurnishingStatus = () => {
   }
 
   return (
-    <div className="flex items-center border rounded">
-      <div className="grid grid-cols-[25%,35%,40%] ls:flex w-full" key={placeholder}> 
-        { items?.map(({name, value}) => (
-          <div onClick={() => setFurnishingStatus(value)} key={name} className={`furnishingStatusSort border-l ${ filterState.furnishingStatus === value ? 'bg-secondary text-white' : '' }`}>
+    <div className="flex items-center sfs:order-2">
+      <div className="grid grid-cols-[25%,35%,40%] space-x-1 overflow-hidden w-full sfs:flex" key={placeholder}> 
+        { items?.map(({name, value}, i) => (
+          <div onClick={() => setFurnishingStatus(value)} key={name} className={`furnishingStatusSort ${ filterState.furnishingStatus === value ? 'bg-secondary border-secondary text-white' : '' }`}>
           { name }
           </div>
           )) }

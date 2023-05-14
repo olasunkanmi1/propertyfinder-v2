@@ -24,12 +24,10 @@ const Dropdown = ({loading, suggestions, setSuggestions, inputRef, desktop, sugg
         
         setFilter(filter => ({
             ...filter,
-            locationExternalIDs: externalID,
-            emirates: emiratesIDs?.includes(externalID) ? name : 'Emirates',
+            locationExternalIDs: emiratesIDs?.includes(externalID) ? externalID : 'any',
+            emirates: emiratesIDs?.includes(externalID) ? name : 'any',
             address: name
         }))
-        
-        inputRef.current ? inputRef.current.value = name : inputRef.current!.value = ''
         
         findProperties({ locationExternalIDs: externalID }, setLoading)
     }

@@ -26,6 +26,7 @@ module.exports = {
         
         'ft': '346px',
         'ft2': '370px',
+        'sfs': '460px',
       },
       animation: {
         'ping-slow': 'ping 2s linear infinite',

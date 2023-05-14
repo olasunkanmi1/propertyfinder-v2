@@ -22,12 +22,12 @@ export const setFilterState = (setFilter: SetterOrUpdater<IFilterState>, router:
             sort: query.sort || 'any',
             furnishingStatus: query.furnishingStatus || 'any',
             categoryExternalID: query.categoryExternalID || '1',
-            locationExternalIDs: query.locationExternalIDs || 'any',
+            locationExternalIDs: query.locationExternalIDs && emiratesIDs?.includes(query.locationExternalIDs.toString()) ? query.locationExternalIDs : 'any',
             
             propertyType: query.categoryExternalID ? filter.propertyType : 'Property Type',
             emirates: query.locationExternalIDs ? filter.emirates : 'any',
             sortBy: query.sort ? filter.sortBy : 'any',
-            address: !emiratesIDs?.includes(filter.locationExternalIDs.toString()) ? filter.address : '',
+            address: query.locationExternalIDs && filter.address ? filter.address : '',
         }))
     )
 }

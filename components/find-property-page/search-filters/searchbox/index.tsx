@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { MdLocationOn } from 'react-icons/md'
 import Dropdown from './dropdown';
@@ -7,24 +7,19 @@ import { addressSuggestionsAtom, searchFiltersState, filterAtom } from '@states'
 import { ISearchboxProps } from '@types';
 
 const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
-  const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useRecoilState(addressSuggestionsAtom);
   const [filterState, setFilterState] = useRecoilState(filterAtom);
   const resetDropdown = useResetRecoilState(searchFiltersState);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = async (e:React.ChangeEvent<HTMLInputElement>) => {
-    resetDropdown(); 
-    setFilterState(filterState => ({
-      ...filterState,
-      emirates: 'Emirates'
-    })) 
-
+    resetDropdown();
     setSuggestions(suggestions => ({
       ...suggestions,
       predictions: []
     })) 
-    
+
     if(e.target.value.length >= 3) {
       setLoading(true);
       const data = await bayutFetchFn({url: 'auto-complete', autoComplete: true, e});
@@ -46,10 +41,10 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
     }
   }
 
-  if(filterState.emirates !== 'Emirates' && inputRef.current) {
-     inputRef.current.value = '' 
-  } 
-
+  useEffect(() => {
+    inputRef.current!.value = filterState.address     
+  }, [filterState.address])
+  
   return (
     <div className={`space-y-2 ${desktop ? 'relative col-start-2 col-span-2' : ''}`}>
       <div className='flex justify-between'>

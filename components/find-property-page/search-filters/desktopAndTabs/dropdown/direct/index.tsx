@@ -19,7 +19,8 @@ const DirectDropdown: React.FC<IDirectDropdownProps> = ({ title, options, queryN
       setFilterState(filterState => ({
         ...filterState,
         locationExternalIDs: value,
-        emirates: value === 'any' ? 'Emirates' : name
+        emirates: value === 'any' ? 'any' : name,
+        address: ''
       }))
       
       resetSuggestions();
@@ -27,7 +28,7 @@ const DirectDropdown: React.FC<IDirectDropdownProps> = ({ title, options, queryN
       setFilterState(filterState => ({
         ...filterState,
         sort: value,
-        sortBy: value === 'any' ? 'Sort' : name
+        sortBy: value === 'any' ? 'any' : name
       }))
     } else {
       setFilterState(filterState => ({

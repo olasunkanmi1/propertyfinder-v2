@@ -28,12 +28,10 @@ const Options: React.FC<IOptionsProps> = ({items, queryName}) => {
       }
     
   return (
-    <div className='absolute top-[37px] left-0 w-full border rounded overflow-auto z-[100] bg-white max-h-[150px] text-sm scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100"'>
-      { items.map(({name, value}) => {
-        return (
-            <div key={name} onClick={() => handleChange(value)} className={`flex items-center justify-center w-full hover:bg-primary hover:text-white ${filterState[queryName as keyof IFilterState] === value ? 'bg-primary text-white' : ''}`}> {name} </div>
-        )
-        }) }
+    <div className='absolute top-[37px] left-0 w-full border rounded overflow-auto z-[100] bg-white max-h-[150px] text-sm scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-100'>
+      { items.map(({name, value}) => (
+         <div key={name} onClick={() => handleChange(value)} className={`flex items-center w-full hover:bg-primary hover:text-white ${value !== 'any' && parseInt(value) > 900000 ? 'justify-start pl-1' : 'justify-center'} ${filterState[queryName as keyof IFilterState] === value ? 'bg-primary text-white' : ''}`}> {name} </div>
+      )) }
     </div>
   )
 }

@@ -26,10 +26,10 @@ const Sort = () => {
   }
 
   return (
-    <div className='flex items-center justify-end ls:justify-center gap-1 text-secondary font-bold'> 
-      <BsSortDown size={25} />
+    <div className='flex items-center justify-start sfs:order-1 sfs:justify-center mt-3 sfs:mt-0 gap-1 text-secondary font-bold relative pr-[110px]'> 
+      <BsSortDown size={25} /> Sort:
 
-      <select className="flex outline-none te appearance-none bg-transparent" key={placeholder}
+      <select className="flex outline-none appearance-none bg-transparent absolute left-0 pl-[70px]" key={placeholder}
         onChange={(e) => setSortBy(e.target.value, e.target.options[e.target.selectedIndex].innerText)}
       > 
         { items?.map(({name, value}) => (

@@ -16,7 +16,7 @@ import { IPropertyType } from '@types';
 const PropertyTypeLayout: React.FC<IPropertyType> = ({ options }) => {
   const setLoading = useSetRecoilState(loadingState);
   const [filterState, setFilterState] = useRecoilState(filterAtom);
-  const {items, placeholder, queryName} = options
+  const {items, queryName} = options
 
   const setPropertyType = (value: string, name: string) => {
     setFilterState(filterState => ({
@@ -35,7 +35,7 @@ const PropertyTypeLayout: React.FC<IPropertyType> = ({ options }) => {
 
   return (
     <div className='overflow-auto'>
-      <div key={placeholder} className='flex items-center gap-4 pb-3'>
+      <div className='flex items-center gap-4 pb-3'>
         { items.map(({name, value, icon}) => (
           <div onClick={() => setPropertyType(value, name)} key={name} className={`flex flex-col items-center w-fit p-2 ${filterState.categoryExternalID === value ? 'text-primary font-bold' : ''}`}>
             <div className={`flex items-center justify-center rounded-full w-10 h-10 border text-gray-500 ${filterState.categoryExternalID === value ? 'bg-primary bg-opacity-20 border border-primary text-primary' : ''}`}>

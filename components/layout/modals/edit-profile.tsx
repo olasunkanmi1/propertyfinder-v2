@@ -43,7 +43,7 @@ const EditProfileModal = () => {
             }
 
             const url = URL.createObjectURL(file);
-            setFieldValue('photoUrl', url);         
+            setFieldValue('photoUrl', 'a'+user?.photoUrl);         
             setModal(modal => ({
                 ...modal, 
                 imageBlob: url,

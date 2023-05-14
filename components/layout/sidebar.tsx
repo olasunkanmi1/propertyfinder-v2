@@ -26,7 +26,7 @@ const Sidebar = () => {
         { route: '/find-property?purpose=for-rent', title: 'For Rent', active: router.query.purpose === 'for-rent' },
     ]
 
-    const closeSidebar = (name: string) => {
+    const closeSidebar = (name?: string) => {
         if(name === 'out') logOut(setModal, router, setUser, setProperties)
 
         setModal(open => ({
@@ -36,13 +36,18 @@ const Sidebar = () => {
         }));
     };
 
+    const handleVerify = () => {
+        closeSidebar();
+        if(user) sendVerificationEmail(user.email, setModal)
+    }
+
   return (
     <div className={`md:hidden fixed top-[75px] z-10 w-full ms:w-[300px] h-[calc(100vh-75px)] overflow-auto duration-500 ease-in-out bg-[#fefefe] p-3 pb-[100px] ${isSidebarOpen ? 'right-0' : '-right-[100%] ms:-right-[300px]'}`}>
         { user && (
             <>
                 <Profile mobile />
         
-                <div onClick={() => !user.isVerified ? sendVerificationEmail(user.email, setModal) : null} className={`flex items-center px-3 py-[1px] text-sm font-semibold rounded-full w-max ease-in-out duration-500 mt-2 mb-5 mx-auto ${user.isVerified ? 'text-green-700 bg-green-300' : 'text-red-500 bg-red-200 hover:bg-red-300 cursor-pointer'}`}> 
+                <div onClick={() => !user.isVerified ? handleVerify() : null} className={`flex items-center px-3 py-[1px] text-sm font-semibold rounded-full w-max ease-in-out duration-500 mt-2 mb-5 mx-auto ${user.isVerified ? 'text-green-700 bg-green-300' : 'text-red-500 bg-red-200 hover:bg-red-300 cursor-pointer'}`}> 
                     {user.isVerified ? (
                         <> <GoVerified size={15} className='mr-1' /> Verified </>
                     ) : (
@@ -57,7 +62,7 @@ const Sidebar = () => {
                 { navLinks.map(({ route, title, active }) => {
                     return (
                         <Link href={route} passHref key={route}>
-                            <a className={`sidebarNavLinks ${active ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar('')}> { title } </a>
+                            <a className={`sidebarNavLinks ${active ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar()}> { title } </a>
                         </Link>
                     )
                 }) }

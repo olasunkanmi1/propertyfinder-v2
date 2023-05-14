@@ -1,15 +1,17 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import Image from 'next/image'
 import { useSetRecoilState } from 'recoil';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { UniquePropertyPageProps } from '@types';
 import { layoutState } from '@states';
+import {defaultPropertyImg} from '@public';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 
 const Images: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
+  const [imageError, setImageError] = useState(false);
   const setModal = useSetRecoilState(layoutState)
   const { photos  } = propertyDetails;
 
@@ -41,8 +43,8 @@ const Images: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
               return (
                   <SwiperSlide key={photo.url} className="relative h-full w-full cursor-pointer">
                     <Image
-                        src={photo.url} alt="photo" layout="fill" loading='lazy' placeholder='blur'
-                        blurDataURL={photo.url} onClick={(e) => openModal(index, e)}
+                        src={!imageError ? photo.url : defaultPropertyImg} alt="photo" layout="fill" loading='lazy' placeholder='blur'
+                        blurDataURL={defaultPropertyImg.blurDataURL} onClick={(e) => openModal(index, e)} onError={() => setImageError(true)}
                     />
                   </SwiperSlide>
                 )

@@ -48,7 +48,7 @@ const CustomNotification = () => {
           <motion.div key={id}
             initial={{ y: 10 }}
             animate={{ y: 0 }}
-            transition={{ type: "", stiffness: 300, damping: 25, duration: .5, ease: "easeInOut", delay: 0 }}
+            transition={{ type: "tween", stiffness: 300, damping: 25, duration: .5, ease: "easeInOut", delay: 0 }}
             className={`flex justify-center items-center p-2 text-white font-semibold w-full cursor-pointer duration-500 transition ease-in-out border-b m-b-2 min-h-[45px] relative ${toastType === 'success' ? 'bg-green-500' : toastType === 'loading' ? 'bg-primary' : 'bg-red-500'}`}
             onClick={() => removeToast(id)}
           > 

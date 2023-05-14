@@ -42,7 +42,7 @@
   }
   
   .furnishingStatusSort {
-    @apply flex items-center justify-center p-2  xls:px-4 w-full ls:w-max cursor-pointer duration-300 select-none ease-in-out text-sm ls:text-base
+    @apply flex items-center justify-center p-2 cursor-pointer duration-300 select-none ease-in-out text-sm ls:text-base rounded border
   }
   
   .tabSort {
