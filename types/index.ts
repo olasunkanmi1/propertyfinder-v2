@@ -1,4 +1,4 @@
-import { StaticImageData } from "next/image";
+import { ImageProps, StaticImageData } from "next/image";
 import { ChangeEvent, Dispatch, ReactElement, SetStateAction } from "react";
 import { IconType } from "react-icons/lib";
 import { SetterOrUpdater } from "recoil";
@@ -404,9 +404,8 @@ export interface IPropertyType {
 
 export interface IDropdownProps {
     loading: boolean;
-    suggestions: addressSuggestionsAtomState;
-    setSuggestions: SetterOrUpdater<addressSuggestionsAtomState>;
-    inputRef: React.RefObject<HTMLInputElement>;
+    suggestions: addressSuggestionsAtomState[] | null;
+    setSuggestions: SetterOrUpdater<addressSuggestionsAtomState[] | null>;
     desktop?: boolean;
     suggestionsRef?: React.MutableRefObject<HTMLDivElement | null>;
 }
@@ -418,6 +417,8 @@ export interface ISearchboxProps {
 
 export interface HeadingProps {
     heading: string;
+    forProperty?: boolean;
+    ptsPage?: boolean;
 }
 
 export interface ChangePasswordInitialValues {
@@ -443,12 +444,9 @@ export interface IVerifyEmail {
 }
 
 export interface addressSuggestionsAtomState {
-    address: string;
-    predictions: {
-        externalID: string;
-        name: string;
-    }[] | null;
-}
+    externalID: string;
+    name: string;
+};
 
 export interface IFilterState {
     purpose: string | string[];
@@ -514,6 +512,7 @@ export interface IPropertiesState {
     savedProperties?: Property[] | null,
     properties?: Property[],
     ptyWaitLoading: boolean,
+    isList: boolean,
 }
 
 export interface IsearchFiltersState {
@@ -588,3 +587,69 @@ export interface ISelections {
     furnishingStatus: DirectSelections;
     sort: DirectSelections;
 };
+
+export interface PropertyTypeProps {
+    objects: {
+        similar?: boolean;
+        title: string;
+        externalID: string;
+        toImg: {
+            coverPhoto: Property['coverPhoto'];
+            Image: ({ ...all }: ImageProps) => JSX.Element
+            imgUrl: string | StaticImageData;
+            setImgUrl: Dispatch<SetStateAction<string | StaticImageData>>;
+            GoVerified: IconType;
+            rentFrequency: string;
+            defaultPropertyImg: StaticImageData;
+            isVerified: boolean
+            product: string;
+            price: number;
+        };
+        toAgency: {
+            agency: Property['agency'];
+            Image: ({ ...all }: ImageProps) => JSX.Element
+        };
+        toBtn: {
+            loading: boolean;
+            Spinner: () => JSX.Element;
+            isSaved: boolean;
+            AiFillHeart: IconType;
+            AiOutlineHeart: IconType;
+            handleClick: () => Promise<void>;
+            ptyWaitLoading: boolean;
+            forGrid?: boolean ;
+        };
+        toLocation: {
+            HiOutlineLocationMarker: IconType;
+            propertyLocation: string;
+        };
+        toInfo: {
+            FaBed: IconType;
+            FaBath: IconType;
+            MdWindow: IconType;
+            rooms: string 
+            baths: string 
+            area: number 
+        };
+    }
+}
+
+export interface ImageContainerProps {
+    objects: PropertyTypeProps['objects']['toImg'];
+}
+
+export interface AgencyContainerProps {
+    objects: PropertyTypeProps['objects']['toAgency'];
+}
+
+export interface ButtonContainerProps {
+    objects: PropertyTypeProps['objects']['toBtn'];
+}
+
+export interface LocationContainerProps {
+    objects: PropertyTypeProps['objects']['toLocation'];
+}
+
+export interface InfoContainerProps {
+    objects: PropertyTypeProps['objects']['toInfo'];
+}

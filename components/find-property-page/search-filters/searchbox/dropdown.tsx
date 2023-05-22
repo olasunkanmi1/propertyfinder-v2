@@ -5,17 +5,14 @@ import { Loader } from '@components';
 import { findProperties, selections } from '@utils';
 import { IDropdownProps } from '@types';
 
-const Dropdown = ({loading, suggestions, setSuggestions, inputRef, desktop, suggestionsRef}: IDropdownProps) => {
+const Dropdown = ({loading, suggestions, setSuggestions, desktop, suggestionsRef}: IDropdownProps) => {
   const setLoading = useSetRecoilState(loadingState);
   const setFilter = useSetRecoilState(filterAtom);
   const emiratesIDs = selections.emirates.items?.map(item => item.value)
 
 
     const handleSelect = async (externalID: string, name: string) => {
-        setSuggestions({
-            address: name,
-            predictions: null
-        })
+        setSuggestions(null)
 
         setLoading(loading => ({
             ...loading,
@@ -40,11 +37,11 @@ const Dropdown = ({loading, suggestions, setSuggestions, inputRef, desktop, sugg
             </div>
         ) : (
             <>
-                { suggestions?.predictions?.length === 0 ? ( 
+                { suggestions?.length === 0 ? ( 
                     <h1 className='p-5 text-center font-bold'>No Result Found</h1>
                 ) : (
                     <>
-                        {suggestions?.predictions?.map((suggestion) => {
+                        {suggestions?.map((suggestion) => {
                             const { externalID, name } = suggestion;
                             return(
                                 <div className="flex items-center gap-3 p-2 cursor-pointer select-none hover:text-white hover:bg-primary" key={externalID} onClick={() => handleSelect(externalID, name)}> 

@@ -1,10 +1,20 @@
-import {memo} from 'react'
+import {memo, useEffect} from 'react'
+import { useSetRecoilState } from 'recoil'
 import { Layout, Details, Contact, SimilarProperties, NoProperty } from '@components'
 import { UniquePropertyPageProps, SimilarPropertiesProps } from '@types';
 import { uniquePropertyGSSP } from '@utils';
+import { propertiesState } from '@states'
 
 const Id: React.FC<UniquePropertyPageProps & SimilarPropertiesProps> = memo(({propertyDetails, similarProperties}) => {
+  const setPty = useSetRecoilState(propertiesState);
   const {title} = propertyDetails;
+
+  useEffect(() => {
+    setPty(pty => ({
+      ...pty,
+      isList: false
+  }))
+  }, [setPty])
 
   return (
     <>

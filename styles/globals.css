@@ -108,32 +108,16 @@
   .btnAnimation {
     @apply transition ease-in-out hover:scale-105 duration-500
   }
-  
-  .gridLayout {
-    @apply grid grid-cols-1 gap-y-10 gap-x-4
-  }
 }
 
 @layer utilities {
-  .gridLayout {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
   @media (min-width: 400px) {
     .gridLayout {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-  }
-  
-  @media (min-width: 640px) {
-    .gridLayout {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .gridLayout {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+    
+    .listLayout {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
     }
   }
 }

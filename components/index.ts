@@ -8,3 +8,4 @@ export {Loader, Spinner} from './loader';
 export {default as CustomNotification} from './custom-notification';
 export {default as Heading} from './heading';
 export {default as CardSkeleton} from './property/skeleton';
+export {default as LayoutSwitch} from './property/layout-switch';

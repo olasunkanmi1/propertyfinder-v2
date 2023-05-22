@@ -1,8 +1,24 @@
+import LayoutSwitch from "components/property/layout-switch"
 import { HeadingProps } from "@types"
 
-const Heading: React.FC<HeadingProps> = ({heading}) => {
+const Heading: React.FC<HeadingProps> = ({heading, forProperty, ptsPage}) => {
   return (
-    <h1 className="mx-auto text-2xl ms:text-4xl text-primary font-semibold items-center text-center whitespace-normal"> {heading} </h1>
+    <div className={`flex items-center space-x-3 ${forProperty ? 'justify-between' : 'justify-center'}`}>
+      <h1 
+        className={`text-xl ms:text-2xl text-primary font-semibold whitespace-normal
+        ${ptsPage ? 'mx-auto text-center sfs:text-left sfs:mx-0' : ''}
+        `}
+      > 
+        {heading} 
+      </h1>
+
+      { forProperty && (
+        <div className={`${ptsPage ? 'hidden' : ''} sfs:flex mt-auto`}>
+           <LayoutSwitch />
+        </div>
+      )}
+
+    </div>
   )
 }
 

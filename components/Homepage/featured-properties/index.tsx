@@ -7,9 +7,9 @@ const FeaturedProperties = () => {
   
   return (
     <div className="space-y-4">
-      <Heading heading='Popular Properties' />
+      <Heading heading='Popular Properties' forProperty />
 
-      <div className='gridLayout'>
+      <div className={`grid grid-cols-1 gap-y-6 gap-x-4 ${properties.isList ? 'listLayout md:grid-cols-2' : 'gridLayout sm:grid-cols-3 lg:grid-cols-4'}`}>
         { properties.featuredProperties?.length === 0 ? (
           [...Array(4)].map((_, index) => <CardSkeleton key={index} />)
         ) : (

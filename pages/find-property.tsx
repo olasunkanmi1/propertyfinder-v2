@@ -34,10 +34,7 @@ const FindProperty: React.FC<FindPropertyPageProps> = memo(({ properties, nbHits
       }
       
       if(suggestionsRef.current && !suggestionsRef.current.contains(e.target) && window.innerWidth >= 768) {
-        setSuggestions(suggestions => ({
-          ...suggestions,
-          predictions: null
-        })) 
+        setSuggestions(null) 
       }
     }
     document.addEventListener('click', closeDropdown, true);

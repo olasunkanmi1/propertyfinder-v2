@@ -8,5 +8,6 @@ export const propertiesState = atom<IPropertiesState>({
         savedProperties: [],
         properties:[],
         ptyWaitLoading: false,
+        isList: false,
     },
 });

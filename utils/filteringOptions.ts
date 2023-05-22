@@ -70,7 +70,7 @@ const filterOptions = [
           { name: 'Warehouse', value: '7', icon: 'FaWarehouse' },
           { name: 'Labour camp', value: '9', icon: 'ImHome2' },
           { name: 'Commercial Villa', value: '25', icon: 'TbBuildingBank' },
-          { name: 'Bulk Units', value: '20', icon: 'MdOutlineHome' },
+          { name: 'Bulk Unit', value: '20', icon: 'MdOutlineHome' },
           { name: 'Commercial Plot', value: '15', icon: 'MdApartment' },
           { name: 'Commercial Floor', value: '13', icon: 'MdApartment' },
           { name: 'Commercial Building', value: '10', icon: 'TbBuildingSkyscraper' },

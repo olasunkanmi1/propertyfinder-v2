@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState, useRecoilValue } from 'recoil';
 import { MdLocationOn } from 'react-icons/md'
 import Dropdown from './dropdown';
 import { bayutFetchFn } from '@utils';
@@ -9,35 +9,35 @@ import { ISearchboxProps } from '@types';
 const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useRecoilState(addressSuggestionsAtom);
-  const [filterState, setFilterState] = useRecoilState(filterAtom);
+  const filterState = useRecoilValue(filterAtom);
   const resetDropdown = useResetRecoilState(searchFiltersState);
   const inputRef = useRef<HTMLInputElement>(null);
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleChange = async (e:React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
     resetDropdown();
-    setSuggestions(suggestions => ({
-      ...suggestions,
-      predictions: []
-    })) 
+    setSuggestions([]) 
 
-    if(e.target.value.length >= 3) {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    if(value.length >= 3) {
       setLoading(true);
-      const data = await bayutFetchFn({url: 'auto-complete', autoComplete: true, e});
       
-      if(data) {
-        setLoading(false);
-  
-        setSuggestions(suggestions => ({
-          ...suggestions,
-          predictions: data.hits
-        }));
-       
-      }
+      debounceTimerRef.current = setTimeout(async () => {
+        const data = await bayutFetchFn({url: 'auto-complete', autoComplete: true, e});
+        
+        if(data) {
+          setLoading(false);
+    
+          setSuggestions(data.hits);
+         
+        }
+      }, 500);
     } else {
-      setSuggestions(suggestions => ({
-        ...suggestions,
-        predictions: null
-      })) 
+      setSuggestions(null) 
     }
   }
 
@@ -59,7 +59,7 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
           <h1 className='p-5 text-center font-bold'>Please enter at least 3 characters to search... </h1>
         </div>
       )}
-      { suggestions?.predictions !== null  && <Dropdown loading={loading} suggestions={suggestions} setSuggestions={setSuggestions} inputRef={inputRef} desktop={desktop} suggestionsRef={suggestionsRef} /> }
+      { suggestions !== null  && <Dropdown loading={loading} suggestions={suggestions} setSuggestions={setSuggestions} desktop={desktop} suggestionsRef={suggestionsRef} /> }
     </div>
   )
 }

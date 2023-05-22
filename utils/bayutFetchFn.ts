@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Agency, BayutFetchFnProps, Property} from '../types'
+import {Agency, BayutFetchFnProps, Property} from '@types'
 
 export const bayutFetchFn = async ({url, superhotProperties, featuredAgencies, autoComplete, e}: BayutFetchFnProps) => {
     const { data } = await axios.get((`https://bayut.p.rapidapi.com/${url}`), {
