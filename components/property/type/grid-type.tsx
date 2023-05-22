@@ -21,7 +21,7 @@ const GridType: React.FC<PropertyTypeProps> = ({objects}) => {
                     </a>
                 </Link>
 
-                <Button objects={toBtn} />
+                <Button objects={toBtn} forGrid />
             </div>
 
             <Link href={`/property/${externalID}`} passHref>

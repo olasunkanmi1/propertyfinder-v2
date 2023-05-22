@@ -10,10 +10,10 @@ const ListType: React.FC<PropertyTypeProps> = ({objects}) => {
   return (
     <div className='grid-cols-1 flex space-x-2 p-2 bg-[#ddd] bg-opacity-30 rounded-xl'>
         <Link href={`/property/${externalID}`} passHref>
-            <a className="w-1/2 md:w-[150px] xll:w-1/2"> <ImageContainer objects={toImg} /> </a>
+            <a className="w-1/2 md:w-[160px] xll:w-1/2"> <ImageContainer objects={toImg} forList /> </a>
         </Link>
     
-        <div className="flex flex-col justify-between w-1/2 md:w-[calc(100%-150px)] xll:w-1/2 space-y-2">
+        <div className="flex flex-col justify-between w-1/2 md:w-[calc(100%-160px)] xll:w-1/2 space-y-[5px]">
             <Link href={`/property/${externalID}`} passHref>
                 <a className='flex items-center'>
                     <p className='overflow-hidden text-overflow-ellipsis whitespace-no-wrap font-medium leading-5'

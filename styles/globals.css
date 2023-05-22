@@ -22,7 +22,7 @@
   }
   
   .propertyBBA {
-    @apply flex items-center gap-2 text-gray-500
+    @apply flex items-center gap-2 text-gray-500 leading-5
   }
   
   .footer_links {

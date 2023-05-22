@@ -1,11 +1,11 @@
 import millify from "millify";
 import {ImageContainerProps}  from '@types'
 
-const ImageContainer: React.FC<ImageContainerProps> = ({objects}) => {
+const ImageContainer: React.FC<ImageContainerProps> = ({objects, forList}) => {
     const { coverPhoto, Image, imgUrl, setImgUrl, GoVerified, rentFrequency, defaultPropertyImg,isVerified, product, price } = objects
 
   return (
-    <div className="relative rounded-xl w-full h-[160px] overflow-hidden">
+    <div className={`relative rounded-xl w-full overflow-hidden ${forList ? 'h-[170px]' : 'h-[160px]'}`}>
         <Image
             src={coverPhoto && imgUrl ? imgUrl : defaultPropertyImg} alt="cover-photo" layout="fill"
             placeholder="blur" blurDataURL={defaultPropertyImg.blurDataURL} loading="lazy" onError={() => setImgUrl(defaultPropertyImg)}
@@ -20,7 +20,7 @@ const ImageContainer: React.FC<ImageContainerProps> = ({objects}) => {
                 </div>
             </div> 
         }
-        <p className="absolute bottom-2 right-2 p-1 rounded-md text-primary bg-white font-bold font-lg shadow-md leading-tight"> AED {millify(price)} {rentFrequency && ` ${rentFrequency}`} </p>
+        <p className={`absolute bottom-2 right-2 p-1 rounded-md text-primary bg-white font-bold font-lg shadow-md leading-tight ${forList ? 'md:text-sm xll:text-base' : ''}`}> AED {millify(price)} {rentFrequency && ` ${rentFrequency}`} </p>
     </div>
   )
 }

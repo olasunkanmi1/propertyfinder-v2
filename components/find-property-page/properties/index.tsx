@@ -15,7 +15,7 @@ const Properties = () => {
   const {query} = router;
 
   const typeFormat = properties.properties && properties.properties.length > 1 ? (propertyType.endsWith('y') ? propertyType.slice(0, -1) + 'ies' : propertyType + 's') : propertyType
-  const type = propertyType === 'Property Type' ? 'Properties' : typeFormat
+  const type = propertyType === 'Property Type' ? (properties.properties?.length! > 1 ? 'Properties' : 'Property') : typeFormat
   const purpose = !query.purpose || query.purpose === 'for-rent' ? 'for rent' : query.purpose === 'for-sale' ? 'for sale' : ''
   const location = emirates === 'any' && !address ? '' : address ? `in ${address}` : `in ${emirates}`
 

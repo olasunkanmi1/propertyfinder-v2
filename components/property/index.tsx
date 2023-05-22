@@ -37,7 +37,7 @@ const Property: React.FC<PropertyProps> = ({ property, similar }) => {
             coverPhoto, Image, imgUrl, setImgUrl, GoVerified, rentFrequency, defaultPropertyImg, isVerified, product, price
         },
         toAgency: { agency, Image },
-        toBtn: { loading, Spinner, isSaved, AiFillHeart, AiOutlineHeart, handleClick, ptyWaitLoading: properties.ptyWaitLoading, },
+        toBtn: { loading, Spinner, isSaved, AiFillHeart, AiOutlineHeart, handleClick, ptyWaitLoading: properties.ptyWaitLoading },
         toLocation: { HiOutlineLocationMarker, propertyLocation },
         toInfo: { FaBed, FaBath, MdWindow, rooms, baths, area }
     }

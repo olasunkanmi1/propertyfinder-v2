@@ -617,7 +617,6 @@ export interface PropertyTypeProps {
             AiOutlineHeart: IconType;
             handleClick: () => Promise<void>;
             ptyWaitLoading: boolean;
-            forGrid?: boolean ;
         };
         toLocation: {
             HiOutlineLocationMarker: IconType;
@@ -636,6 +635,7 @@ export interface PropertyTypeProps {
 
 export interface ImageContainerProps {
     objects: PropertyTypeProps['objects']['toImg'];
+    forList?: boolean;
 }
 
 export interface AgencyContainerProps {
@@ -644,6 +644,7 @@ export interface AgencyContainerProps {
 
 export interface ButtonContainerProps {
     objects: PropertyTypeProps['objects']['toBtn'];
+    forGrid?: boolean;
 }
 
 export interface LocationContainerProps {

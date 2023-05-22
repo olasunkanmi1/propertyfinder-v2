@@ -15,7 +15,7 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleChange = async (e:React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.target.value.trim();
     resetDropdown();
     setSuggestions([]) 
 
@@ -23,7 +23,7 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
       clearTimeout(debounceTimerRef.current);
     }
 
-    if(value.length >= 3) {
+    if(value.length >= 3 && value !== '') {
       setLoading(true);
       
       debounceTimerRef.current = setTimeout(async () => {
@@ -35,7 +35,7 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
           setSuggestions(data.hits);
          
         }
-      }, 500);
+      }, 1000);
     } else {
       setSuggestions(null) 
     }
@@ -54,7 +54,7 @@ const Searchbox: React.FC<ISearchboxProps> = ({desktop, suggestionsRef}) => {
           </div>
       </div>
 
-      {inputRef.current && inputRef.current.value && inputRef.current.value.length < 3 && (
+      {inputRef.current && inputRef.current.value.trim() && inputRef.current.value.trim().length < 3 && (
         <div className={`searchDropdown ${desktop ? 'absolute top-[40px] z-10' : ''}`}> 
           <h1 className='p-5 text-center font-bold'>Please enter at least 3 characters to search... </h1>
         </div>
