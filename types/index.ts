@@ -1,7 +1,8 @@
-import { ImageProps, StaticImageData } from "next/image";
 import { ChangeEvent, Dispatch, ReactElement, SetStateAction } from "react";
-import { IconType } from "react-icons/lib";
+import { ImageProps, StaticImageData } from "next/image";
 import { SetterOrUpdater } from "recoil";
+import { FormikErrors, FormikTouched } from "formik";
+import { IconType } from "react-icons/lib";
 
 export interface LayoutProps {
     title: string;
@@ -354,7 +355,41 @@ export interface IUpdateProfileProps {
     setModal: SetterOrUpdater<ILayoutState>;
     file: boolean;
     imgUrlToBeDeleted: string;
-    setUser: (valOrUpdater: IUserState | ((currVal: IUserState | null) => IUserState | null) | null) => void
+    user: IUserState | null;
+    setUser: (valOrUpdater: IUserState | ((currVal: IUserState | null) => IUserState | null) | null) => void;
+    emailChanged: boolean;
+}
+
+export interface IUpdatePasswordProps {
+    values: ChangePasswordInitialValues;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+    setSubmitting: (isSubmitting: boolean) => void;
+    setModal: SetterOrUpdater<ILayoutState>;
+}
+
+export interface IForgotPasswordProps {
+    values: ForgotPasswordInitialValues;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+    setSubmitting: (isSubmitting: boolean) => void;
+    setModal: SetterOrUpdater<ILayoutState>;
+}
+
+export interface ISignInProps {
+    modal: ILayoutState;
+    values: SignInInitialValues;
+    setUser: SetterOrUpdater<IUserState | null>;
+    setProperties: SetterOrUpdater<IPropertiesState>;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+    setSubmitting: (isSubmitting: boolean) => void;
+    setModal: SetterOrUpdater<ILayoutState>;
+}
+
+export interface ISignUpProps {
+    values: SignInInitialValues;
+    setUser: SetterOrUpdater<IUserState | null>;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+    setSubmitting: (isSubmitting: boolean) => void;
+    setModal: SetterOrUpdater<ILayoutState>;
 }
 
 export interface PaginationProps {
@@ -440,7 +475,8 @@ export interface ResetPasswordInitialValues {
 }
 
 export interface IVerifyEmail {
-    isVerified: boolean
+    isVerified: boolean;
+    samePersonLoggedIn: boolean;
 }
 
 export interface addressSuggestionsAtomState {
@@ -653,4 +689,18 @@ export interface LocationContainerProps {
 
 export interface InfoContainerProps {
     objects: PropertyTypeProps['objects']['toInfo'];
+}
+
+export interface EditPhotoProps {
+    values: EditProfileInitialValues;
+    imageBlob: string;
+    inputRef: React.RefObject<HTMLInputElement>;
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
+    selectedFile: File | null;
+    setModal: SetterOrUpdater<ILayoutState>
+}
+
+export interface EditFieldProps {
+    touched: FormikTouched<EditProfileInitialValues>;
+    errors: FormikErrors<EditProfileInitialValues>;
 }

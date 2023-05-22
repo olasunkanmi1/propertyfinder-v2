@@ -6,7 +6,7 @@ import { AiOutlineLock } from 'react-icons/ai'
 import ModalLayout from './modal-layout';
 import FormField from './field'
 import { Loader } from '@components';
-import { setToast, axiosInstance } from '@utils';
+import { changePassword, changePasswordFieldArr } from '@utils';
 import { ChangePasswordInitialValues } from '@types';
 import { layoutState } from '@states';
 
@@ -25,32 +25,8 @@ const ChangePasswordModal = () => {
     });  
 
   const handleSubmit = (values: ChangePasswordInitialValues, { setSubmitting }: FormikHelpers<ChangePasswordInitialValues>) => {
-    setLoading(true);
-
-    axiosInstance.patch("/update-password", values)
-      .then(async (res) => {
-        setLoading(false);
-        
-        if (res.status === 200) {
-            setToast('success', 'Password updated successfully', setModal)
-            setModal(modal => ({
-                ...modal,
-                changePasswordModal: false
-            }))
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-        setSubmitting(false);
-
-        if(error.response.status === 401) {
-            setToast('error', 'Current password incorrect', setModal)
-        } else {
-            setToast('error', 'Unable to change password, please try again', setModal)
-        }
-      })
+    changePassword({values, setLoading, setSubmitting, setModal})
   }
-
   return (
     <>
         { modal.changePasswordModal && (
@@ -63,26 +39,17 @@ const ChangePasswordModal = () => {
                     {({ isSubmitting, errors, values, touched }) => {
                         return (
                             <Form className='space-y-3 flex flex-col justify-end'>
-                                <FormField 
-                                    title='Current Password' 
-                                    icon={<AiOutlineLock size={25} color={touched.oldPassword && errors.oldPassword ? '#E65050' : '#000'} />} 
-                                    name='oldPassword'
-                                    placeholder='Enter current Password'
-                                    password
-                                    error={touched.oldPassword && errors.oldPassword !== undefined}
-                                    value={values.oldPassword}
-                                />
-                                
-                                <FormField 
-                                    title='New Password' 
-                                    icon={<AiOutlineLock size={25} color={touched.newPassword && errors.newPassword ? '#E65050' : '#000'} />} 
-                                    name='newPassword'
-                                    placeholder='Enter new Password'
-                                    password
-                                    error={touched.newPassword && errors.newPassword !== undefined}
-                                    value={values.newPassword}
-                                />
-                                
+                                { changePasswordFieldArr.map(({title, name, placeholder,}) => {
+                                    const nameAsType = name as keyof ChangePasswordInitialValues
+                                    
+                                    return (
+                                        <FormField key={name} title={title} name={name} placeholder={placeholder} password
+                                            icon={<AiOutlineLock size={25} color={touched[nameAsType] && errors[nameAsType] ? '#E65050' : '#000'} />} 
+                                            error={touched[nameAsType] && errors[nameAsType] !== undefined}
+                                            value={values[nameAsType]}
+                                        />
+                                    )
+                                }) }
                     
                                 <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-40 disabled:cursor-not-allowed h-[32px]'> 
                                     { loading ? <Loader /> : 'Change password' }

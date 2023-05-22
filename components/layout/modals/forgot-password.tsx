@@ -7,7 +7,7 @@ import FormField from './field'
 import ModalLayout from './modal-layout';
 import { layoutState } from '@states'
 import { Loader } from '@components'
-import { setToast, axiosInstance } from '@utils';
+import { forgotPassword } from '@utils';
 import { ForgotPasswordInitialValues } from '@types';
 
 const ForgotPassword = () => {
@@ -23,26 +23,7 @@ const ForgotPassword = () => {
     });  
 
   const handleSubmit = (values: ForgotPasswordInitialValues, { setSubmitting }: FormikHelpers<ForgotPasswordInitialValues>) => {
-    setLoading(true);
-
-    axiosInstance.post("/forgot-password", values)
-      .then(async (res) => {
-        setLoading(false);
-        
-        if (res.status === 200) {
-            setModal( modal => ({
-                ...modal,
-                forgotPasswordModal: false,
-                forgotPasswordMailSent: true,
-                forgotPasswordMail: values.email
-            }));
-        }
-      })
-      .catch((error) => {
-        setToast('error', 'Unknown error, please try again', setModal)
-        setLoading(false);
-        setSubmitting(false);
-      })
+    forgotPassword({values, setLoading, setSubmitting, setModal})
   }
   
   return (
@@ -58,10 +39,8 @@ const ForgotPassword = () => {
                         return (
                             <Form className='space-y-3 flex flex-col justify-end'>
                                 <FormField 
-                                    title='Email' 
+                                    title='Email' name='email' placeholder='Enter your email'
                                     icon={<AiOutlineMail size={25} color={touched.email && errors.email ? '#E65050' : '#000'} />} 
-                                    name='email'
-                                    placeholder='Enter your email'
                                     error={touched.email && errors.email !== undefined}
                                 />
                     

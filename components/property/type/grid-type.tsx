@@ -28,7 +28,7 @@ const GridType: React.FC<PropertyTypeProps> = ({objects}) => {
                 <a className='pt-[5px]'>
                     <Info objects={toInfo} />
 
-                    <div className="flex space-x-1 items-center h-[30px]"> 
+                    <div className="flex space-x-1 items-center h-[30px] mt-1"> 
                         <Location objects={toLocation} /> 
                     </div>
 

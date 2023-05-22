@@ -4,6 +4,7 @@ import axiosInstance from "../axiosInstance";
 export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
     const {token, email} = query
     let isVerified;
+    let samePersonLoggedIn = false;
   
     const obj = {
       verificationToken: token,
@@ -20,7 +21,10 @@ export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
   
     try {
       const {data} = await axiosInstance.post(`${process.env.BACKEND_URL}/auth/verify-email`, obj, config);
-      if(data) isVerified = true
+      if(data) {
+        isVerified = true;
+        samePersonLoggedIn = data.samePersonLoggedIn
+      } 
     } catch (error) {
       isVerified = false
     }
@@ -37,6 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
     return {
       props: {
         isVerified,
+        samePersonLoggedIn
       },
     };
 };

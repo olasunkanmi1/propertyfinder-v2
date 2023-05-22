@@ -1,12 +1,25 @@
+import {useEffect} from 'react'
 import Head from 'next/head'
 import Image from "next/image"
 import {useRouter} from 'next/router';
+import { useRecoilState } from 'recoil';
 import {logo, success, error} from '@public'
 import { verifyEmailGSSP } from '@utils';
 import { IVerifyEmail } from '@types';
+import { userState } from '@states';
 
-const VerifyEmail: React.FC<IVerifyEmail> = ({isVerified}) => {
+const VerifyEmail: React.FC<IVerifyEmail> = ({isVerified, samePersonLoggedIn}) => {
+  const [user, setUser] = useRecoilState(userState)
     const router = useRouter();
+
+    useEffect(() => {
+      if(samePersonLoggedIn && user) {
+        setUser({
+          ...user,
+          isVerified: true
+        })
+      }
+    }, [samePersonLoggedIn, setUser, user])
 
   return (
       <div className='max-h-[calc(100vh-80px)] top-[calc(50%+20px)] left-[50%] translate-x-[-50%] translate-y-[-50%] shadow-[rgba(0,0,0,0.24)_0px_3px_8px] p-4 bg-white rounded-md w-[calc(100%-32px)] ms:w-[295px] z-[25] fixed'>

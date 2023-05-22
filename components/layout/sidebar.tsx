@@ -42,22 +42,22 @@ const Sidebar = () => {
     }
 
   return (
-    <div className={`md:hidden fixed top-[75px] z-10 w-full ms:w-[300px] h-[calc(100vh-75px)] overflow-auto duration-500 ease-in-out bg-[#fefefe] p-3 pb-[100px] ${isSidebarOpen ? 'right-0' : '-right-[100%] ms:-right-[300px]'}`}>
+    <div className={`md:hidden fixed top-[75px] z-10 w-full ms:w-[300px] h-[calc(100vh-75px)] min-h-[280px] overflow-auto duration-500 ease-in-out bg-[#fefefe] p-3 pb-[100px] space-y-3 ${isSidebarOpen ? 'right-0' : '-right-[100%] ms:-right-[300px]'}`}>
         { user && (
-            <>
+            <div className='border-b py-3'>
                 <Profile mobile />
         
-                <div onClick={() => !user.isVerified ? handleVerify() : null} className={`flex items-center px-3 py-[1px] text-sm font-semibold rounded-full w-max ease-in-out duration-500 mt-2 mb-5 mx-auto ${user.isVerified ? 'text-green-700 bg-green-300' : 'text-red-500 bg-red-200 hover:bg-red-300 cursor-pointer'}`}> 
+                <div onClick={() => !user.isVerified ? handleVerify() : null} className={`flex items-center justify-center px-3 py-1 text-sm font-semibold rounded-full ease-in-out duration-500 mt-2 mx-auto w-full ${user.isVerified ? 'text-green-700 bg-green-300' : 'text-red-500 bg-red-200 hover:bg-red-300 cursor-pointer'}`}> 
                     {user.isVerified ? (
                         <> <GoVerified size={15} className='mr-1' /> Verified </>
                     ) : (
                         <> <GoUnverified size={15} className='mr-1' /> Not verified. Click to verify </>
                     )}  
                 </div> 
-            </>
+            </div>
         ) }
 
-        <div className='flex flex-col justify-between h-[calc(100%-100px)] min-h-[280px]'>
+        <div className='flex flex-col justify-between'>
             <div>
                 { navLinks.map(({ route, title, active }) => {
                     return (

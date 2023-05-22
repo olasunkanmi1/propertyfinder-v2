@@ -8,4 +8,4 @@ export {logOut} from './logOut';
 export {handleSaveAndUnsave} from './propertyFns';
 export {sendVerificationEmail} from './sendVerificationEmail';
 export {setToast} from './setToast';
-export {editProfile} from './updateProfile';
+export * from './modalFormsFns';
