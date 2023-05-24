@@ -32,14 +32,17 @@ export const signIn = ({modal, values, setUser, setProperties, setLoading, setSu
         }
         })
         .catch((error) => {
-        setLoading(false);
-        setSubmitting(false)
+            setLoading(false);
+            setSubmitting(false)
 
-        if(error.response.status === 401) {
-            setToast('error', 'Invalid email or password', setModal)
-        } else {
-            setToast('error', 'Unknown error, please try again', setModal)
-        }
+            if(error.response.status === 401) {
+                setModal(modal => ({
+                    ...modal, 
+                    submitError: 'Invalid email or password'
+                }))
+            } else {
+                setToast('error', 'Unknown error, please try again', setModal)
+            }
         })
 }
 

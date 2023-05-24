@@ -33,10 +33,12 @@ const CustomNotification = () => {
 
       toastNotifications.forEach(notification => {
         setTimeout(() => {
-          setLayout(layout => ({
-            ...layout,
-            toastNotifications: layout.toastNotifications.filter(n => n.id !== notification.id)
-          }));
+          if(notification.toastType !== 'loading') {
+            setLayout(layout => ({
+              ...layout,
+              toastNotifications: layout.toastNotifications.filter(n => n.id !== notification.id)
+            }));
+          }
         }, 5000); // disappear after 5 seconds
       });
   }, [toastNotifications, setLayout]);

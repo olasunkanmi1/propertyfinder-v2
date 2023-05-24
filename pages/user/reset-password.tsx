@@ -90,7 +90,7 @@ const ResetPassword = () => {
                                                 title='Password' 
                                                 icon={<AiOutlineLock size={25} color={touched.password && errors.password ? '#E65050' : '#000'} />} 
                                                 name='password'
-                                                placeholder='Enter your password'
+                                                placeholder='Enter new password'
                                                 password
                                                 error={touched.password && errors.password !== undefined}
                                                 value={values.password}

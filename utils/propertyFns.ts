@@ -48,15 +48,16 @@ export const handleSaveAndUnsave = async ({property, setLoading, isSaved, setPro
         if(isSaved) {
             try {
                 const unsaveRes = await unSaveProperty(externalID);
-                setLoading(false);
-                setProperties(pty => ({...pty, ptyWaitLoading: false}));
-
+                
                 if (unsaveRes && unsaveRes.status === 200) {
                     setProperties(properties => ({
                         ...properties,
                         savedProperties: savedProperties.filter((pty) => pty.externalID !== externalID)
                     }))
+
                     setToast('success', 'Property unsaved', setModal)
+                    setLoading(false);
+                    setProperties(pty => ({...pty, ptyWaitLoading: false}));
                 }
             } catch (error) {
                 setLoading(false);
@@ -66,14 +67,15 @@ export const handleSaveAndUnsave = async ({property, setLoading, isSaved, setPro
         } else {
             try {
                 const saveRes = await saveProperty(obj);
-                setLoading(false);
-                setProperties(pty => ({...pty, ptyWaitLoading: false}));
-
+                
                 if (saveRes && saveRes.status === 200) {
                     setProperties(properties => ({
                         ...properties,
                         savedProperties: [...savedProperties, saveRes.data.property]
                     }))
+
+                    setLoading(false);
+                    setProperties(pty => ({...pty, ptyWaitLoading: false}));
                     setToast('success', 'Property saved', setModal)
                 }
             } catch (error) {

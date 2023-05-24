@@ -30,11 +30,11 @@ const Dropdown = () => {
                   <div className='px-2 pb-1 overflow-hidden w-full border-b bg-white'>
                       <h6 className='font-semibold select-none text-ellipsis truncate'> {firstName} {lastName} </h6>
                       <p className='text-sm break-words'> {email} </p>
-                      <div onClick={() => !isVerified ? sendVerificationEmail(email, setModal) : null} className={`flex items-center px-3 py-[1px] text-sm font-semibold rounded-full w-max ease-in-out duration-500 mt-1 ${isVerified ? 'text-green-700 bg-green-300' : 'text-red-500 bg-red-200 hover:bg-red-300 cursor-pointer'}`}> 
+                      <div onClick={() => !isVerified ? sendVerificationEmail(setModal) : null} className={`flex items-center justify-center py-[1px] text-sm font-semibold rounded-full ease-in-out duration-500 mt-1 w-full ${isVerified ? 'text-green-700 bg-green-300' : 'text-red-500 bg-red-200 hover:bg-red-300 cursor-pointer'}`}> 
                         {isVerified ? (
-                          <> <GoVerified size={15} className='mr-1' /> Verified </>
+                          <> <GoVerified size={15} className='mr-1' /> Email verified </>
                         ) : (
-                          <> <GoUnverified size={15} className='mr-1' /> Not verified. Click to verify </>
+                          <> <GoUnverified size={15} className='mr-1' /> Email unverified. Click to verify </>
                         )}  
                       </div> 
                   </div>

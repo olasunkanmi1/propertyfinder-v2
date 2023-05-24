@@ -52,7 +52,19 @@ export const removePhoto = (
     setFieldValue('photoUrl', '');
 }
 
-export const editProfile = ({content, values, setLoading, setSubmitting, setModal, file, imgUrlToBeDeleted, user, setUser, emailChanged}: IUpdateProfileProps) => {
+export const editProfile = ({selectedFile, values, setLoading, setSubmitting, setModal, imgUrlToBeDeleted, user, setUser}: IUpdateProfileProps) => {
+    setLoading(true);
+    const formData = new FormData();
+    if(selectedFile) formData.append('image', selectedFile);
+    const content = selectedFile ? formData : values
+    const file = selectedFile ? true : false
+    const emailChanged = user?.email !== values.email
+
+    // ARRANGE VALUES. capitalize firstName/lastName and make email lowercase
+    values.firstName = values.firstName.charAt(0).toUpperCase() + values.firstName.slice(1).toLowerCase();
+    values.lastName = values.lastName.charAt(0).toUpperCase() + values.lastName.slice(1).toLowerCase();
+    values.email = values.email.toLowerCase();
+
     const isFormData = content instanceof FormData;
     const parts = imgUrlToBeDeleted.split("/");
     const publicId = parts[parts.length - 2] + "/" + parts[parts.length - 1].split(".")[0];
@@ -77,7 +89,7 @@ export const editProfile = ({content, values, setLoading, setSubmitting, setModa
     }).then(async (res) => {
         if (res.status === 200) {
             if(emailChanged && user) {
-                sendVerificationEmail(values.email, setModal) ;
+                sendVerificationEmail(setModal) ;
                 setUser({
                     ...user, 
                     isVerified: false
@@ -99,7 +111,14 @@ export const editProfile = ({content, values, setLoading, setSubmitting, setModa
     }).catch((error) => {
         setLoading(false);
         setSubmitting(false);
-        setToast('error', 'Unable to update profile, please try again', setModal)
+        if(error.response.status === 409) {
+            setModal(modal => ({
+                ...modal, 
+                submitError: 'Email already exist'
+            }))
+        } else {
+            setToast('error', 'Unable to update profile, please try again', setModal)
+        }
     })
 }
 

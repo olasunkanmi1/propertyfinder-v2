@@ -278,6 +278,7 @@ export interface IModalLayoutProps {
     children: JSX.Element[] | JSX.Element;
     signIn?: boolean;
     signUp?: boolean;
+    confirmDigit?: boolean;
 }
 
 export interface IFormFieldProps {
@@ -348,16 +349,14 @@ export interface EditProfileInitialValues {
 }
 
 export interface IUpdateProfileProps {
-    content: FormData | EditProfileInitialValues;
+    selectedFile: File | null;
     values: EditProfileInitialValues;
     setLoading: Dispatch<SetStateAction<boolean>>;
     setSubmitting: (isSubmitting: boolean) => void;
     setModal: SetterOrUpdater<ILayoutState>;
-    file: boolean;
     imgUrlToBeDeleted: string;
     user: IUserState | null;
     setUser: (valOrUpdater: IUserState | ((currVal: IUserState | null) => IUserState | null) | null) => void;
-    emailChanged: boolean;
 }
 
 export interface IUpdatePasswordProps {
@@ -385,7 +384,16 @@ export interface ISignInProps {
 }
 
 export interface ISignUpProps {
-    values: SignInInitialValues;
+    values: SignUpInitialValues;
+    setUser: SetterOrUpdater<IUserState | null>;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+    setSubmitting: (isSubmitting: boolean) => void;
+    setModal: SetterOrUpdater<ILayoutState>;
+}
+
+export interface IConfirmDigitProps {
+    values: ConfirmDigitInitialValues;
+    user: IUserState | null;
     setUser: SetterOrUpdater<IUserState | null>;
     setLoading: Dispatch<SetStateAction<boolean>>;
     setSubmitting: (isSubmitting: boolean) => void;
@@ -521,11 +529,11 @@ export interface ILayoutState {
     forgotPasswordModal: boolean,
     forgotPasswordMail: string,
     forgotPasswordMailSent: boolean,
-    verifyEmailMailSent: boolean,
     editProfileModal: boolean,
     changePasswordModal: boolean,
     clearConfirmationModal: boolean,
     imageModal: boolean,
+    confirmDigitModal: boolean,
 
     imageBlob: string,
     selectedFile: File | null,
@@ -535,6 +543,7 @@ export interface ILayoutState {
     ptyToSaveOnLogin?: SignInInitialValues['ptyToSaveOnLogin'],
 
     toastNotifications: ToastNotification[];
+    submitError: string | null;
 }
 
 export interface ILoadingState {
@@ -703,4 +712,22 @@ export interface EditPhotoProps {
 export interface EditFieldProps {
     touched: FormikTouched<EditProfileInitialValues>;
     errors: FormikErrors<EditProfileInitialValues>;
+    setModal: SetterOrUpdater<ILayoutState>;
+}
+
+export interface ConfirmDigitInitialValues {
+    code: string[];
+}
+
+export interface DigitsFormProps {
+    values: ConfirmDigitInitialValues;
+    errors: FormikErrors<ConfirmDigitInitialValues>;
+    touched: FormikTouched<ConfirmDigitInitialValues>;
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
+    submitError: string | null;
+    setModal: SetterOrUpdater<ILayoutState>;
+    isSubmitting: boolean;
+    loading: boolean;
+    email: string;
+    resend: () => void
 }

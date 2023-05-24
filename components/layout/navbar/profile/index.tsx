@@ -34,7 +34,7 @@ const Profile: React.FC<IProfileProps> = ({mobile}) => {
 
         {mobile ? (
             <div className='overflow-hidden w-[calc(100%-55px)]'>
-                <h6 className='font-semibold select-none text-ellipsis truncate'> {firstName} {lastName} adsdsdeola sami </h6>
+                <h6 className='font-semibold select-none text-ellipsis truncate'> {firstName} {lastName} </h6>
                 <p className='text-sm text-ellipsis truncate'> {email} </p>
             </div> 
         ) : (

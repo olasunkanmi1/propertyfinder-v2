@@ -46,6 +46,7 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
         WebkitLineClamp: lines,
         WebkitBoxOrient: 'vertical',
         overflow: 'hidden',
+        height: lines === 5 ? '120px' : 'auto',
     } 
 
     useEffect(() => {
@@ -87,15 +88,13 @@ const Info: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
                     style={styles}
                 />
 
-                {/* { descriptionHeight && descriptionHeight > 120 && ( */}
-                    <button className='flex font-medium mt-2 text-primary gap-1' onClick={handleDescription}> 
-                        Read { descriptionVisibility ? 
-                            ( <span className='flex items-center gap-2'> Less <AiOutlineUp size={15} /> </span> 
-                            ) : ( 
-                            <span className='flex items-center gap-2'> More <AiOutlineDown size={15} /> </span> 
-                            ) }
-                    </button> 
-                {/* // )} */}
+                <button className='flex font-medium mt-2 text-primary gap-1' onClick={handleDescription}> 
+                    Read { descriptionVisibility ? 
+                        ( <span className='flex items-center gap-2'> Less <AiOutlineUp size={15} /> </span> 
+                        ) : ( 
+                        <span className='flex items-center gap-2'> More <AiOutlineDown size={15} /> </span> 
+                        ) }
+                </button> 
             </div>
         </div>
 

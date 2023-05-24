@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
     const { data: propertyData } = await axiosInstance.get(`${process.env.BACKEND_URL}/property`, config);
     savedProperties = propertyData.savedProperties;
   } catch (error) {
-    console.log(error)
+    user = null
   }
 
   if(!user) {

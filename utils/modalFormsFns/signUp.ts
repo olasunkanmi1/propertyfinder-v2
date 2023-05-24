@@ -3,6 +3,10 @@ import axiosInstance from "../axiosInstance";
 import { ISignUpProps } from "@types";
 
 export const signUp = ({ values, setUser, setLoading, setSubmitting, setModal}: ISignUpProps) => {
+  values.firstName = values.firstName.charAt(0).toUpperCase() + values.firstName.slice(1).toLowerCase();
+  values.lastName = values.lastName.charAt(0).toUpperCase() + values.lastName.slice(1).toLowerCase();
+  values.email = values.email.toLowerCase();
+
     setLoading(true);
 
     axiosInstance.post("/register", values)
@@ -16,7 +20,7 @@ export const signUp = ({ values, setUser, setLoading, setSubmitting, setModal}: 
             setModal(modal => ({
                 ...modal,
                 signUpModal: false,
-                verifyEmailMailSent: true,
+                confirmDigitModal: true,
             }))
         }
       })
@@ -24,8 +28,11 @@ export const signUp = ({ values, setUser, setLoading, setSubmitting, setModal}: 
         setLoading(false);
         setSubmitting(false)
 
-        if(error.response.status === 400) {
-            setToast('error', 'Email already exist', setModal)
+        if(error.response.status === 409) {
+          setModal(modal => ({
+            ...modal, 
+            submitError: 'Email already exist'
+          }))
         } else {
             setToast('error', 'Unknown error, please try again', setModal)
         }

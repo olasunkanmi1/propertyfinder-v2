@@ -9,7 +9,6 @@ const Settings = () => {
         setTimeout(() => {
             setModal( modal => ({
                 ...modal,
-                profileDropdown: false,
                 [name as keyof ILayoutState]: true,
             }))
         }, 0);

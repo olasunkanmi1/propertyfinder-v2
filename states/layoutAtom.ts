@@ -12,11 +12,11 @@ export const layoutState = atom<ILayoutState>({
         forgotPasswordModal: false,
         forgotPasswordMail: '',
         forgotPasswordMailSent: false,
-        verifyEmailMailSent: false,
         editProfileModal: false,
         changePasswordModal: false,
         clearConfirmationModal: false,
         imageModal: false,
+        confirmDigitModal: false,
 
         imageBlob: '',
         selectedFile: null,
@@ -25,6 +25,7 @@ export const layoutState = atom<ILayoutState>({
         initialSlide: 0,
         ptyToSaveOnLogin: undefined,
         
-        toastNotifications: []
+        toastNotifications: [],
+        submitError: null,
     },
 });

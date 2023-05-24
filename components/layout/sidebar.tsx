@@ -38,7 +38,7 @@ const Sidebar = () => {
 
     const handleVerify = () => {
         closeSidebar();
-        if(user) sendVerificationEmail(user.email, setModal)
+        if(user) sendVerificationEmail(setModal)
     }
 
   return (
@@ -49,9 +49,9 @@ const Sidebar = () => {
         
                 <div onClick={() => !user.isVerified ? handleVerify() : null} className={`flex items-center justify-center px-3 py-1 text-sm font-semibold rounded-full ease-in-out duration-500 mt-2 mx-auto w-full ${user.isVerified ? 'text-green-700 bg-green-300' : 'text-red-500 bg-red-200 hover:bg-red-300 cursor-pointer'}`}> 
                     {user.isVerified ? (
-                        <> <GoVerified size={15} className='mr-1' /> Verified </>
+                        <> <GoVerified size={15} className='mr-1' /> Email verified </>
                     ) : (
-                        <> <GoUnverified size={15} className='mr-1' /> Not verified. Click to verify </>
+                        <> <GoUnverified size={15} className='mr-1' /> Email not verified. Click to verify </>
                     )}  
                 </div> 
             </div>

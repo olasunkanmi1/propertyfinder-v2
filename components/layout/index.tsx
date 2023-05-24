@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRecoilValue, useSetRecoilState, useResetRecoilState } from 'recoil'
 import Navbar from './navbar';
 import Footer from './footer';
-import { SignInModal, SignUpModal, ForgotPasswordModal, ForgotPasswordEmailSentModal, VerifyEmailSentModal, EditProfileModal, ChangePasswordModal, ClearSavedPropertiesModal } from './modals';
+import { SignInModal, SignUpModal, ForgotPasswordModal, ForgotPasswordEmailSentModal, EditProfileModal, ChangePasswordModal, ClearSavedPropertiesModal, ConfirmDigitModal } from './modals';
 import CustomNotification from '../custom-notification';
 import Dropdown from './navbar/profile/dropdown'
 import Sidebar from './sidebar'
@@ -19,11 +19,11 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   const setUser = useSetRecoilState(userState);
   const closeALll = useResetRecoilState(layoutState);
   
-  const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, verifyEmailMailSent, editProfileModal, changePasswordModal, clearConfirmationModal, imageModal } = modal;
-  const modals = signInModal || signUpModal || isFilterbarOpen || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal || imageModal
+  const {isSidebarOpen, profileDropdown, isFilterbarOpen, signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, editProfileModal, changePasswordModal, clearConfirmationModal, imageModal, confirmDigitModal } = modal;
+  const modals = signInModal || signUpModal || isFilterbarOpen || forgotPasswordModal || forgotPasswordMailSent || editProfileModal || changePasswordModal || clearConfirmationModal || imageModal || confirmDigitModal
 
   const toggleSidebarAndDropdown = () => {
-    if(isSidebarOpen || profileDropdown || isFilterbarOpen || signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || verifyEmailMailSent || editProfileModal || changePasswordModal || clearConfirmationModal || imageModal) closeALll()
+    if(isSidebarOpen || profileDropdown || isFilterbarOpen || signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || editProfileModal || changePasswordModal || clearConfirmationModal || imageModal) closeALll()
   }
 
   useEffect(() => {
@@ -55,12 +55,12 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       <SignUpModal />
       <ForgotPasswordModal />
       <ForgotPasswordEmailSentModal />
-      <VerifyEmailSentModal />
       <EditProfileModal />
       <ChangePasswordModal />
       <ClearSavedPropertiesModal />
       <ImageModal />
       <CustomNotification />
+      <ConfirmDigitModal />
     </div>
   )
 }

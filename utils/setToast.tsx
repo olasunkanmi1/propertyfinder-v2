@@ -11,7 +11,9 @@ export const setToast = (type: string, message: string, setModal: SetterOrUpdate
     return (
         setModal(modal => ({
             ...modal, 
-            toastNotifications: type === 'dismiss' ? [] : [...modal.toastNotifications, newToast]
+            toastNotifications: type === 'dismiss' ? 
+                modal.toastNotifications.filter(notification => notification.toastType !== 'loading') : 
+                [...modal.toastNotifications, newToast]
         }))
     )
 }
