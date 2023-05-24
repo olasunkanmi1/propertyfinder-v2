@@ -1,36 +1,18 @@
-import {useRef, useEffect} from 'react'
+import {useRef} from 'react'
 import { AiOutlineMail, AiOutlineUser } from "react-icons/ai"
 import FormField from "../field"
 import { EditProfileInitialValues, EditFieldProps } from "@types"
-import { EditProfileFieldArr } from "@utils"
+import { EditProfileFieldArr, useListenForChange } from "@utils"
 
 
-const Field: React.FC<EditFieldProps> = ({touched, errors, setModal}) => {
+const Field: React.FC<EditFieldProps> = ({touched, errors, setModal, submitError}) => {
     const fieldWrapperRef = useRef<HTMLDivElement | null>(null);
 
     //cheeck for change in email input so as to remove error message
-    useEffect(() => {
-        const emailInput = fieldWrapperRef.current?.querySelector('input[name="email"]') as HTMLInputElement;
-        const removeError = () => {
-            setModal(modal => ({
-                ...modal, 
-                submitError: null
-            }))
-        }
-      
-        if (emailInput) {
-          emailInput.addEventListener('keydown', removeError);
-        }
-      
-        return () => {
-          if (emailInput) {
-            emailInput.removeEventListener('keydown', removeError);
-          }
-        };
-      }, [setModal]);
+    useListenForChange({fieldWrapperRef, setModal, onlyEmail: true, submitError})
     
     return (
-        <div ref={fieldWrapperRef}>
+        <div className='formSpacing' ref={fieldWrapperRef}>
             { EditProfileFieldArr.map(({title, name, placeholder,}) => {
                 const nameAsType = name as keyof EditProfileInitialValues
                 

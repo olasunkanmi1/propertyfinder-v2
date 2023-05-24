@@ -19,7 +19,7 @@ const Dropdown = () => {
   const email = user ? user.email : ''
   const isVerified = user ? user.isVerified : ''
 
-  const closeDropdown = () => setModal(modal => ({...modal, profileDropdown: false}))
+  const closeDropdown = () => setModal(modal => ({...modal, confirmDigitModal: false, profileDropdown: false}))
 
   return (
     <>

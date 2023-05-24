@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useRef} from 'react'
 import { useRecoilState } from 'recoil';
 import { Form, Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup';
@@ -6,13 +6,15 @@ import { AiOutlineLock } from 'react-icons/ai'
 import ModalLayout from './modal-layout';
 import FormField from './field'
 import { Loader } from '@components';
-import { changePassword, changePasswordFieldArr } from '@utils';
+import { changePassword, changePasswordFieldArr, useListenForChange } from '@utils';
 import { ChangePasswordInitialValues } from '@types';
 import { layoutState } from '@states';
 
 const ChangePasswordModal = () => {
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useRecoilState(layoutState);
+    const fieldWrapperRef = useRef<HTMLDivElement | null>(null);
+    const {submitError} = modal
 
     const initialValues: ChangePasswordInitialValues = {
         oldPassword: '',
@@ -27,6 +29,10 @@ const ChangePasswordModal = () => {
   const handleSubmit = (values: ChangePasswordInitialValues, { setSubmitting }: FormikHelpers<ChangePasswordInitialValues>) => {
     changePassword({values, setLoading, setSubmitting, setModal})
   }
+
+    //cheeck for change in email input so as to remove error message
+    useListenForChange({fieldWrapperRef, setModal, submitError, currentPassword: true})
+
   return (
     <>
         { modal.changePasswordModal && (
@@ -38,22 +44,24 @@ const ChangePasswordModal = () => {
                 >
                     {({ isSubmitting, errors, values, touched }) => {
                         return (
-                            <Form className='space-y-3 flex flex-col justify-end'>
-                                { changePasswordFieldArr.map(({title, name, placeholder,}) => {
-                                    const nameAsType = name as keyof ChangePasswordInitialValues
-                                    
-                                    return (
-                                        <FormField key={name} title={title} name={name} placeholder={placeholder} password
-                                            icon={<AiOutlineLock size={25} color={touched[nameAsType] && errors[nameAsType] ? '#E65050' : '#000'} />} 
-                                            error={touched[nameAsType] && errors[nameAsType] !== undefined}
-                                            value={values[nameAsType]}
-                                        />
-                                    )
-                                }) }
-                    
-                                <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-40 disabled:cursor-not-allowed h-[32px]'> 
-                                    { loading ? <Loader /> : 'Change password' }
-                                </button>
+                            <Form>
+                                <div className='formSpacing' ref={fieldWrapperRef}>
+                                    { changePasswordFieldArr.map(({title, name, placeholder,}) => {
+                                        const nameAsType = name as keyof ChangePasswordInitialValues
+                                        
+                                        return (
+                                            <FormField key={name} title={title} name={name} placeholder={placeholder} password
+                                                icon={<AiOutlineLock size={25} color={touched[nameAsType] && errors[nameAsType] ? '#E65050' : '#000'} />} 
+                                                error={touched[nameAsType] && errors[nameAsType] !== undefined}
+                                                value={values[nameAsType]}
+                                            />
+                                        )
+                                    }) }
+                        
+                                    <button type="submit" disabled={isSubmitting} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-40 disabled:cursor-not-allowed h-[32px]'> 
+                                        { loading ? <Loader /> : 'Change password' }
+                                    </button>
+                                </div>
                             </Form>
                         )
                     }}

@@ -40,10 +40,10 @@ const EditProfileModal = () => {
   return (
     <>
         { modal.editProfileModal && (
-            <ModalLayout heading='Edit your Profile'> 
+            <ModalLayout heading='Edit your Profile' editProfile> 
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                     {({ isSubmitting, errors, values, touched, setFieldValue }) => (
-                        <Form className='space-y-3 flex flex-col justify-end'>
+                        <Form className='formSpacing'>
                             <input type="file" name='photoUrl' accept="image/*" hidden ref={inputRef} onChange={(e: React.ChangeEvent<HTMLInputElement>) => updatePhoto(e, values, setFieldValue, setModal, imgUrlToBeDeleted, user)} />
                             <PhotoContainer 
                             values={values} imageBlob={imageBlob} 
@@ -53,7 +53,7 @@ const EditProfileModal = () => {
 
                             { submitError && <SubmitError error={submitError} /> }
 
-                            <Field touched={touched} errors={errors} setModal={setModal} />
+                            <Field touched={touched} errors={errors} setModal={setModal} submitError={modal.submitError} />
                 
                             <button type="submit" disabled={isSubmitting || objectsAreEqual(values, user)} className='p-1 my-3 rounded-full text-white bg-primary outline-none border-none w-full font-semibold disabled:bg-opacity-40 disabled:cursor-not-allowed h-[32px]'> 
                                 { loading ? <Loader /> : 'Update profile' }

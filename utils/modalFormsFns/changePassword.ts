@@ -22,7 +22,10 @@ export const changePassword = ({values, setLoading, setSubmitting, setModal}: IU
         setSubmitting(false);
 
         if(error.response.status === 401) {
-            setToast('error', 'Current password incorrect', setModal)
+          setModal(modal => ({
+                ...modal,
+                submitError: 'Current password incorrect'
+            }))
         } else {
             setToast('error', 'Unable to change password, please try again', setModal)
         }

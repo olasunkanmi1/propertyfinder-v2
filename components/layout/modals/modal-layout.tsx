@@ -1,20 +1,22 @@
 import Image from 'next/image'
 import { useRecoilState, useResetRecoilState } from 'recoil'
 import { AiOutlineClose } from 'react-icons/ai'
+import SubmitError from './submit-error'
 import { layoutState } from '@states'
 import { IModalLayoutProps, ILayoutState } from '@types'
 import {logo} from "@public";
 
-const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn, signUp, confirmDigit}) => {
+const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn, signUp, confirmDigit, editProfile}) => {
     const [modal, setModal] = useRecoilState(layoutState);
     const closeModal = useResetRecoilState(layoutState)
 
-    const { signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, editProfileModal, changePasswordModal, clearConfirmationModal, confirmDigitModal } = modal
+    const { signInModal, signUpModal, forgotPasswordModal, forgotPasswordMailSent, editProfileModal, changePasswordModal, clearConfirmationModal, confirmDigitModal, submitError } = modal
     const modals = signInModal || signUpModal || forgotPasswordModal || forgotPasswordMailSent || editProfileModal || changePasswordModal || clearConfirmationModal || confirmDigitModal
 
     const openOppModal = () => {
         setModal( modal => ({
             ...modal,
+            submitError: null,
             [signIn ? 'signInModal' : 'signUpModal' as keyof ILayoutState]: false,
             [signIn ? 'signUpModal' : 'signInModal' as keyof ILayoutState]: true,
         }));
@@ -29,7 +31,8 @@ const ModalLayout: React.FC<IModalLayoutProps> = ({heading, children, signIn, si
             </div>
 
             <div className="max-h-[calc(100vh-140px)] overflow-y-auto">
-                <h5 className='font-semibold text-center'> {heading} </h5>
+                <h5 className='font-semibold text-center mb-2'> {heading} </h5>
+                { (!editProfile && !confirmDigit) && submitError && <SubmitError error={submitError} /> }
 
                 { children }
 

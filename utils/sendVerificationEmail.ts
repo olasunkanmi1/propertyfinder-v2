@@ -4,8 +4,7 @@ import { ILayoutState } from '@types'
 import axiosInstance from './axiosInstance'
 
 export const sendVerificationEmail = async (setModal:  SetterOrUpdater<ILayoutState>) => {
-    setToast('loading', 'Sending verification link...', setModal);
-    setModal(modal => ({ ...modal, confirmDigitModal: false }))
+    setToast('loading', 'Sending verification code...', setModal);
 
     axiosInstance.post("/verify-email", { fromDropdown: true })
     .then(async (res) => {
@@ -19,6 +18,6 @@ export const sendVerificationEmail = async (setModal:  SetterOrUpdater<ILayoutSt
     })
     .catch((error) => {
       setToast('dismiss', '', setModal)
-      setToast('error', 'Unable to send verification link, please try again', setModal)
+      setToast('error', 'Unable to send verification code, please try again', setModal)
     })
   }

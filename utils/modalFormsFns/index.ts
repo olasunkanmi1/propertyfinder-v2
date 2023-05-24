@@ -4,4 +4,5 @@ export {editProfile, removePhoto, updatePhoto, objectsAreEqual} from './updatePr
 export {signIn, openForgotPasswordModal} from './signIn'
 export {signUp} from './signUp'
 export {confirmDigit} from './confirmDigit'
+export {useListenForChange} from './listenForChange'
 export {EditProfileFieldArr, changePasswordFieldArr, signInFieldArr, signUpFieldArr} from './fieldArrays'

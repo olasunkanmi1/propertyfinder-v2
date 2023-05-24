@@ -50,7 +50,7 @@ const FormComponent: React.FC<DigitsFormProps> = ({values, errors, touched, subm
         </div>
         { submitError && <SubmitError error={submitError} /> }
 
-        <p className='text-sm font-semibold text-center pt-3 mt-3 border-t'> 
+        <p className='text-sm font-semibold text-center pt-3 mt-1 border-t'> 
             Didn&apos;t receive?
             <span className='text-primary cursor-pointer font-semibold ml-2'
                 onClick={resend}

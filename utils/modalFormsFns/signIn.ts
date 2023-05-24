@@ -51,5 +51,6 @@ export const openForgotPasswordModal = (setModal: SetterOrUpdater<ILayoutState>)
         ...modal,
         signInModal: false,
         forgotPasswordModal: true,
+        submitError: null
     }));
 }

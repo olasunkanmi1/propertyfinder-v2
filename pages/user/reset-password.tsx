@@ -47,7 +47,7 @@ const ResetPassword = () => {
       .catch((error) => {
         setLoading(false);
         setSubmitting(false);
-        setToast('error', 'Unable to reset password', setModal)
+        setToast('error', 'INVALID RESET LINK', setModal)
       })
   }
 

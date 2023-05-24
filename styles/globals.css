@@ -108,6 +108,10 @@
   .btnAnimation {
     @apply transition ease-in-out hover:scale-105 duration-500
   }
+
+  .formSpacing {
+    @apply space-y-3 flex flex-col justify-end
+  }
 }
 
 @layer utilities {

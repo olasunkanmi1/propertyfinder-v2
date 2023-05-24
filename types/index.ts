@@ -279,6 +279,7 @@ export interface IModalLayoutProps {
     signIn?: boolean;
     signUp?: boolean;
     confirmDigit?: boolean;
+    editProfile?: boolean;
 }
 
 export interface IFormFieldProps {
@@ -713,6 +714,7 @@ export interface EditFieldProps {
     touched: FormikTouched<EditProfileInitialValues>;
     errors: FormikErrors<EditProfileInitialValues>;
     setModal: SetterOrUpdater<ILayoutState>;
+    submitError: string | null;
 }
 
 export interface ConfirmDigitInitialValues {
@@ -730,4 +732,12 @@ export interface DigitsFormProps {
     loading: boolean;
     email: string;
     resend: () => void
+}
+
+export interface IListenForChangeProps {
+    fieldWrapperRef?: React.RefObject<HTMLDivElement | null>;
+    setModal: SetterOrUpdater<ILayoutState>;
+    onlyEmail?: boolean;
+    currentPassword?: boolean;
+    submitError: string | null;
 }

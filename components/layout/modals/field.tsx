@@ -16,7 +16,7 @@ const FormField: React.FC<IFormFieldProps> = ({title, icon, name, placeholder, p
             <div className={`flex justify-between items-center w-full py-1 px-3 space-x-1 border-2 ${error ? 'border-[#E65050] rounded-t-lg border-b-0' : 'border-b rounded-full'}`}>
                 <div className='flex space-x-2 w-full'>
                     {icon}
-                    <Field name={name} placeholder={placeholder} autoComplete='off' type={password && !pwVisibility && 'password'}
+                    <Field name={name} placeholder={placeholder} autoComplete='off' type={password && !pwVisibility ? 'password' : 'text'}
                         className='flex justify-start items-start outline-none border-none w-full bg-none' 
                     />
                 </div>
