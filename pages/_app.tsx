@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css';
 import "../styles/globals.css";
 
 export const config = {
-  runtime: 'edge',  
+  runtime: 'experimental-edge',  
 }
 
 function MyApp({ Component, pageProps: { ...pageProps } }: AppProps) {
