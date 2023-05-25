@@ -32,10 +32,8 @@ const Contact: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
         <GetInTouch propertyDetails={propertyDetails} />
         <Disclaimer agency={agency.name}/>
 
-        <Link href={`tel:${phoneNumber.mobile}`} passHref > 
-            <a className='flex items-center gap-2 rounded py-2 px-4 bg-red-500 text-white mx-auto w-fit btnAnimation'>
-                <AiFillFlag size={20} /> Report this property  
-            </a>
+        <Link href={`tel:${phoneNumber.mobile}`} className='flex items-center gap-2 rounded py-2 px-4 bg-red-500 text-white mx-auto w-fit btnAnimation'>
+            <AiFillFlag size={20} /> Report this property  
         </Link>
     </div>
   )

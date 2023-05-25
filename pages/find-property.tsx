@@ -44,8 +44,11 @@ const FindProperty: React.FC<FindPropertyPageProps> = memo(({ properties, nbHits
   return (
     <Layout title="Find Property">
       <SearchFilters filterRef={filterRef} suggestionsRef={suggestionsRef} /> 
-      <Properties />
-      <Pagination pageCount={nbHits} />
+      
+      <div className="pb-10 space-y-10">
+        <Properties />
+        <Pagination pageCount={nbHits} />
+      </div>
     </Layout> 
   )
 })

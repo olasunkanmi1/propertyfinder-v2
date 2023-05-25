@@ -33,15 +33,15 @@ const Navbar = () => {
 
   return (
     <div className='flex justify-between items-center xl:w-[1152px] border-b h-[75px] sticky top-0 bg-[#fefefe] z-[22]'>
-        <Link href="/" passHref>
-            <a className='h-[60px]'> <Image src={logo} alt="logo" width={75} height={60} priority /> </a>
+        <Link href="/" className='h-[60px]'> 
+            <Image src={logo} alt="logo" width={75} height={60} priority />
         </Link>
 
         <div className="hidden md:flex items-center space-x-4">
             { navLinks.map(({ route, title, isActive }) => {
                 return (
-                    <Link href={route} passHref key={route}>
-                        <a className={`navLinks ${isActive ? 'text-primary font-semibold' : ''}`}> { title } </a>
+                    <Link href={route} key={route} className={`navLinks ${isActive ? 'text-primary font-semibold' : ''}`}> 
+                        { title }
                     </Link>
                 )
             }) }

@@ -1,5 +1,7 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+export const config = {
+  runtime: 'edge',
+};
 
-export default function handler(req: any, res: any) {
-  res.status(200).json({ name: 'John Doe' })
+export default function handler(req: Request) {
+  return new Response('No Using Edge Function!');
 }

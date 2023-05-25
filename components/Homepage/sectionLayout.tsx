@@ -11,11 +11,9 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({ heading, paragraph, text,
         <p className="text-primary font-medium text-2xl sm:text-4xl"> {paragraph} </p>
         <p className="text-gray-500 font-medium sm:text-lg"> {text} </p>
         
-        <Link href={route} passHref>
-          <a className='flex items-center space-x-2 p-2 text-white font-sm rounded-lg w-max bg-primary hover:scale-105 transition duration-500 ease-in-out border-2 border-white drop-shadow-lg mx-auto'> 
+        <Link href={route} className='flex items-center space-x-2 p-2 text-white font-sm rounded-lg w-max bg-primary hover:scale-105 transition duration-500 ease-in-out border-2 border-white drop-shadow-lg mx-auto'> 
             { !noIcon && <AiOutlineSearch size={18} /> }
             <p> {buttonText} </p>
-          </a>
         </Link>
       </div>
       

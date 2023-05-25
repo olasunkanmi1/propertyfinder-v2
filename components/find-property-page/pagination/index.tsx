@@ -31,7 +31,7 @@ const Pagination: React.FC<PaginationProps> = ({pageCount}) => {
   return (
     <>
         {properties.properties && properties.properties.length >= 1 && !loading.propertiesLoading && (
-            <div className='pb-10'>
+            <div>
                 <ReactPaginate 
                     previousLabel={<MdArrowBack />}
                     nextLabel={<MdArrowForward />}

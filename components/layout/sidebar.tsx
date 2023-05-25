@@ -61,9 +61,9 @@ const Sidebar = () => {
             <div>
                 { navLinks.map(({ route, title, active }) => {
                     return (
-                        <Link href={route} passHref key={route}>
-                            <a className={`sidebarNavLinks ${active ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar()}> { title } </a>
-                        </Link>
+                            <Link href={route} key={route} className={`sidebarNavLinks ${active ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar()}> 
+                                { title } 
+                            </Link>
                     )
                 }) }
 
@@ -78,8 +78,8 @@ const Sidebar = () => {
                     </>
                 ) : (
                     <>
-                        <Link href='/saved-properties' passHref>
-                            <a className={`sidebarNavLinks ${router.pathname === '/saved-properties' ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar('')}> Saved Properties </a>
+                        <Link href='/saved-properties' className={`sidebarNavLinks ${router.pathname === '/saved-properties' ? 'bg-primary text-white' : ''}`} onClick={() => closeSidebar('')}> 
+                            Saved Properties
                         </Link>
                         
                        <button className='sidebarNavLinks' onClick={() => closeSidebar('editProfileModal')}> Edit Profile </button>
