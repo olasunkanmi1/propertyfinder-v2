@@ -1,7 +1,7 @@
 import { useState, useEffect, CSSProperties } from 'react'
 import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 import millify from 'millify';
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player/lazy'
 import { GoVerified } from 'react-icons/go';
 import { MdWindow } from 'react-icons/md';
 import { FaBath, FaBed } from 'react-icons/fa'

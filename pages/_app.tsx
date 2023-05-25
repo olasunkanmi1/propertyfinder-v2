@@ -5,6 +5,7 @@ import nProgress from "nprogress";
 import 'nprogress/nprogress.css';
 import "../styles/globals.css";
 
+export const runtime = 'edge';
 function MyApp({ Component, pageProps: { ...pageProps } }: AppProps) {
   nProgress.configure({ showSpinner: false });
   Router.events.on("routeChangeStart", () => nProgress.start());
