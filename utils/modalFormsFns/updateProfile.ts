@@ -58,12 +58,7 @@ export const editProfile = ({selectedFile, values, setLoading, setSubmitting, se
     if(selectedFile) formData.append('image', selectedFile);
     const content = selectedFile ? formData : values
     const file = selectedFile ? true : false
-    const emailChanged = user?.email !== values.email
-
-    // ARRANGE VALUES. capitalize firstName/lastName and make email lowercase
-    values.firstName = values.firstName.charAt(0).toUpperCase() + values.firstName.slice(1).toLowerCase();
-    values.lastName = values.lastName.charAt(0).toUpperCase() + values.lastName.slice(1).toLowerCase();
-    values.email = values.email.toLowerCase();
+    const emailChanged = user?.email !== values.email.toLowerCase()
 
     const isFormData = content instanceof FormData;
     const parts = imgUrlToBeDeleted.split("/");
@@ -88,13 +83,7 @@ export const editProfile = ({selectedFile, values, setLoading, setSubmitting, se
         params: isFormData ? values : {}
     }).then(async (res) => {
         if (res.status === 200) {
-            if(emailChanged && user) {
-                sendVerificationEmail(setModal) ;
-                setUser({
-                    ...user, 
-                    isVerified: false
-                })
-            } 
+            if(emailChanged) sendVerificationEmail(setModal) 
             setToast('success', 'Profile updated successfully', setModal)
             setLoading(false);
             setSubmitting(false);

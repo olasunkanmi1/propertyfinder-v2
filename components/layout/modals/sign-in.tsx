@@ -55,7 +55,6 @@ const SignInModal = () => {
                                             } 
                                             error={touched[nameAsType] && errors[nameAsType] !== undefined}
                                             value={name === 'password' ? values.password : undefined}
-                                            // onChange={listenForChange({setModal})}
                                         />
                                     )
                                 }) }

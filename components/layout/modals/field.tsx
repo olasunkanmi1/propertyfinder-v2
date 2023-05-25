@@ -17,7 +17,7 @@ const FormField: React.FC<IFormFieldProps> = ({title, icon, name, placeholder, p
                 <div className='flex space-x-2 w-full'>
                     {icon}
                     <Field name={name} placeholder={placeholder} autoComplete='off' type={password && !pwVisibility ? 'password' : 'text'}
-                        className='flex justify-start items-start outline-none border-none w-full bg-none' 
+                        className='flex justify-start items-start outline-none border-none w-full bg-none' inputMode={name === 'email' ? "email" : "text"}
                     />
                 </div>
                 

@@ -32,7 +32,7 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) 
   
   return (
     <Layout title='View your saved properties'>
-      <div>
+      <div className='space-y-3'>
         {loading ? <Loader /> : 
           <Heading forProperty={properties.savedProperties?.length === 0 ? false : true}
             heading={`${properties.savedProperties && properties.savedProperties.length >= 1 ? 'Saved Properties' : 'You have no saved properties'}`} 
@@ -40,7 +40,7 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) 
         }
 
         { !loading && properties.savedProperties?.length! > 1 ? (
-          <button type='button' onClick={showModal} className='flex justify-center items-center py-1 px-2 mt-3 bg-primary text-white ml-auto rounded-md'> <AiOutlineDelete size={20} className='mr-2' /> Clear All </button>
+          <button type='button' onClick={showModal} className='flex justify-center items-center py-1 px-2 bg-primary text-white ml-auto rounded-md'> <AiOutlineDelete size={20} className='mr-2' /> Clear All </button>
         ) : null }
 
 
