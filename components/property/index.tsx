@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import Image, {StaticImageData} from 'next/image'
+import {StaticImageData} from 'next/image'
 import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import { FaBath, FaBed } from 'react-icons/fa';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -34,9 +34,9 @@ const Property: React.FC<PropertyProps> = ({ property, similar }) => {
     const propsToSend = {
         similar, title, externalID,  
         toImg: {
-            coverPhoto, Image, imgUrl, setImgUrl, GoVerified, rentFrequency, defaultPropertyImg, isVerified, product, price
+            coverPhoto, imgUrl, setImgUrl, GoVerified, rentFrequency, defaultPropertyImg, isVerified, product, price
         },
-        toAgency: { agency, Image },
+        toAgency: { agency },
         toBtn: { loading, Spinner, isSaved, AiFillHeart, AiOutlineHeart, handleClick, ptyWaitLoading: properties.ptyWaitLoading },
         toLocation: { HiOutlineLocationMarker, propertyLocation },
         toInfo: { FaBed, FaBath, MdWindow, rooms, baths, area }

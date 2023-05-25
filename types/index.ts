@@ -641,7 +641,6 @@ export interface PropertyTypeProps {
         externalID: string;
         toImg: {
             coverPhoto: Property['coverPhoto'];
-            Image: ({ ...all }: ImageProps) => JSX.Element
             imgUrl: string | StaticImageData;
             setImgUrl: Dispatch<SetStateAction<string | StaticImageData>>;
             GoVerified: IconType;
@@ -653,7 +652,6 @@ export interface PropertyTypeProps {
         };
         toAgency: {
             agency: Property['agency'];
-            Image: ({ ...all }: ImageProps) => JSX.Element
         };
         toBtn: {
             loading: boolean;

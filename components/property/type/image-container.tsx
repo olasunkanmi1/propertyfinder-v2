@@ -1,8 +1,9 @@
+import Image from 'next/image'
 import millify from "millify";
 import {ImageContainerProps}  from '@types'
 
 const ImageContainer: React.FC<ImageContainerProps> = ({objects, forList}) => {
-    const { coverPhoto, Image, imgUrl, setImgUrl, GoVerified, rentFrequency, defaultPropertyImg,isVerified, product, price } = objects
+    const { coverPhoto, imgUrl, setImgUrl, GoVerified, rentFrequency, defaultPropertyImg,isVerified, product, price } = objects
 
   return (
     <div className={`relative rounded-xl w-full overflow-hidden ${forList ? 'h-[170px]' : 'h-[160px]'}`}>

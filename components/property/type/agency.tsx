@@ -1,7 +1,8 @@
+import Image from 'next/image'
 import {AgencyContainerProps}  from '@types'
 
 const Agency: React.FC<AgencyContainerProps> = ({objects}) => {
-    const { agency, Image } = objects
+    const { agency } = objects
 
   return (
     <div className='flex justify-between items-center'>
