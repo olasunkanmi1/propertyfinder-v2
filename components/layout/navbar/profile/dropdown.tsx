@@ -41,7 +41,7 @@ const Dropdown = () => {
 
                   <div className='px-2 py-1 overflow-hidden w-full border-b bg-white'>
                       <Link href="/saved-properties" passHref>
-                          <a className='dropdownLinks'>
+                          <a className={`dropdownLinks ${router.pathname === '/saved-properties' ? 'bg-slate-300' : ''}`}>
                               <AiOutlineHeart size={23} className='mr-1' /> View Saved Properties 
                           </a>
                       </Link>

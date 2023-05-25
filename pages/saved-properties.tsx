@@ -32,7 +32,7 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) 
   
   return (
     <Layout title='View your saved properties'>
-      <div className='space-y-3'>
+      <div className='space-y-3 mb-5'>
         {loading ? <Loader /> : 
           <Heading forProperty={properties.savedProperties?.length === 0 ? false : true}
             heading={`${properties.savedProperties && properties.savedProperties.length >= 1 ? 'Saved Properties' : 'You have no saved properties'}`} 

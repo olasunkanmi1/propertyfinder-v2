@@ -1,4 +1,4 @@
-import { AiOutlineSetting, AiOutlineUser, AiOutlineLock } from 'react-icons/ai'
+import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai'
 import { useSetRecoilState } from 'recoil'
 import { layoutState } from '@states'
 import { ILayoutState } from '@types'
@@ -15,21 +15,15 @@ const Settings = () => {
     }
 
   return (
-    <>
-        <button type='button' className='dropdownLinks hover:bg-transparent cursor-default items-center'>
-            <div className='flex'> <AiOutlineSetting size={23} className='mr-1' /> Settings </div>
+    <div className='mt-2'>
+        <button type='button' className='dropdownLinks' onClick={() => showModal('editProfileModal')}>
+            <AiOutlineUser size={23} className='mr-1' /> Edit Profile
         </button>
-        
-        <div className='ml-5'>
-            <button type='button' className='dropdownLinks' onClick={() => showModal('editProfileModal')}>
-                <AiOutlineUser size={23} className='mr-1' /> Edit Profile
-            </button>
 
-            <button type='button' className='dropdownLinks' onClick={() => showModal('changePasswordModal')}>
-                <AiOutlineLock size={23} className='mr-1' /> Change Password
-            </button>
-        </div>
-    </>
+        <button type='button' className='dropdownLinks' onClick={() => showModal('changePasswordModal')}>
+            <AiOutlineLock size={23} className='mr-1' /> Change Password
+        </button>
+    </div>
   )
 }
 
