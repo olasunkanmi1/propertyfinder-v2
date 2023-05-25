@@ -8,8 +8,6 @@ import { SavedPropertiesPageProps } from '@types';
 import { Layout, Property, Heading, Loader, CardSkeleton } from '@components'
 import { savedPropertiesGSSP } from '@utils';
 
-export const runtime = 'edge';
-
 const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) => {
   const [loading, setLoading] = useState(true);
   const setModal = useSetRecoilState(layoutState);

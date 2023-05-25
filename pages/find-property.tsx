@@ -6,8 +6,6 @@ import { FindPropertyPageProps } from '@types';
 import { filterAtom, loadingState, searchFiltersState, addressSuggestionsAtom, propertiesState } from '@states';
 import { findPropertyGSSP, setFilterState } from '@utils';
 
-export const runtime = 'edge';
-
 const FindProperty: React.FC<FindPropertyPageProps> = memo(({ properties, nbHits, savedProperties }) => {
   const filterRef = useRef<HTMLDivElement | null>(null)
   const suggestionsRef = useRef<HTMLDivElement | null>(null)
