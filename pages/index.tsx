@@ -5,10 +5,6 @@ import { HomepageProps } from '@types';
 import { propertiesState } from '@states';
 import { homepageGSSP } from '@utils'
 
-export const config = {
-  runtime: 'experimental-edge',  
-}
-
 const Home: React.FC<HomepageProps> = memo(({ featuredProperties, featuredAgencies, savedProperties }) => {
   const setProperties = useSetRecoilState(propertiesState);
 
