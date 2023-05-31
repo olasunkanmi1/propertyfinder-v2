@@ -10,7 +10,7 @@ const PhotoContainer: React.FC<EditPhotoProps> = ({values, imageBlob, inputRef, 
             {!values.photoUrl && !imageBlob ? (
                 <> {values.firstName.charAt(0).toUpperCase()}{values.lastName.charAt(0).toUpperCase()} </>
             ) :  (
-                <Image src={imageBlob ? imageBlob : values.photoUrl} alt="display picture" layout='fill' loading='lazy' />
+                <Image src={imageBlob ? imageBlob : values.photoUrl} alt="display picture" fill loading='lazy' />
             )}
         </div>
 

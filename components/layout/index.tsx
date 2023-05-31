@@ -42,7 +42,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
           <meta name="desciption" content="Find your dream property" />
       </Head>
 
-      <div onClick={toggleSidebarAndDropdown} className={`w-full xl:max-w-6xl m-auto px-3 sm:px-8 xl:px-0 min-h-[calc(100vh-250px)] ft:min-h-[calc(100vh-195px)] ft2:min-h-[calc(100vh-160px)] md:min-h-[calc(100vh-120px)] space-y-10 ${isSidebarOpen || isFilterbarOpen ? 'touch-none' : ''}`}>
+      <div onClick={toggleSidebarAndDropdown} className={`w-full min-h-[calc(100vh-250px)] ft:min-h-[calc(100vh-195px)] ft2:min-h-[calc(100vh-160px)] md:min-h-[calc(100vh-120px)] space-y-10 ${isSidebarOpen || isFilterbarOpen ? 'touch-none' : ''}`}>
           <Navbar/>
           <div className={`space-y-10 ${modals ? 'blur-sm' : ''}`}> { children } </div>
       </div>

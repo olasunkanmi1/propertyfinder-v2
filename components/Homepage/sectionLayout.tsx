@@ -19,9 +19,9 @@ const SectionLayout: React.FC<SectionLayoutProps> = ({ heading, paragraph, text,
       
       <div className={`md:w-1/2 md:h-[400px] h-[300px] relative ${reverse ? 'order-first' : ''}`}>
         { firstImg ? (
-          <Image src={image} alt="illustration" layout="fill" priority placeholder="blur" blurDataURL={image.blurDataURL} />          
+          <Image src={image} alt="illustration" fill priority placeholder="blur" blurDataURL={image.blurDataURL} />          
           ) : (
-          <Image src={image} alt="illustration" layout="fill" loading="lazy" placeholder="blur" blurDataURL={image.blurDataURL} />
+          <Image src={image} alt="illustration" fill loading="lazy" placeholder="blur" blurDataURL={image.blurDataURL} />
         ) }
       </div>
     </div>

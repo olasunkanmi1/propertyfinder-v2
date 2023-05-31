@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, ReactElement, SetStateAction } from "react";
-import { ImageProps, StaticImageData } from "next/image";
+import { StaticImageData } from "next/image";
 import { SetterOrUpdater } from "recoil";
 import { FormikErrors, FormikTouched } from "formik";
 import { IconType } from "react-icons/lib";
@@ -451,7 +451,7 @@ export interface IDropdownProps {
     suggestions: addressSuggestionsAtomState[] | null;
     setSuggestions: SetterOrUpdater<addressSuggestionsAtomState[] | null>;
     desktop?: boolean;
-    suggestionsRef?: React.MutableRefObject<HTMLDivElement | null>;
+    suggestionsRef?: React.MutableRefObject<HTMLDivElement | null>;    
 }
 
 export interface ISearchboxProps {
@@ -491,6 +491,10 @@ export interface IVerifyEmail {
 export interface addressSuggestionsAtomState {
     externalID: string;
     name: string;
+    hierarchy: {
+        externalID: string;
+        name: string;
+    }[];
 };
 
 export interface IFilterState {

@@ -18,11 +18,13 @@ const Home: React.FC<HomepageProps> = memo(({ featuredProperties, featuredAgenci
 
   return (
       <Layout title="Find your dream property">
-        <FindHome />
-        <FeaturedProperties />
-        <ForRent />
-        <ForSale />
-        <FeaturedAgencies featuredAgencies={featuredAgencies} />
+        <div className="wrapper">
+          <FindHome />
+          <FeaturedProperties />
+          <ForRent />
+          <ForSale />
+          <FeaturedAgencies featuredAgencies={featuredAgencies} />
+        </div>
       </Layout>
   )
 })

@@ -9,7 +9,7 @@ const NoProperty: React.FC = () => {
             <h1 className='text-xl font-bold text-primary'> Property Does Not Exist </h1>
 
             <div className='relative w-full h-[300px] md:w-[400px] md:h-[400px]'>
-                <Image src={homeNotFound} alt="no result" priority layout='fill' />
+                <Image src={homeNotFound} alt="no result" priority fill />
             </div>
         </div>
     </Layout>

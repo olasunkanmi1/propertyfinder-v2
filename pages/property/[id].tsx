@@ -20,10 +20,10 @@ const Id: React.FC<UniquePropertyPageProps & SimilarPropertiesProps> = memo(({pr
     <>
       { Object.keys(propertyDetails).length !== 0 ? (
         <Layout title={title}>
-            <div className='xll:flex justify-between space-y-8 xll:space-x-8 xll:space-y-0 pb-5'>
+            <div className='lg:flex justify-between space-y-8 lg:space-x-8 lg:space-y-0 pb-5 lg:wrapper'>
               <Details propertyDetails={propertyDetails} />
 
-              <div className='space-y-8 xll:min-w-[352px]'>
+              <div className='space-y-8 lg:min-w-[352px]'>
                 <Contact propertyDetails={propertyDetails} />
                 <SimilarProperties similarProperties={similarProperties} />
               </div>

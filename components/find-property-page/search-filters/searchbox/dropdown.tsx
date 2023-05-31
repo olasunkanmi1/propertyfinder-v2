@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import { filterAtom, loadingState } from '@states';
 import { Loader } from '@components';
 import { findProperties, selections } from '@utils';
-import { IDropdownProps } from '@types';
+import { IDropdownProps, addressSuggestionsAtomState } from '@types';
 
 const Dropdown = ({loading, suggestions, setSuggestions, desktop, suggestionsRef}: IDropdownProps) => {
   const setLoading = useSetRecoilState(loadingState);
@@ -11,7 +11,7 @@ const Dropdown = ({loading, suggestions, setSuggestions, desktop, suggestionsRef
   const emiratesIDs = selections.emirates.items?.map(item => item.value)
 
 
-    const handleSelect = async (externalID: string, name: string) => {
+    const handleSelect = async (externalID: string, name: string, hierarchy: addressSuggestionsAtomState['hierarchy']) => {
         setSuggestions(null)
 
         setLoading(loading => ({
@@ -21,8 +21,8 @@ const Dropdown = ({loading, suggestions, setSuggestions, desktop, suggestionsRef
         
         setFilter(filter => ({
             ...filter,
-            locationExternalIDs: emiratesIDs?.includes(externalID) ? externalID : 'any',
-            emirates: emiratesIDs?.includes(externalID) ? name : 'any',
+            locationExternalIDs: emiratesIDs?.includes(externalID) ? externalID : hierarchy[1] && emiratesIDs?.includes(hierarchy[1].externalID) ? hierarchy[1].externalID : 'any',
+            emirates: emiratesIDs?.includes(externalID) ? name : hierarchy[1] && emiratesIDs?.includes(hierarchy[1].externalID) ? hierarchy[1].name : 'any',
             address: name
         }))
         
@@ -42,9 +42,9 @@ const Dropdown = ({loading, suggestions, setSuggestions, desktop, suggestionsRef
                 ) : (
                     <>
                         {suggestions?.map((suggestion) => {
-                            const { externalID, name } = suggestion;
+                            const { externalID, name, hierarchy } = suggestion;
                             return(
-                                <div className="flex items-center gap-3 p-2 cursor-pointer select-none hover:text-white hover:bg-primary" key={externalID} onClick={() => handleSelect(externalID, name)}> 
+                                <div className="flex items-center gap-3 p-2 cursor-pointer select-none hover:text-white hover:bg-primary" key={externalID} onClick={() => handleSelect(externalID, name, hierarchy)}> 
                                     <HiOutlineLocationMarker size={20} />
                                     <p> { name } </p>
                                 </div>

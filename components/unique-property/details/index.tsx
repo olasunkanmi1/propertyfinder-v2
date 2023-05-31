@@ -4,7 +4,7 @@ import { UniquePropertyPageProps } from '@types'
 
 const Details: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
   return (
-    <div className='flex flex-col xll:max-w-[calc(100%-390px)] min-h-auto'>
+    <div className='flex flex-col lg:max-w-[calc(100%-390px)] min-h-auto wrapper lg:p-0 lg:m-0'>
         <Images propertyDetails={propertyDetails} />
         <Info propertyDetails={propertyDetails} />
     </div> 

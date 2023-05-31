@@ -36,8 +36,9 @@ const ImageModal = () => {
                                 return (
                                     <SwiperSlide key={photo} className="relative h-full w-full">
                                         <Image
-                                            src={!imageError ? photo: defaultPropertyImg} alt="photo" layout="fill" loading='lazy' placeholder='blur'
-                                            blurDataURL={defaultPropertyImg.blurDataURL} objectFit='cover' onError={() => setImageError(true)}
+                                            src={!imageError ? photo: defaultPropertyImg} alt="photo" fill loading='lazy' placeholder='blur'
+                                            blurDataURL={defaultPropertyImg.blurDataURL} onError={() => setImageError(true)}
+                                            className='object-cover'
                                         />
                                     </SwiperSlide>
                                 )

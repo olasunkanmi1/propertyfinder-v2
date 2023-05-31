@@ -26,7 +26,7 @@ const Profile: React.FC<IProfileProps> = ({mobile}) => {
     <div className='flex space-x-2 items-center cursor-pointer text-gray-500' onClick={handleDropdown}>
         <div className={`flex items-center justify-center bg-secondary text-white font-bold rounded-full overflow-hidden relative ${mobile ? 'w-[50px] h-[50px] leading-[50px]' : 'w-[35px] h-[35px] leading-[35px]'}`}>
             { photoUrl ? (
-                <Image src={photoUrl} alt="display picture" layout='fill' priority />
+                <Image src={photoUrl} alt="display picture" fill priority />
             ) : (
                 `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`
             )}

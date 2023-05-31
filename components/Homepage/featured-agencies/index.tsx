@@ -34,7 +34,7 @@ const FeaturedAgencies: React.FC<FeaturedAgenciesProps> = ({featuredAgencies}) =
             return (
               <SwiperSlide key={agency.id} className="flex flex-col items-center mb-[40px] px-[40px] space-y-2">
                 <div className="w-full h-[100px] relative">
-                  <Image src={agency.logo.url} alt="logo" layout="fill" objectFit='contain' loading='lazy' />
+                  <Image src={agency.logo.url} alt="logo" fill loading='lazy' className='object-contain' />
                 </div>
 
                 <p className='text-center text-secondary mx-2'> {agency.name} </p>

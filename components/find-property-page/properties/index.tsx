@@ -30,7 +30,7 @@ const Properties = () => {
         <>
           <span className='flex justify-center text-lg font-bold '> Try other filtering options </span>
           <div className='mb-4 relative w-full h-[300px] md:w-[400px] md:h-[400px] mx-auto'>
-             <Image src={homeNotFound} alt="no result" priority layout='fill' />
+             <Image src={homeNotFound} alt="no result" priority fill />
           </div>
         </>
       ) : (

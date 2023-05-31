@@ -43,7 +43,7 @@ const Images: React.FC<UniquePropertyPageProps> = ({propertyDetails}) => {
               return (
                   <SwiperSlide key={photo.url} className="relative h-full w-full cursor-pointer">
                     <Image
-                        src={!imageError ? photo.url : defaultPropertyImg} alt="photo" layout="fill" loading='lazy' placeholder='blur'
+                        src={!imageError ? photo.url : defaultPropertyImg} alt="photo" fill loading='lazy' placeholder='blur'
                         blurDataURL={defaultPropertyImg.blurDataURL} onClick={(e) => openModal(index, e)} onError={() => setImageError(true)}
                     />
                   </SwiperSlide>

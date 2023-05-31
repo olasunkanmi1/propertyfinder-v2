@@ -34,26 +34,28 @@ const DesktopAndTabs: React.FC<ISearchFiltersProps> = ({filterRef, suggestionsRe
   }
 
   return (
-    <div className="hidden md:flex flex-col justify-between items-center bg-dubai bg-contain w-full space-y-8 rounded-3xl text-white p-4">
-        <h1 className="text-3xl font-bold w-fit text-center"> Search Properties for sale and to rent in the UAE </h1>
+    <div className="wrapper">
+      <div className="hidden md:flex flex-col justify-between items-center bg-dubai bg-contain w-full space-y-8 rounded-3xl text-white p-4">
+          <h1 className="text-3xl font-bold w-fit text-center"> Search Properties for sale and to rent in the UAE </h1>
 
-        <div className="grid grid-cols-4 gap-5 justify-center p-4 w-full lg:w-[900px] rounded-xl bg-[#000] bg-opacity-60 mx-auto" ref={filterRef}>
-          <Searchbox desktop suggestionsRef={suggestionsRef} />
+          <div className="grid grid-cols-4 gap-5 justify-center p-4 w-full lg:w-[900px] rounded-xl bg-[#000] bg-opacity-60 mx-auto" ref={filterRef}>
+            <Searchbox desktop suggestionsRef={suggestionsRef} />
 
-          { toggleLayoutArray.map(({selected, options}) => (
-            <ToggleLayout key={selected} selected={selected} options={options} />
-          )) }
+            { toggleLayoutArray.map(({selected, options}) => (
+              <ToggleLayout key={selected} selected={selected} options={options} />
+            )) }
 
-          { minMaxLayoutArray.map(({selected, placeholder, min, max}) => (
-              <MinMaxLayout key={selected} selected={selected} placeholder={placeholder} min={min} max={max} />
-          )) }
-          
-          { directLayoutArray.map(({selected, options}) => (
-            <DirectLayout key={selected} selected={selected} options={options} />
-          )) }
+            { minMaxLayoutArray.map(({selected, placeholder, min, max}) => (
+                <MinMaxLayout key={selected} selected={selected} placeholder={placeholder} min={min} max={max} />
+            )) }
+            
+            { directLayoutArray.map(({selected, options}) => (
+              <DirectLayout key={selected} selected={selected} options={options} />
+            )) }
 
-          <button onClick={resetFilters} className='bg-secondary rounded-md font-semibold'> Reset all </button>
-        </div>
+            <button onClick={resetFilters} className='bg-secondary rounded-md font-semibold'> Reset all </button>
+          </div>
+      </div>
     </div>
   )
 }

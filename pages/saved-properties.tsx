@@ -32,7 +32,7 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) 
   
   return (
     <Layout title='View your saved properties'>
-      <div className='space-y-3 mb-5'>
+      <div className='space-y-3 mb-5 wrapper'>
         {loading ? <Loader /> : 
           <Heading forProperty={properties.savedProperties?.length === 0 ? false : true}
             heading={`${properties.savedProperties && properties.savedProperties.length >= 1 ? 'Saved Properties' : 'You have no saved properties'}`} 
@@ -46,7 +46,7 @@ const SavedProperties: React.FC<SavedPropertiesPageProps> = ({savedProperties}) 
 
         {properties.savedProperties?.length === 0 && !loading ?  (
           <div className='mb-4 relative w-full h-[300px] md:w-[400px] md:h-[400px] mx-auto'>
-            <Image src={homeNotFound} alt="no saved properties" layout='fill'  placeholder="blur" blurDataURL={homeNotFound.blurDataURL} loading='lazy' />
+            <Image src={homeNotFound} alt="no saved properties" fill  placeholder="blur" blurDataURL={homeNotFound.blurDataURL} loading='lazy' />
           </div>
         ) : (
           <div className={`grid grid-cols-1 gap-y-6 gap-x-4 ${properties.isList ? 'listLayout md:grid-cols-2' : 'gridLayout sm:grid-cols-3 lg:grid-cols-4'}`}>

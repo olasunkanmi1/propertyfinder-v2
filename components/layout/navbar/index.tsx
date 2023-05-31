@@ -32,7 +32,7 @@ const Navbar = () => {
     }
 
   return (
-    <div className='flex justify-between items-center xl:w-[1152px] border-b h-[75px] sticky top-0 bg-[#fefefe] z-[22]'>
+    <div className='wrapper sticky top-0 flex justify-between items-center border-b h-[75px] bg-[#fefefe] z-[22]'>
         <Link href="/" className='h-[60px]'> 
             <Image src={logo} alt="logo" width={75} height={60} priority />
         </Link>

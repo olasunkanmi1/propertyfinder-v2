@@ -8,7 +8,7 @@ const ImageContainer: React.FC<ImageContainerProps> = ({objects, forList}) => {
   return (
     <div className={`relative rounded-xl w-full overflow-hidden ${forList ? 'h-[170px]' : 'h-[160px]'}`}>
         <Image
-            src={coverPhoto && imgUrl ? imgUrl : defaultPropertyImg} alt="cover-photo" layout="fill"
+            src={coverPhoto && imgUrl ? imgUrl : defaultPropertyImg} alt="cover-photo" fill
             placeholder="blur" blurDataURL={defaultPropertyImg.blurDataURL} loading="lazy" onError={() => setImgUrl(defaultPropertyImg)}
         />
 

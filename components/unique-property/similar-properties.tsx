@@ -14,10 +14,10 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({similarProperties}
   if(filteredProperties.length === 0) return null;
 
   return (
-    <div className={`xll:w-full xll:overflow-hidden xll:border xll:p-2 xll:mx-auto ${filteredProperties.length > 1 ? 'xll:h-[700px]' : 'xll:h-[390px]'}`}>
-      <h1 className='font-bold text-xl mb-2 text-primary w-full xll:mx-auto'> Similar properties </h1>
+    <div className={`lg:w-full lg:overflow-hidden lg:border lg:p-2 lg:mx-auto ${filteredProperties.length > 1 ? 'lg:h-[750px]' : 'lg:h-[390px]'}`}>
+      <h1 className='font-bold text-xl mb-2 text-primary w-full lg:mx-auto wrapper lg:p-0'> Similar {filteredProperties.length > 1 ? 'properties' : 'property'} </h1>
 
-      <div className='flex gap-5 mx-auto pb-4 overflow-auto xll:hidden'>
+      <div className='flex gap-5 mx-auto pb-4 overflow-auto lg:hidden px-3 sm:px-8'>
           {filteredProperties.map((property) => {
               return (
                 <Property key={property.externalID} property={property} similar />
@@ -34,11 +34,11 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({similarProperties}
           clickable: true,
         }}
         modules={[Mousewheel, Pagination]}
-        className='w-full h-[calc(100%-60px)] hidden xll:block'
+        className='w-full h-[700px] hidden lg:block'
       >
         {filteredProperties.map((property) => {
           return (
-            <SwiperSlide key={property.externalID} className='max-h-[305px] mx-auto'>
+            <SwiperSlide key={property.externalID} className='mx-auto'>
               <Property key={property.externalID} property={property} similar />
             </SwiperSlide>            
           )

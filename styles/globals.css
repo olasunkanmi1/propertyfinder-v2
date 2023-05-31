@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer components {
+  .wrapper {
+    @apply w-full xl:max-w-6xl m-auto px-3 sm:px-8 xl:px-0
+  }
+
   .navLinks {
     @apply font-medium text-gray-500 relative hover:text-primary py-1 overflow-hidden after:content-[''] after:block after:h-[2px] after:w-full after:bg-secondary after:absolute after:bottom-0 after:-left-[100%] after:duration-300 after:ease-in-out hover:after:left-0
   }
@@ -42,7 +46,7 @@
   }
   
   .furnishingStatusSort {
-    @apply flex items-center justify-center p-2 cursor-pointer duration-300 select-none ease-in-out text-sm ls:text-base rounded border
+    @apply flex items-center justify-center p-2 cursor-pointer duration-300 select-none ease-in-out rounded border w-full
   }
   
   .tabSort {
