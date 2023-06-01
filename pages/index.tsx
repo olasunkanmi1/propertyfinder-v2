@@ -18,7 +18,7 @@ const Home: React.FC<HomepageProps> = memo(({ featuredProperties, featuredAgenci
 
   return (
       <Layout title="Find your dream property">
-        <div className="wrapper">
+        <div className="wrapper space-y-10">
           <FindHome />
           <FeaturedProperties />
           <ForRent />
