@@ -15,6 +15,7 @@ export const confirmDigit = ({ values, user, setUser, setLoading, setSubmitting,
             setModal(modal => ({
                 ...modal,
                 confirmDigitModal: false,
+                submitError: null
             }))
         };
     })

@@ -17,6 +17,7 @@ export const signUp = ({ values, setUser, setLoading, setSubmitting, setModal}: 
               ...modal,
               signUpModal: false,
               confirmDigitModal: true,
+              submitError: null
           }))
       }
     })

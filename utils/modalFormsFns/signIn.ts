@@ -21,7 +21,8 @@ export const signIn = ({modal, values, setUser, setProperties, setLoading, setSu
             setModal( modal => ({
                 ...modal,
                 signInModal: false,
-                ptyToSaveOnLogin: undefined
+                ptyToSaveOnLogin: undefined,
+                submitError: null
             }));
 
             setUser(res.data.user)

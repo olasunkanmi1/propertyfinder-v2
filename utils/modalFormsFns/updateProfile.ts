@@ -92,7 +92,8 @@ export const editProfile = ({selectedFile, values, setLoading, setSubmitting, se
                 editProfileModal: false,
                 imageBlob: '',
                 selectedFile: null,
-                imgUrlToBeDeleted: ''
+                imgUrlToBeDeleted: '',
+                submitError: null
             }))
 
             setUser(res.data.user)

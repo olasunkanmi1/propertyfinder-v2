@@ -13,7 +13,8 @@ export const changePassword = ({values, setLoading, setSubmitting, setModal}: IU
             setToast('success', 'Password updated successfully', setModal)
             setModal(modal => ({
                 ...modal,
-                changePasswordModal: false
+                changePasswordModal: false,
+                submitError: null
             }))
         }
       })

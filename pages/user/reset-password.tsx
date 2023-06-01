@@ -24,8 +24,8 @@ const ResetPassword = () => {
     };
 
     const validationSchema = Yup.object({
-        password: Yup.string().required("Enter password").min(6, "Password must be at least 6 characters"),
-        confirmPassword: Yup.string().required("Confirm password").oneOf([Yup.ref('password')], 'Passwords must match')
+        password: Yup.string().required("Enter password").min(6, "Password must be at least 6 characters").lowercase(),
+        confirmPassword: Yup.string().required("Confirm password").oneOf([Yup.ref('password')], 'Passwords must match').lowercase()
     });  
 
   const handleSubmit = (values: ResetPasswordInitialValues, { setSubmitting }: FormikHelpers<ResetPasswordInitialValues>) => {
@@ -97,7 +97,7 @@ const ResetPassword = () => {
                                             />
                                             
                                             <FormField 
-                                                title='Password' 
+                                                title='Confirm Password' 
                                                 icon={<AiOutlineLock size={25} color={touched.confirmPassword && errors.confirmPassword ? '#E65050' : '#000'} />} 
                                                 name='confirmPassword'
                                                 placeholder='Confirm your password'
